@@ -147,19 +147,19 @@ CREATE TABLE `specials` (
 --
 
 INSERT INTO `specials` (`specialsId`, `description`, `status`) VALUES
-(1, 'Top Scorer', 'F'),
-(2, 'Top Assist', 'F'),
-(3, 'Golden Glove', 'F'),
-(4, 'Best Young Player', 'F'),
-(5, 'First Red card of Tournament', 'F'),
-(6, 'Best Player', 'T'),
-(7, 'Winner of Competition  (team)', 'T'),
+(1, 'Top Scorer', 'N'),
+(2, 'Top Assist', 'N'),
+(3, 'Golden Glove', 'N'),
+(4, 'Best Young Player', 'N'),
+(5, 'First Red card of Tournament', 'N'),
+(6, 'Best Player', 'N'),
+(7, 'Winner of Competition  (team)', 'N'),
 (8, 'Team with Most Number of Goals', 'F'),
-(9, 'Number of Goals scored by Winner of Compt', 'F'),
-(10, 'Team with Least Number of Goals Conceded', 'F'),
-(11, 'Team with Most Number of Goals Conceded', 'F'),
-(12, 'Team with Least Number of Goals Scored', 'F'),
-(14, 'Outsider to achieve top 4', 'F');
+(9, 'Number of Goals scored by Winner of Compt', 'N'),
+(10, 'Team with Least Number of Goals Conceded', 'N'),
+(11, 'Team with Most Number of Goals Conceded', 'N'),
+(12, 'Team with Least Number of Goals Scored', 'N'),
+(13, 'Outsider to achieve top 4', 'N');
 
 -- --------------------------------------------------------
 
