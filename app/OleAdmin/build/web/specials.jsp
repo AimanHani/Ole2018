@@ -1,29 +1,63 @@
+<%@page import="model.Specials"%>
+<%@page import="java.util.ArrayList"%>
 <html>
     <head>
         <title>Specials</title>
-    </head>
-    <body>
-        <h2>Update Specials</h2>
-        <form action="SpecialsServlet" method="post">
-            <p><input type="checkbox" name="specials" value="s1"/>S1</p>
-            <p><input type="checkbox" name="specials" value="s2"/>S2</p>
-            <p><input type="checkbox" name="specials" value="s3"/>S3</p>
-            <p><input type="checkbox" name="specials" value="s4"/>S4</p>
-            <p><input type="checkbox" name="specials" value="s5"/>S5</p>
-            <p><input type="checkbox" name="specials" value="s6"/>S6</p>
-            <p><input type="submit" value="Update Specials"/>
-        </form>
+        <jsp:include page="header.jsp" />
         <%
-            if (request.getAttribute("updated") != null) {
-                out.println(request.getAttribute("updated") + " specials");
+            if (session.getAttribute("admin") == null || (boolean) session.getAttribute("admin") == false) {
+                String message = ("page can only be accessed by admin").toUpperCase();
+                System.out.println(message);
+                session.removeAttribute("admin");
+                response.sendRedirect("login.jsp");
+                return;
             }
         %>
-        <hr>
-        show the specials table <br>
-        s1 y <br>
-        s2 n <br>
-        s3 n <br>
-        s4 n <br>
 
+    </head>
+    <body>
+        <h1>Specials Summary</h1>
+        <%
+            ArrayList<Specials> specialsList = null;
+            if (request.getAttribute("specials") != null) {
+                specialsList = (ArrayList<Specials>) request.getAttribute("specials");
+            }
+        %>
+
+
+        <form action="SpecialsServlet" method="post">
+            <table border="1">
+                <tr>
+                    <th>Include specials</th>
+                    <th>Description</th>
+                    <th>Status</th>
+                    <th></th>
+                </tr>
+                <%
+                    for (int i = 0; i < specialsList.size(); i++) {
+                        Specials special = specialsList.get(i);
+                %>
+                <tr>
+                    <td><input type="checkbox" name="specials" value=<%=special.getSpecialsId()%> /></td>
+                    <td><%=special.getDescription()%></td>
+                    <td><%=special.getStatus()%></td>
+                    <td><a href="./SpecialsServlet?param=delete&id=<%=special.getSpecialsId()%>">Delete</a></td>
+                </tr>
+                <%
+                    }
+                %>
+            </table>
+            <br>
+            <input type="hidden" name="param" value="update"/>
+            <input type = "submit" value = "Update Specials" />
+        </form> 
+
+        <hr>
+        <h1>Add Specials</h1>    
+        <form action="SpecialsServlet" method="post">
+            <input type="hidden" name="param" value="add"/>
+            Description: <input type="text" name="description"/>
+            <input type = "submit" value = "Add Specials" />
+        </form>
     </body>
 </html>
