@@ -15,6 +15,16 @@ CREATE SCHEMA IF NOT EXISTS `oledb` DEFAULT CHARACTER SET utf8 COLLATE utf8_gene
 USE `oledb` ;
 
 -- -----------------------------------------------------
+-- Table `oledb`.`Admin`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `oledb`.`Admin` (
+  `username` VARCHAR(20) NOT NULL,
+  `password` VARCHAR(45) NOT NULL,
+  PRIMARY KEY (`username`))
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
 -- Table `oledb`.`User`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `oledb`.`User` (
@@ -49,6 +59,7 @@ CREATE TABLE IF NOT EXISTS `oledb`.`League` (
   `leagueId` VARCHAR(20) NOT NULL,
   `tournamentId` VARCHAR(20) NOT NULL,
   `pointsAllocated` INT NOT NULL,
+  `leagueName` VARCHAR(100) NOT NULL,
   PRIMARY KEY (`leagueId`),
   INDEX `tournamentId_idx_league` (`tournamentId` ASC),
   CONSTRAINT `tournamentId_fk_league`
@@ -64,7 +75,6 @@ ENGINE = InnoDB;
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `oledb`.`PublicLeague` (
   `leagueId` VARCHAR(20) NOT NULL,
-  `leagueName` VARCHAR(20) NOT NULL,
   `prize` VARCHAR(20) NOT NULL,
   PRIMARY KEY (`leagueId`),
   CONSTRAINT `leagueId_fk_public`
@@ -135,14 +145,13 @@ CREATE TABLE IF NOT EXISTS `oledb`.`MatchLog` (
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
-
-
+ 
 -- -----------------------------------------------------
 -- Table `oledb`.`Specials`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `oledb`.`Specials` (
-  `specialsId` VARCHAR(20) NOT NULL,
-  `description` VARCHAR(20) NOT NULL,
+  `specialsId` int(20) NOT NULL AUTO_INCREMENT,
+  `description` VARCHAR(200) NOT NULL,
   `status` VARCHAR(10) NOT NULL,
   PRIMARY KEY (`specialsId`))
 ENGINE = InnoDB;
@@ -153,7 +162,7 @@ ENGINE = InnoDB;
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `oledb`.`SpecialsLog` (
   `logid` VARCHAR(20) NOT NULL,
-  `specialsId` VARCHAR(20) NOT NULL,
+  `specialsId` int(20) NOT NULL AUTO_INCREMENT,
   `prediction` VARCHAR(20) NULL,
   PRIMARY KEY (`logid`, `specialsId`),
   INDEX `specialsId_idx` (`specialsId` ASC),
@@ -175,7 +184,6 @@ ENGINE = InnoDB;
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `oledb`.`PrivateLeague` (
   `leagueId` VARCHAR(20) NOT NULL,
-  `leagueName` VARCHAR(20) NOT NULL,
   `prize` VARCHAR(20) NOT NULL,
   `password` VARCHAR(10) NOT NULL,
   `startDate` DATE NOT NULL,
