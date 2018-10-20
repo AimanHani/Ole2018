@@ -1,0 +1,3 @@
+Place the ole folder from this php scripts folder into:
+.../wamp/www/
+
