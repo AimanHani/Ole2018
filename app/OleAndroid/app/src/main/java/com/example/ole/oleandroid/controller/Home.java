@@ -1,4 +1,4 @@
-package com.example.ole.oleandroid;
+package com.example.ole.oleandroid.controller;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -6,13 +6,15 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 
-public class Homepage extends AppCompatActivity {
+import com.example.ole.oleandroid.R;
+
+public class Home extends AppCompatActivity {
     Button login;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_homepage);
+        setContentView(R.layout.activity_home);
 
         login = (Button) findViewById(R.id.login);
 
@@ -21,7 +23,7 @@ public class Homepage extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
-                Intent intent = new Intent(Homepage.this, Login.class);
+                Intent intent = new Intent(Home.this, Login.class);
                 startActivity(intent);
             }
         });
