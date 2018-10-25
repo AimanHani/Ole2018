@@ -1,5 +1,6 @@
 package com.example.ole.oleandroid.controller;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -38,6 +39,9 @@ public class Login extends AppCompatActivity {
         signin = (Button) findViewById(R.id.signin);
         signup = (Button) findViewById(R.id.signup);
         result = (TextView) findViewById(R.id.result);
+
+        setContentView(R.layout.activity_home);
+
 
 
         signin.setOnClickListener(new View.OnClickListener() {
@@ -91,10 +95,24 @@ public class Login extends AppCompatActivity {
 // Adding the StringRequest object into requestQueue.
                 requestQueue.add(stringRequest);
 
+
             }
             //);
 
         });
+        signup = (Button) findViewById(R.id.login);
+
+        signup.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View view) {
+
+                Intent intent = new Intent(Login.this, Signup.class);
+                startActivity(intent);
+            }
+        });
+
+    }
 
         //        signup.setOnClickListener(new View.OnClickListener() {
 //
@@ -103,4 +121,4 @@ public class Login extends AppCompatActivity {
 //            }
 //        });
     }
-}
+
