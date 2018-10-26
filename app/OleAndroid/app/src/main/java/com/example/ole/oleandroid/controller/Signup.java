@@ -22,29 +22,36 @@ import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.ole.oleandroid.R;
 import com.example.ole.oleandroid.dbConnection.DBConnection;
+import com.example.ole.oleandroid.model.CountryItem;
+import com.example.ole.oleandroid.model.TeamItems;
+
 import java.io.UnsupportedEncodingException;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import android.app.ProgressDialog;
 import android.os.Bundle;
 
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
 public class Signup extends AppCompatActivity {
     private static final String TAG = "Signup";
-private ArrayList<CountryItem> mCountryList;
-private CountryAdapter mAdapter;
-private ArrayList<TeamItems>mTeamList;
-private TeamAdapter mAdapter2;
-    EditText username,name,password,birthdate,email,contactNo;
+    private ArrayList<CountryItem> mCountryList;
+    private CountryAdapter mAdapter;
+    private ArrayList<TeamItems> mTeamList;
+    private TeamAdapter mAdapter2;
+    EditText username, name, password, birthdate, email, contactNo;
     Button signupBtn;
-    Spinner spinnerTeams,spinnerCountries;
+    Spinner spinnerTeams, spinnerCountries;
     TextView result;
     String clickedTeamName;
-    String  clickedCountryName;
+    String clickedCountryName;
     RequestQueue requestQueue;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -102,7 +109,7 @@ private TeamAdapter mAdapter2;
         signupBtn.setOnClickListener(new View.OnClickListener( ) {
             @Override
             public void onClick(View view) {
-                signup();
+                signup( );
                 result.setText("");
                 System.out.println("here2");
 //                String results = LoginDAO.validate(username.getText().toString(), password.getText().toString());
@@ -141,18 +148,17 @@ private TeamAdapter mAdapter2;
 
                             // Adding All values to Params.
                             // The firs argument should be same sa your MySQL database table columns.
-                            params.put("username", username.getText().toString());
-                            params.put("name", name.getText().toString());
-                            params.put("password", SHA1(password.getText().toString()));
-                            params.put("dob", birthdate.getText().toString( ));
+                            params.put("username", username.getText( ).toString( ));
+                            params.put("name", name.getText( ).toString( ));
+                            params.put("password", SHA1(password.getText( ).toString( )));
+                            params.put("dob", birthdate.getText( ).toString( ));
                             params.put("country", clickedCountryName);
-                            params.put("contactNo", contactNo.getText().toString());
-                            params.put("email", email.getText().toString());
-                            params.put("favoriteTeam",clickedTeamName);
+                            params.put("contactNo", contactNo.getText( ).toString( ));
+                            params.put("email", email.getText( ).toString( ));
+                            params.put("favoriteTeam", clickedTeamName);
 
 
-                        }
-                        catch(Exception e){
+                        } catch (Exception e) {
 
                         }
                         return params;
@@ -173,10 +179,10 @@ private TeamAdapter mAdapter2;
 
 
     public void signup() {
-        Log.d(TAG,"Signup");
+        Log.d(TAG, "Signup");
 
-        if (!validate()) {
-            onSignupFailed();
+        if (!validate( )) {
+            onSignupFailed( );
             return;
         }
 
@@ -186,31 +192,28 @@ private TeamAdapter mAdapter2;
                 R.style.AppTheme);
         progressDialog.setIndeterminate(true);
         progressDialog.setMessage("Creating Account...");
-        progressDialog.show();
+        progressDialog.show( );
 
-        String validateuserName = username.getText().toString();
-        String validateName = name.getText().toString();
-        String validateEmail = email.getText().toString();
-        String validatePassword = password.getText().toString();
-        String validateBirthdate = birthdate.getText().toString();
-        String validatePhoneNo = contactNo.getText().toString();
+        String validateuserName = username.getText( ).toString( );
+        String validateName = name.getText( ).toString( );
+        String validateEmail = email.getText( ).toString( );
+        String validatePassword = password.getText( ).toString( );
+        String validateBirthdate = birthdate.getText( ).toString( );
+        String validatePhoneNo = contactNo.getText( ).toString( );
         String validateTeam = clickedTeamName;
         String validateCountries = clickedCountryName;
 
 
-
-
-
         // TODO: Implement your own signup logic here.
 
-        new android.os.Handler().postDelayed(
-                new Runnable() {
+        new android.os.Handler( ).postDelayed(
+                new Runnable( ) {
                     public void run() {
                         // On complete call either onSignupSuccess or onSignupFailed
                         // depending on success
-                        onSignupSuccess();
+                        onSignupSuccess( );
                         // onSignupFailed();
-                        progressDialog.dismiss();
+                        progressDialog.dismiss( );
                     }
                 }, 3000);
     }
@@ -219,11 +222,11 @@ private TeamAdapter mAdapter2;
     public void onSignupSuccess() {
         signupBtn.setEnabled(true);
         setResult(RESULT_OK, null);
-        finish();
+        finish( );
     }
 
     public void onSignupFailed() {
-        Toast.makeText(getBaseContext(), "Login failed", Toast.LENGTH_LONG).show();
+        Toast.makeText(getBaseContext( ), "Signup failed", Toast.LENGTH_LONG).show( );
 
         signupBtn.setEnabled(true);
     }
@@ -231,96 +234,100 @@ private TeamAdapter mAdapter2;
     public boolean validate() {
         boolean valid = true;
 
-        String validateuserName = username.getText().toString();
-        String validateName = name.getText().toString();
-        String validateEmail = email.getText().toString();
-        String validatePassword = password.getText().toString();
-        String validateBirthdate = birthdate.getText().toString();
-        String validatePhoneNo = contactNo.getText().toString();
-        String validateTeam =  clickedTeamName;
+        String validateuserName = username.getText( ).toString( );
+        String validateName = name.getText( ).toString( );
+        String validateEmail = email.getText( ).toString( );
+        String validatePassword = password.getText( ).toString( );
+        String validateBirthdate = birthdate.getText( ).toString( );
+        String validatePhoneNo = contactNo.getText( ).toString( );
+        String validateTeam = clickedTeamName;
         String validateCountries = clickedCountryName;
 
-        if (validateuserName.isEmpty() || name.length() < 3) {
+        if (validateuserName.isEmpty( ) || name.length( ) < 3) {
             username.setError("at least 3 characters");
             valid = false;
         } else {
             username.setError(null);
         }
 
-        if (validateEmail.isEmpty() || !android.util.Patterns.EMAIL_ADDRESS.matcher(validateEmail).matches()) {
+        if (validateEmail.isEmpty( ) || !android.util.Patterns.EMAIL_ADDRESS.matcher(validateEmail).matches( )) {
             email.setError("enter a valid email address");
             valid = false;
         } else {
             email.setError(null);
         }
 
-        if (validatePassword.isEmpty() || validatePassword.length() < 4 || validatePassword.length() > 10) {
+        if (validatePassword.isEmpty( ) || validatePassword.length( ) < 4 || validatePassword.length( ) > 10) {
             password.setError("between 4 and 10 alphanumeric characters");
             valid = false;
         } else {
             password.setError(null);
         }
         if (validateCountries.equals(null)) {
-            setSpinnerError(spinnerCountries,"Please select your country");
+            setSpinnerError(spinnerCountries, "Please select your country");
             valid = false;
         } else {
 
         }
         if (validateTeam.equals(null)) {
-            setSpinnerError(spinnerTeams,"Please select a favourite team");
+            setSpinnerError(spinnerTeams, "Please select a favourite team");
             valid = false;
         } else {
 
+        }
+        if (validateBirthdate.isEmpty( ) || !isDateValid(validateBirthdate)) {
+            birthdate.setError("Please enter the date as yy-MM-dd format");
         }
 
         return valid;
     }
 
-    private void initList(){
-        mCountryList = new ArrayList<>();
-        mCountryList.add(new CountryItem("Singapore",R.drawable.singapore));
-        mCountryList.add(new CountryItem("Malaysia",R.drawable.malaysia));
+    private void initList() {
+        mCountryList = new ArrayList<>( );
+        mCountryList.add(new CountryItem("Singapore", R.drawable.singapore));
+        mCountryList.add(new CountryItem("Malaysia", R.drawable.malaysia));
 
 
-        mTeamList = new ArrayList<>();
-        mTeamList.add(new TeamItems("Arsenal",R.drawable.arsenal));
-        mTeamList.add(new TeamItems("AFC Bournemouth ",R.drawable.afc_bournemouth));
-        mTeamList.add(new TeamItems("Brighton and Hove Albion",R.drawable.brighton));
-        mTeamList.add(new TeamItems("Burnley",R.drawable.burnley));
-        mTeamList.add(new TeamItems("Cardiff City",R.drawable.cardiff));
-        mTeamList.add(new TeamItems("Chelsea",R.drawable.chelsea));
-        mTeamList.add(new TeamItems("Crystal Palace",R.drawable.crystal_palace));
-        mTeamList.add(new TeamItems("Everton",R.drawable.everton));
-        mTeamList.add(new TeamItems("Fulham",R.drawable.fulham));
-        mTeamList.add(new TeamItems("Huddersfield Town",R.drawable.hudderfield));
-        mTeamList.add(new TeamItems("Leicester City",R.drawable.leicester_city));
-        mTeamList.add(new TeamItems("Liverpool",R.drawable.liverpool));
-        mTeamList.add(new TeamItems("Manchester City",R.drawable.manchester_city));
-        mTeamList.add(new TeamItems("Manchester United",R.drawable.manchester_united));
-        mTeamList.add(new TeamItems("Newcastle United",R.drawable.newcastle_united));
-        mTeamList.add(new TeamItems("Southampton",R.drawable.southampton));
-        mTeamList.add(new TeamItems("Tottenham Hotspur",R.drawable.tottenham_hotspur));
-        mTeamList.add(new TeamItems("Watford",R.drawable.watford));
-        mTeamList.add(new TeamItems("West Ham United",R.drawable.west_ham));
-        mTeamList.add(new TeamItems("Wolverhampton Wanderes",R.drawable.wolverhampton));
-
+        mTeamList = new ArrayList<>( );
+        mTeamList.add(new TeamItems("Arsenal", R.drawable.arsenal));
+        mTeamList.add(new TeamItems("AFC Bournemouth ", R.drawable.afc_bournemouth));
+        mTeamList.add(new TeamItems("Brighton and Hove Albion", R.drawable.brighton));
+        mTeamList.add(new TeamItems("Burnley", R.drawable.burnley));
+        mTeamList.add(new TeamItems("Cardiff City", R.drawable.cardiff));
+        mTeamList.add(new TeamItems("Chelsea", R.drawable.chelsea));
+        mTeamList.add(new TeamItems("Crystal Palace", R.drawable.crystal_palace));
+        mTeamList.add(new TeamItems("Everton", R.drawable.everton));
+        mTeamList.add(new TeamItems("Fulham", R.drawable.fulham));
+        mTeamList.add(new TeamItems("Huddersfield Town", R.drawable.hudderfield));
+        mTeamList.add(new TeamItems("Leicester City", R.drawable.leicester_city));
+        mTeamList.add(new TeamItems("Liverpool", R.drawable.liverpool));
+        mTeamList.add(new TeamItems("Manchester City", R.drawable.manchester_city));
+        mTeamList.add(new TeamItems("Manchester United", R.drawable.manchester_united));
+        mTeamList.add(new TeamItems("Newcastle United", R.drawable.newcastle_united));
+        mTeamList.add(new TeamItems("Southampton", R.drawable.southampton));
+        mTeamList.add(new TeamItems("Tottenham Hotspur", R.drawable.tottenham_hotspur));
+        mTeamList.add(new TeamItems("Watford", R.drawable.watford));
+        mTeamList.add(new TeamItems("West Ham United", R.drawable.west_ham));
+        mTeamList.add(new TeamItems("Wolverhampton Wanderes", R.drawable.wolverhampton));
 
 
     }
-    private void setSpinnerError(Spinner spinner, String error){
-        View selectedView = spinner.getSelectedView();
+
+    private void setSpinnerError(Spinner spinner, String error) {
+        View selectedView = spinner.getSelectedView( );
         if (selectedView != null && selectedView instanceof TextView) {
-            spinner.requestFocus();
+            spinner.requestFocus( );
             TextView selectedTextView = (TextView) selectedView;
             selectedTextView.setError("error"); // any name of the error will do
             selectedTextView.setTextColor(Color.RED); //text color in which you want your error message to be displayed
             selectedTextView.setText(error); // actual error message
-            spinner.performClick(); // to open the spinner list if error is found.
+            spinner.performClick( ); // to open the spinner list if error is found.
 
         }
     }
+
     private static String convertToHex(byte[] data) {
-        StringBuffer buf = new StringBuffer();
+        StringBuffer buf = new StringBuffer( );
         for (int i = 0; i < data.length; i++) {
             int halfbyte = (data[i] >>> 4) & 0x0F;
             int two_halfs = 0;
@@ -330,9 +337,9 @@ private TeamAdapter mAdapter2;
                 else
                     buf.append((char) ('a' + (halfbyte - 10)));
                 halfbyte = data[i] & 0x0F;
-            } while(two_halfs++ < 1);
+            } while (two_halfs++ < 1);
         }
-        return buf.toString();
+        return buf.toString( );
     }
 
     public static String SHA1(String text)
@@ -343,5 +350,18 @@ private TeamAdapter mAdapter2;
         md.update(text.getBytes("iso-8859-1"), 0, text.length( ));
         sha1hash = md.digest( );
         return convertToHex(sha1hash);
+    }
+
+    final static String DATE_FORMAT = "yyyy-MM-dd";
+
+    public static boolean isDateValid(String date) {
+        try {
+            DateFormat df = new SimpleDateFormat(DATE_FORMAT);
+            df.setLenient(false);
+            df.parse(date);
+            return true;
+        } catch (ParseException e) {
+            return false;
+        }
     }
 }

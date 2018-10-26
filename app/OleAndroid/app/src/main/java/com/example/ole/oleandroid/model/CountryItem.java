@@ -1,4 +1,4 @@
-package com.example.ole.oleandroid.controller;
+package com.example.ole.oleandroid.model;
 
 public class CountryItem {
     private String mCountryName;

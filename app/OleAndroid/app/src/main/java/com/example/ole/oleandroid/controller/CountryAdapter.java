@@ -11,6 +11,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.ole.oleandroid.R;
+import com.example.ole.oleandroid.model.CountryItem;
 
 import java.util.ArrayList;
 
