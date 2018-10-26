@@ -2,7 +2,7 @@ package com.example.ole.oleandroid.dbConnection;
 
 public class DBConnection {
 
-    private String mainUrl = "http://192.168.1.7:3306"; //may vary depends on wifi connection
+    private String mainUrl = "http://10.58.125.73"; //may vary depends on wifi connection
     //String insertUrl = mainUrl + "/tutorial/insertStudent.php";
     //String showUrl = mainUrl + "/tutorial/showStudents.php";
 

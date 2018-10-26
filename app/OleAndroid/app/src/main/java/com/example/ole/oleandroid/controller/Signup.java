@@ -22,6 +22,9 @@ import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.ole.oleandroid.R;
 import com.example.ole.oleandroid.dbConnection.DBConnection;
+import java.io.UnsupportedEncodingException;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import android.app.ProgressDialog;
 import android.os.Bundle;
 
@@ -129,22 +132,29 @@ private TeamAdapter mAdapter2;
                         }) {
                     @Override
                     protected Map<String, String> getParams() {
-
-                        // Creating Map String Params.
                         Map<String, String> params = new HashMap<String, String>( );
+                        try {
 
-                        // Adding All values to Params.
-                        // The firs argument should be same sa your MySQL database table columns.
-                        params.put("username", username.getText( ).toString( ));
-                        params.put("name", name.getText().toString());
 
-                        params.put("password", password.getText().toString());
-                        params.put("dob", birthdate.getText().toString());
-                        params.put("country", clickedCountryName);
-                        params.put("contactNo", contactNo.getText().toString());
-                        params.put("email", email.getText().toString());
-                        params.put("favoriteTeam", clickedTeamName);
+                            // Creating Map String Params.
 
+
+                            // Adding All values to Params.
+                            // The firs argument should be same sa your MySQL database table columns.
+                            params.put("username", username.getText().toString());
+                            params.put("name", name.getText().toString());
+                            params.put("password", SHA1(password.getText().toString()));
+                            params.put("dob", birthdate.getText().toString( ));
+                            params.put("country", clickedCountryName);
+                            params.put("contactNo", contactNo.getText().toString());
+                            params.put("email", email.getText().toString());
+                            params.put("favoriteTeam",clickedTeamName);
+
+
+                        }
+                        catch(Exception e){
+
+                        }
                         return params;
                     }
 
@@ -308,5 +318,30 @@ private TeamAdapter mAdapter2;
             spinner.performClick(); // to open the spinner list if error is found.
 
         }
+    }
+    private static String convertToHex(byte[] data) {
+        StringBuffer buf = new StringBuffer();
+        for (int i = 0; i < data.length; i++) {
+            int halfbyte = (data[i] >>> 4) & 0x0F;
+            int two_halfs = 0;
+            do {
+                if ((0 <= halfbyte) && (halfbyte <= 9))
+                    buf.append((char) ('0' + halfbyte));
+                else
+                    buf.append((char) ('a' + (halfbyte - 10)));
+                halfbyte = data[i] & 0x0F;
+            } while(two_halfs++ < 1);
+        }
+        return buf.toString();
+    }
+
+    public static String SHA1(String text)
+            throws NoSuchAlgorithmException, UnsupportedEncodingException {
+        MessageDigest md;
+        md = MessageDigest.getInstance("SHA-1");
+        byte[] sha1hash = new byte[40];
+        md.update(text.getBytes("iso-8859-1"), 0, text.length( ));
+        sha1hash = md.digest( );
+        return convertToHex(sha1hash);
     }
 }
