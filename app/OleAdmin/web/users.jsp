@@ -3,8 +3,8 @@
 <%@page import="java.sql.ResultSet"%>
 <html>
     <head>
-        <title>OLE Users</title>
-        <jsp:include page="header.jsp" />
+        <title>Olé Users</title>
+        <jsp:include page="WebDesignResources/pages/homeDesign.jsp" />
         <%
             if (session.getAttribute("admin") == null || (boolean) session.getAttribute("admin") == false) {
                 String message = ("page can only be accessed by admin").toUpperCase();
@@ -17,44 +17,65 @@
 
     </head>
     <body>
-        <h1>OLE Members</h1>                  
+        <div id="page-wrapper">
+            <div class="row">
+                <div class="col-lg-12">
+                    <h1 class="page-header">Olé Members</h1>
+                </div>
+            </div>            
 
-        <%
-            ArrayList<Users> usersList = null;
-            if (request.getAttribute("users") != null) {
-                usersList = (ArrayList<Users>) request.getAttribute("users");
-            }
-        %>
-        
-        <form action="UsersServlet" method="post">
-            <input type="hidden" name="param" value="search"/>
-            Search by username: <input type = "text" name = "username" />
-            <input type = "submit" value = "Submit" />
-        </form>
-        
-        <table border="1">
-            <tr>
-                <th>Username</th>
-                <th>Name</th>
-                <th>Country</th>
-                <th></th>
-            </tr>
             <%
-                for (int i = 0; i < usersList.size(); i++) { 
-                    Users user = usersList.get(i);
-            %>
-            <tr>
-                <td><%=user.getUsername()%></td>
-                <td><%=user.getName()%></td>
-                <td><%=user.getCountry()%></td>
-                <td><a href="./UsersServlet?param=details&index=<%=i%>">View</a></td>
-            </tr>
-            <%
+                ArrayList<Users> usersList = null;
+                if (request.getAttribute("users") != null) {
+                    usersList = (ArrayList<Users>) request.getAttribute("users");
                 }
             %>
 
-        </table>
-
-
-
+            <form action="UsersServlet" method="post">
+                <!-- for servlet to know it's searching for users --> 
+                <input type="hidden" name="param" value="search"/>
+                Search by Username: <input type = "text" name = "username" />
+                <input type = "submit" value = "Submit" />
+            </form>
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">View all Olé Users</div>
+                        <!-- /.panel-heading -->
+                        <div class="panel-body">
+                            <div class="table-responsive">
+                                <table class="table table-hover">
+                                    <thead>
+                                        <tr>
+                                            <th>#</th>
+                                            <th>Username</th>
+                                            <th>Name</th>
+                                            <th>Country</th>
+                                            <th></th>
+                                        </tr>
+                                    </thead>
+                                    <%
+                                        for (int i = 0; i < usersList.size(); i++) {
+                                            Users user = usersList.get(i);
+                                    %>
+                                    <tbody>
+                                        <tr>
+                                            <td><%=i + 1%></td>
+                                            <td><%=user.getUsername()%></td>
+                                            <td><%=user.getName()%></td>
+                                            <td><%=user.getCountry()%></td>
+                                            <td><a href="./UsersServlet?param=details&index=<%=i%>">View</a></td>
+                                        </tr>
+                                        <%
+                                            }
+                                        %>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>  
+        </div>
+    </body>
 </html>
