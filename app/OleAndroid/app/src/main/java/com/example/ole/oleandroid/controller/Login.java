@@ -40,7 +40,7 @@ public class Login extends AppCompatActivity {
         signup = (Button) findViewById(R.id.signup);
         result = (TextView) findViewById(R.id.result);
 
-        setContentView(R.layout.activity_home);
+        //setContentView(R.layout.activity_home);
 
 
 
@@ -100,7 +100,7 @@ public class Login extends AppCompatActivity {
             //);
 
         });
-        signup = (Button) findViewById(R.id.login);
+        //signup = (Button) findViewById(R.id.signup);
 
         signup.setOnClickListener(new View.OnClickListener() {
 
