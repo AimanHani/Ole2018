@@ -63,6 +63,9 @@ public class Login extends AppCompatActivity {
                                 System.out.println(ServerResponse);
                                 //results[0] = ServerResponse;
                                 result.append(ServerResponse);
+
+                                Intent intent = new Intent(Login.this, Main.class);
+                                startActivity(intent);
                             }
                         },
                         new Response.ErrorListener() {
