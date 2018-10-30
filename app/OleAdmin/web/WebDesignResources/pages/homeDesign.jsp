@@ -48,7 +48,6 @@
                     </button>
                     <a class="navbar-brand" href="#">Olé Admin Page</a>
                 </div>
-                <!-- /.navbar-header -->
 
                 <ul class="nav navbar-top-links navbar-right">
                     <li class="dropdown">
@@ -61,43 +60,28 @@
                             <li><a href="#"><i class="fa fa-gear fa-fw"></i> Settings</a>
                             </li>
                             <li class="divider"></li>
-                            <li><a href="login.html"><i class="fa fa-sign-out fa-fw"></i> Logout</a>
+                            <li><a href="logout.jsp"><i class="fa fa-sign-out fa-fw"></i> Logout</a>
                             </li>
                         </ul>
-                        <!-- /.dropdown-user -->
                     </li>
-                    <!-- /.dropdown -->
                 </ul>
-                <!-- /.navbar-top-links -->
 
                 <div class="navbar-default sidebar" role="navigation">
                     <div class="sidebar-nav navbar-collapse">
                         <ul class="nav" id="side-menu">
-                            <!-- Search Function-->
-                            <!--<li class="sidebar-search">
-                                <div class="input-group custom-search-form">
-                                    <input type="text" class="form-control" placeholder="Search...">
-                                    <span class="input-group-btn">
-                                    <button class="btn btn-default" type="button">
-                                        <i class="fa fa-search"></i>
-                                    </button>
-                                </span>
-                                </div>
-                            </li>-->
                             <li>
-                                <a href="index.html"><i class="fa fa-dashboard fa-fw"></i> Dashboard</a>
+                                <a href="#"><i class="fa fa-dashboard fa-fw"></i> Dashboard</a>
                             </li>
                             <li>
-                                <a href="#"><i class="fa fa-table fa-fw"></i> Olé Users<span class="fa arrow"></span></a>
+                                <a href="#"><i class="fa fa-users fa-fw"></i> Olé Users<span class="fa arrow"></span></a>
                                 <ul class="nav nav-second-level">
                                     <li>
                                         <a href="./UsersServlet?param=loadAll">View all users</a>
                                     </li>
                                 </ul>
-                                <!-- /.nav-second-level -->
                             </li>
                             <li>
-                                <a href="#"><i class="fa fa-wrench fa-fw"></i> Public League<span class="fa arrow"></span></a>
+                                <a href="#"><i class="fa fa-sitemap fa-fw"></i> Public League<span class="fa arrow"></span></a>
                                 <ul class="nav nav-second-level">
                                     <li>
                                         <a href="publicLeague.jsp">View all Public Leagues</a>
@@ -106,40 +90,26 @@
                                         <a href="publicLeague.jsp">Create a Public League</a>
                                     </li>
                                 </ul>
-                                <!-- /.nav-second-level -->
                             </li>
                             <li>
-                                <a href="#"><i class="fa fa-sitemap fa-fw"></i> Private League<span class="fa arrow"></span></a>
+                                <a href="#"><i class="fa fa-shield fa-fw"></i> Private League<span class="fa arrow"></span></a>
                                 <ul class="nav nav-second-level">
                                     <li>
                                         <a href="privateLeague.jsp">View all Private Leagues</a>
                                     </li>
-                                    <!-- /.nav-third-level -->
-                                    <!--<li>
-                                        <a href="#">Third Level <span class="fa arrow"></span></a>
-                                        <ul class="nav nav-third-level">
-                                            <li>
-                                                <a href="#">Third Level Item</a>
-                                            </li>
-                                        </ul>
-                                    </li>-->
                                 </ul>
-                                <!-- /.nav-second-level -->
                             </li>
                             <li>
-                                <a href="#"><i class="fa fa-files-o fa-fw"></i> Specials<span class="fa arrow"></span></a>
+                                <a href="#"><i class="fa fa-star fa-fw"></i> Specials<span class="fa arrow"></span></a>
                                 <ul class="nav nav-second-level">
                                     <li>
                                         <a href="./SpecialsServlet?param=loadAll">View All Specials</a>
                                     </li>
                                 </ul>
-                                <!-- /.nav-second-level -->
                             </li>
                         </ul>
                     </div>
-                    <!-- /.sidebar-collapse -->
                 </div>
-                <!-- /.navbar-static-side -->
             </nav>
 
             <!-- 4 Main Tiles -->
@@ -148,19 +118,17 @@
                     <div class="col-lg-12">
                         <h1 class="page-header">Dashboard</h1>
                     </div>
-                    <!-- /.col-lg-12 -->
                 </div>
-                <!-- /.row -->
                 <div class="row">
                     <div class="col-lg-3 col-md-6">
                         <div class="panel panel-primary">
                             <div class="panel-heading">
                                 <div class="row">
                                     <div class="col-xs-3">
-                                        <i class="fa fa-comments fa-5x"></i>
+                                        <i class="fa fa-users fa-5x"></i>
                                     </div>
                                     <div class="col-xs-9 text-right">
-                                        <div class="huge">26</div>
+                                        <div class="huge">26</div> <!-- get total number of users-->
                                         <div>Olé Users</div>
                                     </div>
                                 </div>
@@ -179,10 +147,10 @@
                             <div class="panel-heading">
                                 <div class="row">
                                     <div class="col-xs-3">
-                                        <i class="fa fa-tasks fa-5x"></i>
+                                        <i class="fa fa-sitemap fa-5x"></i>
                                     </div>
                                     <div class="col-xs-9 text-right">
-                                        <div class="huge">12</div>
+                                        <div class="huge">12</div> <!-- get total number of Public Leagues-->
                                         <div>Public Leagues</div>
                                     </div>
                                 </div>
@@ -201,10 +169,10 @@
                             <div class="panel-heading">
                                 <div class="row">
                                     <div class="col-xs-3">
-                                        <i class="fa fa-shopping-cart fa-5x"></i>
+                                        <i class="fa fa-shield fa-5x"></i>
                                     </div>
                                     <div class="col-xs-9 text-right">
-                                        <div class="huge">124</div>
+                                        <div class="huge">124</div> <!-- get total number of Private Leagues-->
                                         <div>Private Leagues</div>
                                     </div>
                                 </div>
@@ -223,10 +191,10 @@
                             <div class="panel-heading">
                                 <div class="row">
                                     <div class="col-xs-3">
-                                        <i class="fa fa-support fa-5x"></i>
+                                        <i class="fa fa-star fa-5x"></i>
                                     </div>
                                     <div class="col-xs-9 text-right">
-                                        <div class="huge">13</div>
+                                        <div class="huge">13</div><!-- get total number of Specials-->
                                         <div>Specials</div>
                                     </div>
                                 </div>
@@ -241,9 +209,7 @@
                         </div>
                     </div>
                 </div>
-                <!-- /.row -->
             </div>
-            <!-- /#page-wrapper -->
         </div>
 
         <!-- jQuery -->

@@ -4,6 +4,7 @@
 <html>
     <head>
         <title>Olé Users</title>
+
         <jsp:include page="WebDesignResources/pages/homeDesign.jsp" />
         <%
             if (session.getAttribute("admin") == null || (boolean) session.getAttribute("admin") == false) {
@@ -30,13 +31,20 @@
                     usersList = (ArrayList<Users>) request.getAttribute("users");
                 }
             %>
-
-            <form action="UsersServlet" method="post">
-                <!-- for servlet to know it's searching for users --> 
-                <input type="hidden" name="param" value="search"/>
-                Search by Username: <input type = "text" name = "username" />
-                <input type = "submit" value = "Submit" />
-            </form>
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="panel panel-default">
+                        <div class="panel-body">
+                            <form action="UsersServlet" method="post">
+                                <!-- for servlet to know it's searching for users --> 
+                                <input type="hidden" name="param" value="search"/>
+                                <input class="form-control" type = "text" name = "username" placeholder="Search by Username..."  style="width:30%; display:inline;"/>
+                                <button class="btn btn-primary" type="submit" value = "Submit">Search</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
             <div class="row">
                 <div class="col-lg-12">
                     <div class="panel panel-default">

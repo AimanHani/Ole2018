@@ -3,6 +3,7 @@
 <html>
     <head>
         <title>OLE User Details</title>
+
         <jsp:include page="WebDesignResources/pages/homeDesign.jsp" />
         <%
             if (session.getAttribute("admin") == null || (boolean) session.getAttribute("admin") == false) {
@@ -42,6 +43,7 @@
                                         <tr>
                                             <th>Username</th>
                                             <th>Name</th>
+                                            <th>Date of Birth</th>
                                             <th>Country</th>
                                             <th>Contact No</th>
                                             <th>Email</th>
@@ -52,7 +54,6 @@
                                         <tr>
                                             <td><%=user.getUsername()%></td>
                                             <td><%=user.getName()%></td>
-                                            <td><%=user.getPassword()%></td>
                                             <td><%=user.getDob()%></td>
                                             <td><%=user.getCountry()%></td>
                                             <td><%=user.getContactNo()%></td>
@@ -63,15 +64,21 @@
                                 </table>
                             </div>
                             <div class="row">
-                                <form action="UsersServlet" method="post">
-                                    <input type="hidden" name="param" value="loadAll"/>
-                                    <button type="submit" class="btn btn-primary">Back</button>
-                                </form>
-                                <form action="UsersServlet" method="post">
-                                    <input type="hidden" name="param" value="delete"/>
-                                    <input type="hidden" name="username" value=<%=user.getUsername()%> />
-                                    <button type="submit" class="btn btn-danger">Delete</button>
-                                </form>              
+                                <div class="col-lg-12">
+                                    <div class="panel panel-default">
+                                        <div class="panel-body">
+                                            <form action="UsersServlet" method="post" style="display:inline;">
+                                                <input type="hidden" name="param" value="loadAll"/>
+                                                <button type="submit" class="btn btn-primary">Back</button>
+                                            </form>
+                                            <form action="UsersServlet" method="post" style="display:inline;">
+                                                <input type="hidden" name="param" value="delete"/>
+                                                <input type="hidden" name="username" value=<%=user.getUsername()%> />
+                                                <button type="submit" class="btn btn-danger">Delete</button>
+                                            </form>    
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
