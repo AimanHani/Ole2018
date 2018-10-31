@@ -12,10 +12,14 @@ public class Main extends AppCompatActivity {
 
     Button publicLeague;
 
+
+
+
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
 
         publicLeague = (Button) findViewById(R.id.publicLeague);
 
@@ -25,6 +29,9 @@ public class Main extends AppCompatActivity {
             public void onClick(View view) {
 
                 Intent intent = new Intent(Main.this, PublicLeaguePage.class);
+                Bundle b = getIntent().getExtras();
+
+                intent.putExtras(b);
                 startActivity(intent);
             }
         });

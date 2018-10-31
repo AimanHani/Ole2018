@@ -65,6 +65,13 @@ public class Login extends AppCompatActivity {
                                 result.append(ServerResponse);
 
                                 Intent intent = new Intent(Login.this, Main.class);
+                                Bundle bundle = new Bundle();
+
+//Add your data to bundle
+                                bundle.putString("userID", username.getText().toString());
+
+//Add the bundle to the intent
+                                intent.putExtras(bundle);
                                 startActivity(intent);
                             }
                         },
@@ -111,6 +118,7 @@ public class Login extends AppCompatActivity {
             public void onClick(View view) {
 
                 Intent intent = new Intent(Login.this, Signup.class);
+
                 startActivity(intent);
             }
         });

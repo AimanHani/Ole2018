@@ -7,9 +7,9 @@ if ($_SERVER["REQUEST_METHOD"] == "GET"){
 function retrievePublicLeague(){
     global $connect;
     
-    $query = "SELECT l.leagueId, prize, tournamentId, pointsAllocated, leagueName 
-                FROM publicleague pl, league l 
-                where l.leagueId = pl.leagueId";
+    $query = "SELECT l.leagueId, prize, tournamentId, pointsAllocated, leagueName ,count(username)as numberParticipants
+                FROM publicleague pl, league l ,log lg
+                where l.leagueId = pl.leagueId and lg.leagueId = pl.leagueId";
     
     $result = mysqli_query($connect, $query);
     $number_of_rows = mysqli_num_rows($result);

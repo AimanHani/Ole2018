@@ -2,6 +2,7 @@ package com.example.ole.oleandroid.controller;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
@@ -23,13 +24,18 @@ public class PublicLeaguePage extends AppCompatActivity {
 
     TextView listPublicLeague;
     PublicLeague publicLeague;
+    Button joinPublicLeague;
+    private String userName;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_public_league);
+        Bundle b = getIntent().getExtras();
 
+        userName = b.getString("userID");
         listPublicLeague = (TextView) findViewById(R.id.listPublicLeague);
+        joinPublicLeague = (Button) findViewById(R.id.join_btn);
 
         RequestQueue queue = Volley.newRequestQueue(this);
 
@@ -54,12 +60,16 @@ public class PublicLeaguePage extends AppCompatActivity {
                             int tournamentID = firstLeague.getInt("tournamentId");
                             int pointsAllocated = firstLeague.getInt("tournamentId");
                             String leagueName = firstLeague.getString("leagueName");
+                            int numberOfParticipants = firstLeague.getInt("numberParticipants");
 
                             listPublicLeague.append("League "+leagueName);
                             listPublicLeague.append("League ID: "+leagueID);
                             listPublicLeague.append("Tournament ID: "+tournamentID);
                             listPublicLeague.append("Point Allocated "+pointsAllocated);
                             listPublicLeague.append("Final Prize: "+prize);
+                            listPublicLeague.append("Number of Participants:"+numberOfParticipants);
+                            listPublicLeague.append("Username:"+userName);
+
 
                         } catch (JSONException e) {
                             e.printStackTrace();
@@ -79,5 +89,12 @@ public class PublicLeaguePage extends AppCompatActivity {
 
 // add it to the RequestQueue
         queue.add(getRequest);
+        joinPublicLeague.setOnClickListener((new View.OnClickListener( ) {
+                    @Override
+                    public void onClick(View v) {
+
+                    }
+                })
+        );
     }
 }
