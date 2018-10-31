@@ -43,18 +43,27 @@ public class PublicLeaguePage extends AppCompatActivity {
                     public void onResponse(JSONObject response) {
                         // display response
                         //Log.d("Response", response.toString());
-                        listPublicLeague.append(response.toString());
 
-//                        try {
-//                            //JSONObject league = response.getJSONArray("results").getJSONObject(0);
-//
-//                            //int leagueId = (int) league.get("leagueId");
-//                            //System.out.println(leagueId);
-//                            //listPublicLeague.append(leagueId+"");
-//                            listPublicLeague.append(response.toString());
-//                        } catch (JSONException e) {
-//                            e.printStackTrace();
-//                        }
+
+                        try {
+
+                            JSONArray publicLeague = response.getJSONArray("results");
+                            JSONObject firstLeague = publicLeague.getJSONObject(0);
+                            int leagueID = firstLeague.getInt("leagueId");
+                            String prize = firstLeague.getString("prize");
+                            int tournamentID = firstLeague.getInt("tournamentId");
+                            int pointsAllocated = firstLeague.getInt("tournamentId");
+                            String leagueName = firstLeague.getString("leagueName");
+
+                            listPublicLeague.append("League "+leagueName);
+                            listPublicLeague.append("League ID: "+leagueID);
+                            listPublicLeague.append("Tournament ID: "+tournamentID);
+                            listPublicLeague.append("Point Allocated "+pointsAllocated);
+                            listPublicLeague.append("Final Prize: "+prize);
+
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
 
 
                     }

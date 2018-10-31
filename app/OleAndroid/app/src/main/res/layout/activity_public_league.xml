@@ -26,7 +26,9 @@
         android:id="@+id/join_btn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="40dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginTop="128dp"
         android:text="Join Public League"
         app:layout_constraintStart_toStartOf="@+id/listPublicLeague"
         app:layout_constraintTop_toTopOf="@+id/listPublicLeague" />
