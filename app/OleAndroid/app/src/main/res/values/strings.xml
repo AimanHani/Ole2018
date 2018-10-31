@@ -1,3 +1,19 @@
 <resources>
     <string name="app_name">OleAndroid</string>
+
+    <!-- HomeScreen -->
+    <string name="ole_slogan">Football. Friends. Fun</string>
+    <string name="homepage_copyright">© 2018 Ole Football. Friends Fun. \n All Rights Reserved.</string>
+
+    <!-- OnBoard Screen. -->
+    <string name="ob_header1">Public and Private Leagues</string>
+    <string name="ob_header2">Prediction</string>
+    <string name="ob_header3">Leaderboard</string>
+
+    <string name="ob_get_started">GET STARTED</string>
+
+    <string name="ob_desc1">Create or join a League with your favorite soccer team and start your prediction journey with Ole now!</string>
+    <string name="ob_desc2">Any accurate prediction from match score, winning team and more earns you Ole Points! Start prediction now!</string>
+    <string name="ob_desc3">Compete with the rest of the Ole Fans and be the best predictor with the most Ole Points! See you at the top of the leaderboard!</string>
+
 </resources>
