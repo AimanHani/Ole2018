@@ -40,7 +40,7 @@ public class Login extends AppCompatActivity {
         signup = (Button) findViewById(R.id.signup);
         result = (TextView) findViewById(R.id.result);
 
-        setContentView(R.layout.activity_home);
+        //setContentView(R.layout.activity_home);
 
 
 
@@ -63,6 +63,16 @@ public class Login extends AppCompatActivity {
                                 System.out.println(ServerResponse);
                                 //results[0] = ServerResponse;
                                 result.append(ServerResponse);
+
+                                Intent intent = new Intent(Login.this, Main.class);
+                                Bundle bundle = new Bundle();
+
+//Add your data to bundle
+                                bundle.putString("userID", username.getText().toString());
+
+//Add the bundle to the intent
+                                intent.putExtras(bundle);
+                                startActivity(intent);
                             }
                         },
                         new Response.ErrorListener() {
@@ -100,7 +110,7 @@ public class Login extends AppCompatActivity {
             //);
 
         });
-        signup = (Button) findViewById(R.id.login);
+        //signup = (Button) findViewById(R.id.signup);
 
         signup.setOnClickListener(new View.OnClickListener() {
 
@@ -108,6 +118,7 @@ public class Login extends AppCompatActivity {
             public void onClick(View view) {
 
                 Intent intent = new Intent(Login.this, Signup.class);
+
                 startActivity(intent);
             }
         });

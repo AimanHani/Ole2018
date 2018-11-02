@@ -1,7 +1,8 @@
 <html>
     <head>
-        <title>Admin Home</title>
-        <jsp:include page="header.jsp" />
+        <title>Olé Admin Home</title>
+        
+        <jsp:include page="WebDesignResources/pages/homeDesign.jsp" />
         <%
             if (session.getAttribute("admin") == null || (boolean) session.getAttribute("admin") == false) {
                 String message = ("page can only be accessed by admin").toUpperCase();
@@ -9,17 +10,12 @@
                 session.removeAttribute("admin");
                 response.sendRedirect("login.jsp");
                 return;
-
             }
         %>
     </head>
-    <body>
-        <h1>Welcome, Admin!</h1>
-        <h3>Manage:</h3>
         <a href="./UsersServlet?param=loadAll">OLE Users</a><br>
         <a href="./PublicLeagueServlet?param=loadAll">Public League</a><br>
         <a href="privateLeague.jsp">Private League</a><br>
         <a href="./SpecialsServlet?param=loadAll">Specials</a><br>
-
     </body>
 </html>
