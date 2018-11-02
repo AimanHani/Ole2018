@@ -84,7 +84,7 @@
                                 <a href="#"><i class="fa fa-sitemap fa-fw"></i> Public League<span class="fa arrow"></span></a>
                                 <ul class="nav nav-second-level">
                                     <li>
-                                        <a href="publicLeague.jsp">View all Public Leagues</a>
+                                        <a href="./PublicLeagueServlet?param=loadAll">View all Public Leagues</a>
                                     </li>
                                     <li>
                                         <a href="publicLeague.jsp">Create a Public League</a>
@@ -155,7 +155,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <a href="publicLeague.jsp">
+                            <a href="./PublicLeagueServlet?param=loadAll">
                                 <div class="panel-footer">
                                     <span class="pull-left">View all Public Leagues</span>
                                     <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>

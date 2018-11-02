@@ -13,9 +13,4 @@
             }
         %>
     </head>
-        <a href="./UsersServlet?param=loadAll">OLE Users</a><br>
-        <a href="./PublicLeagueServlet?param=loadAll">Public League</a><br>
-        <a href="privateLeague.jsp">Private League</a><br>
-        <a href="./SpecialsServlet?param=loadAll">Specials</a><br>
-    </body>
 </html>
