@@ -52,7 +52,7 @@
                 <div class="col-md-4 col-md-offset-4">
                     <div class="login-panel panel panel-default">
                         <div class="panel-heading">
-                            <h3 class="panel-title">Olé Admin Sign In</h3>
+                            <h3 class="panel-title">Olé Admin Login</h3>
                         </div>
                         <div class="panel-body">
                             <form action="LoginServlet" method="post" role="form">

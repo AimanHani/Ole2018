@@ -39,7 +39,7 @@
                                 <!-- for servlet to know it's searching for users --> 
                                 <input type="hidden" name="param" value="search"/>
                                 <input class="form-control" type = "text" name = "username" placeholder="Search by Username..."  style="width:30%; display:inline;"/>
-                                <button class="btn btn-primary" type="submit" value = "Submit">Search</button>
+                                <button class="btn btn-outline btn-primary" type="submit" value = "Submit">Search</button>
                             </form>
                         </div>
                     </div>

@@ -3,41 +3,64 @@
 <html>
     <head>
         <title>Public League</title>
+        <jsp:include page="WebDesignResources/pages/homeDesign.jsp" />
     </head>
     <body>
-        <h1>Public League</h1>
-        <%
-            ArrayList<PublicLeague> publicLeagueList = null;
-            if (request.getAttribute("publicleague") != null) {
-                publicLeagueList = (ArrayList<PublicLeague>) request.getAttribute("publicleague");
-            }
-        %>
+        <div id="page-wrapper">
+            <div class="row">
+                <div class="col-lg-12">
+                    <h1 class="page-header">Public League Summary</h1>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">View all Available Public Leagues</div>
+                        <!-- /.panel-heading -->
+                        <div class="panel-body">
+                            <div class="table-responsive">
+                                <%
+                                    ArrayList<PublicLeague> publicLeagueList = null;
+                                    if (request.getAttribute("publicleague") != null) {
+                                        publicLeagueList = (ArrayList<PublicLeague>) request.getAttribute("publicleague");
+                                    }
+                                %>
+                                <table class="table table-hover">
+                                    <thead>
+                                        <tr>
+                                            <th>#</th>
+                                            <th>Tournament Name</th>
+                                            <th>League Name</th>
+                                            <th>Points Allocated</th>
+                                            <th>Prize</th>
+                                            <th></th>
+                                        </tr>
+                                    </thead>
 
+                                    <tbody>
+                                        <%
+                                            for (int i = 0; i < publicLeagueList.size(); i++) {
+                                                PublicLeague pl = publicLeagueList.get(i);
+                                        %>
+                                        <tr>
+                                            <td><%=i + 1%></td>
+                                            <td><%=pl.getTournamentName()%></td>
+                                            <td><%=pl.getLeagueName()%></td>
+                                            <td><%=pl.getPointsAllocated()%></td>
+                                            <td><%=pl.getPrize()%></td>                
 
-        <table border="1">
-            <tr>
-                <th>Tournament Name</th>
-                <th>League Name</th>
-                <th>Points Allocated</th>
-                <th>Prize</th>
-                <th></th>
-            </tr>
-            <%
-                for (int i = 0; i < publicLeagueList.size(); i++) { 
-                    PublicLeague pl = publicLeagueList.get(i);
-            %>
-            <tr>
-                <td><%=pl.getTournamentName()%></td>
-                <td><%=pl.getLeagueName()%></td>
-                <td><%=pl.getPointsAllocated()%></td>
-                <td><%=pl.getPrize()%></td>                
-                
-                <td><a href="./PublicLeagueServlet?param=details&index=<%=i%>">View</a></td>
-            </tr>
-            <%
-                }
-            %>
-
-        </table>
+                                            <td><a href="./PublicLeagueServlet?param=details&index=<%=i%>">View</a></td>
+                                        </tr>
+                                        <%
+                                            }
+                                        %>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </body>
 </html>
