@@ -95,6 +95,5 @@ public class SpecialsDAO {
             Logger.getLogger(SpecialsDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
         return false;
-    }
-    
+    }    
 }
