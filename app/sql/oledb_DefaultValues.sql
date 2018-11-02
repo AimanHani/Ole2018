@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Oct 19, 2018 at 10:13 AM
+-- Generation Time: Nov 02, 2018 at 10:57 AM
 -- Server version: 5.7.11
 -- PHP Version: 7.0.4
 
@@ -36,7 +36,7 @@ CREATE TABLE `admin` (
 --
 
 INSERT INTO `admin` (`username`, `password`) VALUES
-('Ole', '1234');
+('ole', '123');
 
 -- --------------------------------------------------------
 
@@ -45,7 +45,7 @@ INSERT INTO `admin` (`username`, `password`) VALUES
 --
 
 CREATE TABLE `league` (
-  `leagueId` varchar(20) NOT NULL,
+  `leagueId` int(100) NOT NULL,
   `tournamentId` varchar(20) NOT NULL,
   `pointsAllocated` int(11) NOT NULL,
   `leagueName` varchar(100) NOT NULL
@@ -59,7 +59,7 @@ CREATE TABLE `league` (
 
 CREATE TABLE `leagueteams` (
   `teamId` varchar(20) NOT NULL,
-  `leagueId` varchar(20) NOT NULL
+  `leagueId` int(100) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
@@ -69,9 +69,9 @@ CREATE TABLE `leagueteams` (
 --
 
 CREATE TABLE `log` (
-  `logId` varchar(45) NOT NULL,
+  `logId` int(255) NOT NULL,
   `username` varchar(20) DEFAULT NULL,
-  `leagueId` varchar(20) NOT NULL
+  `leagueId` int(100) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
@@ -98,7 +98,7 @@ CREATE TABLE `match` (
 --
 
 CREATE TABLE `matchlog` (
-  `logId` varchar(20) NOT NULL,
+  `logId` int(255) NOT NULL,
   `team1_prediction` int(11) DEFAULT NULL,
   `team2_prediction` int(11) DEFAULT NULL,
   `points` int(11) NOT NULL,
@@ -112,7 +112,7 @@ CREATE TABLE `matchlog` (
 --
 
 CREATE TABLE `privateleague` (
-  `leagueId` varchar(20) NOT NULL,
+  `leagueId` int(100) NOT NULL,
   `prize` varchar(20) NOT NULL,
   `password` varchar(10) NOT NULL,
   `startDate` date NOT NULL,
@@ -126,7 +126,7 @@ CREATE TABLE `privateleague` (
 --
 
 CREATE TABLE `publicleague` (
-  `leagueId` varchar(20) NOT NULL,
+  `leagueId` int(100) NOT NULL,
   `prize` varchar(20) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
@@ -151,10 +151,10 @@ INSERT INTO `specials` (`specialsId`, `description`, `status`) VALUES
 (2, 'Top Assist', 'N'),
 (3, 'Golden Glove', 'N'),
 (4, 'Best Young Player', 'N'),
-(5, 'First Red card of Tournament', 'N'),
-(6, 'Best Player', 'N'),
-(7, 'Winner of Competition  (team)', 'N'),
-(8, 'Team with Most Number of Goals', 'F'),
+(5, 'First Red card of Tournament', 'Y'),
+(6, 'Best Player', 'Y'),
+(7, 'Winner of Competition  (team)', 'Y'),
+(8, 'Team with Most Number of Goals', 'N'),
 (9, 'Number of Goals scored by Winner of Compt', 'N'),
 (10, 'Team with Least Number of Goals Conceded', 'N'),
 (11, 'Team with Most Number of Goals Conceded', 'N'),
@@ -168,7 +168,7 @@ INSERT INTO `specials` (`specialsId`, `description`, `status`) VALUES
 --
 
 CREATE TABLE `specialslog` (
-  `logid` varchar(20) NOT NULL,
+  `logid` int(255) NOT NULL,
   `specialsId` int(20) NOT NULL,
   `prediction` varchar(20) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
@@ -183,6 +183,32 @@ CREATE TABLE `team` (
   `teamId` varchar(20) NOT NULL,
   `teamName` varchar(20) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `team`
+--
+
+INSERT INTO `team` (`teamId`, `teamName`) VALUES
+('33', 'Manchester United'),
+('34', 'Newcastle'),
+('35', 'Bournemouth'),
+('36', 'Fulham'),
+('37', 'Huddersfield'),
+('38', 'Watford'),
+('39', 'Wolves'),
+('40', 'Liverpool'),
+('41', 'Southampton'),
+('42', 'Arsenal'),
+('43', 'Cardiff'),
+('44', 'Burnley'),
+('45', 'Everton'),
+('46', 'Leicester'),
+('47', 'Tottenham'),
+('48', 'West Ham'),
+('49', 'Chelsea'),
+('50', 'Manchester City'),
+('51', 'Brighton'),
+('52', 'Crystal Palace');
 
 -- --------------------------------------------------------
 
@@ -219,6 +245,7 @@ CREATE TABLE `user` (
 --
 
 INSERT INTO `user` (`username`, `name`, `password`, `dob`, `country`, `contactNo`, `email`, `favoriteTeam`) VALUES
+('admin', 'admin', 'admin', '1996-10-01', 'Singapore', '9876543', 'admin@ole.sg', '-'),
 ('fghj', 'fghj', 'ghjk', '2018-10-03', 'Malaysia', '6789', 'ghn@gmail.com', 'Liverpool'),
 ('Jill', 'Jill Ma', 'jmmj78', '1991-10-08', 'Singapore', '86892781', 'jm89@gmail.com', 'Liverpool'),
 ('Leon', 'Leon Tan', 'lt12', '1989-10-01', 'Singapore', '98762819', 'lt67@gmail.com', 'Arsenal');
@@ -316,15 +343,30 @@ ALTER TABLE `user`
 --
 
 --
+-- AUTO_INCREMENT for table `league`
+--
+ALTER TABLE `league`
+  MODIFY `leagueId` int(100) NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT for table `log`
+--
+ALTER TABLE `log`
+  MODIFY `logId` int(255) NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT for table `matchlog`
+--
+ALTER TABLE `matchlog`
+  MODIFY `logId` int(255) NOT NULL AUTO_INCREMENT;
+--
 -- AUTO_INCREMENT for table `specials`
 --
 ALTER TABLE `specials`
-  MODIFY `specialsId` int(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
+  MODIFY `specialsId` int(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 --
 -- AUTO_INCREMENT for table `specialslog`
 --
 ALTER TABLE `specialslog`
-  MODIFY `specialsId` int(20) NOT NULL AUTO_INCREMENT;
+  MODIFY `logid` int(255) NOT NULL AUTO_INCREMENT;
 --
 -- Constraints for dumped tables
 --

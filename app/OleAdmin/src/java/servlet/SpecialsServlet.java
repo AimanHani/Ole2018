@@ -5,6 +5,7 @@
  */
 package servlet;
 
+import controller.APIDAO;
 import controller.SpecialsDAO;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -22,6 +23,7 @@ public class SpecialsServlet extends HttpServlet {
     ArrayList<Specials> specialsList = null;
     RequestDispatcher rd = null;
     String requests = null;
+    String id = "";
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -36,13 +38,19 @@ public class SpecialsServlet extends HttpServlet {
             throws ServletException, IOException {
 
         requests = request.getParameter("param");
-        
+        id = request.getParameter("id");
+
         //before specials.jsp loads, this servlet will be called first to load all specials from the db
         if (requests != null && requests.equals("loadAll")) {
             //System.out.println("HEY IM HERE");
             specialsList = SpecialsDAO.getAllSpecials();
             if (specialsList != null) {
                 request.setAttribute("specials", specialsList);
+                if (!id.equals("")) {
+                    rd = request.getRequestDispatcher("leagueSpecials.jsp?id="+id);
+                    //System.out.println(usersList.size());
+                    rd.forward(request, response);
+                }
                 rd = request.getRequestDispatcher("specials.jsp");
                 //System.out.println(usersList.size());
                 rd.forward(request, response);
@@ -81,6 +89,18 @@ public class SpecialsServlet extends HttpServlet {
                 System.out.println("SUCCESS");
                 rd = request.getRequestDispatcher("./SpecialsServlet?param=loadAll");
                 rd.forward(request, response);
+            }
+
+        }
+
+        if (requests != null && requests.equals("updateLeague")) {
+            String[] specialsList = request.getParameterValues("specials");
+            String leagueId = request.getParameter("id");
+            Boolean outcome = APIDAO.addSpecials(specialsList, leagueId);
+            if (outcome) {
+                System.out.println("SUCCESS");
+                response.sendRedirect("api.jsp?status=tournament " + outcome);
+                //rd.forward(request, response);
             }
 
         }
