@@ -28,7 +28,7 @@ public class HomeServlet extends HttpServlet {
         request.setAttribute("publicleague", totalPublicLeague);
         request.setAttribute("privateleague", totalPrivateLeague);
         request.setAttribute("specials", totalSpecials);
-        RequestDispatcher rd = request.getRequestDispatcher("home.jsp?status=success");
+        RequestDispatcher rd = request.getRequestDispatcher("WebDesignResources/pages/homeDesign.jsp");
         rd.forward(request, response);
 
     }

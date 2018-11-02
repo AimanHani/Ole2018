@@ -60,18 +60,12 @@
                                     </tbody>
                                 </table>
                             </div>
-                            <div class="row">
-                                <div class="col-lg-12">
-                                    <div class="panel panel-default">
-                                        <div class="panel-body">
-                                            <form action="PublicLeagueServlet" method="post">
-                                                <input type="hidden" name="param" value="loadAll"/>
-                                                <button type="submit" class="btn btn-outline btn-primary">Back to Main Table</button>
-                                            </form> 
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
+
+                            <form action="PublicLeagueServlet" method="post">
+                                <input type="hidden" name="param" value="loadAll"/>
+                                <button type="submit" class="btn btn-outline btn-primary">Back to Main Table</button>
+                            </form> 
+
                         </div>
                     </div>
                 </div>

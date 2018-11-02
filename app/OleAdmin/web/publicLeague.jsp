@@ -1,5 +1,6 @@
 <%@page import="model.PublicLeague"%>
 <%@page import="java.util.ArrayList"%>
+
 <html>
     <head>
         <title>Public League</title>
@@ -49,7 +50,7 @@
                                             <td><%=pl.getPointsAllocated()%></td>
                                             <td><%=pl.getPrize()%></td>                
 
-                                            <td><a href="./PublicLeagueServlet?param=details&index=<%=i%>">View</a></td>
+                                            <td><a href="./PublicLeagueServlet?param=details&index=<%=i%>">Edit</a></td>
                                         </tr>
                                         <%
                                             }

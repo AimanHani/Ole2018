@@ -74,7 +74,7 @@ public class SpecialsServlet extends HttpServlet {
 
         if (requests != null && requests.equals("delete")) {
             //System.out.println("HEY IM HERE");
-            String specialsId = request.getParameter("id");
+            String specialsId = request.getParameter("id1");
             Boolean outcome = SpecialsDAO.deleteSpecials(Integer.parseInt(specialsId));
             if (outcome) {
                 System.out.println("SUCCESS");
