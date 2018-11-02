@@ -2,8 +2,8 @@ package com.example.ole.oleandroid.dbConnection;
 
 public class DBConnection {
 
-    private String mainUrl = "http://10.58.125.73/ole"; //may vary depends on wifi connection
-    // Hazirah ip: 192.168.39.1
+    private String mainUrl = "http://192.168.39.1:3306/ole"; //may vary depends on wifi connection
+    // Hazirah ip: 192.168.39.1:3306
     //String insertUrl = mainUrl + "/tutorial/insertStudent.php";
     //String showUrl = mainUrl + "/tutorial/showStudents.php";
 
@@ -26,6 +26,11 @@ public class DBConnection {
 
     public String getPublicLeagueUrl(){
         String url = mainUrl+"/allPublicLeagues.php";
+        return url;
+    }
+
+    public String insertUserPublicLeagueUrl(){
+        String url = mainUrl+"/joinPublicLeague.php";
         return url;
     }
 }
