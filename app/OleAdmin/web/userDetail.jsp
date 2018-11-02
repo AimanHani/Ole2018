@@ -14,7 +14,6 @@
                 return;
             }
         %>
-
     </head>
     <body>
         <div id="page-wrapper">
@@ -69,12 +68,13 @@
                                         <div class="panel-body">
                                             <form action="UsersServlet" method="post" style="display:inline;">
                                                 <input type="hidden" name="param" value="loadAll"/>
-                                                <button type="submit" class="btn btn-primary">Back</button>
+                                                <button type="submit" class="btn btn-outline btn-primary">Back to Main Table</button>
                                             </form>
+                                            
                                             <form action="UsersServlet" method="post" style="display:inline;">
                                                 <input type="hidden" name="param" value="delete"/>
                                                 <input type="hidden" name="username" value=<%=user.getUsername()%> />
-                                                <button type="submit" class="btn btn-danger">Delete</button>
+                                                <button type="submit" class="btn btn-outline btn-danger">Delete this Member</button>
                                             </form>    
                                         </div>
                                     </div>

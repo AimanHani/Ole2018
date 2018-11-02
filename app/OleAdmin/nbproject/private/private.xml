@@ -4,15 +4,19 @@
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
 <<<<<<< HEAD
-            <file>file:/C:/Users/Nurfarihin/Desktop/Ole2018/app/OleAdmin/web/publicLeagueDetails.jsp</file>
-            <file>file:/C:/Users/Nurfarihin/Desktop/Ole2018/app/OleAdmin/web/publicLeague.jsp</file>
-=======
+            <file>file:/C:/Users/ASUS/Desktop/Ole2018/app/OleAdmin/src/java/controller/APIDAO.java</file>
+            <file>file:/C:/Users/ASUS/Desktop/Ole2018/app/OleAdmin/web/publicLeague.jsp</file>
             <file>file:/C:/Users/ASUS/Desktop/Ole2018/app/OleAdmin/web/header.jsp</file>
             <file>file:/C:/Users/ASUS/Desktop/Ole2018/app/OleAdmin/web/userDetail.jsp</file>
             <file>file:/C:/Users/ASUS/Desktop/Ole2018/app/OleAdmin/web/specials.jsp</file>
-            <file>file:/C:/Users/ASUS/Desktop/Ole2018/app/OleAdmin/web/home.jsp</file>
+            <file>file:/C:/Users/ASUS/Desktop/Ole2018/app/OleAdmin/web/publicLeagueDetails.jsp</file>
             <file>file:/C:/Users/ASUS/Desktop/Ole2018/app/OleAdmin/web/users.jsp</file>
->>>>>>> 93d396691a169aed6d935a1997d898c3e71541c9
+=======
+            <file>file:/C:/Users/Nurfarihin/Desktop/Ole2018/app/OleAdmin/src/java/servlet/LoginServlet.java</file>
+            <file>file:/C:/Users/Nurfarihin/Desktop/Ole2018/app/OleAdmin/src/java/controller/HomeDAO.java</file>
+            <file>file:/C:/Users/Nurfarihin/Desktop/Ole2018/app/OleAdmin/web/home.jsp</file>
+            <file>file:/C:/Users/Nurfarihin/Desktop/Ole2018/app/OleAdmin/src/java/servlet/HomeServlet.java</file>
+>>>>>>> 6b71b1fe0ee2c3ae5315f44d267045897abdfcc1
         </group>
     </open-files>
 </project-private>

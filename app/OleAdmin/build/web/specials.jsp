@@ -74,12 +74,12 @@
                                             <form action="SpecialsServlet" method="post" style="display:inline;">
                                                 <input type="hidden" name="param" value="add"/>
                                                 <input class="form-control" type="text" name="description" placeholder="Enter Description" style="width:50%; display:inline;"/>
-                                                <button type="submit" class="btn btn-primary">Add Specials</button>
+                                                <button type="submit" class="btn btn-outline btn-primary">Add Specials</button>
                                             </form>
 
                                             <form action="UsersServlet" method="post" style="display:inline;">
                                                 <input type="hidden" name="param" value="update"/>
-                                                <button type="submit" class="btn btn-primary">Update Specials</button>
+                                                <button type="submit" class="btn btn-outline btn-warning">Update Specials</button>
                                             </form>
                                         </div>
                                     </div>
@@ -89,5 +89,6 @@
                     </div>
                 </div>
             </div>
+        </div>
     </body>
 </html>

@@ -95,7 +95,7 @@
                                 <a href="#"><i class="fa fa-shield fa-fw"></i> Private League<span class="fa arrow"></span></a>
                                 <ul class="nav nav-second-level">
                                     <li>
-                                        <a href="privateLeague.jsp">View all Private Leagues</a>
+                                        <a href="#">View all Private Leagues</a>
                                     </li>
                                 </ul>
                             </li>
@@ -177,7 +177,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <a href="privateLeague.jsp">
+                            <a href="#">
                                 <div class="panel-footer">
                                     <span class="pull-left">View all Private Leagues</span>
                                     <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
@@ -230,5 +230,4 @@
         <script src="WebDesignResources/dist/js/sb-admin-2.js"></script>
 
     </body>
-
 </html>
