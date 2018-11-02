@@ -11,6 +11,7 @@ import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.ole.oleandroid.R;
 import com.example.ole.oleandroid.dbConnection.DBConnection;
@@ -20,12 +21,17 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.HashMap;
+import java.util.Map;
+
 public class PublicLeaguePage extends AppCompatActivity {
 
     TextView listPublicLeague;
     PublicLeague publicLeague;
     Button joinPublicLeague;
-    private String userName;
+    String userName;
+    String results;
+    int leagueID;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,32 +49,35 @@ public class PublicLeaguePage extends AppCompatActivity {
 
 // prepare the Request
         JsonObjectRequest getRequest = new JsonObjectRequest(Request.Method.GET, url, null,
-                new Response.Listener<JSONObject>()
-                {
+                new Response.Listener<JSONObject>() {
                     @Override
                     public void onResponse(JSONObject response) {
                         // display response
-                        //Log.d("Response", response.toString());
+                        //listPublicLeague.append(response.toString());
 
 
                         try {
 
                             JSONArray publicLeague = response.getJSONArray("results");
                             JSONObject firstLeague = publicLeague.getJSONObject(0);
-                            int leagueID = firstLeague.getInt("leagueId");
+                            leagueID = firstLeague.getInt("leagueId");
                             String prize = firstLeague.getString("prize");
                             int tournamentID = firstLeague.getInt("tournamentId");
                             int pointsAllocated = firstLeague.getInt("tournamentId");
                             String leagueName = firstLeague.getString("leagueName");
-                            int numberOfParticipants = firstLeague.getInt("numberParticipants");
+                            //int numberOfParticipants = firstLeague.getInt("numberParticipants");
+                            //listPublicLeague.append("Username:"+userName);
 
-                            listPublicLeague.append("League "+leagueName);
-                            listPublicLeague.append("League ID: "+leagueID);
-                            listPublicLeague.append("Tournament ID: "+tournamentID);
-                            listPublicLeague.append("Point Allocated "+pointsAllocated);
-                            listPublicLeague.append("Final Prize: "+prize);
-                            listPublicLeague.append("Number of Participants:"+numberOfParticipants);
-                            listPublicLeague.append("Username:"+userName);
+                            JSONArray participants = response.getJSONArray("participants");
+                            JSONObject participantsOne = participants.getJSONObject(0);
+                            int numberOfParticipants = participantsOne.getInt("num_participants");
+
+                            listPublicLeague.append("League " + leagueName);
+                            listPublicLeague.append("League ID: " + leagueID);
+                            listPublicLeague.append("Tournament ID: " + tournamentID);
+                            listPublicLeague.append("Point Allocated " + pointsAllocated);
+                            listPublicLeague.append("Final Prize: " + prize);
+                            listPublicLeague.append("Number of Participants:" + numberOfParticipants);
 
 
                         } catch (JSONException e) {
@@ -78,8 +87,7 @@ public class PublicLeaguePage extends AppCompatActivity {
 
                     }
                 },
-                new Response.ErrorListener()
-                {
+                new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
                         //Log.d("Error.Response", response);
@@ -89,12 +97,62 @@ public class PublicLeaguePage extends AppCompatActivity {
 
 // add it to the RequestQueue
         queue.add(getRequest);
-        joinPublicLeague.setOnClickListener((new View.OnClickListener( ) {
+        joinPublicLeague.setOnClickListener((new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
+                        String result = publicLeagueInsertUser(userName, leagueID);
+
+                        if (result.equals("successful")){
+                            
+                        }
 
                     }
                 })
         );
     }
+
+    private String publicLeagueInsertUser(final String username, final int leagueId) {
+        String url = new DBConnection().insertUserPublicLeagueUrl();
+
+
+        // Creating string request with post method.
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, url,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String ServerResponse) {
+                        if (ServerResponse.equals("successful")){
+                            results = ServerResponse;
+                        }
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError volleyError) {
+                        System.out.println("error  :");
+                        //volleyError.printStackTrace();
+                        results = "error";
+                    }
+                }) {
+            @Override
+            protected Map<String, String> getParams() {
+                Map<String, String> params = new HashMap<String, String>();
+                try {
+                    params.put("username", username);
+                    params.put("leagueId", leagueId+"");
+
+                } catch (Exception e) {
+
+                }
+                return params;
+            }
+
+        };
+
+        RequestQueue requestQueue = Volley.newRequestQueue(getApplicationContext());
+        requestQueue.add(stringRequest);
+
+        return results;
+    }
+
+
 }
