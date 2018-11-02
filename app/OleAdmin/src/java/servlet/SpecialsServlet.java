@@ -46,7 +46,8 @@ public class SpecialsServlet extends HttpServlet {
             specialsList = SpecialsDAO.getAllSpecials();
             if (specialsList != null) {
                 request.setAttribute("specials", specialsList);
-                if (!id.equals("")) {
+                System.out.println(id);
+                if (id!= null && !id.equals("")) {
                     rd = request.getRequestDispatcher("leagueSpecials.jsp?id="+id);
                     //System.out.println(usersList.size());
                     rd.forward(request, response);

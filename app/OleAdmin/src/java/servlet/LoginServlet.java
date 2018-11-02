@@ -21,7 +21,7 @@ public class LoginServlet extends HttpServlet {
         if (LoginDAO.authenticate(username, password)) {
             HttpSession session = request.getSession();
             session.setAttribute("admin", true);
-            response.sendRedirect("home.jsp?status=success");
+            response.sendRedirect("./HomeServlet");
             //return;
         } else {
             response.sendRedirect("login.jsp?status=failed");
