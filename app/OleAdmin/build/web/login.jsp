@@ -1,6 +1,6 @@
 <html>
     <head>
-        <title>OLE Admin</title>        
+        <title>Olé Admin Login</title>        
         <jsp:include page="WebDesignResources/pages/loginDesign.jsp" />
 
     </head>

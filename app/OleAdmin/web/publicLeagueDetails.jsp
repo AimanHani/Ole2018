@@ -24,7 +24,6 @@
                 <div class="col-lg-12">
                     <div class="panel panel-default">
                         <div class="panel-heading">View Public League Details</div>
-                        <!-- /.panel-heading -->
                         <div class="panel-body">
                             <div class="table-responsive">
                                 <table class="table table-hover">
