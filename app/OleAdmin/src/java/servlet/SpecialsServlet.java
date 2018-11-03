@@ -46,12 +46,9 @@ public class SpecialsServlet extends HttpServlet {
             specialsList = SpecialsDAO.getAllSpecials();
             if (specialsList != null) {
                 request.setAttribute("specials", specialsList);
-<<<<<<< HEAD
-                if (id != null && !id.equals("")) {
-=======
+
                 System.out.println(id);
-                if (id!= null && !id.equals("")) {
->>>>>>> 6b71b1fe0ee2c3ae5315f44d267045897abdfcc1
+                if (id != null && !id.equals("")) {
                     rd = request.getRequestDispatcher("leagueSpecials.jsp?id="+id);
                     //System.out.println(usersList.size());
                     rd.forward(request, response);
@@ -77,7 +74,7 @@ public class SpecialsServlet extends HttpServlet {
 
         if (requests != null && requests.equals("delete")) {
             //System.out.println("HEY IM HERE");
-            String specialsId = request.getParameter("id");
+            String specialsId = request.getParameter("id1");
             Boolean outcome = SpecialsDAO.deleteSpecials(Integer.parseInt(specialsId));
             if (outcome) {
                 System.out.println("SUCCESS");
@@ -95,6 +92,8 @@ public class SpecialsServlet extends HttpServlet {
                 rd = request.getRequestDispatcher("./SpecialsServlet?param=loadAll");
                 rd.forward(request, response);
             }
+            rd = request.getRequestDispatcher("./SpecialsServlet?param=loadAll");
+            rd.forward(request, response);
 
         }
 

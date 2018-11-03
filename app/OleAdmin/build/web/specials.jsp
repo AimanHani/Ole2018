@@ -33,9 +33,17 @@
 
             <div class="row">
                 <div class="col-lg-12">
+                    <!-- Start of Add Special  -->
+                    <form action="SpecialsServlet" method="post" style="display:inline;">
+                        <input type="hidden" name="param" value="add"/>
+                        <input class="form-control" type="text" name="description" placeholder="Add a New Special Description..." style="width:50%; margin-bottom: 15px; display:inline;"/>
+                        <button type="submit" class="btn btn-outline btn-primary">Add Special</button>
+                    </form>
+                    <!-- End of Add Special -->
+
+                    <!-- Start of Special Table -->
                     <div class="panel panel-default">
                         <div class="panel-heading">View all Specials</div>
-                        <!-- /.panel-heading -->
                         <div class="panel-body">
                             <div class="table-responsive">
                                 <form action="SpecialsServlet" method="post">
@@ -43,6 +51,7 @@
                                         <thead>
                                             <tr>
                                                 <th>Include specials</th>
+                                                <th>#</th>
                                                 <th>Description</th>
                                                 <th>Status</th>
                                                 <th></th>
@@ -55,38 +64,23 @@
                                         <tbody>
                                             <tr>
                                                 <td><input type="checkbox" class="checkbox" name="specials" value=<%=special.getSpecialsId()%> /></td>
+                                                <td><%=i + 1%></td>
                                                 <td><%=special.getDescription()%></td>
                                                 <td><%=special.getStatus()%></td>
-                                                <td><a href="./SpecialsServlet?param=delete&id=<%=special.getSpecialsId()%>">Delete</a></td>
+                                                <td><a href="./SpecialsServlet?param=delete&id1=<%=special.getSpecialsId()%>">Delete</a></td>
                                             </tr>
                                             <%
                                                 }
                                             %>
                                         </tbody>
                                     </table>
+                                    <input type="hidden" name="param" value="update"/>
+                                    <button type="submit" class="btn btn-outline btn-warning">Update Specials</button>
                                 </form>
-
-                            </div>
-                            <div class="row">
-                                <div class="col-lg-12">
-                                    <div class="panel panel-default">
-                                        <div class="panel-body">
-                                            <form action="SpecialsServlet" method="post" style="display:inline;">
-                                                <input type="hidden" name="param" value="add"/>
-                                                <input class="form-control" type="text" name="description" placeholder="Enter Description" style="width:50%; display:inline;"/>
-                                                <button type="submit" class="btn btn-outline btn-primary">Add Specials</button>
-                                            </form>
-
-                                            <form action="UsersServlet" method="post" style="display:inline;">
-                                                <input type="hidden" name="param" value="update"/>
-                                                <button type="submit" class="btn btn-outline btn-warning">Update Specials</button>
-                                            </form>
-                                        </div>
-                                    </div>
-                                </div>
                             </div>
                         </div>
                     </div>
+                    <!-- End of Special Table -->
                 </div>
             </div>
         </div>

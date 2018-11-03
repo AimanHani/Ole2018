@@ -4,12 +4,11 @@
     Author     : Yiting
 --%>
 
+<%@page import="controller.HomeDAO"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-<!DOCTYPE html>
+
 <html lang="en">
-
     <head>
-
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -46,7 +45,7 @@
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
                     </button>
-                    <a class="navbar-brand" href="#">Olé Admin Page</a>
+                    <a class="navbar-brand" href="#">Olé Admin</a>
                 </div>
 
                 <ul class="nav navbar-top-links navbar-right">
@@ -70,7 +69,7 @@
                     <div class="sidebar-nav navbar-collapse">
                         <ul class="nav" id="side-menu">
                             <li>
-                                <a href="#"><i class="fa fa-dashboard fa-fw"></i> Dashboard</a>
+                                <a href="home.jsp"><i class="fa fa-dashboard fa-fw"></i> Dashboard</a>
                             </li>
                             <li>
                                 <a href="#"><i class="fa fa-users fa-fw"></i> Olé Users<span class="fa arrow"></span></a>
@@ -107,6 +106,9 @@
                                     </li>
                                 </ul>
                             </li>
+                            <li>
+                                <a href="api.jsp"><i class="fa fa-a fa-fw"></i> API</a>
+                            </li>
                         </ul>
                     </div>
                 </div>
@@ -128,7 +130,7 @@
                                         <i class="fa fa-users fa-5x"></i>
                                     </div>
                                     <div class="col-xs-9 text-right">
-                                        <div class="huge">26</div> <!-- get total number of users-->
+                                        <div class="huge"><%=HomeDAO.getTotalUsers()%></div> <!-- get total number of users-->
                                         <div>Olé Users</div>
                                     </div>
                                 </div>
@@ -150,7 +152,7 @@
                                         <i class="fa fa-sitemap fa-5x"></i>
                                     </div>
                                     <div class="col-xs-9 text-right">
-                                        <div class="huge">12</div> <!-- get total number of Public Leagues-->
+                                        <div class="huge"><%=HomeDAO.getTotalPublicLeague()%></div> <!-- get total number of Public Leagues-->
                                         <div>Public Leagues</div>
                                     </div>
                                 </div>
@@ -172,7 +174,7 @@
                                         <i class="fa fa-shield fa-5x"></i>
                                     </div>
                                     <div class="col-xs-9 text-right">
-                                        <div class="huge">124</div> <!-- get total number of Private Leagues-->
+                                        <div class="huge"><%=HomeDAO.getTotalPrivateLeague()%></div> <!-- get total number of Private Leagues-->
                                         <div>Private Leagues</div>
                                     </div>
                                 </div>
@@ -194,7 +196,7 @@
                                         <i class="fa fa-star fa-5x"></i>
                                     </div>
                                     <div class="col-xs-9 text-right">
-                                        <div class="huge">13</div><!-- get total number of Specials-->
+                                        <div class="huge"><%=HomeDAO.getTotalSpecials()%></div><!-- get total number of Specials-->
                                         <div>Specials</div>
                                     </div>
                                 </div>

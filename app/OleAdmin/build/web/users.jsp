@@ -31,25 +31,21 @@
                     usersList = (ArrayList<Users>) request.getAttribute("users");
                 }
             %>
+
             <div class="row">
                 <div class="col-lg-12">
-                    <div class="panel panel-default">
-                        <div class="panel-body">
-                            <form action="UsersServlet" method="post">
-                                <!-- for servlet to know it's searching for users --> 
-                                <input type="hidden" name="param" value="search"/>
-                                <input class="form-control" type = "text" name = "username" placeholder="Search by Username..."  style="width:30%; display:inline;"/>
-                                <button class="btn btn-outline btn-primary" type="submit" value = "Submit">Search</button>
-                            </form>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-lg-12">
+                    <!-- Start of Search by Username -->
+                    <form action="UsersServlet" method="post" style="display:inline;">
+                        <!-- for servlet to know it's searching for users --> 
+                        <input type="hidden" name="param" value="search"/>
+                        <input class="form-control" type = "text" name = "username" placeholder="Search by Username..." style="width:50%; margin-bottom: 15px; display:inline;"/>
+                        <button class="btn btn-outline btn-primary" type="submit" value = "Submit">Search</button>
+                    </form>
+                    <!-- End of Search by Username -->
+
+                    <!-- Start of User Table -->
                     <div class="panel panel-default">
                         <div class="panel-heading">View all Olé Users</div>
-                        <!-- /.panel-heading -->
                         <div class="panel-body">
                             <div class="table-responsive">
                                 <table class="table table-hover">
@@ -82,8 +78,9 @@
                             </div>
                         </div>
                     </div>
+                    <!-- End of User Table-->
                 </div>
-            </div>  
-        </div>
+            </div>
+        </div>    
     </body>
 </html>
