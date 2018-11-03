@@ -1,233 +1,256 @@
--- MySQL Workbench Forward Engineering
+CREATE DATABASE  IF NOT EXISTS `oledb` /*!40100 DEFAULT CHARACTER SET latin1 */;
+USE `oledb`;
+-- MySQL dump 10.13  Distrib 5.7.17, for Win64 (x86_64)
+--
+-- Host: localhost    Database: oledb
+-- ------------------------------------------------------
+-- Server version	5.7.11
 
-SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0;
-SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0;
-SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='TRADITIONAL,ALLOW_INVALID_DATES';
+/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
+/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
+/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
+/*!40101 SET NAMES utf8 */;
+/*!40103 SET @OLD_TIME_ZONE=@@TIME_ZONE */;
+/*!40103 SET TIME_ZONE='+00:00' */;
+/*!40014 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0 */;
+/*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
+/*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
+/*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
--- -----------------------------------------------------
--- Schema oledb
--- -----------------------------------------------------
+--
+-- Table structure for table `admin`
+--
 
--- -----------------------------------------------------
--- Schema oledb
--- -----------------------------------------------------
-CREATE SCHEMA IF NOT EXISTS `oledb` DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci ;
-USE `oledb` ;
+DROP TABLE IF EXISTS `admin`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `admin` (
+  `username` varchar(20) NOT NULL,
+  `password` varchar(45) NOT NULL,
+  PRIMARY KEY (`username`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
 
--- -----------------------------------------------------
--- Table `oledb`.`Admin`
--- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `oledb`.`Admin` (
-  `username` VARCHAR(20) NOT NULL,
-  `password` VARCHAR(45) NOT NULL,
-  PRIMARY KEY (`username`))
-ENGINE = InnoDB;
+--
+-- Table structure for table `league`
+--
 
-
--- -----------------------------------------------------
--- Table `oledb`.`User`
--- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `oledb`.`User` (
-  `username` VARCHAR(20) NOT NULL,
-  `name` VARCHAR(45) NOT NULL,
-  `password` VARCHAR(45) NOT NULL,
-  `dob` DATE NOT NULL,
-  `country` VARCHAR(20) NOT NULL,
-  `contactNo` VARCHAR(10) NOT NULL,
-  `email` VARCHAR(100) NOT NULL,
-  `favoriteTeam` VARCHAR(45) NOT NULL,
-  PRIMARY KEY (`username`))
-ENGINE = InnoDB;
-
-
--- -----------------------------------------------------
--- Table `oledb`.`Tournament`
--- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `oledb`.`Tournament` (
-  `tournamentId` VARCHAR(20) NOT NULL,
-  `name` VARCHAR(40) NOT NULL,
-  `startDate` DATE NOT NULL,
-  `endDate` DATE NOT NULL,
-  PRIMARY KEY (`tournamentId`))
-ENGINE = InnoDB;
-
-
--- -----------------------------------------------------
--- Table `oledb`.`League`
--- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `oledb`.`League` (
+DROP TABLE IF EXISTS `league`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `league` (
   `leagueId` int(100) NOT NULL AUTO_INCREMENT,
-  `tournamentId` VARCHAR(20) NOT NULL,
-  `pointsAllocated` INT NOT NULL,
-  `leagueName` VARCHAR(100) NOT NULL,
+  `tournamentId` varchar(20) NOT NULL,
+  `pointsAllocated` int(11) NOT NULL,
+  `leagueName` varchar(100) NOT NULL,
   PRIMARY KEY (`leagueId`),
-  INDEX `tournamentId_idx_league` (`tournamentId` ASC),
-  CONSTRAINT `tournamentId_fk_league`
-    FOREIGN KEY (`tournamentId`)
-    REFERENCES `oledb`.`Tournament` (`tournamentId`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
-ENGINE = InnoDB;
+  KEY `tournamentId_idx_league` (`tournamentId`),
+  CONSTRAINT `tournamentId_fk_league` FOREIGN KEY (`tournamentId`) REFERENCES `tournament` (`tournamentId`) ON DELETE NO ACTION ON UPDATE NO ACTION
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
 
+--
+-- Table structure for table `leagueteams`
+--
 
--- -----------------------------------------------------
--- Table `oledb`.`PublicLeague`
--- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `oledb`.`PublicLeague` (
+DROP TABLE IF EXISTS `leagueteams`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `leagueteams` (
+  `teamId` varchar(20) NOT NULL,
   `leagueId` int(100) NOT NULL,
-  `prize` VARCHAR(20) NOT NULL,
-  PRIMARY KEY (`leagueId`),
-  CONSTRAINT `leagueId_fk_public`
-    FOREIGN KEY (`leagueId`)
-    REFERENCES `oledb`.`League` (`leagueId`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
-ENGINE = InnoDB;
+  PRIMARY KEY (`teamId`,`leagueId`),
+  KEY `leagueId_idx` (`leagueId`),
+  CONSTRAINT `leagueId_fk_leagueTeams` FOREIGN KEY (`leagueId`) REFERENCES `league` (`leagueId`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `teamId_fk_leagueTeams` FOREIGN KEY (`teamId`) REFERENCES `team` (`teamId`) ON DELETE NO ACTION ON UPDATE NO ACTION
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
 
+--
+-- Table structure for table `log`
+--
 
--- -----------------------------------------------------
--- Table `oledb`.`Match`
--- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `oledb`.`Match` (
-  `matchId` VARCHAR(20) NOT NULL,
-  `tournamentId` VARCHAR(20) NOT NULL,
-  `date` DATE NOT NULL,
-  `time` TIME NOT NULL,
-  `team1` VARCHAR(45) NOT NULL,
-  `team2` VARCHAR(45) NOT NULL,
-  `team1_score` INT NULL,
-  `team2_score` INT NULL,
+DROP TABLE IF EXISTS `log`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `log` (
+  `logId` int(255) NOT NULL AUTO_INCREMENT,
+  `username` varchar(20) DEFAULT NULL,
+  `leagueId` int(100) NOT NULL,
+  PRIMARY KEY (`logId`),
+  KEY `leagueId_id_log` (`leagueId`),
+  KEY `username_fk_log` (`username`),
+  CONSTRAINT `leagueId_fk_log` FOREIGN KEY (`leagueId`) REFERENCES `league` (`leagueId`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `username_fk_log` FOREIGN KEY (`username`) REFERENCES `user` (`username`) ON DELETE NO ACTION ON UPDATE NO ACTION
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Table structure for table `match`
+--
+
+DROP TABLE IF EXISTS `match`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `match` (
+  `matchId` varchar(20) NOT NULL,
+  `tournamentId` varchar(20) NOT NULL,
+  `date` date NOT NULL,
+  `time` time NOT NULL,
+  `team1` varchar(45) NOT NULL,
+  `team2` varchar(45) NOT NULL,
+  `team1_score` int(11) DEFAULT NULL,
+  `team2_score` int(11) DEFAULT NULL,
   PRIMARY KEY (`matchId`),
-  INDEX `torunamentId_idx` (`tournamentId` ASC),
-  CONSTRAINT `torunamentId_fk_match`
-    FOREIGN KEY (`tournamentId`)
-    REFERENCES `oledb`.`Tournament` (`tournamentId`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
-ENGINE = InnoDB;
+  KEY `torunamentId_idx` (`tournamentId`),
+  CONSTRAINT `torunamentId_fk_match` FOREIGN KEY (`tournamentId`) REFERENCES `tournament` (`tournamentId`) ON DELETE NO ACTION ON UPDATE NO ACTION
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
 
+--
+-- Table structure for table `matcheslog`
+--
 
--- -----------------------------------------------------
--- Table `oledb`.`Log`
--- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `oledb`.`Log` (
+DROP TABLE IF EXISTS `matcheslog`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `matcheslog` (
   `logId` int(255) NOT NULL AUTO_INCREMENT,
-  `username` VARCHAR(20) NULL,
+  `team1_prediction` int(11) DEFAULT NULL,
+  `team2_prediction` int(11) DEFAULT NULL,
+  `points` int(11) NOT NULL,
+  `doubleIt` tinyint(1) DEFAULT NULL,
+  `matchId` varchar(20) NOT NULL,
+  PRIMARY KEY (`logId`,`matchId`),
+  KEY `matchId_fk_matcheslog_idx` (`matchId`),
+  CONSTRAINT `logId_fk_matcheslog` FOREIGN KEY (`logId`) REFERENCES `log` (`logId`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `matchId_fk_matcheslog` FOREIGN KEY (`matchId`) REFERENCES `match` (`matchId`) ON DELETE NO ACTION ON UPDATE NO ACTION
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Table structure for table `privateleague`
+--
+
+DROP TABLE IF EXISTS `privateleague`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `privateleague` (
   `leagueId` int(100) NOT NULL,
-  PRIMARY KEY (`logId`),
-  INDEX `leagueId_id_log` (`leagueId` ASC),
-  CONSTRAINT `username_fk_log`
-    FOREIGN KEY (`username`)
-    REFERENCES `oledb`.`User` (`username`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION,
-  CONSTRAINT `leagueId_fk_log`
-    FOREIGN KEY (`leagueId`)
-    REFERENCES `oledb`.`League` (`leagueId`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
-ENGINE = InnoDB;
+  `prize` varchar(20) NOT NULL,
+  `password` varchar(10) NOT NULL,
+  `startDate` date NOT NULL,
+  `endDate` date NOT NULL,
+  PRIMARY KEY (`leagueId`),
+  CONSTRAINT `leagueId_fk_private` FOREIGN KEY (`leagueId`) REFERENCES `league` (`leagueId`) ON DELETE NO ACTION ON UPDATE NO ACTION
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
 
+--
+-- Table structure for table `publicleague`
+--
 
--- -----------------------------------------------------
--- Table `oledb`.`MatchLog`
--- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `oledb`.`MatchLog` (
-  `logId` int(255) NOT NULL AUTO_INCREMENT,
-  `team1_prediction` INT NULL,
-  `team2_prediction` INT NULL,
-  `points` INT NOT NULL,
-  `doubleIt` TINYINT(1) NULL,
-  PRIMARY KEY (`logId`),
-  CONSTRAINT `logId_fk_matchlog`
-    FOREIGN KEY (`logId`)
-    REFERENCES `oledb`.`Log` (`logId`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
-ENGINE = InnoDB;
- 
--- -----------------------------------------------------
--- Table `oledb`.`Specials`
--- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `oledb`.`Specials` (
+DROP TABLE IF EXISTS `publicleague`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `publicleague` (
+  `leagueId` int(100) NOT NULL,
+  `prize` varchar(20) NOT NULL,
+  PRIMARY KEY (`leagueId`),
+  CONSTRAINT `leagueId_fk_public` FOREIGN KEY (`leagueId`) REFERENCES `league` (`leagueId`) ON DELETE NO ACTION ON UPDATE NO ACTION
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Table structure for table `specials`
+--
+
+DROP TABLE IF EXISTS `specials`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `specials` (
   `specialsId` int(20) NOT NULL AUTO_INCREMENT,
-  `description` VARCHAR(200) NOT NULL,
-  `status` VARCHAR(10) NOT NULL,
-  PRIMARY KEY (`specialsId`))
-ENGINE = InnoDB;
+  `description` varchar(200) NOT NULL,
+  `status` varchar(10) NOT NULL,
+  PRIMARY KEY (`specialsId`)
+) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
 
+--
+-- Table structure for table `specialslog`
+--
 
--- -----------------------------------------------------
--- Table `oledb`.`SpecialsLog`
--- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `oledb`.`SpecialsLog` (
+DROP TABLE IF EXISTS `specialslog`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `specialslog` (
   `logid` int(255) NOT NULL AUTO_INCREMENT,
   `specialsId` int(20) NOT NULL,
-  `prediction` VARCHAR(20) NULL,
-  PRIMARY KEY (`logid`, `specialsId`),
-  INDEX `specialsId_idx` (`specialsId` ASC),
-  CONSTRAINT `logid_fk_specials`
-    FOREIGN KEY (`logid`)
-    REFERENCES `oledb`.`Log` (`logId`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION,
-  CONSTRAINT `specialsId_fk`
-    FOREIGN KEY (`specialsId`)
-    REFERENCES `oledb`.`Specials` (`specialsId`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
-ENGINE = InnoDB;
+  `prediction` varchar(20) DEFAULT NULL,
+  PRIMARY KEY (`logid`,`specialsId`),
+  KEY `specialsId_idx` (`specialsId`),
+  CONSTRAINT `logid_fk_specials` FOREIGN KEY (`logid`) REFERENCES `log` (`logId`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `specialsId_fk` FOREIGN KEY (`specialsId`) REFERENCES `specials` (`specialsId`) ON DELETE NO ACTION ON UPDATE NO ACTION
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
 
+--
+-- Table structure for table `team`
+--
 
--- -----------------------------------------------------
--- Table `oledb`.`PrivateLeague`
--- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `oledb`.`PrivateLeague` (
-  `leagueId` int(100) NOT NULL,
-  `prize` VARCHAR(20) NOT NULL,
-  `password` VARCHAR(10) NOT NULL,
-  `startDate` DATE NOT NULL,
-  `endDate` DATE NOT NULL,
-  PRIMARY KEY (`leagueId`),
-  CONSTRAINT `leagueId_fk_private`
-    FOREIGN KEY (`leagueId`)
-    REFERENCES `oledb`.`League` (`leagueId`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
-ENGINE = InnoDB;
+DROP TABLE IF EXISTS `team`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `team` (
+  `teamId` varchar(20) NOT NULL,
+  `teamName` varchar(20) NOT NULL,
+  PRIMARY KEY (`teamId`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
 
+--
+-- Table structure for table `tournament`
+--
 
--- -----------------------------------------------------
--- Table `oledb`.`Team`
--- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `oledb`.`Team` (
-  `teamId` VARCHAR(20) NOT NULL,
-  `teamName` VARCHAR(20) NOT NULL,
-  PRIMARY KEY (`teamId`))
-ENGINE = InnoDB;
+DROP TABLE IF EXISTS `tournament`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `tournament` (
+  `tournamentId` varchar(20) NOT NULL,
+  `name` varchar(40) NOT NULL,
+  `startDate` date NOT NULL,
+  `endDate` date NOT NULL,
+  PRIMARY KEY (`tournamentId`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
 
+--
+-- Table structure for table `user`
+--
 
--- -----------------------------------------------------
--- Table `oledb`.`LeagueTeams`
--- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `oledb`.`LeagueTeams` (
-  `teamId` VARCHAR(20) NOT NULL,
-  `leagueId` int(100) NOT NULL,
-  PRIMARY KEY (`teamId`, `leagueId`),
-  INDEX `leagueId_idx` (`leagueId` ASC),
-  CONSTRAINT `teamId_fk_leagueTeams`
-    FOREIGN KEY (`teamId`)
-    REFERENCES `oledb`.`Team` (`teamId`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION,
-  CONSTRAINT `leagueId_fk_leagueTeams`
-    FOREIGN KEY (`leagueId`)
-    REFERENCES `oledb`.`League` (`leagueId`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
-ENGINE = InnoDB;
+DROP TABLE IF EXISTS `user`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `user` (
+  `username` varchar(20) NOT NULL,
+  `name` varchar(45) NOT NULL,
+  `password` varchar(45) NOT NULL,
+  `dob` date NOT NULL,
+  `country` varchar(20) NOT NULL,
+  `contactNo` varchar(10) NOT NULL,
+  `email` varchar(100) NOT NULL,
+  `favoriteTeam` varchar(45) NOT NULL,
+  PRIMARY KEY (`username`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+/*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
+/*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
+/*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
+/*!40014 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS */;
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
+/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
+/*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
-SET SQL_MODE=@OLD_SQL_MODE;
-SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
-SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;
+-- Dump completed on 2018-11-03 13:06:48

@@ -92,6 +92,8 @@ public class SpecialsServlet extends HttpServlet {
                 rd = request.getRequestDispatcher("./SpecialsServlet?param=loadAll");
                 rd.forward(request, response);
             }
+            rd = request.getRequestDispatcher("./SpecialsServlet?param=loadAll");
+            rd.forward(request, response);
 
         }
 
