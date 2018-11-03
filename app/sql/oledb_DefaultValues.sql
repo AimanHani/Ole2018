@@ -3,9 +3,9 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 02, 2018 at 07:35 PM
+-- Generation Time: Nov 03, 2018 at 02:42 PM
 -- Server version: 5.7.11
--- PHP Version: 7.0.4
+-- PHP Version: 5.6.19
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
@@ -19,6 +19,8 @@ SET time_zone = "+00:00";
 --
 -- Database: `oledb`
 --
+CREATE DATABASE IF NOT EXISTS `oledb` DEFAULT CHARACTER SET latin1 COLLATE latin1_swedish_ci;
+USE `oledb`;
 
 -- --------------------------------------------------------
 
@@ -78,15 +80,16 @@ CREATE TABLE `leagueteams` (
 CREATE TABLE `log` (
   `logId` int(255) NOT NULL,
   `username` varchar(20) DEFAULT NULL,
-  `leagueId` int(100) NOT NULL
+  `leagueId` int(100) NOT NULL,
+  `points` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `log`
 --
 
-INSERT INTO `log` (`logId`, `username`, `leagueId`) VALUES
-(1, 'admin', 1);
+INSERT INTO `log` (`logId`, `username`, `leagueId`, `points`) VALUES
+(1, 'admin', 1, 0);
 
 -- --------------------------------------------------------
 
@@ -501,7 +504,6 @@ CREATE TABLE `matcheslog` (
   `logId` int(255) NOT NULL,
   `team1_prediction` int(11) DEFAULT NULL,
   `team2_prediction` int(11) DEFAULT NULL,
-  `points` int(11) NOT NULL,
   `doubleIt` tinyint(1) DEFAULT NULL,
   `matchId` varchar(20) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
