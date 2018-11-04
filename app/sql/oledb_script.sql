@@ -1,5 +1,3 @@
-CREATE DATABASE  IF NOT EXISTS `oledb` /*!40100 DEFAULT CHARACTER SET latin1 */;
-USE `oledb`;
 -- MySQL dump 10.13  Distrib 5.7.17, for Win64 (x86_64)
 --
 -- Host: localhost    Database: oledb
@@ -16,6 +14,15 @@ USE `oledb`;
 /*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
 /*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
+
+--
+-- Database: `oledb`
+--
+CREATE DATABASE IF NOT EXISTS `oledb` DEFAULT CHARACTER SET latin1 COLLATE latin1_swedish_ci;
+USE `oledb`;
+
+-- --------------------------------------------------------
+
 
 --
 -- Table structure for table `admin`
@@ -77,6 +84,7 @@ CREATE TABLE `log` (
   `logId` int(255) NOT NULL AUTO_INCREMENT,
   `username` varchar(20) DEFAULT NULL,
   `leagueId` int(100) NOT NULL,
+  `points` int(11) NOT NULL,
   PRIMARY KEY (`logId`),
   KEY `leagueId_id_log` (`leagueId`),
   KEY `username_fk_log` (`username`),
@@ -118,7 +126,6 @@ CREATE TABLE `matcheslog` (
   `logId` int(255) NOT NULL AUTO_INCREMENT,
   `team1_prediction` int(11) DEFAULT NULL,
   `team2_prediction` int(11) DEFAULT NULL,
-  `points` int(11) NOT NULL,
   `doubleIt` tinyint(1) DEFAULT NULL,
   `matchId` varchar(20) NOT NULL,
   PRIMARY KEY (`logId`,`matchId`),
@@ -253,4 +260,4 @@ CREATE TABLE `user` (
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2018-11-03 13:06:48
+-- Dump completed on 2018-11-04 10:15:34

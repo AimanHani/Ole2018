@@ -142,7 +142,7 @@ public class APIDAO {
                         System.out.println(stmt6);
                         stmt6.executeUpdate();
 
-                        PreparedStatement stmt7 = conn.prepareStatement("insert into log(username, leagueId) values ('admin', " + statement5 + ")");
+                        PreparedStatement stmt7 = conn.prepareStatement("insert into log(username, leagueId, points) values ('admin', " + statement5 + ", -1)");
                         System.out.println(stmt7);
                         stmt7.executeUpdate();
 
