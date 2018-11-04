@@ -15,19 +15,16 @@
         <activity android:name=".controller.Home">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".controller.OnBoardingActivity">
-
-        </activity>
-        <activity android:name=".controller.Login">
-
-        </activity>
+        <activity android:name=".controller.OnBoardingActivity"></activity>
+        <activity android:name=".controller.Login"></activity>
         <activity android:name=".controller.Signup" />
         <activity android:name=".controller.Main" />
-        <activity android:name=".controller.PublicLeaguePage"/>
-
+        <activity android:name=".controller.PublicLeaguePage" />
+        <activity android:name=".controller.SpecialsPredict"></activity>
     </application>
 
 </manifest>

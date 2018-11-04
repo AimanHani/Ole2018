@@ -1,5 +1,6 @@
 package com.example.ole.oleandroid.controller;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -37,7 +38,7 @@ public class PublicLeaguePage extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_public_league);
-        Bundle b = getIntent().getExtras();
+        final Bundle b = getIntent().getExtras();
 
         userName = b.getString("userID");
         listPublicLeague = (TextView) findViewById(R.id.listPublicLeague);
@@ -97,13 +98,18 @@ public class PublicLeaguePage extends AppCompatActivity {
 
 // add it to the RequestQueue
         queue.add(getRequest);
+
         joinPublicLeague.setOnClickListener((new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
                         String result = publicLeagueInsertUser(userName, leagueID);
 
-                        if (result.equals("successful")){
-                            
+                        if (!result.equals("error")) {
+                            Intent intent = new Intent(PublicLeaguePage.this, SpecialsPredict.class);
+                            Bundle b = getIntent().getExtras();
+                            b.putString("logId", result);
+                            intent.putExtras(b);
+                            startActivity(intent);
                         }
 
                     }
@@ -120,7 +126,7 @@ public class PublicLeaguePage extends AppCompatActivity {
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String ServerResponse) {
-                        if (ServerResponse.equals("successful")){
+                        if (ServerResponse.equals("successful")) {
                             results = ServerResponse;
                         }
                     }
@@ -138,7 +144,7 @@ public class PublicLeaguePage extends AppCompatActivity {
                 Map<String, String> params = new HashMap<String, String>();
                 try {
                     params.put("username", username);
-                    params.put("leagueId", leagueId+"");
+                    params.put("leagueId", leagueId + "");
 
                 } catch (Exception e) {
 
