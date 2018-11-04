@@ -3,9 +3,9 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 03, 2018 at 02:42 PM
+-- Generation Time: Nov 04, 2018 at 02:32 AM
 -- Server version: 5.7.11
--- PHP Version: 5.6.19
+-- PHP Version: 7.0.4
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
@@ -19,8 +19,6 @@ SET time_zone = "+00:00";
 --
 -- Database: `oledb`
 --
-CREATE DATABASE IF NOT EXISTS `oledb` DEFAULT CHARACTER SET latin1 COLLATE latin1_swedish_ci;
-USE `oledb`;
 
 -- --------------------------------------------------------
 
@@ -58,7 +56,7 @@ CREATE TABLE `league` (
 --
 
 INSERT INTO `league` (`leagueId`, `tournamentId`, `pointsAllocated`, `leagueName`) VALUES
-(1, '2', 1, 'Premier League Public League');
+(2, '2', 1, 'Premier League Public League');
 
 -- --------------------------------------------------------
 
@@ -89,7 +87,7 @@ CREATE TABLE `log` (
 --
 
 INSERT INTO `log` (`logId`, `username`, `leagueId`, `points`) VALUES
-(1, 'admin', 1, 0);
+(2, 'admin', 2, -1);
 
 -- --------------------------------------------------------
 
@@ -538,7 +536,7 @@ CREATE TABLE `publicleague` (
 --
 
 INSERT INTO `publicleague` (`leagueId`, `prize`) VALUES
-(1, 'Jersey');
+(2, 'Jersey');
 
 -- --------------------------------------------------------
 
@@ -557,19 +555,20 @@ CREATE TABLE `specials` (
 --
 
 INSERT INTO `specials` (`specialsId`, `description`, `status`) VALUES
-(1, 'Top Scorer', 'Y'),
-(2, 'Top Assist', 'Y'),
-(3, 'Golden Glove', 'Y'),
-(4, 'Best Young Player', 'N'),
-(5, 'First Red card of Tournament', 'N'),
-(6, 'Best Player', 'N'),
+(1, 'Top Scorer', 'N'),
+(2, 'Top Assist', 'N'),
+(3, 'Golden Glove', 'N'),
+(4, 'Best Young Player', 'Y'),
+(5, 'First Red card of Tournament', 'Y'),
+(6, 'Best Player', 'Y'),
 (7, 'Winner of Competition  (team)', 'N'),
 (8, 'Team with Most Number of Goals', 'N'),
 (9, 'Number of Goals scored by Winner of Compt', 'N'),
 (10, 'Team with Least Number of Goals Conceded', 'N'),
 (11, 'Team with Most Number of Goals Conceded', 'N'),
 (12, 'Team with Least Number of Goals Scored', 'N'),
-(13, 'Outsider to achieve top 4', 'N');
+(13, 'Outsider to achieve top 4', 'N'),
+(14, 'new', 'N');
 
 -- --------------------------------------------------------
 
@@ -588,9 +587,9 @@ CREATE TABLE `specialslog` (
 --
 
 INSERT INTO `specialslog` (`logid`, `specialsId`, `prediction`) VALUES
-(1, 1, '-1'),
-(1, 2, '-1'),
-(1, 3, '-1');
+(2, 4, '-1'),
+(2, 5, '-1'),
+(2, 6, '-1');
 
 -- --------------------------------------------------------
 
@@ -672,7 +671,6 @@ CREATE TABLE `user` (
 
 INSERT INTO `user` (`username`, `name`, `password`, `dob`, `country`, `contactNo`, `email`, `favoriteTeam`) VALUES
 ('admin', 'admin', 'admin', '2018-11-03', 'Singapore', '9876543', 'admin@ole.com', 'admin'),
-('fghj', 'fghj', 'ghjk', '2018-10-03', 'Malaysia', '6789', 'ghn@gmail.com', 'Liverpool'),
 ('Jill', 'Jill Ma', 'jmmj78', '1991-10-08', 'Singapore', '86892781', 'jm89@gmail.com', 'Liverpool'),
 ('Leon', 'Leon Tan', 'lt12', '1989-10-01', 'Singapore', '98762819', 'lt67@gmail.com', 'Arsenal');
 
@@ -773,12 +771,12 @@ ALTER TABLE `user`
 -- AUTO_INCREMENT for table `league`
 --
 ALTER TABLE `league`
-  MODIFY `leagueId` int(100) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `leagueId` int(100) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 --
 -- AUTO_INCREMENT for table `log`
 --
 ALTER TABLE `log`
-  MODIFY `logId` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `logId` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 --
 -- AUTO_INCREMENT for table `matcheslog`
 --
@@ -788,12 +786,12 @@ ALTER TABLE `matcheslog`
 -- AUTO_INCREMENT for table `specials`
 --
 ALTER TABLE `specials`
-  MODIFY `specialsId` int(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+  MODIFY `specialsId` int(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 --
 -- AUTO_INCREMENT for table `specialslog`
 --
 ALTER TABLE `specialslog`
-  MODIFY `logid` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `logid` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 --
 -- Constraints for dumped tables
 --
