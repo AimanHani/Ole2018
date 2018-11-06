@@ -2,7 +2,9 @@ package com.example.ole.oleandroid.controller;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -28,69 +30,47 @@ public class SpecialsPredict extends AppCompatActivity {
     LinearLayout specialsListContainer;
     TextView specialsDisplay;
 
+    TextView specials1;
+    TextView specials2;
+    TextView specials3;
+
+    EditText input1;
+    EditText input2;
+    EditText input3;
+
+    Button confirm;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_specials_predict);
 
-        specialsListContainer = (LinearLayout) findViewById(R.id.specialsListContainer);
-        specialsDisplay = (TextView) findViewById(R.id.specialsDisplay);
+        //specialsListContainer = (LinearLayout) findViewById(R.id.specialsListContainer);
+        //specialsDisplay = (TextView) findViewById(R.id.specialsDisplay);
+
+        specials1 = (TextView) findViewById(R.id.specials1);
+        specials2 = (TextView) findViewById(R.id.specials2);
+        specials3 = (TextView) findViewById(R.id.specials3);
+
+        input1 = (EditText) findViewById(R.id.input1);
+        input2 = (EditText) findViewById(R.id.input2);
+        input3 = (EditText) findViewById(R.id.input3);
+
+        confirm = (Button) findViewById(R.id.confirm);
 
         Bundle b = getIntent().getExtras();
         logId = b.getString("logId");
         System.out.println("logId : " + logId);
-//        String listSpecials = getSpecials(logId);
-//
-//        try {
-//            JSONObject jsonObj = new JSONObject(listSpecials);
-//            JSONArray specialsList = jsonObj.getJSONArray("results");
-//            for (int i = 0; i < specialsList.length(); i++) {
-//                JSONObject specials = specialsList.getJSONObject(i);
-//                String description = specials.getString("description");
-//                System.out.println("line 50: " + description);
-//                //specialsDisplay.append(description);
-////                TextView specialText = new TextView(this);
-////                specialText.setText(description);
-////                specialText.setId(i);
-////                specialsListContainer.addView(specialText);
-//            }
-//
-//        } catch (JSONException e) {
-//            e.printStackTrace();
-//        }
 
-        //JSONObject firstLeague = publicLeague.getJSONObject(0);
-
-//        try {
-//            JSONArray recentMatches = matches.getJSONArray("results");
-//
-//            for (int i = 0; i < recentMatches.length(); i++) {
-//                JSONObject match = recentMatches.getJSONObject(i);
-//                //create text views of multiple matches and join buttons
-//                Button myButton = new Button(this);
-//                myButton.setText("Predict");
-//                matchListContainer.addView(myButton);
-//            }
-//
-//        } catch (JSONException e) {
-//            e.printStackTrace();
-//        }
-
-
-    }
-
-    public String getSpecials(final String logId) {
-        final String[] results = new String[1];
 
         String url = new DBConnection().manageSpecialsUrl();
 
         StringRequest stringRequest = new StringRequest(Request.Method.POST, url,
                 new Response.Listener<String>() {
                     @Override
-                    public void onResponse(String ServerResponse) {
-                        System.out.println("ServerResponse" + ServerResponse);
-                        results[0] = ServerResponse;
-                        return;
+                    public void onResponse(String serverResponse) {
+                        System.out.println("ServerResponse" + serverResponse);
+                        showSpecials(serverResponse);
                     }
                 },
                 new Response.ErrorListener() {
@@ -98,8 +78,7 @@ public class SpecialsPredict extends AppCompatActivity {
                     public void onErrorResponse(VolleyError volleyError) {
                         System.out.println("error  :");
                         //volleyError.printStackTrace();
-                        results[0] = "error";
-                        return;
+                        //results[0] = "error";
                     }
                 }) {
             @Override
@@ -119,7 +98,38 @@ public class SpecialsPredict extends AppCompatActivity {
         RequestQueue requestQueue = Volley.newRequestQueue(getApplicationContext());
         requestQueue.add(stringRequest);
 
-        return results[0];
+        confirm.setOnClickListener((new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+
+            }
+        }));
+
+    }
+
+    public void showSpecials(String serverResponse){
+        try {
+            JSONObject jsonObj = new JSONObject(serverResponse);
+            JSONArray specialsList = jsonObj.getJSONArray("results");
+
+            TextView[] allText = new TextView[]{specials1,specials2,specials3};
+
+            for (int i = 0; i < specialsList.length(); i++) {
+                JSONObject specials = specialsList.getJSONObject(i);
+                String description = specials.getString("description");
+                System.out.println("line 50: " + description);
+                allText[i].setText(description);
+//                specialsDisplay.append(description);
+//                TextView specialText = new TextView(this);
+//                specialText.setText(description);
+//                specialText.setId(i);
+//                specialsListContainer.addView(specialText);
+            }
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
     }
 
     public JSONObject getRecentMatches() {
