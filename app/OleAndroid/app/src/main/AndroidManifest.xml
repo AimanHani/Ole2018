@@ -12,10 +12,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".controller.Home">
-
-        </activity>
-        <activity android:name=".controller.OnBoardingActivity"></activity>
+        <activity android:name=".controller.Home" />
+        <activity android:name=".controller.OnBoardingActivity" />
         <activity android:name=".controller.Login">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -26,7 +24,12 @@
         <activity android:name=".controller.Signup" />
         <activity android:name=".controller.Main" />
         <activity android:name=".controller.PublicLeaguePage" />
-        <activity android:name=".controller.SpecialsPredict"></activity>
+        <activity android:name=".controller.SpecialsPredict" />
+        <activity android:name=".Matches" />
+        <activity
+            android:name=".MatchPrediction"
+            android:label="@string/title_activity_match_prediction"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 
 </manifest>

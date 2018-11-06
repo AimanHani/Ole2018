@@ -1,5 +1,6 @@
 package com.example.ole.oleandroid.controller;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -15,6 +16,7 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.example.ole.oleandroid.Matches;
 import com.example.ole.oleandroid.R;
 import com.example.ole.oleandroid.dbConnection.DBConnection;
 import com.example.ole.oleandroid.model.CountryItem;
@@ -43,8 +45,8 @@ public class SpecialsPredict extends AppCompatActivity {
 
     Button confirm;
 
-    ArrayList<EditText>predictionsList = new ArrayList<>();
-    int count =0;
+    ArrayList<EditText> predictionsList = new ArrayList<>();
+    int count = 0;
 
     private ArrayList<Integer> specialsIds = new ArrayList();
 
@@ -70,7 +72,7 @@ public class SpecialsPredict extends AppCompatActivity {
 
         confirm = (Button) findViewById(R.id.confirm);
 
-        Bundle b = getIntent().getExtras();
+        final Bundle b = getIntent().getExtras();
         logId = b.getString("logId");
         System.out.println("logId : " + logId);
 
@@ -114,77 +116,63 @@ public class SpecialsPredict extends AppCompatActivity {
 
             @Override
             public void onClick(View v) {
-                String url = new DBConnection( ).manageSpecialsUrl();
+                String url = new DBConnection().manageSpecialsUrl();
 
-                for(int i =0; i<specialsIds.size(); i++)
-                {
-
+                for (int i = 0; i < specialsIds.size(); i++) {
 
 
-                StringRequest stringRequest = new StringRequest(Request.Method.POST, url,
-                        new Response.Listener<String>( ) {
-                            @Override
-                            public void onResponse(String ServerResponse) {
-                                System.out.println(ServerResponse);
-                                //results[0] = ServerResponse;
-                                //result.append(ServerResponse);
+                    StringRequest stringRequest = new StringRequest(Request.Method.POST, url,
+                            new Response.Listener<String>() {
+                                @Override
+                                public void onResponse(String ServerResponse) {
+                                    System.out.println(ServerResponse);
+                                    //results[0] = ServerResponse;
+                                    //result.append(ServerResponse);
+                                    Intent intent = new Intent(SpecialsPredict.this, Matches.class);
+                                    intent.putExtras(b);
+                                    startActivity(intent);
+                                }
+                            },
+                            new Response.ErrorListener() {
+                                @Override
+                                public void onErrorResponse(VolleyError volleyError) {
+                                    System.out.println("error  :");
+                                    volleyError.printStackTrace();
+                                    //result.append("error");
+                                    //results[0] = "error";
+                                }
+                            }) {
+                        @Override
+                        protected Map<String, String> getParams() {
+                            Map<String, String> params = new HashMap<String, String>();
+                            try {
+                                params.put("prediction", predictionsList.get(count).getText().toString());
+                                params.put("logId", logId);
+                                params.put("specialsId", specialsIds.get(count).toString());
+                                params.put("method", "post");
+                            } catch (Exception e) {
+
                             }
-                        },
-                        new Response.ErrorListener( ) {
-                            @Override
-                            public void onErrorResponse(VolleyError volleyError) {
-                                System.out.println("error  :");
-                                volleyError.printStackTrace( );
-                                //result.append("error");
-                                //results[0] = "error";
-                            }
-                        }) {
-                    @Override
-                    protected Map<String, String> getParams() {
-                        Map<String, String> params = new HashMap<String, String>( );
-                        try {
-
-
-                            // Creating Map String Params.
-
-
-                            // Adding All values to Params.
-                            // The firs argument should be same sa your MySQL database table columns.
-                            params.put("prediction", predictionsList.get(count).getText().toString( ));
-                            params.put("logId",logId);
-                            params.put("specialsId", specialsIds.get(count).toString());
-                            params.put("method","post");
-
-
-
-                        } catch (Exception e) {
-
+                            count++;
+                            return params;
                         }
-                        count++;
-                        return params;
-                    }
 
-                };
+                    };
 
-                // Creating RequestQueue.
-                RequestQueue requestQueue = Volley.newRequestQueue(getApplicationContext( ));
-
-// Adding the StringRequest object into requestQueue.
-                requestQueue.add(stringRequest);
-
-
-            }
+                    RequestQueue requestQueue = Volley.newRequestQueue(getApplicationContext());
+                    requestQueue.add(stringRequest);
+                }
             }
         }));
 
     }
 
-    public void showSpecials(String serverResponse){
+    public void showSpecials(String serverResponse) {
         try {
             JSONObject jsonObj = new JSONObject(serverResponse);
             JSONArray specialsList = jsonObj.getJSONArray("results");
 
-            TextView[] allText = new TextView[]{specials1,specials2,specials3};
+            TextView[] allText = new TextView[]{specials1, specials2, specials3};
 
             for (int i = 0; i < specialsList.length(); i++) {
                 JSONObject specials = specialsList.getJSONObject(i);
@@ -203,33 +191,6 @@ public class SpecialsPredict extends AppCompatActivity {
         } catch (JSONException e) {
             e.printStackTrace();
         }
-    }
-
-    public JSONObject getRecentMatches() {
-        final JSONObject[] results = new JSONObject[1];
-
-        RequestQueue queue = Volley.newRequestQueue(this);
-
-        final String url = new DBConnection().getPublicLeagueUrl();
-
-        JsonObjectRequest getRequest = new JsonObjectRequest(Request.Method.GET, url, null,
-                new Response.Listener<JSONObject>() {
-                    @Override
-                    public void onResponse(JSONObject response) {
-                        // display response
-                        //listPublicLeague.append(response.toString());
-                        results[0] = response;
-                    }
-                },
-                new Response.ErrorListener() {
-                    @Override
-                    public void onErrorResponse(VolleyError error) {
-                    }
-                }
-        );
-
-        queue.add(getRequest);
-        return results[0];
     }
 
 }
