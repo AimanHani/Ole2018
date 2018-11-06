@@ -33,4 +33,9 @@ public class DBConnection {
         String url = mainUrl+"/joinPublicLeague.php";
         return url;
     }
+
+    public String manageSpecialsUrl(){
+        String url = mainUrl+"/manageSpecials.php";
+        return url;
+    }
 }

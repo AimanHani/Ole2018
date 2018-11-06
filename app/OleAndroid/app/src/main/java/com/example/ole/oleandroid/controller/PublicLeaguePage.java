@@ -31,8 +31,9 @@ public class PublicLeaguePage extends AppCompatActivity {
     PublicLeague publicLeague;
     Button joinPublicLeague;
     String userName;
-    String results;
+    String results = "";
     int leagueID;
+    RequestQueue queue;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,9 +45,9 @@ public class PublicLeaguePage extends AppCompatActivity {
         listPublicLeague = (TextView) findViewById(R.id.listPublicLeague);
         joinPublicLeague = (Button) findViewById(R.id.join_btn);
 
-        RequestQueue queue = Volley.newRequestQueue(this);
+        queue = Volley.newRequestQueue(this);
 
-        final String url = new DBConnection().getPublicLeagueUrl();
+        String url = new DBConnection().getPublicLeagueUrl();
 
 // prepare the Request
         JsonObjectRequest getRequest = new JsonObjectRequest(Request.Method.GET, url, null,
@@ -102,60 +103,65 @@ public class PublicLeaguePage extends AppCompatActivity {
         joinPublicLeague.setOnClickListener((new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        String result = publicLeagueInsertUser(userName, leagueID);
+                        final String[] result = new String[0];
+                        //RequestQueue requestQueue = Volley.newRequestQueue(getApplicationContext());
 
-                        if (!result.equals("error")) {
-                            Intent intent = new Intent(PublicLeaguePage.this, SpecialsPredict.class);
-                            Bundle b = getIntent().getExtras();
-                            b.putString("logId", result);
-                            intent.putExtras(b);
-                            startActivity(intent);
-                        }
+                        //String result = publicLeagueInsertUser(userName, leagueID, queue);
+
+                        String url = new DBConnection().insertUserPublicLeagueUrl();
+
+
+                        // Creating string request with post method.
+                        StringRequest stringRequest = new StringRequest(Request.Method.POST, url,
+                                new Response.Listener<String>() {
+                                    @Override
+                                    public void onResponse(String ServerResponse) {
+                                        System.out.println("ServerResponse " + ServerResponse);
+                                        if (!ServerResponse.equals("error")) {
+                                            //result[0] = ServerResponse;
+                                            Intent intent = new Intent(PublicLeaguePage.this, SpecialsPredict.class);
+                                            //Bundle b = getIntent().getExtras();
+                                            b.putString("logId", ServerResponse);
+                                            System.out.println(b.getString("logId")+ " " + b.getString("userID"));
+                                            intent.putExtras(b);
+                                            startActivity(intent);
+                                        }
+                                    }
+                                },
+                                new Response.ErrorListener() {
+                                    @Override
+                                    public void onErrorResponse(VolleyError volleyError) {
+                                        System.out.println("error  :");
+                                        //volleyError.printStackTrace();
+                                        result[0] = "error";
+                                    }
+                                }) {
+                            @Override
+                            protected Map<String, String> getParams() {
+                                Map<String, String> params = new HashMap<String, String>();
+                                try {
+                                    params.put("username", userName);
+                                    params.put("leagueId", leagueID + "");
+
+                                } catch (Exception e) {
+
+                                }
+                                return params;
+                            }
+
+                        };
+                        queue.add(stringRequest);
+
+
+
 
                     }
                 })
         );
     }
 
-    private String publicLeagueInsertUser(final String username, final int leagueId) {
-        String url = new DBConnection().insertUserPublicLeagueUrl();
+    public String publicLeagueInsertUser(final String username, final int leagueId, final RequestQueue queueReq) {
 
-
-        // Creating string request with post method.
-        StringRequest stringRequest = new StringRequest(Request.Method.POST, url,
-                new Response.Listener<String>() {
-                    @Override
-                    public void onResponse(String ServerResponse) {
-                        if (ServerResponse.equals("successful")) {
-                            results = ServerResponse;
-                        }
-                    }
-                },
-                new Response.ErrorListener() {
-                    @Override
-                    public void onErrorResponse(VolleyError volleyError) {
-                        System.out.println("error  :");
-                        //volleyError.printStackTrace();
-                        results = "error";
-                    }
-                }) {
-            @Override
-            protected Map<String, String> getParams() {
-                Map<String, String> params = new HashMap<String, String>();
-                try {
-                    params.put("username", username);
-                    params.put("leagueId", leagueId + "");
-
-                } catch (Exception e) {
-
-                }
-                return params;
-            }
-
-        };
-
-        RequestQueue requestQueue = Volley.newRequestQueue(getApplicationContext());
-        requestQueue.add(stringRequest);
 
         return results;
     }

@@ -2,12 +2,11 @@
 if ($_SERVER["REQUEST_METHOD"] == "POST"){
     require 'connection.php';
     $insertLog = insertToLog();
-    
+    //echo $insertLog;
     if ($insertLog == "successful"){
         $logId = selectLog();
-        insertToMatchLog($logId);
         insertSpecialsLog($logId);
-        echo "successful";
+        echo $logId;
     } else {
         echo "error";
     }
@@ -19,7 +18,7 @@ function insertToLog(){
     $username = $_POST["username"];
     $leagueId = $_POST["leagueId"];
     
-    $query = "INSERT INTO log (username, leagueId) VALUES ('$username', '$leagueId')";
+    $query = "INSERT INTO log (username, leagueId, points) VALUES ('$username', '$leagueId', 0)";
  
 
     if (mysqli_query($connect, $query)) {
@@ -69,7 +68,7 @@ function insertToMatchLog($logId){
 function insertSpecialsLog($logId){
     
     global $connect;
-    $query = "SELECT specialsId from specialslog where logid = 1";
+    $query = "SELECT specialsId from specialslog where prediction = -1";
     
     $result = mysqli_query($connect, $query);
     $number_of_rows = mysqli_num_rows($result);
