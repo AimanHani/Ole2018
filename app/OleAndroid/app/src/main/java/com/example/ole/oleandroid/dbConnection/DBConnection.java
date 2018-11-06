@@ -2,11 +2,11 @@ package com.example.ole.oleandroid.dbConnection;
 
 public class DBConnection {
 
-    private String mainUrl = "http://192.168.39.1:3306/ole"; //may vary depends on wifi connection
+    private String mainUrl = "http://10.124.133.134/ole"; //may vary depends on wifi connection
     // Hazirah ip: 192.168.39.1:3306
     //String insertUrl = mainUrl + "/tutorial/insertStudent.php";
     //String showUrl = mainUrl + "/tutorial/showStudents.php";
-
+    //taiwan number ip: 10.124.133.134
 
     public DBConnection() {
     }
@@ -38,4 +38,5 @@ public class DBConnection {
         String url = mainUrl+"/manageSpecials.php";
         return url;
     }
+    
 }

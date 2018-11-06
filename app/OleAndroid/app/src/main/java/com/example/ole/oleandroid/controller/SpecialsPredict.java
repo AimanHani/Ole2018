@@ -17,11 +17,14 @@ import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.ole.oleandroid.R;
 import com.example.ole.oleandroid.dbConnection.DBConnection;
+import com.example.ole.oleandroid.model.CountryItem;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.lang.reflect.Array;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -40,6 +43,11 @@ public class SpecialsPredict extends AppCompatActivity {
 
     Button confirm;
 
+    ArrayList<EditText>predictionsList = new ArrayList<>();
+    int count =0;
+
+    private ArrayList<Integer> specialsIds = new ArrayList();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -55,6 +63,10 @@ public class SpecialsPredict extends AppCompatActivity {
         input1 = (EditText) findViewById(R.id.input1);
         input2 = (EditText) findViewById(R.id.input2);
         input3 = (EditText) findViewById(R.id.input3);
+        predictionsList.add(input1);
+        predictionsList.add(input2);
+        predictionsList.add(input3);
+
 
         confirm = (Button) findViewById(R.id.confirm);
 
@@ -99,10 +111,69 @@ public class SpecialsPredict extends AppCompatActivity {
         requestQueue.add(stringRequest);
 
         confirm.setOnClickListener((new View.OnClickListener() {
+
             @Override
             public void onClick(View v) {
+                String url = new DBConnection( ).manageSpecialsUrl();
+
+                for(int i =0; i<specialsIds.size(); i++)
+                {
 
 
+
+                StringRequest stringRequest = new StringRequest(Request.Method.POST, url,
+                        new Response.Listener<String>( ) {
+                            @Override
+                            public void onResponse(String ServerResponse) {
+                                System.out.println(ServerResponse);
+                                //results[0] = ServerResponse;
+                                //result.append(ServerResponse);
+                            }
+                        },
+                        new Response.ErrorListener( ) {
+                            @Override
+                            public void onErrorResponse(VolleyError volleyError) {
+                                System.out.println("error  :");
+                                volleyError.printStackTrace( );
+                                //result.append("error");
+                                //results[0] = "error";
+                            }
+                        }) {
+                    @Override
+                    protected Map<String, String> getParams() {
+                        Map<String, String> params = new HashMap<String, String>( );
+                        try {
+
+
+                            // Creating Map String Params.
+
+
+                            // Adding All values to Params.
+                            // The firs argument should be same sa your MySQL database table columns.
+                            params.put("prediction", predictionsList.get(count).getText().toString( ));
+                            params.put("logId",logId);
+                            params.put("specialsId", specialsIds.get(count).toString());
+                            params.put("method","post");
+
+
+
+                        } catch (Exception e) {
+
+                        }
+                        count++;
+                        return params;
+                    }
+
+                };
+
+                // Creating RequestQueue.
+                RequestQueue requestQueue = Volley.newRequestQueue(getApplicationContext( ));
+
+// Adding the StringRequest object into requestQueue.
+                requestQueue.add(stringRequest);
+
+
+            }
             }
         }));
 
@@ -118,6 +189,8 @@ public class SpecialsPredict extends AppCompatActivity {
             for (int i = 0; i < specialsList.length(); i++) {
                 JSONObject specials = specialsList.getJSONObject(i);
                 String description = specials.getString("description");
+                int specialsID = specials.getInt("specialsId");
+                specialsIds.add(specialsID);
                 System.out.println("line 50: " + description);
                 allText[i].setText(description);
 //                specialsDisplay.append(description);
@@ -158,4 +231,5 @@ public class SpecialsPredict extends AppCompatActivity {
         queue.add(getRequest);
         return results[0];
     }
+
 }
