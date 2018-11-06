@@ -2,11 +2,12 @@
 if ($_SERVER["REQUEST_METHOD"] == "POST"){
     require 'connection.php';
     
+    
     $method = $_POST["method"];
     if ($method == "get"){
         getSpecials();
     } else {
-        insertSpecialsPrediction();
+        updateSpecialsPrediction();
     }
     
 }
@@ -35,6 +36,19 @@ function getSpecials(){
 }
 
 
-function insertSpecialsPrediction(){
+function updateSpecialsPrediction(){
+    global $connect;
+     $logId = $_POST["logId"];
+     $specialsId = $_POST["specialsId"];
+     $prediction = $_POST["prediction"];
+    
+    $query = "update specialslog set prediction = '$prediction' where logid = '$logId' and specialsid = '$specialsId'";
+    if (mysqli_query($connect, $query)) {
+    echo "New record created successfully";
+} else {
+    echo "Error: " . $query . "<br>" . mysqli_error($connect);
+}
+
+mysqli_close($connect);
     
 }
