@@ -17,6 +17,7 @@
     <string name="ob_desc2">Any accurate prediction from match score, winning team and more earns you Ole Points! Start prediction now!</string>
     <string name="ob_desc3">Compete with the rest of the Ole Fans and be the best predictor with the most Ole Points! See you at the top of the leaderboard!</string>
     <string name="title_activity_match_prediction">MatchPrediction</string>
+    <string name="team_1_prediction">Team 1 Prediction</string>
 
     <!-- LoadingPage Screen -->
     <string name="publicLeague">Public League</string>

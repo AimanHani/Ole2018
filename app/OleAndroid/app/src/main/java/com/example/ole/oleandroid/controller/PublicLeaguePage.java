@@ -56,8 +56,6 @@ public class PublicLeaguePage extends AppCompatActivity {
                     public void onResponse(JSONObject response) {
                         // display response
                         //listPublicLeague.append(response.toString());
-
-
                         try {
 
                             JSONArray publicLeague = response.getJSONArray("results");
@@ -74,11 +72,11 @@ public class PublicLeaguePage extends AppCompatActivity {
                             JSONObject participantsOne = participants.getJSONObject(0);
                             int numberOfParticipants = participantsOne.getInt("num_participants");
 
-                            listPublicLeague.append("League " + leagueName);
-                            listPublicLeague.append("League ID: " + leagueID);
-                            listPublicLeague.append("Tournament ID: " + tournamentID);
-                            listPublicLeague.append("Point Allocated " + pointsAllocated);
-                            listPublicLeague.append("Final Prize: " + prize);
+                            listPublicLeague.setText("League " + leagueName+ System.getProperty ("line.separator"));
+                            listPublicLeague.append("League ID: " + leagueID+ System.getProperty ("line.separator"));
+                            listPublicLeague.append("Tournament ID: " + tournamentID+ System.getProperty ("line.separator"));
+                            listPublicLeague.append("Point Allocated " + pointsAllocated+ System.getProperty ("line.separator"));
+                            listPublicLeague.append("Final Prize: " + prize+ System.getProperty ("line.separator"));
                             listPublicLeague.append("Number of Participants:" + numberOfParticipants);
 
 
@@ -160,11 +158,6 @@ public class PublicLeaguePage extends AppCompatActivity {
         );
     }
 
-    public String publicLeagueInsertUser(final String username, final int leagueId, final RequestQueue queueReq) {
-
-
-        return results;
-    }
 
 
 }
