@@ -12,17 +12,23 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".controller.Home" />
-        <activity android:name=".controller.OnBoardingActivity" />
-        <activity android:name=".controller.Login">
+        <activity android:name=".controller.LoadingPage">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".controller.OnBoardingActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity android:name=".controller.Login" />
         <activity android:name=".controller.Signup" />
-        <activity android:name=".controller.Main" />
+        <activity android:name=".controller.Home" />
         <activity android:name=".controller.PublicLeaguePage" />
         <activity android:name=".controller.SpecialsPredict" />
         <activity android:name=".Matches" />

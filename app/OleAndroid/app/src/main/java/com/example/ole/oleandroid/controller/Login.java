@@ -40,7 +40,7 @@ public class Login extends AppCompatActivity {
         signup = (Button) findViewById(R.id.signup);
         result = (TextView) findViewById(R.id.result);
 
-        //setContentView(R.layout.activity_home);
+        //setContentView(R.layout.activity_loading_page);
 
 
 
@@ -64,7 +64,7 @@ public class Login extends AppCompatActivity {
                                 //results[0] = ServerResponse;
                                 result.append(ServerResponse);
 
-                                Intent intent = new Intent(Login.this, Main.class);
+                                Intent intent = new Intent(Login.this, Home.class);
                                 Bundle bundle = new Bundle();
 
 //Add your data to bundle
