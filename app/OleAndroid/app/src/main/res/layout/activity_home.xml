@@ -8,8 +8,8 @@
 
     <Button
         android:id="@+id/publicLeague"
-        android:layout_width="385dp"
-        android:layout_height="253dp"
+        android:layout_width="411dp"
+        android:layout_height="287dp"
         android:adjustViewBounds="true"
         android:background="@drawable/public_league_temp_picture"
         android:text="@string/publicLeague"
@@ -22,13 +22,14 @@
 
     <Button
         android:id="@+id/privateLeague"
-        android:layout_width="392dp"
-        android:layout_height="250dp"
+        android:layout_width="404dp"
+        android:layout_height="308dp"
         android:adjustViewBounds="true"
         android:background="@drawable/private_league_temp_picture"
         android:text="@string/privateLeague"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.428"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="1.0" />
