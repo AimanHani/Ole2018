@@ -46,7 +46,11 @@ public class Login extends AppCompatActivity {
         signin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+//                Intent intent = new Intent(Login.this, Home.class);
+//                Bundle bundle = new Bundle();
+//                                    bundle.putString("userID", "bob");
+//                                    intent.putExtras(bundle);
+//                                    startActivity(intent);
                 if (username.getText().toString().equals("")) {
                     Intent intent = new Intent(Login.this, Login.class);
                     startActivity(intent);
@@ -74,21 +78,21 @@ public class Login extends AppCompatActivity {
                             },
                             new Response.ErrorListener() {
                                 @Override
-                                public void onErrorResponse(VolleyError volleyError) {
-                                    System.out.println("error  :");
-                                    volleyError.printStackTrace();
-                                    result.append("error");
-                                    //results[0] = "error";
-                                }
-                            }) {
-                        @Override
-                        protected Map<String, String> getParams() {
+                            public void onErrorResponse(VolleyError volleyError) {
+                                System.out.println("error  :");
+                                volleyError.printStackTrace();
+                                result.append("error");
+                                //results[0] = "error";
+                            }
+                        }) {
+                            @Override
+                            protected Map<String, String> getParams() {
 
-                            // Creating Map String Params.
-                            Map<String, String> params = new HashMap<String, String>();
+                                // Creating Map String Params.
+                                Map<String, String> params = new HashMap<String, String>();
 
-                            // Adding All values to Params.
-                            // The firs argument should be same sa your MySQL database table columns.
+                                // Adding All values to Params.
+                                // The firs argument should be same sa your MySQL database table columns.
                             params.put("username", username.getText().toString());
 
                             return params;
@@ -115,7 +119,7 @@ public class Login extends AppCompatActivity {
 
     }
 
-    //        signup.setOnClickListener(new View.OnClickListener() {
+//            signup.setOnClickListener(new View.OnClickListener() {
 //
 //            @Override
 //            public void onClick(View view) {

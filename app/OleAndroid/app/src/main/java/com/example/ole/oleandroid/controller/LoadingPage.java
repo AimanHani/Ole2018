@@ -21,14 +21,14 @@ public class LoadingPage extends AppCompatActivity {
                     sleep(5*1000);
 
                     // After 5 seconds redirect to another intent
-                    if (isFirstTime()) {
+                    //if (isFirstTime()) {
                         // What you do when the Application is Opened First time Goes here
                         Intent i=new Intent(getBaseContext(),OnBoardingActivity.class);
                         startActivity(i);
-                    }else{
-                        Intent j = new Intent(getBaseContext(),Login.class );
-                        startActivity(j);
-                    }
+                    //}else{
+                    //    Intent j = new Intent(getBaseContext(),Login.class );
+                    //    startActivity(j);
+                    //}
 
 
                     //Remove activity
