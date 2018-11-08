@@ -75,7 +75,7 @@ function insertMatchesLog(){
         echo "successful";
     } else {
         //echo "Error: " . $query . "<br>" . mysqli_error($connect);
-        updateMatchesLog();s
+        updateMatchesLog();
     }
 
     mysqli_close($connect);

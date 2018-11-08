@@ -2,6 +2,7 @@ package com.example.ole.oleandroid.controller;
 
 
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.graphics.Color;
 import android.nfc.Tag;
 import android.os.Bundle;
@@ -14,6 +15,7 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
+
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
@@ -28,6 +30,7 @@ import com.example.ole.oleandroid.model.TeamItems;
 import java.io.UnsupportedEncodingException;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+
 import android.app.ProgressDialog;
 import android.os.Bundle;
 
@@ -47,7 +50,7 @@ public class Signup extends AppCompatActivity {
     EditText username, name, password, birthdate, email, contactNo;
     Button signupBtn;
     Spinner spinnerTeams, spinnerCountries;
-    TextView result;
+//    TextView result;
     String clickedTeamName;
     String clickedCountryName;
     RequestQueue requestQueue;
@@ -57,7 +60,7 @@ public class Signup extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_signup);
 
-        initList( );
+        initList();
 
         Spinner spinnerCountries = findViewById(R.id.countries);
         Spinner spinnerTeams = findViewById(R.id.favouriteTeam);
@@ -68,7 +71,7 @@ public class Signup extends AppCompatActivity {
         email = findViewById(R.id.email);
         contactNo = findViewById(R.id.contactNo);
         signupBtn = findViewById(R.id.signupBtn);
-        result = findViewById(R.id.result);
+        //result = findViewById(R.id.result);
 
 
         mAdapter = new CountryAdapter(this, mCountryList);
@@ -78,12 +81,12 @@ public class Signup extends AppCompatActivity {
         spinnerTeams.setAdapter(mAdapter2);
 
 
-        spinnerCountries.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener( ) {
+        spinnerCountries.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 CountryItem clickedItem = (CountryItem) parent.getItemAtPosition(position);
-                clickedCountryName = clickedItem.getmCountryName( );
-                Toast.makeText(Signup.this, clickedCountryName + " selected", Toast.LENGTH_SHORT).show( );
+                clickedCountryName = clickedItem.getmCountryName();
+                Toast.makeText(Signup.this, clickedCountryName + " selected", Toast.LENGTH_SHORT).show();
             }
 
             @Override
@@ -91,12 +94,12 @@ public class Signup extends AppCompatActivity {
 
             }
         });
-        spinnerTeams.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener( ) {
+        spinnerTeams.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 TeamItems clickedItem = (TeamItems) parent.getItemAtPosition(position);
-                clickedTeamName = clickedItem.getmTeamName( );
-                Toast.makeText(Signup.this, clickedTeamName + " selected", Toast.LENGTH_SHORT).show( );
+                clickedTeamName = clickedItem.getmTeamName();
+                Toast.makeText(Signup.this, clickedTeamName + " selected", Toast.LENGTH_SHORT).show();
 
             }
 
@@ -106,55 +109,50 @@ public class Signup extends AppCompatActivity {
             }
 
         });
-        signupBtn.setOnClickListener(new View.OnClickListener( ) {
+        signupBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                signup( );
-                result.setText("");
-                System.out.println("here2");
+                signup();
+                //result.setText("");
+                System.out.println("signup");
 //                String results = LoginDAO.validate(username.getText().toString(), password.getText().toString());
 //                result.append(results);
 
-                String url = new DBConnection( ).getSignupUrl( );
+                String url = new DBConnection().getSignupUrl();
                 //final String[] results = new String[1];
 
                 // Creating string request with post method.
                 StringRequest stringRequest = new StringRequest(Request.Method.POST, url,
-                        new Response.Listener<String>( ) {
+                        new Response.Listener<String>() {
                             @Override
                             public void onResponse(String ServerResponse) {
                                 System.out.println(ServerResponse);
                                 //results[0] = ServerResponse;
-                                result.append(ServerResponse);
+                                //result.append(ServerResponse);
+                                Intent intent = new Intent(Signup.this, Login.class);
+                                startActivity(intent);
                             }
                         },
-                        new Response.ErrorListener( ) {
+                        new Response.ErrorListener() {
                             @Override
                             public void onErrorResponse(VolleyError volleyError) {
                                 System.out.println("error  :");
-                                volleyError.printStackTrace( );
-                                result.append("error");
+                                volleyError.printStackTrace();
+                                //result.append("error");
                                 //results[0] = "error";
                             }
                         }) {
                     @Override
                     protected Map<String, String> getParams() {
-                        Map<String, String> params = new HashMap<String, String>( );
+                        Map<String, String> params = new HashMap<String, String>();
                         try {
-
-
-                            // Creating Map String Params.
-
-
-                            // Adding All values to Params.
-                            // The firs argument should be same sa your MySQL database table columns.
-                            params.put("username", username.getText( ).toString( ));
-                            params.put("name", name.getText( ).toString( ));
-                            params.put("password", SHA1(password.getText( ).toString( )));
-                            params.put("dob", birthdate.getText( ).toString( ));
+                            params.put("username", username.getText().toString());
+                            params.put("name", name.getText().toString());
+                            params.put("password", SHA1(password.getText().toString()));
+                            params.put("dob", birthdate.getText().toString());
                             params.put("country", clickedCountryName);
-                            params.put("contactNo", contactNo.getText( ).toString( ));
-                            params.put("email", email.getText( ).toString( ));
+                            params.put("contactNo", contactNo.getText().toString());
+                            params.put("email", email.getText().toString());
                             params.put("favoriteTeam", clickedTeamName);
 
 
@@ -167,9 +165,9 @@ public class Signup extends AppCompatActivity {
                 };
 
                 // Creating RequestQueue.
-                RequestQueue requestQueue = Volley.newRequestQueue(getApplicationContext( ));
+                RequestQueue requestQueue = Volley.newRequestQueue(getApplicationContext());
 
-// Adding the StringRequest object into requestQueue.
+                // Adding the StringRequest object into requestQueue.
                 requestQueue.add(stringRequest);
 
 
@@ -181,8 +179,8 @@ public class Signup extends AppCompatActivity {
     public void signup() {
         Log.d(TAG, "Signup");
 
-        if (!validate( )) {
-            onSignupFailed( );
+        if (!validate()) {
+            onSignupFailed();
             return;
         }
 
@@ -192,28 +190,28 @@ public class Signup extends AppCompatActivity {
                 R.style.AppTheme);
         progressDialog.setIndeterminate(true);
         progressDialog.setMessage("Creating Account...");
-        progressDialog.show( );
+        progressDialog.show();
 
-        String validateuserName = username.getText( ).toString( );
-        String validateName = name.getText( ).toString( );
-        String validateEmail = email.getText( ).toString( );
-        String validatePassword = password.getText( ).toString( );
-        String validateBirthdate = birthdate.getText( ).toString( );
-        String validatePhoneNo = contactNo.getText( ).toString( );
+        String validateuserName = username.getText().toString();
+        String validateName = name.getText().toString();
+        String validateEmail = email.getText().toString();
+        String validatePassword = password.getText().toString();
+        String validateBirthdate = birthdate.getText().toString();
+        String validatePhoneNo = contactNo.getText().toString();
         String validateTeam = clickedTeamName;
         String validateCountries = clickedCountryName;
 
 
         // TODO: Implement your own signup logic here.
 
-        new android.os.Handler( ).postDelayed(
-                new Runnable( ) {
+        new android.os.Handler().postDelayed(
+                new Runnable() {
                     public void run() {
                         // On complete call either onSignupSuccess or onSignupFailed
                         // depending on success
-                        onSignupSuccess( );
+                        onSignupSuccess();
                         // onSignupFailed();
-                        progressDialog.dismiss( );
+                        progressDialog.dismiss();
                     }
                 }, 3000);
     }
@@ -222,11 +220,11 @@ public class Signup extends AppCompatActivity {
     public void onSignupSuccess() {
         signupBtn.setEnabled(true);
         setResult(RESULT_OK, null);
-        finish( );
+        finish();
     }
 
     public void onSignupFailed() {
-        Toast.makeText(getBaseContext( ), "Signup failed", Toast.LENGTH_LONG).show( );
+        Toast.makeText(getBaseContext(), "Signup failed", Toast.LENGTH_LONG).show();
 
         signupBtn.setEnabled(true);
     }
@@ -234,30 +232,30 @@ public class Signup extends AppCompatActivity {
     public boolean validate() {
         boolean valid = true;
 
-        String validateuserName = username.getText( ).toString( );
-        String validateName = name.getText( ).toString( );
-        String validateEmail = email.getText( ).toString( );
-        String validatePassword = password.getText( ).toString( );
-        String validateBirthdate = birthdate.getText( ).toString( );
-        String validatePhoneNo = contactNo.getText( ).toString( );
+        String validateuserName = username.getText().toString();
+        String validateName = name.getText().toString();
+        String validateEmail = email.getText().toString();
+        String validatePassword = password.getText().toString();
+        String validateBirthdate = birthdate.getText().toString();
+        String validatePhoneNo = contactNo.getText().toString();
         String validateTeam = clickedTeamName;
         String validateCountries = clickedCountryName;
 
-        if (validateuserName.isEmpty( ) || name.length( ) < 3) {
+        if (validateuserName.isEmpty() || name.length() < 3) {
             username.setError("at least 3 characters");
             valid = false;
         } else {
             username.setError(null);
         }
 
-        if (validateEmail.isEmpty( ) || !android.util.Patterns.EMAIL_ADDRESS.matcher(validateEmail).matches( )) {
+        if (validateEmail.isEmpty() || !android.util.Patterns.EMAIL_ADDRESS.matcher(validateEmail).matches()) {
             email.setError("enter a valid email address");
             valid = false;
         } else {
             email.setError(null);
         }
 
-        if (validatePassword.isEmpty( ) || validatePassword.length( ) < 4 || validatePassword.length( ) > 10) {
+        if (validatePassword.isEmpty() || validatePassword.length() < 4 || validatePassword.length() > 10) {
             password.setError("between 4 and 10 alphanumeric characters");
             valid = false;
         } else {
@@ -266,16 +264,13 @@ public class Signup extends AppCompatActivity {
         if (validateCountries.equals(null)) {
             setSpinnerError(spinnerCountries, "Please select your country");
             valid = false;
-        } else {
-
         }
+
         if (validateTeam.equals(null)) {
             setSpinnerError(spinnerTeams, "Please select a favourite team");
             valid = false;
-        } else {
-
         }
-        if (validateBirthdate.isEmpty( ) || !isDateValid(validateBirthdate)) {
+        if (validateBirthdate.isEmpty() || !isDateValid(validateBirthdate)) {
             birthdate.setError("Please enter the date as yy-MM-dd format");
         }
 
@@ -283,12 +278,12 @@ public class Signup extends AppCompatActivity {
     }
 
     private void initList() {
-        mCountryList = new ArrayList<>( );
+        mCountryList = new ArrayList<>();
         mCountryList.add(new CountryItem("Singapore", R.drawable.singapore));
         mCountryList.add(new CountryItem("Malaysia", R.drawable.malaysia));
 
 
-        mTeamList = new ArrayList<>( );
+        mTeamList = new ArrayList<>();
         mTeamList.add(new TeamItems("Arsenal", R.drawable.arsenal));
         mTeamList.add(new TeamItems("AFC Bournemouth ", R.drawable.afc_bournemouth));
         mTeamList.add(new TeamItems("Brighton and Hove Albion", R.drawable.brighton));
@@ -314,20 +309,20 @@ public class Signup extends AppCompatActivity {
     }
 
     private void setSpinnerError(Spinner spinner, String error) {
-        View selectedView = spinner.getSelectedView( );
+        View selectedView = spinner.getSelectedView();
         if (selectedView != null && selectedView instanceof TextView) {
-            spinner.requestFocus( );
+            spinner.requestFocus();
             TextView selectedTextView = (TextView) selectedView;
             selectedTextView.setError("error"); // any name of the error will do
             selectedTextView.setTextColor(Color.RED); //text color in which you want your error message to be displayed
             selectedTextView.setText(error); // actual error message
-            spinner.performClick( ); // to open the spinner list if error is found.
+            spinner.performClick(); // to open the spinner list if error is found.
 
         }
     }
 
     private static String convertToHex(byte[] data) {
-        StringBuffer buf = new StringBuffer( );
+        StringBuffer buf = new StringBuffer();
         for (int i = 0; i < data.length; i++) {
             int halfbyte = (data[i] >>> 4) & 0x0F;
             int two_halfs = 0;
@@ -339,7 +334,7 @@ public class Signup extends AppCompatActivity {
                 halfbyte = data[i] & 0x0F;
             } while (two_halfs++ < 1);
         }
-        return buf.toString( );
+        return buf.toString();
     }
 
     public static String SHA1(String text)
@@ -347,8 +342,8 @@ public class Signup extends AppCompatActivity {
         MessageDigest md;
         md = MessageDigest.getInstance("SHA-1");
         byte[] sha1hash = new byte[40];
-        md.update(text.getBytes("iso-8859-1"), 0, text.length( ));
-        sha1hash = md.digest( );
+        md.update(text.getBytes("iso-8859-1"), 0, text.length());
+        sha1hash = md.digest();
         return convertToHex(sha1hash);
     }
 

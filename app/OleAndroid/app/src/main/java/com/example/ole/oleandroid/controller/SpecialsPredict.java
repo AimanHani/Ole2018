@@ -65,7 +65,6 @@ public class SpecialsPredict extends AppCompatActivity {
         predictionsList.add(input2);
         predictionsList.add(input3);
 
-
         confirm = (Button) findViewById(R.id.confirm);
 
         final Bundle b = getIntent().getExtras();
@@ -177,6 +176,7 @@ public class SpecialsPredict extends AppCompatActivity {
                 specialsIds.add(specialsID);
                 System.out.println("line 50: " + description);
                 allText[i].setText(description);
+                predictionsList.get(i).setHint(description);
 //                specialsDisplay.append(description);
 //                TextView specialText = new TextView(this);
 //                specialText.setText(description);

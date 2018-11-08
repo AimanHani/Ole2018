@@ -6,19 +6,59 @@
     android:layout_height="match_parent"
     tools:context=".controller.Home">
 
-    <Button
-        android:id="@+id/publicLeague"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="138dp"
-        android:layout_marginLeft="138dp"
-        android:layout_marginTop="202dp"
-        android:layout_marginEnd="154dp"
-        android:layout_marginRight="154dp"
-        android:layout_marginBottom="261dp"
-        android:text="ViewPublicLeague"
-        app:layout_constraintBottom_toBottomOf="parent"
+    <ImageView
+        android:id="@+id/profileImage"
+        android:layout_width="198dp"
+        android:layout_height="193dp"
+        android:layout_marginStart="85dp"
+        android:layout_marginLeft="85dp"
+        android:layout_marginBottom="2dp"
+        app:layout_constraintBottom_toTopOf="@+id/publicLeagueImage"
+        app:layout_constraintEnd_toStartOf="@+id/profile"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0"
+        app:srcCompat="@drawable/user" />
+
+    <TextView
+        android:id="@+id/profile"
+        android:layout_width="382dp"
+        android:layout_height="192dp"
+        android:gravity="center"
+        android:text="Profile"
+        android:textSize="30sp" />
+
+    <ImageView
+        android:id="@+id/publicLeagueImage"
+        android:layout_width="555dp"
+        android:layout_height="232dp"
+        android:layout_marginTop="430dp"
+        android:layout_marginBottom="23dp"
+        app:layout_constraintBottom_toTopOf="@+id/publicLeague"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/public_league_temp_picture" />
+
+    <TextView
+        android:id="@+id/publicLeague"
+        android:layout_width="382dp"
+        android:layout_height="228dp"
+        android:layout_marginStart="450dp"
+        android:layout_marginLeft="450dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="136dp"
+        android:gravity="center"
+        android:text="Public League"
+        android:textColor="@color/white"
+        android:textSize="30sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/publicLeagueImage"
+        app:layout_constraintHorizontal_bias="0.49"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/profileImage" />
+
+
 </android.support.constraint.ConstraintLayout>
+

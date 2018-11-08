@@ -45,11 +45,15 @@ public class PublicLeaguePage extends AppCompatActivity {
         listPublicLeague = (TextView) findViewById(R.id.listPublicLeague);
         joinPublicLeague = (Button) findViewById(R.id.join_btn);
 
+        System.out.println(b.get("leagueId"));
+
+        if (b.get("leagueId") != null) {
+            joinPublicLeague.setEnabled(false);
+        }
         queue = Volley.newRequestQueue(this);
 
         String url = new DBConnection().getPublicLeagueUrl();
 
-// prepare the Request
         JsonObjectRequest getRequest = new JsonObjectRequest(Request.Method.GET, url, null,
                 new Response.Listener<JSONObject>() {
                     @Override
@@ -72,11 +76,11 @@ public class PublicLeaguePage extends AppCompatActivity {
                             JSONObject participantsOne = participants.getJSONObject(0);
                             int numberOfParticipants = participantsOne.getInt("num_participants");
 
-                            listPublicLeague.setText("League " + leagueName+ System.getProperty ("line.separator"));
-                            listPublicLeague.append("League ID: " + leagueID+ System.getProperty ("line.separator"));
-                            listPublicLeague.append("Tournament ID: " + tournamentID+ System.getProperty ("line.separator"));
-                            listPublicLeague.append("Point Allocated " + pointsAllocated+ System.getProperty ("line.separator"));
-                            listPublicLeague.append("Final Prize: " + prize+ System.getProperty ("line.separator"));
+                            listPublicLeague.setText("League " + leagueName + System.getProperty("line.separator"));
+                            listPublicLeague.append("League ID: " + leagueID + System.getProperty("line.separator"));
+                            listPublicLeague.append("Tournament ID: " + tournamentID + System.getProperty("line.separator"));
+                            listPublicLeague.append("Point Allocated " + pointsAllocated + System.getProperty("line.separator"));
+                            listPublicLeague.append("Final Prize: " + prize + System.getProperty("line.separator"));
                             listPublicLeague.append("Number of Participants:" + numberOfParticipants);
 
 
@@ -120,7 +124,8 @@ public class PublicLeaguePage extends AppCompatActivity {
                                             Intent intent = new Intent(PublicLeaguePage.this, SpecialsPredict.class);
                                             //Bundle b = getIntent().getExtras();
                                             b.putString("logId", ServerResponse);
-                                            System.out.println(b.getString("logId")+ " " + b.getString("userID"));
+                                            b.putString("leagueId", leagueID + "");
+                                            System.out.println(b.getString("logId") + " " + b.getString("userID"));
                                             intent.putExtras(b);
                                             startActivity(intent);
                                         }
@@ -151,13 +156,10 @@ public class PublicLeaguePage extends AppCompatActivity {
                         queue.add(stringRequest);
 
 
-
-
                     }
                 })
         );
     }
-
 
 
 }

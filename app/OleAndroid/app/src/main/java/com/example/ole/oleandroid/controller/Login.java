@@ -12,11 +12,19 @@ import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.ole.oleandroid.R;
 import com.example.ole.oleandroid.dbConnection.DBConnection;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.UnsupportedEncodingException;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -38,7 +46,7 @@ public class Login extends AppCompatActivity {
         password = (EditText) findViewById(R.id.password);
         signin = (Button) findViewById(R.id.signin);
         signup = (Button) findViewById(R.id.signup);
-        result = (TextView) findViewById(R.id.result);
+        //result = (TextView) findViewById(R.id.result);
 
         //setContentView(R.layout.activity_loading_page);
 
@@ -46,50 +54,51 @@ public class Login extends AppCompatActivity {
         signin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
-                if (username.getText().toString().equals("")) {
-                    Intent intent = new Intent(Login.this, Login.class);
-                    startActivity(intent);
+//                Intent intent = new Intent(Login.this, Home.class);
+//                Bundle bundle = new Bundle();
+//                                    bundle.putString("userID", "bob");
+//                                    intent.putExtras(bundle);
+//                                    startActivity(intent);
+                if (username.getText().toString().equals("") || password.getText().toString().equals("")) {
+                    loadSamePage();
                 } else {
                     System.out.println("here2");
-//                String results = LoginDAO.validate(username.getText().toString(), password.getText().toString());
-//                result.append(results);
-
                     String url = new DBConnection().getLoginUrl();
-                    //final String[] results = new String[1];
 
-                    // Creating string request with post method.
                     StringRequest stringRequest = new StringRequest(Request.Method.POST, url,
                             new Response.Listener<String>() {
                                 @Override
                                 public void onResponse(String ServerResponse) {
                                     System.out.println(ServerResponse);
-                                    result.setText(ServerResponse);
-                                    Intent intent = new Intent(Login.this, Home.class);
-                                    Bundle bundle = new Bundle();
-                                    bundle.putString("userID", username.getText().toString());
-                                    intent.putExtras(bundle);
-                                    startActivity(intent);
+                                    if (!ServerResponse.equals("error")) {
+                                        Intent intent = new Intent(Login.this, Home.class);
+                                        Bundle bundle = new Bundle();
+                                        bundle.putString("userID", username.getText().toString());
+                                        bundle.putString("userInfo", ServerResponse);
+                                        intent.putExtras(bundle);
+                                        startActivity(intent);
+                                    } else {
+                                        loadSamePage();
+                                    }
                                 }
                             },
                             new Response.ErrorListener() {
                                 @Override
                                 public void onErrorResponse(VolleyError volleyError) {
-                                    System.out.println("error  :");
+                                    System.out.println("error");
                                     volleyError.printStackTrace();
-                                    result.append("error");
-                                    //results[0] = "error";
+                                    loadSamePage();
                                 }
                             }) {
                         @Override
                         protected Map<String, String> getParams() {
-
-                            // Creating Map String Params.
                             Map<String, String> params = new HashMap<String, String>();
 
-                            // Adding All values to Params.
-                            // The firs argument should be same sa your MySQL database table columns.
-                            params.put("username", username.getText().toString());
+                            try {
+                                params.put("username", username.getText().toString());
+                                params.put("password", SHA1(password.getText().toString()));
+                            } catch (Exception e) {
+                            }
 
                             return params;
                         }
@@ -115,11 +124,35 @@ public class Login extends AppCompatActivity {
 
     }
 
-    //        signup.setOnClickListener(new View.OnClickListener() {
-//
-//            @Override
-//            public void onClick(View view) {
-//            }
-//        });
+    public void loadSamePage() {
+        Intent intent = new Intent(Login.this, Login.class);
+        startActivity(intent);
+    }
+
+    private static String convertToHex(byte[] data) {
+        StringBuffer buf = new StringBuffer();
+        for (int i = 0; i < data.length; i++) {
+            int halfbyte = (data[i] >>> 4) & 0x0F;
+            int two_halfs = 0;
+            do {
+                if ((0 <= halfbyte) && (halfbyte <= 9))
+                    buf.append((char) ('0' + halfbyte));
+                else
+                    buf.append((char) ('a' + (halfbyte - 10)));
+                halfbyte = data[i] & 0x0F;
+            } while (two_halfs++ < 1);
+        }
+        return buf.toString();
+    }
+
+    public static String SHA1(String text)
+            throws NoSuchAlgorithmException, UnsupportedEncodingException {
+        MessageDigest md;
+        md = MessageDigest.getInstance("SHA-1");
+        byte[] sha1hash = new byte[40];
+        md.update(text.getBytes("iso-8859-1"), 0, text.length());
+        sha1hash = md.digest();
+        return convertToHex(sha1hash);
+    }
 }
 
