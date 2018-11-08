@@ -8,17 +8,69 @@
 
     <Button
         android:id="@+id/publicLeague"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="635dp"
+        android:layout_height="344dp"
         android:layout_marginStart="138dp"
         android:layout_marginLeft="138dp"
-        android:layout_marginTop="202dp"
         android:layout_marginEnd="154dp"
         android:layout_marginRight="154dp"
         android:layout_marginBottom="261dp"
-        android:text="ViewPublicLeague"
+        android:alpha="0.5"
+        android:background="@drawable/public_league_temp_picture"
+        android:textAllCaps="false"
+        android:textAppearance="@style/TextAppearance.MaterialComponents.Headline2"
+        android:textColor="@color/black"
+        android:visibility="visible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.484"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <Button
+        android:id="@+id/viewPublicLeagueText"
+        style="?android:attr/borderlessButtonStyle"
+        android:layout_width="433dp"
+        android:layout_height="341dp"
+        android:background="@color/black"
+        android:gravity="center"
+        android:text="Public League"
+        android:textAppearance="@style/TextAppearance.MaterialComponents.Headline5"
+        android:textColor="@color/white"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/privateLeague"
+        android:layout_width="457dp"
+        android:layout_height="302dp"
+        android:alpha="0.5"
+        android:background="@drawable/private_league_temp_picture"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.974" />
+
+    <TextView
+        android:id="@+id/viewPrivateLeagueText"
+        android:layout_width="450dp"
+        android:layout_height="348dp"
+        android:layout_marginTop="344dp"
+        android:background="@color/black"
+        android:gravity="center"
+        android:text="Private League"
+        android:textAppearance="@style/TextAppearance.MaterialComponents.Headline5"
+        android:textColor="@color/white"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+
 </android.support.constraint.ConstraintLayout>
+

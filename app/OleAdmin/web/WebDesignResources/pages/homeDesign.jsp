@@ -85,9 +85,6 @@
                                     <li>
                                         <a href="./PublicLeagueServlet?param=loadAll">View all Public Leagues</a>
                                     </li>
-                                    <li>
-                                        <a href="publicLeague.jsp">Create a Public League</a>
-                                    </li>
                                 </ul>
                             </li>
                             <li>
@@ -108,6 +105,9 @@
                             </li>
                             <li>
                                 <a href="api.jsp"><i class="fa fa-a fa-fw"></i> API</a>
+                            </li>
+                            <li>
+                                <a href="./MatchesServlet"><i class="fa fa-a fa-fw"></i>Premier League Matches</a>
                             </li>
                         </ul>
                     </div>

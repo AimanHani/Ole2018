@@ -9,7 +9,7 @@
     <ImageView
         android:id="@+id/iv_onboard"
         android:layout_width="match_parent"
-        android:layout_height="284dp"
+        android:layout_height="252dp"
         android:layout_marginLeft="@dimen/activity_horizontal_margin"
         android:layout_marginTop="50dp"
         android:layout_marginRight="@dimen/activity_horizontal_margin"
@@ -18,7 +18,7 @@
         android:gravity="center"
         android:paddingTop="8dp"
         android:paddingBottom="8dp"
-        android:scaleType="centerInside"
+        android:scaleType="fitCenter"
         android:src="@drawable/onboard_page1" />
 
     <RelativeLayout

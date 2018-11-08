@@ -116,7 +116,7 @@
         app:layout_constraintBottom_toTopOf="@+id/confirm"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/team2Prediction"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintVertical_bias="0.28" />
 
     <TextView
         android:id="@+id/details"
