@@ -4,7 +4,7 @@ if ($_SERVER["REQUEST_METHOD"] == "GET"){
     getRecentMatches();
 } else {
     require 'connection.php';
-    updateMatchesLog();
+    insertMatchesLog();
 }
 
 function getRecentMatches(){
@@ -55,7 +55,7 @@ function getOneMatch(){
     
 }
 
-function updateMatchesLog(){
+function insertMatchesLog(){
     global $connect;
     
      $logId = $_POST["logId"];
@@ -70,6 +70,33 @@ function updateMatchesLog(){
      }
     
     $query = "insert into matcheslog (logId, matchId, doubleIt, team1_prediction, team2_prediction) VALUES ('$logId', '$matchId', '$double', '$team1Prediction', '$team2Prediction')";
+    
+    if (mysqli_query($connect, $query)) {
+        echo "successful";
+    } else {
+        //echo "Error: " . $query . "<br>" . mysqli_error($connect);
+        updateMatchesLog();s
+    }
+
+    mysqli_close($connect);
+    
+
+}
+
+function updateMatchesLog(){
+    global $connect;
+    
+     $logId = $_POST["logId"];
+     $matchId = $_POST["matchId"];
+     $team1Prediction = $_POST["team1Prediction"];
+     $team2Prediction = $_POST["team2Prediction"];
+     $doubleIt = $_POST["doubleItValues"];
+     
+     $double = 0;
+     if ($doubleIt == "true"){
+         $double = 1;
+     }
+    $query = "UPDATE matcheslog set doubleIt = '$double', team1_prediction= '$team1Prediction', team2_prediction = '$team2Prediction' where logid = '$logId' and matchId='$matchId'";
     
     if (mysqli_query($connect, $query)) {
         echo "successful";

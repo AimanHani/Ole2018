@@ -44,11 +44,11 @@ function updateSpecialsPrediction(){
     
     $query = "update specialslog set prediction = '$prediction' where logid = '$logId' and specialsid = '$specialsId'";
     if (mysqli_query($connect, $query)) {
-    echo "New record created successfully";
-} else {
-    echo "Error: " . $query . "<br>" . mysqli_error($connect);
-}
+        echo "successful";
+    } else {
+        echo "Error: " . $query . "<br>" . mysqli_error($connect);
+    }
 
-mysqli_close($connect);
+    mysqli_close($connect);
     
 }
