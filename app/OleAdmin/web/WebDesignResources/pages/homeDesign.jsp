@@ -85,9 +85,6 @@
                                     <li>
                                         <a href="./PublicLeagueServlet?param=loadAll">View all Public Leagues</a>
                                     </li>
-                                    <li>
-                                        <a href="publicLeague.jsp">Create a Public League</a>
-                                    </li>
                                 </ul>
                             </li>
                             <li>
