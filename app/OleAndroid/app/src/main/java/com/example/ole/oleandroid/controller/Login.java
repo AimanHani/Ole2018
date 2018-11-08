@@ -73,7 +73,7 @@ public class Login extends AppCompatActivity {
                                     if (!ServerResponse.equals("error")) {
                                         Intent intent = new Intent(Login.this, Home.class);
                                         Bundle bundle = new Bundle();
-                                        bundle.putString("userID", username.getText().toString());
+                                        bundle.putString("username", username.getText().toString());
                                         bundle.putString("userInfo", ServerResponse);
                                         intent.putExtras(bundle);
                                         startActivity(intent);

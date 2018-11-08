@@ -41,7 +41,7 @@ public class PublicLeaguePage extends AppCompatActivity {
         setContentView(R.layout.activity_public_league);
         final Bundle b = getIntent().getExtras();
 
-        userName = b.getString("userID");
+        userName = b.getString("username");
         listPublicLeague = (TextView) findViewById(R.id.listPublicLeague);
         joinPublicLeague = (Button) findViewById(R.id.join_btn);
 

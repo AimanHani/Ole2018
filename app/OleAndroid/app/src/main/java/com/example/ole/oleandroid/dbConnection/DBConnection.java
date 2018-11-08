@@ -43,5 +43,10 @@ public class DBConnection {
         String url = mainUrl+"/manageMatches.php";
         return url;
     }
+
+    public String profileUrl(){
+        String url = mainUrl+"/profile.php";
+        return url;
+    }
     
 }
