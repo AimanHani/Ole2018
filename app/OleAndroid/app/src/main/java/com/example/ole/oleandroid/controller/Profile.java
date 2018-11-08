@@ -3,6 +3,7 @@ package com.example.ole.oleandroid.controller;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
@@ -76,6 +77,15 @@ public class Profile extends AppCompatActivity {
 //
 //
 //        requestQueue.add(stringRequest);
+
+        home.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(Profile.this, Home.class);
+                startActivity(intent);
+            }
+        });
 
     }
 }
