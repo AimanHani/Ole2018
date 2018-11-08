@@ -57,8 +57,5 @@
                 android:textSize="@dimen/ob_desc_text_size" />
 
         </LinearLayout>
-
     </RelativeLayout>
-
-
 </LinearLayout>

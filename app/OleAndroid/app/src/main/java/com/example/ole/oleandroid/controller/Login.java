@@ -43,93 +43,83 @@ public class Login extends AppCompatActivity {
         //setContentView(R.layout.activity_loading_page);
 
 
-
         signin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                result.setText("");
-                System.out.println("here2");
+
+                if (username.getText().toString().equals("")) {
+                    Intent intent = new Intent(Login.this, Login.class);
+                    startActivity(intent);
+                } else {
+                    System.out.println("here2");
 //                String results = LoginDAO.validate(username.getText().toString(), password.getText().toString());
 //                result.append(results);
 
-                String url = new DBConnection().getLoginUrl();
-                //final String[] results = new String[1];
+                    String url = new DBConnection().getLoginUrl();
+                    //final String[] results = new String[1];
 
-                // Creating string request with post method.
-                StringRequest stringRequest = new StringRequest(Request.Method.POST, url,
-                        new Response.Listener<String>() {
-                            @Override
-                            public void onResponse(String ServerResponse) {
-                                System.out.println(ServerResponse);
-                                //results[0] = ServerResponse;
-                                result.append(ServerResponse);
+                    // Creating string request with post method.
+                    StringRequest stringRequest = new StringRequest(Request.Method.POST, url,
+                            new Response.Listener<String>() {
+                                @Override
+                                public void onResponse(String ServerResponse) {
+                                    System.out.println(ServerResponse);
+                                    result.setText(ServerResponse);
+                                    Intent intent = new Intent(Login.this, Home.class);
+                                    Bundle bundle = new Bundle();
+                                    bundle.putString("userID", username.getText().toString());
+                                    intent.putExtras(bundle);
+                                    startActivity(intent);
+                                }
+                            },
+                            new Response.ErrorListener() {
+                                @Override
+                                public void onErrorResponse(VolleyError volleyError) {
+                                    System.out.println("error  :");
+                                    volleyError.printStackTrace();
+                                    result.append("error");
+                                    //results[0] = "error";
+                                }
+                            }) {
+                        @Override
+                        protected Map<String, String> getParams() {
 
-                                Intent intent = new Intent(Login.this, Home.class);
-                                Bundle bundle = new Bundle();
+                            // Creating Map String Params.
+                            Map<String, String> params = new HashMap<String, String>();
 
-//Add your data to bundle
-                                bundle.putString("userID", username.getText().toString());
+                            // Adding All values to Params.
+                            // The firs argument should be same sa your MySQL database table columns.
+                            params.put("username", username.getText().toString());
 
-//Add the bundle to the intent
-                                intent.putExtras(bundle);
-                                startActivity(intent);
-                            }
-                        },
-                        new Response.ErrorListener() {
-                            @Override
-                            public void onErrorResponse(VolleyError volleyError) {
-                                System.out.println("error  :");
-                                volleyError.printStackTrace();
-                                result.append("error");
-                                //results[0] = "error";
-                            }
-                        }) {
-                    @Override
-                    protected Map<String, String> getParams() {
+                            return params;
+                        }
 
-                        // Creating Map String Params.
-                        Map<String, String> params = new HashMap<String, String>();
+                    };
 
-                        // Adding All values to Params.
-                        // The firs argument should be same sa your MySQL database table columns.
-                        params.put("username", username.getText().toString());
+                    RequestQueue requestQueue = Volley.newRequestQueue(getApplicationContext());
+                    requestQueue.add(stringRequest);
 
-                        return params;
-                    }
-
-                };
-
-                // Creating RequestQueue.
-                RequestQueue requestQueue = Volley.newRequestQueue(getApplicationContext());
-
-// Adding the StringRequest object into requestQueue.
-                requestQueue.add(stringRequest);
-
-
+                }
             }
-            //);
 
         });
-        //signup = (Button) findViewById(R.id.signup);
 
         signup.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View view) {
-
                 Intent intent = new Intent(Login.this, Signup.class);
-
                 startActivity(intent);
             }
         });
 
     }
 
-        //        signup.setOnClickListener(new View.OnClickListener() {
+    //        signup.setOnClickListener(new View.OnClickListener() {
 //
 //            @Override
 //            public void onClick(View view) {
 //            }
 //        });
-    }
+}
 
