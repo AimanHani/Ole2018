@@ -1,10 +1,17 @@
 <?php
+require 'connection.php';
+
 if ($_SERVER["REQUEST_METHOD"] == "GET"){
-    require 'connection.php';
     getRecentMatches();
 } else {
-    require 'connection.php';
-    insertMatchesLog();
+    $method = $_POST["method"];
+    
+    if ($method == "getMatchesLog"){
+        getMatchesLog();
+    } else {
+        insertMatchesLog();
+    }
+    
 }
 
 function getRecentMatches(){
@@ -107,4 +114,27 @@ function updateMatchesLog(){
     mysqli_close($connect);
     
 
+}
+
+function getMatchesLog(){
+     global $connect;
+    
+    $username = $_POST["username"];
+    $leagueId = $_POST["leagueId"];
+    
+    $query = "select l.logid, l.username, l.leagueId from log l where l.username = '$username' and l.leagueId = '$leagueId'";
+    
+    $result = mysqli_query($connect, $query);
+    $number_of_rows = mysqli_num_rows($result);
+    
+    $results = "error";
+    
+    if ($number_of_rows >0){
+        $results = "true";
+    }
+    
+    header('Content-Type: application/json');
+    echo $results  ;
+    mysqli_close($connect);
+    
 }
