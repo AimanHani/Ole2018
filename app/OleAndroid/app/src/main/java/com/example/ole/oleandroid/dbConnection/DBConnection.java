@@ -4,7 +4,7 @@ public class DBConnection {
 
     private String mainUrl = "http://172.20.10.3:3306/ole"; //may vary depends on wifi connection
     // Hazirah ip: 192.168.39.1:3306, 192.168.1.35 172.20.10.3
-    //String insertUrl = mainUrl + "/tutorial/insertStudent.php";
+//String insertUrl = mainUrl + "/tutorial/insertStudent.php";
     //String showUrl = mainUrl + "/tutorial/showStudents.php";
     //taiwan number ip: 10.124.133.134
 
