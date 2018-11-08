@@ -121,6 +121,7 @@ public class MatchPrediction extends AppCompatActivity {
                             params.put("team1Prediction", team1Prediction.getText().toString());
                             params.put("team2Prediction", team2Prediction.getText().toString());
                             params.put("doubleItValues", finalDoubleIt);
+                            params.put("method", "insertMatchesLog");
 
                         } catch (Exception e) {
 

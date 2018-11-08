@@ -30,7 +30,7 @@ public class PublicLeaguePage extends AppCompatActivity {
     TextView listPublicLeague;
     PublicLeague publicLeague;
     Button joinPublicLeague;
-    String userName;
+    String username;
     String results = "";
     int leagueID;
     RequestQueue queue;
@@ -41,16 +41,19 @@ public class PublicLeaguePage extends AppCompatActivity {
         setContentView(R.layout.activity_public_league);
         final Bundle b = getIntent().getExtras();
 
-        userName = b.getString("username");
+        username = b.getString("username");
         listPublicLeague = (TextView) findViewById(R.id.listPublicLeague);
         joinPublicLeague = (Button) findViewById(R.id.join_btn);
 
         System.out.println(b.get("leagueId"));
+        queue = Volley.newRequestQueue(this);
+
 
         if (b.get("leagueId") != null) {
             joinPublicLeague.setEnabled(false);
+            //joinPublicLeague.setC
         }
-        queue = Volley.newRequestQueue(this);
+
 
         String url = new DBConnection().getPublicLeagueUrl();
 
@@ -76,7 +79,7 @@ public class PublicLeaguePage extends AppCompatActivity {
                             JSONObject participantsOne = participants.getJSONObject(0);
                             int numberOfParticipants = participantsOne.getInt("num_participants");
 
-                            listPublicLeague.setText("League " + leagueName + System.getProperty("line.separator"));
+                            listPublicLeague.setText(leagueName + System.getProperty("line.separator"));
                             listPublicLeague.append("League ID: " + leagueID + System.getProperty("line.separator"));
                             listPublicLeague.append("Tournament ID: " + tournamentID + System.getProperty("line.separator"));
                             listPublicLeague.append("Point Allocated " + pointsAllocated + System.getProperty("line.separator"));
@@ -98,9 +101,39 @@ public class PublicLeaguePage extends AppCompatActivity {
                     }
                 }
         );
-
-// add it to the RequestQueue
         queue.add(getRequest);
+
+
+        url = new DBConnection().manageMatchesUrl();
+
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, url,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String serverResponse) {
+                        if (serverResponse.equals("true")) {
+                            joinPublicLeague.setEnabled(false);
+                        }
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError volleyError) {
+                        System.out.println("error  :");
+                        volleyError.printStackTrace();
+                    }
+                }) {
+            @Override
+            protected Map<String, String> getParams() {
+                Map<String, String> params = new HashMap<String, String>();
+                params.put("username", username);
+                params.put("leagueId", leagueID + "");
+                params.put("method", "getMatchesLog");
+                return params;
+            }
+
+        };
+
+        queue.add(stringRequest);
 
         joinPublicLeague.setOnClickListener((new View.OnClickListener() {
                     @Override
@@ -143,7 +176,7 @@ public class PublicLeaguePage extends AppCompatActivity {
                             protected Map<String, String> getParams() {
                                 Map<String, String> params = new HashMap<String, String>();
                                 try {
-                                    params.put("username", userName);
+                                    params.put("username", username);
                                     params.put("leagueId", leagueID + "");
 
                                 } catch (Exception e) {

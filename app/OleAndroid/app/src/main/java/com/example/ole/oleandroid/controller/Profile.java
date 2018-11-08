@@ -16,6 +16,9 @@ import com.android.volley.toolbox.Volley;
 import com.example.ole.oleandroid.R;
 import com.example.ole.oleandroid.dbConnection.DBConnection;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.util.HashMap;
 import java.util.Map;
 
@@ -41,42 +44,46 @@ public class Profile extends AppCompatActivity {
         logId = b.getString("logId");
         username = b.getString("username");
 
-//        finalResults = "Username: " + username +System.getProperty("line.separator");
-//
-//        RequestQueue requestQueue = Volley.newRequestQueue(getApplicationContext());
-//
-//        String url = new DBConnection().profileUrl();
-//
-//        StringRequest stringRequest = new StringRequest(Request.Method.POST, url,
-//                new Response.Listener<String>() {
-//                    @Override
-//                    public void onResponse(String serverResponse) {
-//                    }
-//                },
-//                new Response.ErrorListener() {
-//                    @Override
-//                    public void onErrorResponse(VolleyError volleyError) {
-//                        System.out.println("error  :");
-//                        //volleyError.printStackTrace();
-//                        //results[0] = "error";
-//                    }
-//                }) {
-//            @Override
-//            protected Map<String, String> getParams() {
-//                Map<String, String> params = new HashMap<String, String>();
-//                try {
-//                    params.put("matchId", matchId);
-//
-//                } catch (Exception e) {
-//
-//                }
-//                return params;
-//            }
-//
-//        };
-//
-//
-//        requestQueue.add(stringRequest);
+        finalResults = "Username: " + username + System.getProperty("line.separator") + System.getProperty("line.separator");
+
+        RequestQueue requestQueue = Volley.newRequestQueue(getApplicationContext());
+
+        String url = new DBConnection().profileUrl();
+
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, url,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String serverResponse) {
+                        try {
+                            finalResults = setOutput(finalResults, serverResponse);
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                        details.setText(finalResults);
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError volleyError) {
+                        System.out.println("error  :");
+                        finalResults += "error";
+                        details.setText(finalResults);
+                        volleyError.printStackTrace();
+                        //results[0] = "error";
+                    }
+                }) {
+            @Override
+            protected Map<String, String> getParams() {
+                Map<String, String> params = new HashMap<String, String>();
+                    params.put("username", username);
+                return params;
+            }
+
+        };
+
+
+        requestQueue.add(stringRequest);
+
 
         home.setOnClickListener(new View.OnClickListener() {
 
@@ -87,5 +94,20 @@ public class Profile extends AppCompatActivity {
             }
         });
 
+    }
+
+    private String setOutput(String finalResults, String serverResponse) throws JSONException {
+        JSONObject results = new JSONObject(serverResponse);
+        JSONObject prevPrediction = results.getJSONArray("results").getJSONObject(0);
+
+        finalResults += prevPrediction.getString("leagueName") + System.getProperty("line.separator") +
+                "Match Predicted" + System.getProperty("line.separator") + System.getProperty("line.separator") +
+                "Date: " + prevPrediction.getString("date") + System.getProperty("line.separator") +
+                "Time: " + prevPrediction.getString("time") + System.getProperty("line.separator") +System.getProperty("line.separator") +
+                "Team : Prediction Score" +System.getProperty("line.separator") +
+                prevPrediction.getString("team1") + " : " + prevPrediction.getString("team1_prediction") + System.getProperty("line.separator") +
+                prevPrediction.getString("team2") + " : " + prevPrediction.getString("team2_prediction");
+
+        return finalResults;
     }
 }
