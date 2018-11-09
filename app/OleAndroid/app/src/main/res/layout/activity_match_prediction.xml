@@ -45,11 +45,11 @@
 
     <TextView
         android:id="@+id/doubleIt"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="69dp"
+        android:layout_height="35dp"
         android:layout_marginTop="32dp"
-        android:layout_marginEnd="44dp"
-        android:layout_marginRight="44dp"
+        android:layout_marginEnd="40dp"
+        android:layout_marginRight="40dp"
         android:layout_marginBottom="221dp"
         android:text="Double It?"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -59,14 +59,14 @@
 
     <Button
         android:id="@+id/confirm"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="320dp"
+        android:layout_height="55dp"
         android:layout_marginStart="156dp"
         android:layout_marginLeft="156dp"
         android:layout_marginEnd="140dp"
         android:layout_marginRight="140dp"
-        android:layout_marginBottom="85dp"
-        android:text="Confirm"
+        android:layout_marginBottom="80dp"
+        android:background="@drawable/confirm_prediction"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
@@ -96,12 +96,13 @@
         android:layout_height="48dp"
         android:layout_marginStart="40dp"
         android:layout_marginLeft="40dp"
-        android:layout_marginTop="28dp"
+        android:layout_marginTop="20dp"
         android:layout_marginEnd="37dp"
         android:layout_marginRight="37dp"
         android:ems="10"
         android:inputType="number"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toEndOf="@+id/team2PredictionLabel"
         app:layout_constraintTop_toBottomOf="@+id/team1Prediction" />
 
@@ -110,13 +111,13 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
-        android:layout_marginEnd="176dp"
-        android:layout_marginRight="176dp"
+        android:layout_marginEnd="196dp"
+        android:layout_marginRight="196dp"
         android:layout_marginBottom="122dp"
         app:layout_constraintBottom_toTopOf="@+id/confirm"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/team2Prediction"
-        app:layout_constraintVertical_bias="0.28" />
+        app:layout_constraintVertical_bias="0.375" />
 
     <TextView
         android:id="@+id/details"
