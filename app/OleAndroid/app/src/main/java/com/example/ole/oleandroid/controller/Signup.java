@@ -138,6 +138,9 @@ public class Signup extends AppCompatActivity {
                             public void onErrorResponse(VolleyError volleyError) {
                                 System.out.println("error  :");
                                 volleyError.printStackTrace();
+
+                                Intent intent = new Intent(Signup.this, Signup.class);
+                                startActivity(intent);
                                 //result.append("error");
                                 //results[0] = "error";
                             }
