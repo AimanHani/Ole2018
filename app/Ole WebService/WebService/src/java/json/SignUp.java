@@ -5,12 +5,14 @@
  */
 package json;
 
+import controller.SignUpDAO;
 import controller.LoginDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.io.UnsupportedEncodingException;
-import java.security.NoSuchAlgorithmException;
 import java.sql.SQLException;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.ServletException;
@@ -26,8 +28,9 @@ import org.json.JSONObject;
  *
  * @author user
  */
-@WebServlet(name = "LoginJson", urlPatterns = {"/json/authenticate"})
-public class Login extends HttpServlet {
+
+@WebServlet(name = "SignUpJson", urlPatterns = {"/json/signUp"})
+public class SignUp extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -37,7 +40,22 @@ public class Login extends HttpServlet {
      * @param response servlet response
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
-   
+     */
+    protected void processRequest(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        response.setContentType("text/html;charset=UTF-8");
+        try (PrintWriter out = response.getWriter()) {
+            /* TODO output your page here. You may use following sample code. */
+            out.println("<!DOCTYPE html>");
+            out.println("<html>");
+            out.println("<head>");
+            out.println("<title>Servlet SignUp</title>");            
+            out.println("</head>");
+            out.println("<body>");
+            out.println("<h1>Servlet SignUp at " + request.getContextPath() + "</h1>");
+            out.println("</body>");
+            out.println("</html>");
+        }
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -52,7 +70,7 @@ public class Login extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        //processRequest(request, response);
+        processRequest(request, response);
     }
 
     /**
@@ -66,38 +84,37 @@ public class Login extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-       
-        //processRequest(request, response);
         
-            JSONObject json = new JSONObject();
+          JSONObject json = new JSONObject();
         response.setContentType("application/json");
         response.setCharacterEncoding("utf-8");
         PrintWriter out = response.getWriter();
 
         String username = request.getParameter("username");
+        String name  = request.getParameter("name");
         String password = request.getParameter("password");
+        String email = request.getParameter("email");
+        String birthdate = request.getParameter("birthdate");
+        String contactNo = request.getParameter("contactNo");
+        String country = request.getParameter("country");
+        String team = request.getParameter("team");
+               
+        
         boolean status = false;
         String token = "";
        
         try {
             
-            status = LoginDAO.validate(username, password);
-            //secret is se1234567890sese
-            
-            if (username!= null && password!= null && username.equals("admin") && password.equals("se1234567890sese")) {
-                HttpSession session = request.getSession();
-                session.setAttribute("admin", true);
-                status = true;
-            }
+            status = SignUpDAO.signUp(username,  name, password,  email,  birthdate,  contactNo, country,team);
 
             if (status) {
 
-                json.put("status", "success");
+                json.put("Status", "new record has been created");
                
             } else {
     
                 json.put("status","error");
-                String invalidMsg = "invalid username"+"/"+"password";
+                String invalidMsg = "Something is wrong check checkS"+"/"+"";
                 String[] invalidString = {invalidMsg};
                 json.put("messages",invalidString);
             }
@@ -106,19 +123,13 @@ public class Login extends HttpServlet {
 
         } catch (SQLException e) {
             e.printStackTrace();
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
         } catch (JSONException ex) {
             Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (NoSuchAlgorithmException ex) {
-            Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (UnsupportedEncodingException ex) {
-            Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, ex);
         }
-
+      
     }
-        
     
+   
 
     /**
      * Returns a short description of the servlet.
