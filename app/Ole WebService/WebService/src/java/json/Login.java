@@ -70,7 +70,7 @@ public class Login extends HttpServlet {
         //processRequest(request, response);
         
             JSONObject json = new JSONObject();
-        response.setContentType("application/json");
+        response.setContentType("\"Content-Type\", \"application/x-www-form-urlencoded\"");
         response.setCharacterEncoding("utf-8");
         PrintWriter out = response.getWriter();
 

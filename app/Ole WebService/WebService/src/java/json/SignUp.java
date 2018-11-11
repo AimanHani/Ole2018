@@ -86,7 +86,7 @@ public class SignUp extends HttpServlet {
             throws ServletException, IOException {
         
           JSONObject json = new JSONObject();
-        response.setContentType("application/json");
+        response.setContentType("\"Content-Type\", \"application/x-www-form-urlencoded\"");
         response.setCharacterEncoding("utf-8");
         PrintWriter out = response.getWriter();
 
