@@ -4,14 +4,16 @@ require 'connection.php';
 if ($_SERVER["REQUEST_METHOD"] == "GET"){
     getRecentMatches();
 } else {
+    
     $method = $_POST["method"];
     
-    if ($method == "getMatchesLog"){
-        getMatchesLog();
-    } else {
+    if ($method == "insert"){ 
         insertMatchesLog();
     }
     
+    if ($method == "getMatchesLog"){
+        getMatchesLog();
+    } 
 }
 
 function getRecentMatches(){
@@ -62,7 +64,7 @@ function getOneMatch(){
     
 }
 
-function insertMatchesLog(){
+function insertMLog(){
     global $connect;
     
      $logId = $_POST["logId"];
@@ -103,7 +105,7 @@ function updateMatchesLog(){
      if ($doubleIt == "true"){
          $double = 1;
      }
-    $query = "UPDATE matcheslog set doubleIt = '$double', team1_prediction= '$team1Prediction', team2_prediction = '$team2Prediction' where logid = '$logId' and matchId='$matchId'";
+    $query = "UPDATE matcheslog set doubleIt = '$double', team1_prediction= '$team1Prediction', team2_prediction = '$team2Prediction' where logId = '$logId' and matchId='$matchId'";
     
     if (mysqli_query($connect, $query)) {
         echo "successful";

@@ -4,7 +4,7 @@ if ($_SERVER["REQUEST_METHOD"] == "GET"){
     retrieveUsers();
 }
 
-function retrievePublicLeague(){
+function retrieveUsers(){
     global $connect;
     
         $query = "SELECT count(username), l.leagueId from log l inner join publicleague p where l.leagueId = p.leagueId";
