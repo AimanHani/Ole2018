@@ -16,6 +16,7 @@ import com.android.volley.toolbox.Volley;
 import com.example.ole.oleandroid.R;
 import com.example.ole.oleandroid.dbConnection.DBConnection;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -75,7 +76,7 @@ public class Profile extends AppCompatActivity {
             @Override
             protected Map<String, String> getParams() {
                 Map<String, String> params = new HashMap<String, String>();
-                    params.put("username", username);
+                params.put("username", username);
                 return params;
             }
 
@@ -98,13 +99,13 @@ public class Profile extends AppCompatActivity {
 
     private String setOutput(String finalResults, String serverResponse) throws JSONException {
         JSONObject results = new JSONObject(serverResponse);
-        JSONObject prevPrediction = results.getJSONArray("results").getJSONObject(0);
-
+        JSONArray firstObject = results.getJSONArray("results");
+        JSONObject prevPrediction = firstObject.getJSONObject(0);
         finalResults += prevPrediction.getString("leagueName") + System.getProperty("line.separator") +
                 "Match Predicted" + System.getProperty("line.separator") + System.getProperty("line.separator") +
                 "Date: " + prevPrediction.getString("date") + System.getProperty("line.separator") +
-                "Time: " + prevPrediction.getString("time") + System.getProperty("line.separator") +System.getProperty("line.separator") +
-                "Team : Prediction Score" +System.getProperty("line.separator") +
+                "Time: " + prevPrediction.getString("time") + System.getProperty("line.separator") + System.getProperty("line.separator") +
+                "Team : Prediction Score" + System.getProperty("line.separator") +
                 prevPrediction.getString("team1") + " : " + prevPrediction.getString("team1_prediction") + System.getProperty("line.separator") +
                 prevPrediction.getString("team2") + " : " + prevPrediction.getString("team2_prediction");
 

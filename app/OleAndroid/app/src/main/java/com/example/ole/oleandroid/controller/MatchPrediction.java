@@ -35,6 +35,8 @@ public class MatchPrediction extends AppCompatActivity {
     EditText team1Prediction;
     EditText team2Prediction;
     TextView details;
+    TextView team1PredictionLabel;
+    TextView team2PredictionLabel;
 
     String matchId;
     String logId;
@@ -53,6 +55,8 @@ public class MatchPrediction extends AppCompatActivity {
         doubleItValues = findViewById(R.id.doubleItCheck);
         team1Prediction = findViewById(R.id.team1Prediction);
         team2Prediction = findViewById(R.id.team2Prediction);
+        team1PredictionLabel = findViewById(R.id.team1PredictionLabel);
+        team2PredictionLabel = findViewById(R.id.team2PredictionLabel);
         System.out.println("match prediction");
 
         final Bundle b = getIntent().getExtras();
@@ -73,6 +77,9 @@ public class MatchPrediction extends AppCompatActivity {
             details.append("Time Scheduled: " + time + System.getProperty("line.separator") + System.getProperty("line.separator"));
             details.append("Team 1: " + team1 + System.getProperty("line.separator"));
             details.append("Team 2: " + team2 + System.getProperty("line.separator"));
+            team1PredictionLabel.setText(team1 + " score: ");
+            team2PredictionLabel.setText(team2 + " score: ");
+
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -121,7 +128,7 @@ public class MatchPrediction extends AppCompatActivity {
                             params.put("team1Prediction", team1Prediction.getText().toString());
                             params.put("team2Prediction", team2Prediction.getText().toString());
                             params.put("doubleItValues", finalDoubleIt);
-                            params.put("method", "insertMatchesLog");
+                            params.put("method", "insert");
 
                         } catch (Exception e) {
 

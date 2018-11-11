@@ -12,10 +12,12 @@
         android:layout_height="193dp"
         android:layout_marginStart="85dp"
         android:layout_marginLeft="85dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginRight="8dp"
         android:layout_marginBottom="2dp"
         app:layout_constraintBottom_toTopOf="@+id/publicLeagueImage"
-        app:layout_constraintEnd_toStartOf="@+id/profile"
-        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.086"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.0"
@@ -28,13 +30,10 @@
         android:gravity="center"
         android:text="Profile"
         android:textSize="30sp"
-        tools:layout_editor_absoluteX="0dp"
-        tools:layout_editor_absoluteY="0dp"
         app:layout_constraintBottom_toTopOf="@+id/publicLeagueImage"
-        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintVertical_bias="1.0" />
 
     <ImageView
         android:id="@+id/publicLeagueImage"

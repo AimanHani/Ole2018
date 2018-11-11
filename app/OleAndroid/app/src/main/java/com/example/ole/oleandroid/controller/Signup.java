@@ -157,8 +157,6 @@ public class Signup extends AppCompatActivity {
                             params.put("contactNo", contactNo.getText().toString());
                             params.put("email", email.getText().toString());
                             params.put("favoriteTeam", clickedTeamName);
-
-
                         } catch (Exception e) {
 
                         }

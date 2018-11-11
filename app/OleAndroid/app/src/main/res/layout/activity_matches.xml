@@ -16,8 +16,8 @@
         android:layout_marginEnd="66dp"
         android:layout_marginRight="66dp"
         android:text="Recent Matches"
+        android:textColor="@color/black"
         android:textSize="30sp"
-        app:fontFamily="monospace"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -30,6 +30,8 @@
         android:layout_marginLeft="42dp"
         android:layout_marginTop="50dp"
         android:text="1"
+        android:textColor="@color/black"
+        android:textSize="18sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/headerMatch" />
 
@@ -41,6 +43,8 @@
         android:layout_marginLeft="42dp"
         android:layout_marginTop="23dp"
         android:text="2"
+        android:textColor="@color/black"
+        android:textSize="18sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/match1" />
 

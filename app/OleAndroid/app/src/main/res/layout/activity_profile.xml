@@ -17,8 +17,8 @@
         android:layout_marginEnd="135dp"
         android:layout_marginRight="135dp"
         android:text="Profile"
+        android:textColor="@color/black"
         android:textSize="30sp"
-        app:fontFamily="monospace"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -32,20 +32,24 @@
         android:layout_marginTop="33dp"
         android:layout_marginEnd="50dp"
         android:layout_marginRight="50dp"
+        android:textColor="@color/black"
+        android:textSize="18sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/header" />
 
     <Button
         android:id="@+id/home"
-        android:layout_width="230dp"
+        android:layout_width="320dp"
         android:layout_height="55dp"
         android:layout_marginStart="136dp"
         android:layout_marginLeft="136dp"
         android:layout_marginTop="18dp"
         android:layout_marginEnd="135dp"
         android:layout_marginRight="135dp"
+        android:layout_marginBottom="25dp"
         android:background="@drawable/back_to_home"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/details" />
