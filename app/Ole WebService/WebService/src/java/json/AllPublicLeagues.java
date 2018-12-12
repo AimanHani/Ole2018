@@ -66,7 +66,8 @@ public class AllPublicLeagues extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        JSONObject json = new JSONObject();
+        JSONArray list = new JSONArray();
+         JSONObject parentJson = new JSONObject();
         response.setContentType("\"Content-Type\", \"application/x-www-form-urlencoded\"");
         response.setCharacterEncoding("utf-8");
         PrintWriter out = response.getWriter();
@@ -75,6 +76,7 @@ public class AllPublicLeagues extends HttpServlet {
         try {
             Iterator it = AllPublicLeagues.entrySet().iterator();
             while (it.hasNext()) {
+                 JSONObject json = new JSONObject();
                 Map.Entry pair = (Map.Entry) it.next();
                 int numberOfParticipants = 0;
                 //System.out.println(pair.getKey() + " = " + pair.getValue());
@@ -87,9 +89,12 @@ public class AllPublicLeagues extends HttpServlet {
                 numberOfParticipants = PublicLeaguesDAO.getNumbersOfParticipantsInTheLeague(apl.getLeagueID());
                 json.put("numberOfParticipants",numberOfParticipants);
                 it.remove(); // avoids a ConcurrentModificationException
+                list.put(json);
+                
 
             }
-            out.print(json);
+            parentJson.put("results",list);
+            out.print(parentJson);
             out.flush();
 
         } catch (JSONException e) {
