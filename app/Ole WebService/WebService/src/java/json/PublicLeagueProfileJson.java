@@ -5,28 +5,25 @@
  */
 package json;
 
-import controller.PublicLeaguesDAO;
+import controller.PublicLeagueProfileDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.Map;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import model.AllPublicLeague;
 import org.json.JSONArray;
-import org.json.JSONException;
 import org.json.JSONObject;
+import model.PublicLeagueProfile;
+import org.json.JSONException;
 
 /**
  *
  * @author user
  */
-@WebServlet(name = "AllPublicLeaguesJson", urlPatterns = {"/json/allPublicLeagues"})
-public class AllPublicLeagues extends HttpServlet {
+@WebServlet(name = "PublicLeagueProfileJson", urlPatterns = {"/json/publicLeagueProfile"})
+public class PublicLeagueProfileJson extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -45,10 +42,10 @@ public class AllPublicLeagues extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet AllPublicLeagues</title>");
+            out.println("<title>Servlet PublicLeagueProfile</title>");
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet AllPublicLeagues at " + request.getContextPath() + "</h1>");
+            out.println("<h1>Servlet PublicLeagueProfile at " + request.getContextPath() + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -66,40 +63,7 @@ public class AllPublicLeagues extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        JSONArray list = new JSONArray();
-        JSONObject parentJson = new JSONObject();
-        response.setContentType("\"Content-Type\", \"application/x-www-form-urlencoded\"");
-        response.setCharacterEncoding("utf-8");
-        PrintWriter out = response.getWriter();
-        AllPublicLeague apl;
-        HashMap<Integer, AllPublicLeague> AllPublicLeagues = PublicLeaguesDAO.retrieveAllPublicLeagues();
-        try {
-            Iterator it = AllPublicLeagues.entrySet().iterator();
-            while (it.hasNext()) {
-                JSONObject json = new JSONObject();
-                Map.Entry pair = (Map.Entry) it.next();
-                int numberOfParticipants = 0;
-                //System.out.println(pair.getKey() + " = " + pair.getValue());
-                apl = (AllPublicLeague) pair.getValue();
-                json.put("leagueID", apl.getLeagueID());
-                json.put("prize", apl.getPrize());
-                json.put("tournamentID", apl.getTournamentID());
-                json.put("pointsAllocated", apl.getPointsAllocated());
-                json.put("leagueName", apl.getLeagueName());
-                numberOfParticipants = PublicLeaguesDAO.getNumbersOfParticipantsInTheLeague(apl.getLeagueID());
-                json.put("numberOfParticipants", numberOfParticipants);
-                it.remove(); // avoids a ConcurrentModificationException
-                list.put(json);
-
-            }
-            parentJson.put("results", list);
-            out.print(parentJson);
-            out.flush();
-
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-
+        processRequest(request, response);
     }
 
     /**
@@ -113,7 +77,49 @@ public class AllPublicLeagues extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        JSONArray list = new JSONArray();
+        JSONObject parentJson = new JSONObject();
+        response.setContentType("\"Content-Type\", \"application/x-www-form-urlencoded\"");
+        response.setCharacterEncoding("utf-8");
+        PrintWriter out = response.getWriter();
+        String username = request.getParameter("username");
+        PublicLeagueProfile plProfile = PublicLeagueProfileDAO.getUserPrediction(username);
+        try {
+
+            if (plProfile != null) {
+                JSONObject json = new JSONObject();
+
+                //System.out.println(pair.getKey() + " = " + pair.getValue());
+                json.put("logId", plProfile.getLogID());
+                json.put("username", plProfile.getUsername());
+                json.put("leagueId", plProfile.getLeagueID());
+                json.put("leagueName", plProfile.getLeagueName());
+                json.put("logId", plProfile.getLogID());
+                json.put("team1_prediction", plProfile.getTeam1Prediction());
+                json.put("team2_prediction", plProfile.getTeam2Prediction());
+                json.put("date", plProfile.getMatchDate());
+                json.put("time", plProfile.getMatchTime());
+                json.put("team1", plProfile.getTeam1());
+                json.put("team2", plProfile.getTeam2());
+
+                list.put(json);
+                parentJson.put("results", list);
+                out.print(parentJson);
+                out.flush();
+
+            } else {
+                JSONObject json = new JSONObject();
+                json.put("Error","Cannot get any information");
+                list.put(json);
+                parentJson.put("results", list);
+                out.print(parentJson);
+                out.flush();
+            }
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
     }
 
     /**
