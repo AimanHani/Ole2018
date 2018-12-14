@@ -25,4 +25,8 @@
         <servlet-name>SignUpJson</servlet-name>
         <url-pattern>/json/signUp</url-pattern>
     </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>GetMatchesJson</servlet-name>
+        <url-pattern>/json/getMatches</url-pattern>
+    </servlet-mapping>
 </web-app>
