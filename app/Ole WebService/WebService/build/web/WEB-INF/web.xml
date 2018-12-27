@@ -13,6 +13,10 @@
         <url-pattern>/json/manageMatches</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
+        <servlet-name>ManageSpecialsJson</servlet-name>
+        <url-pattern>/json/manageSpecials</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
         <servlet-name>JoinPublicLeaguesJson</servlet-name>
         <url-pattern>/json/joinPublicLeagues</url-pattern>
     </servlet-mapping>
