@@ -9,6 +9,10 @@
         <url-pattern>/json/publicLeagueProfile</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
+        <servlet-name>ManageMatchesJson</servlet-name>
+        <url-pattern>/json/manageMatches</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
         <servlet-name>JoinPublicLeaguesJson</servlet-name>
         <url-pattern>/json/joinPublicLeagues</url-pattern>
     </servlet-mapping>
