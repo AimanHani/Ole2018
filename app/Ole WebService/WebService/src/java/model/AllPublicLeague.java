@@ -14,6 +14,10 @@ public class AllPublicLeague {
     private String prize;
     private int tournamentID;
     private int pointsAllocated;
+
+    public AllPublicLeague(int leagueID) {
+        this.leagueID = leagueID;
+    }
     private String leagueName;
     
 
