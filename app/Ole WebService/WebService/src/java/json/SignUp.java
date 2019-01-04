@@ -100,21 +100,33 @@ public class SignUp extends HttpServlet {
         String team = request.getParameter("team");
                
         
-        boolean status = false;
+        String status = "";
         String token = "";
        
         try {
             
             status = SignUpDAO.signUp(username,  name, password,  email,  birthdate,  contactNo, country,team);
 
-            if (status) {
+            if (status.equals("success")) {
 
                 json.put("Status", "new record has been created");
                
-            } else {
+            } else if(status.equals("username has been taken")) {
     
                 json.put("status","error");
-                String invalidMsg = "Something is wrong check checkS"+"/"+"";
+                String invalidMsg = "Your username has been taken"+"/"+"";
+                String[] invalidString = {invalidMsg};
+                json.put("messages",invalidString);
+            }
+            else if(status.equals("birthdate error")){
+                json.put("status","error");
+                String invalidMsg = "birthdate error"+"/"+"";
+                String[] invalidString = {invalidMsg};
+                json.put("messages",invalidString);
+            }
+            else{
+                json.put("status","error");
+                String invalidMsg = "email has been taken"+"/"+"";
                 String[] invalidString = {invalidMsg};
                 json.put("messages",invalidString);
             }

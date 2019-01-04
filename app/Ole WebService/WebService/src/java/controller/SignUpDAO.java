@@ -14,9 +14,11 @@ import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Time;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import model.Match;
 
 /**
  *
@@ -24,7 +26,10 @@ import java.text.SimpleDateFormat;
  */
 public class SignUpDAO {
     
-    public static boolean signUp(String username, String name, String password, String email, String birthdate, String contactNo, String country, String team) throws SQLException{
+    public static String signUp(String username, String name, String password, String email, String birthdate, String contactNo, String country, String team) throws SQLException{
+        
+        boolean emailCheck = checkEmail(email);
+        if(emailCheck){
         boolean status = false;
         int rs = 0;
         if(isDateValid(birthdate)){
@@ -42,7 +47,7 @@ public class SignUpDAO {
                 
                 rs = ps.executeUpdate();
                 if(rs>0){
-                    return true;
+                    return "success";
                 }
             }catch (Exception e) {
                 System.out.println("check db connection class");
@@ -54,12 +59,14 @@ public class SignUpDAO {
             }
         }
         else{
-            return false;
+            return "birthdate error";
         }
         
-        return false;
-        
-        
+        return "username has been taken";
+    }
+        else{
+            return "email has been taken";
+        }
         
     }
     
@@ -102,5 +109,20 @@ public class SignUpDAO {
         sha1hash = md.digest();
         return convertToHex(sha1hash);
     }
-    
+    public static boolean checkEmail(String email){
+         try (Connection conn = DBConnection.getConnection(); PreparedStatement stmt = conn.prepareStatement("select * from user where email = ?");) {
+            stmt.setString(1, email);
+            ResultSet rs = stmt.executeQuery();
+
+            if(rs.next()){
+                return false;
+            }
+
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        } catch (ClassNotFoundException ex) {
+            ex.printStackTrace();
+        }
+         return true;
+    }
 }
