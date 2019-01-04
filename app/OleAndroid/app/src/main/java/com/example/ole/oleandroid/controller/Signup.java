@@ -7,6 +7,8 @@ import android.graphics.Color;
 import android.nfc.Tag;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
@@ -37,6 +39,9 @@ import android.os.Bundle;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.Period;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
@@ -72,6 +77,100 @@ public class Signup extends AppCompatActivity {
         contactNo = findViewById(R.id.contactNo);
         signupBtn = findViewById(R.id.signupBtn);
         //result = findViewById(R.id.result);
+        username.addTextChangedListener(new TextWatcher( ) {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                if (s.toString().isEmpty() || s.toString().length() < 3) {
+                    username.setError("at least 3 characters");
+
+                } else {
+                    username.setError(null);
+                }
+
+            }
+        });
+        password.addTextChangedListener(new TextWatcher( ) {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                if (isStrong(s.toString())) {
+                    password.setError(null);
+
+                } else {
+                    password.setError("8 characters length\n" +
+                            "2 letters in Upper Case\n" +
+                            "1 Special Character (!@#$&*)\n" +
+                            "2 numerals (0-9)\n" +
+                            "3 letters in Lower Case");
+
+                }
+
+            }
+        });
+        email.addTextChangedListener(new TextWatcher( ) {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                if(!android.util.Patterns.EMAIL_ADDRESS.matcher(s.toString()).matches()) {
+                    email.setError("enter a valid email address");
+                }
+
+            }
+        });
+
+        birthdate.addTextChangedListener(new TextWatcher( ) {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                if(!isDateValid(s.toString())){
+                    birthdate.setError("Please enter the date as yyyy-MM-dd format");
+                }
+                if(isDateValid(s.toString())){
+                    int age = calculateAge(s.toString());
+                    if(age<16){
+                        birthdate.setError("You are under the age of 16");
+                    }
+                }
+
+            }
+        });
 
 
         mAdapter = new CountryAdapter(this, mCountryList);
@@ -157,6 +256,7 @@ public class Signup extends AppCompatActivity {
                             params.put("contactNo", contactNo.getText().toString());
                             params.put("email", email.getText().toString());
                             params.put("favoriteTeam", clickedTeamName);
+                            validate();
                         } catch (Exception e) {
 
                         }
@@ -193,14 +293,7 @@ public class Signup extends AppCompatActivity {
         progressDialog.setMessage("Creating Account...");
         progressDialog.show();
 
-        String validateuserName = username.getText().toString();
-        String validateName = name.getText().toString();
-        String validateEmail = email.getText().toString();
-        String validatePassword = password.getText().toString();
-        String validateBirthdate = birthdate.getText().toString();
-        String validatePhoneNo = contactNo.getText().toString();
-        String validateTeam = clickedTeamName;
-        String validateCountries = clickedCountryName;
+
 
 
         // TODO: Implement your own signup logic here.
@@ -256,11 +349,16 @@ public class Signup extends AppCompatActivity {
             email.setError(null);
         }
 
-        if (validatePassword.isEmpty() || validatePassword.length() < 4 || validatePassword.length() > 10) {
-            password.setError("between 4 and 10 alphanumeric characters");
-            valid = false;
-        } else {
+        if (isStrong(validatePassword)) {
             password.setError(null);
+
+        } else {
+            password.setError("8 characters length\n" +
+                    "2 letters in Upper Case\n" +
+                    "1 Special Character (!@#$&*)\n" +
+                    "2 numerals (0-9)\n" +
+                    "3 letters in Lower Case");
+            valid = false;
         }
         if (validateCountries.equals(null)) {
             setSpinnerError(spinnerCountries, "Please select your country");
@@ -272,7 +370,15 @@ public class Signup extends AppCompatActivity {
             valid = false;
         }
         if (validateBirthdate.isEmpty() || !isDateValid(validateBirthdate)) {
-            birthdate.setError("Please enter the date as yy-MM-dd format");
+            birthdate.setError("Please enter the date as yyyy-MM-dd format");
+            valid = false;
+        }
+        if(!validateBirthdate.isEmpty() && isDateValid(validateBirthdate)){
+            int age = calculateAge(validateBirthdate);
+            if(age<16){
+                birthdate.setError("Your age must be at least 16");
+            }
+
         }
 
         return valid;
@@ -358,6 +464,19 @@ public class Signup extends AppCompatActivity {
             return true;
         } catch (ParseException e) {
             return false;
+        }
+    }
+    private boolean isStrong(String password){
+        return password.matches("^(?=.*[A-Z].*[A-Z])(?=.*[!@#$&*])(?=.*[0-9].*[0-9])(?=.*[a-z].*[a-z].*[a-z]).{8}$");
+        }
+    public static int calculateAge(String birthDay) {
+        if ((birthDay != null)) {
+            DateTimeFormatter formatter_1=DateTimeFormatter.ofPattern("yyyy-MM-dd");
+            LocalDate birthDate= LocalDate.parse(birthDay,formatter_1);
+            LocalDate today = LocalDate.now();
+            return Period.between(birthDate, today).getYears();
+        } else {
+            return 0;
         }
     }
 }
