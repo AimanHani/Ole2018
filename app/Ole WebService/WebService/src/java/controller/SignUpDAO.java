@@ -51,6 +51,7 @@ public class SignUpDAO {
                 }
             }catch (Exception e) {
                 System.out.println("check db connection class");
+                return"check db connection class";
             } 
             finally {
                 if (rs >0) {
