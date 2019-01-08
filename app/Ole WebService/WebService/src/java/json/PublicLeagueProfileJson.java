@@ -8,6 +8,7 @@ package json;
 import controller.PublicLeagueProfileDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.ArrayList;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -16,6 +17,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import model.PublicLeagueProfile;
+import model.User;
 import org.json.JSONException;
 
 /**
@@ -83,33 +85,44 @@ public class PublicLeagueProfileJson extends HttpServlet {
         response.setCharacterEncoding("utf-8");
         PrintWriter out = response.getWriter();
         String username = request.getParameter("username");
-        PublicLeagueProfile plProfile = PublicLeagueProfileDAO.getUserPrediction(username);
+        ArrayList<PublicLeagueProfile> leagueList = PublicLeagueProfileDAO.getUserPrediction(username);
+        User u = PublicLeagueProfileDAO.getUserInfo(username);
         try {
 
-            if (plProfile != null) {
-                JSONObject json = new JSONObject();
-
+            if (leagueList != null) {
+                JSONObject user = new JSONObject();
+                user.put("name", u.getName());
+                user.put("dob", u.getDateOfBirth());
+                user.put("country", u.getCountry());
+                user.put("contactNum", u.getContactNumber());
+                user.put("email", u.getEmail());
+                user.put("favoriteTeam", u.getFavoriteTeam());
                 //System.out.println(pair.getKey() + " = " + pair.getValue());
-                json.put("logId", plProfile.getLogID());
-                json.put("username", plProfile.getUsername());
-                json.put("leagueId", plProfile.getLeagueID());
-                json.put("leagueName", plProfile.getLeagueName());
-                json.put("logId", plProfile.getLogID());
-                json.put("team1_prediction", plProfile.getTeam1Prediction());
-                json.put("team2_prediction", plProfile.getTeam2Prediction());
-                json.put("date", plProfile.getMatchDate());
-                json.put("time", plProfile.getMatchTime());
-                json.put("team1", plProfile.getTeam1());
-                json.put("team2", plProfile.getTeam2());
+                for (int i = 0; i < leagueList.size(); i++) {
+                    PublicLeagueProfile p = leagueList.get(i);
+                    JSONObject json = new JSONObject();
+                    json.put("logId", p.getLogID());
+                    json.put("username", p.getUsername());
+                    json.put("leagueId", p.getLeagueID());
+                    json.put("leagueName", p.getLeagueName());
+                    json.put("logId", p.getLogID());
+                    json.put("team1_prediction", p.getTeam1Prediction());
+                    json.put("team2_prediction", p.getTeam2Prediction());
+                    json.put("date", p.getMatchDate());
+                    json.put("time", p.getMatchTime());
+                    json.put("team1", p.getTeam1());
+                    json.put("team2", p.getTeam2());
 
-                list.put(json);
-                parentJson.put("results", list);
+                    list.put(json);
+
+                }
+                parentJson.put("predictions", list);
+                parentJson.put("user", user);
                 out.print(parentJson);
                 out.flush();
-
             } else {
                 JSONObject json = new JSONObject();
-                json.put("Error","Cannot get any information");
+                json.put("Error", "Cannot get any information");
                 list.put(json);
                 parentJson.put("results", list);
                 out.print(parentJson);

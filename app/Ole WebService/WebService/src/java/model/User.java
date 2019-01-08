@@ -5,6 +5,7 @@
  */
 package model;
 
+import java.sql.Date;
 import org.eclipse.persistence.jpa.jpql.parser.DateTime;
 
 /**
@@ -15,13 +16,13 @@ public class User {
     private String userName;
     private String name;
     private String password;
-    private DateTime dateOfBirth;
+    private Date dateOfBirth;
     private String country;
-    private int contactNumber;
+    private String contactNumber;
     private String email;
     private String favoriteTeam;
 
-    public User(String userName, String name, String password, DateTime dateOfBirth, String country, int contactNumber, String email, String favoriteTeam) {
+    public User(String userName, String name, String password, Date dateOfBirth, String country, String contactNumber, String email, String favoriteTeam) {
         this.userName = userName;
         this.name = name;
         this.password = password;
@@ -30,6 +31,9 @@ public class User {
         this.contactNumber = contactNumber;
         this.email = email;
         this.favoriteTeam = favoriteTeam;
+    }
+
+    public User() {
     }
 
     public String getUserName() {
@@ -56,11 +60,11 @@ public class User {
         this.password = password;
     }
 
-    public DateTime getDateOfBirth() {
+    public Date getDateOfBirth() {
         return dateOfBirth;
     }
 
-    public void setDateOfBirth(DateTime dateOfBirth) {
+    public void setDateOfBirth(Date dateOfBirth) {
         this.dateOfBirth = dateOfBirth;
     }
 
@@ -72,11 +76,11 @@ public class User {
         this.country = country;
     }
 
-    public int getContactNumber() {
+    public String getContactNumber() {
         return contactNumber;
     }
 
-    public void setContactNumber(int contactNumber) {
+    public void setContactNumber(String contactNumber) {
         this.contactNumber = contactNumber;
     }
 
