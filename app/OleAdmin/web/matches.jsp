@@ -3,7 +3,7 @@
 <%@page import="java.sql.ResultSet"%>
 <html>
     <head>
-        <title>Olé Users</title>
+        <title>Olé Matches</title>
 
         <jsp:include page="WebDesignResources/pages/homeDesign.jsp" />
         <%
@@ -31,14 +31,28 @@
                     matchesList = (ArrayList<Matches>) request.getAttribute("matches");
                 }
             %>
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">View</div>
+                        <div class="panel-body">
+                            <form action="MatchesServlet" method="post" style="display:inline;">
+                                <button type="submit" name="loadAll" class="btn btn-outline btn-primary">All Matches</button>
+                                <button type="submit" name="loadPast" class="btn btn-outline btn-success">Past Matches</button>
+                                <button type="submit" name="loadUpcoming" class="btn btn-outline btn-warning">Upcoming Matches</button>
+                            </form>  
 
+                        </div>
+                    </div>
+                </div>
+            </div>
             <div class="row">
                 <div class="col-lg-12">
 
 
                     <!-- Start of User Table -->
                     <div class="panel panel-default">
-                        <div class="panel-heading">View all Premier League Matches</div>
+                        <div class="panel-heading">Premier League Matches</div>
                         <div class="panel-body">
                             <div class="table-responsive">
                                 <table class="table table-hover">

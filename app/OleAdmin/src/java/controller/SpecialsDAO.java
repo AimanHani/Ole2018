@@ -42,15 +42,32 @@ public class SpecialsDAO {
         //id++;
         //String specialID = "s" + id;
         //INSERT INTO Specials (description, status) VALUES ("tefst", "tfest")
-        String statement = "insert into specials (description, status) values('" + description + "','N');";
-        System.out.println(statement);
-        try (Connection conn = DBConnection.getConnection(); PreparedStatement stmt = conn.prepareStatement(statement);) {
-            stmt.executeUpdate();
-            return true;
+
+        //check if the specials is in the db
+        boolean exist = false;
+        try (Connection conn = DBConnection.getConnection(); PreparedStatement stmt = conn.prepareStatement("SELECT * from `specials` WHERE `description` LIKE '" + description + "'");) {
+            ResultSet rs = stmt.executeQuery();
+            if (rs.next()) {
+                exist = true;
+            }
+            rs.close();
         } catch (SQLException ex) {
             Logger.getLogger(SpecialsDAO.class.getName()).log(Level.SEVERE, null, ex);
         } catch (ClassNotFoundException ex) {
             Logger.getLogger(SpecialsDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        if (!exist) {
+            String statement = "insert into specials (description, status) values('" + description + "','N');";
+            System.out.println(statement);
+            try (Connection conn = DBConnection.getConnection(); PreparedStatement stmt = conn.prepareStatement(statement);) {
+                stmt.executeUpdate();
+                return true;
+            } catch (SQLException ex) {
+                Logger.getLogger(SpecialsDAO.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (ClassNotFoundException ex) {
+                Logger.getLogger(SpecialsDAO.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
         return false;
     }

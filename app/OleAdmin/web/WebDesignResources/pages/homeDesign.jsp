@@ -104,10 +104,17 @@
                                 </ul>
                             </li>
                             <li>
-                                <a href="api.jsp"><i class="fa fa-a fa-fw"></i> API</a>
+                                <a href="./FaqServlet?param=loadAll"><i class="fa fa-a fa-fw"></i>Frequently Asked Questions</a>
                             </li>
                             <li>
                                 <a href="./MatchesServlet"><i class="fa fa-a fa-fw"></i>Premier League Matches</a>
+                            </li>
+                            <li>
+                                <a href="./TeamServlet"><i class="fa fa-a fa-fw"></i>Premier League Teams</a>
+                            </li>
+
+                            <li>
+                                <a href="api.jsp"><i class="fa fa-a fa-fw"></i> API</a>
                             </li>
                         </ul>
                     </div>

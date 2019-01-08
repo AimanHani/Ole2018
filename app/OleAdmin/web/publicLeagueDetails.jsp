@@ -32,7 +32,7 @@
                                             <th>Tournament Name</th>
                                             <th>League Name</th>
                                             <th>Olé Points</th>
-                                            <th>Prize</th>
+                                            <th>Grand Prize</th>
                                         </tr>
                                     </thead>
                                     <tbody>

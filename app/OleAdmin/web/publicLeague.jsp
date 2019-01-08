@@ -33,7 +33,7 @@
                                             <th>Tournament Name</th>
                                             <th>League Name</th>
                                             <th>Points Allocated</th>
-                                            <th>Prize</th>
+                                            <th>Grand Prize</th>
                                             <th></th>
                                         </tr>
                                     </thead>

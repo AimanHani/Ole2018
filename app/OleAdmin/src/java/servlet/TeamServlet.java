@@ -5,23 +5,23 @@
  */
 package servlet;
 
+import controller.TeamDAO;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.ArrayList;
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import model.Matches;
-import controller.MatchesDAO;
-import javax.servlet.RequestDispatcher;
+import model.Team;
 
-@WebServlet(name = "MatchesServlet", urlPatterns = {"/MatchesServlet"})
-public class MatchesServlet extends HttpServlet {
+@WebServlet(name = "TeamServlet", urlPatterns = {"/TeamServlet"})
+public class TeamServlet extends HttpServlet {
 
-    ArrayList<Matches> matchesList = null;
+    ArrayList<Team> teamList = null;
     RequestDispatcher rd = null;
-
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -34,39 +34,13 @@ public class MatchesServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
-        if (request.getParameter("loadAll") != null) {
-            matchesList = MatchesDAO.getAllMatches();
-            if (matchesList != null) {
-                request.setAttribute("matches", matchesList);
-                rd = request.getRequestDispatcher("matches.jsp");
+        teamList = TeamDAO.getAllTeams();
+            if (teamList != null) {
+                request.setAttribute("teams", teamList);
+                rd = request.getRequestDispatcher("team.jsp");
                 //System.out.println(usersList.size());
                 rd.forward(request, response);
             }
-        } else if (request.getParameter("loadPast") != null) {
-            matchesList = MatchesDAO.getPastMatches();
-            if (matchesList != null) {
-                request.setAttribute("matches", matchesList);
-                rd = request.getRequestDispatcher("matches.jsp");
-                //System.out.println(usersList.size());
-                rd.forward(request, response);
-            }
-        } else if (request.getParameter("loadUpcoming") != null) {
-            matchesList = MatchesDAO.getUpcomingMatches();
-            if (matchesList != null) {
-                request.setAttribute("matches", matchesList);
-                rd = request.getRequestDispatcher("matches.jsp");
-                //System.out.println(usersList.size());
-                rd.forward(request, response);
-            }
-        } else {
-            matchesList = MatchesDAO.getAllMatches();
-            if (matchesList != null) {
-                request.setAttribute("matches", matchesList);
-                rd = request.getRequestDispatcher("matches.jsp");
-                //System.out.println(usersList.size());
-                rd.forward(request, response);
-            }
-        }
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -82,7 +56,6 @@ public class MatchesServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         processRequest(request, response);
-
     }
 
     /**
@@ -97,7 +70,6 @@ public class MatchesServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         processRequest(request, response);
-
     }
 
     /**

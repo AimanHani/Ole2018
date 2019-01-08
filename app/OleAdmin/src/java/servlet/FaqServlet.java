@@ -5,8 +5,7 @@
  */
 package servlet;
 
-import controller.APIDAO;
-import controller.SpecialsDAO;
+import controller.FaqDAO;
 import java.io.IOException;
 import java.util.ArrayList;
 import javax.servlet.RequestDispatcher;
@@ -15,15 +14,14 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import model.Specials;
+import model.Faq;
 
-@WebServlet(name = "SpecialsServlet", urlPatterns = {"/SpecialsServlet"})
-public class SpecialsServlet extends HttpServlet {
-
-    ArrayList<Specials> specialsList = null;
+@WebServlet(name = "FaqServlet", urlPatterns = {"/FaqServlet"})
+public class FaqServlet extends HttpServlet {
+    
+    ArrayList<Faq> faqList = null;
     RequestDispatcher rd = null;
     String requests = null;
-    String id = "";
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -36,82 +34,74 @@ public class SpecialsServlet extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-
-        requests = request.getParameter("param");
-        id = request.getParameter("id");
+        
+                requests = request.getParameter("param");
 
         //before specials.jsp loads, this servlet will be called first to load all specials from the db
-        if (requests != null && requests.equals("loadAll")) {
-            specialsList = SpecialsDAO.getAllSpecials();
-            if (specialsList != null) {
-                request.setAttribute("specials", specialsList);
-
-                System.out.println(id);
-                if (id != null && !id.equals("")) {
-                    rd = request.getRequestDispatcher("leagueSpecials.jsp?id="+id);
-                    //System.out.println(usersList.size());
-                    rd.forward(request, response);
-                }
-                rd = request.getRequestDispatcher("specials.jsp");
-                //System.out.println(usersList.size());
+        if ((requests != null && requests.equals("loadAll")) || (request.getParameter("loadAll") != null)) {
+            faqList = FaqDAO.getAllFaq();
+            if (faqList != null) {
+                request.setAttribute("faq", faqList);
+                rd = request.getRequestDispatcher("faq.jsp");
                 rd.forward(request, response);
             }
-
         }
-
-        if (requests != null && requests.equals("add")) {
-            String description = request.getParameter("description");
-            Boolean outcome = SpecialsDAO.addSpecials(description);
+        if ((requests != null && requests.equals("loadAll")) || (request.getParameter("loadUnread") != null)) {
+            faqList = FaqDAO.getUnreadFaq();
+            if (faqList != null) {
+                request.setAttribute("faq", faqList);
+                rd = request.getRequestDispatcher("faq.jsp");
+                rd.forward(request, response);
+            }
+        }
+        if (requests != null && requests.equals("addQuestion")) {
+            String question = request.getParameter("question");
+            Boolean outcome = FaqDAO.addQuesFaq(question);
             if (outcome) {
                 System.out.println("SUCCESS");
-                rd = request.getRequestDispatcher("./SpecialsServlet?param=loadAll");
+                rd = request.getRequestDispatcher("./FaqServlet?param=loadAll");
+                rd.forward(request, response);
+            }else{
+                System.out.println("fail/duplicate");
+                rd = request.getRequestDispatcher("./FaqServlet?param=loadAll");
                 rd.forward(request, response);
             }
-            else{
-                System.out.println("duplicate/fail");
-                rd = request.getRequestDispatcher("./SpecialsServlet?param=loadAll");
+        }
+        
+        if (requests != null && requests.equals("addAnswer")) {
+            String answer = request.getParameter("answer");
+            String faqId = request.getParameter("faqId");
+            System.out.println("Hello " + faqId);
+            System.out.println("Hello " + answer);
+            Boolean outcome = FaqDAO.addAnsFaq(Integer.parseInt(faqId),answer);
+            if (outcome) {
+                System.out.println("SUCCESS");
+                rd = request.getRequestDispatcher("./FaqServlet?param=loadAll");
                 rd.forward(request, response);
             }
-
         }
 
         if (requests != null && requests.equals("delete")) {
-            //System.out.println("HEY IM HERE");
-            String specialsId = request.getParameter("id1");
-            Boolean outcome = SpecialsDAO.deleteSpecials(Integer.parseInt(specialsId));
+            String faqId = request.getParameter("faqId");
+            Boolean outcome = FaqDAO.deleteFaq(Integer.parseInt(faqId));
             if (outcome) {
                 System.out.println("SUCCESS");
-                rd = request.getRequestDispatcher("./SpecialsServlet?param=loadAll");
+                rd = request.getRequestDispatcher("./FaqServlet?param=loadAll");
                 rd.forward(request, response);
             }
 
         }
-
-        if (requests != null && requests.equals("update")) {
-            String[] specialsList = request.getParameterValues("specials");
-            Boolean outcome = SpecialsDAO.updateSpecials(specialsList);
-            if (outcome) {
-                System.out.println("SUCCESS");
-                rd = request.getRequestDispatcher("./SpecialsServlet?param=loadAll");
+        
+        if (requests != null && requests.equals("search")) {
+            //System.out.println("HEY IM HERE TEEHEE");
+            String keyword = request.getParameter("keyword");
+            faqList = FaqDAO.searchKeyword(keyword);
+            if (faqList != null) {
+                request.setAttribute("faq", faqList);
+                rd = request.getRequestDispatcher("faq.jsp");
                 rd.forward(request, response);
             }
-            rd = request.getRequestDispatcher("./SpecialsServlet?param=loadAll");
-            rd.forward(request, response);
-
         }
-
-        if (requests != null && requests.equals("updateLeague")) {
-            String[] specialsList = request.getParameterValues("specials");
-            String leagueId = request.getParameter("id");
-            Boolean outcome = APIDAO.addSpecials(specialsList, leagueId);
-            if (outcome) {
-                System.out.println("SUCCESS");
-                response.sendRedirect("api.jsp?status=tournament " + outcome);
-                //rd.forward(request, response);
-            }
-
-        }
-
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
