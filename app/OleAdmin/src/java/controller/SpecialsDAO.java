@@ -125,4 +125,18 @@ public class SpecialsDAO {
         }
         return false;
     }
+    
+    public static Boolean updateOneSpecial(int id, String description) {
+        String statement = "update specials set description = '" + description + "' where specialsId = " + id;
+        System.out.println(statement);
+        try (Connection conn = DBConnection.getConnection(); PreparedStatement stmt = conn.prepareStatement(statement);) {
+            stmt.executeUpdate();
+            return true;
+        } catch (SQLException ex) {
+            Logger.getLogger(SpecialsDAO.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(SpecialsDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return false;
+    }
 }
