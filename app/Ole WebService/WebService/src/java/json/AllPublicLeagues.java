@@ -86,6 +86,7 @@ public class AllPublicLeagues extends HttpServlet {
                 json.put("tournamentID", apl.getTournamentID());
                 json.put("pointsAllocated", apl.getPointsAllocated());
                 json.put("leagueName", apl.getLeagueName());
+                json.put("tournamentName", apl.getTournamentName());
                 numberOfParticipants = PublicLeaguesDAO.getNumbersOfParticipantsInTheLeague(apl.getLeagueID());
                 json.put("numberOfParticipants", numberOfParticipants);
                 it.remove(); // avoids a ConcurrentModificationException
