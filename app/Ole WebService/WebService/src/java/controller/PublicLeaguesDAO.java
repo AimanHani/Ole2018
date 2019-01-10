@@ -22,9 +22,7 @@ public class PublicLeaguesDAO {
         HashMap<Integer, AllPublicLeague> dbAllPublicLeague = new HashMap<Integer, AllPublicLeague>();
         
 
-        try (Connection conn = DBConnection.getConnection(); PreparedStatement stmt = conn.prepareStatement("SELECT l.leagueId, prize, tournamentId, pointsAllocated, leagueName \n" +
-"                FROM publicleague pl, league l \n" +
-"                where l.leagueId = pl.leagueId");) {
+        try (Connection conn = DBConnection.getConnection(); PreparedStatement stmt = conn.prepareStatement("SELECT l.leagueId, prize, t.tournamentId, pointsAllocated, leagueName,t.name  FROM publicleague pl, league l, tournament t where l.leagueId = pl.leagueId");) {
             ResultSet rs = stmt.executeQuery();
 
             while (rs.next()) {
@@ -33,9 +31,9 @@ public class PublicLeaguesDAO {
                 int tournamentID = rs.getInt(3);
                 int pointsAllocated = rs.getInt(4);
                 String leagueName = rs.getString(5);
-                
+                String tournamentName = rs.getString(6);
 
-                dbAllPublicLeague.put(legaueID,new AllPublicLeague(legaueID, prize,tournamentID,pointsAllocated,leagueName));
+                dbAllPublicLeague.put(legaueID,new AllPublicLeague(legaueID, prize,tournamentID,pointsAllocated,leagueName,tournamentName));
                 
             }
             rs.close();
