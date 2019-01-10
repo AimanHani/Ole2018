@@ -166,11 +166,11 @@ public class Signup extends AppCompatActivity {
                             params.put("username", username.getText( ).toString( ));
                             params.put("name", name.getText( ).toString( ));
                             params.put("password", SHA1(password.getText( ).toString( )));
-                            params.put("dob", birthdate.getText( ).toString( ));
+                            params.put("birthdate", birthdate.getText( ).toString( ));
                             params.put("country", clickedCountryName);
                             params.put("contactNo", contactNo.getText( ).toString( ));
                             params.put("email", email.getText( ).toString( ));
-                            params.put("favoriteTeam", clickedTeamName);
+                            params.put("team", clickedTeamName);
                             validate( );
                         } catch (Exception e) {
 

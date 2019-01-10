@@ -32,7 +32,7 @@ public class SignUpDAO {
         if(emailCheck){
         boolean status = false;
         int rs = 0;
-        if(isDateValid(birthdate)){
+        //if(isDateValid(birthdate)){
             try (Connection c = DBConnection.getConnection(); PreparedStatement ps = c.prepareStatement("INSERT INTO user (username, name, password,dob, country, contactNo, email, favoriteTeam) VALUES(?,?,?,?,?,?,?,?)");) {
 
             
@@ -50,19 +50,19 @@ public class SignUpDAO {
                     return "success";
                 }
             }catch (Exception e) {
-                System.out.println("check db connection class");
-                return"check db connection class";
+                System.out.println("check db connection class" + e.toString());
+                return"check db connection class"+ e.toString();
             } 
             finally {
                 if (rs >0) {
                 rs=0;
                 }
             }
-        }
-        else{
-            return "birthdate error";
-        }
-        
+//        }
+//        else{
+//            return "birthdate error";
+//        }
+//        
         return "username has been taken";
     }
         else{
