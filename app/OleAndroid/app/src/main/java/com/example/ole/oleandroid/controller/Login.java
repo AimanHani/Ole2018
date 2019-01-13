@@ -34,6 +34,7 @@ public class Login extends AppCompatActivity {
     Button signin, signup;
     RequestQueue requestQueue;
     TextView result;
+    Button facebookButton;
     //= Volley.newRequestQueue(getApplicationContext());
 
 
@@ -46,9 +47,24 @@ public class Login extends AppCompatActivity {
         password = (EditText) findViewById(R.id.password);
         signin = (Button) findViewById(R.id.signin);
         signup = (Button) findViewById(R.id.signup);
+
+        facebookButton = findViewById(R.id.facebookButton);
+
+
         //result = (TextView) findViewById(R.id.result);
 
         //setContentView(R.layout.activity_loading_page);
+
+        /**
+         * for now i link it to check leagues (public and private)
+         */
+        facebookButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(Login.this , SpecialList.class);
+                 startActivity(intent);
+            }
+        });
 
 
         signin.setOnClickListener(new View.OnClickListener() {

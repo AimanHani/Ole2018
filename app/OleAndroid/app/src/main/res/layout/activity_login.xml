@@ -37,16 +37,20 @@
     <Button
         android:id="@+id/signin"
         android:layout_width="320dp"
-        android:layout_height="55dp"
-        android:layout_marginTop="268dp"
-        android:layout_marginBottom="54dp"
-        android:background="@drawable/login_button"
+        android:layout_height="60dp"
+        android:layout_marginStart="0dp"
+        android:layout_marginTop="8dp"
+        android:text="Login"
+        android:textSize="20sp"
+        android:textColor="@color/white"
+        android:background="@color/themeColor"
+        android:gravity="center"
         app:layout_constraintBottom_toTopOf="@+id/signup"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.505"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.646" />
+        app:layout_constraintVertical_bias="0.646"/>
 
     <Button
         android:id="@+id/signup"

@@ -22,4 +22,5 @@
     <!-- LoadingPage Screen -->
     <string name="publicLeague">Public League</string>
     <string name="privateLeague">Private League</string>
+
 </resources>
