@@ -32,23 +32,13 @@
                         <div class="panel-body">
                             <form action="FaqServlet" method="post" style="display:inline;">
                                 <button type="submit" name="loadAll" class="btn btn-outline btn-primary">All</button>
-                                <button type="submit" name="loadUnread" class="btn btn-outline btn-success">Unread</button>
+                                <button type="submit" name="catPublic" class="btn btn-outline btn-success">Public League</button>
+                                <button type="submit" name="catPrivate" class="btn btn-outline btn-success">Private League</button>
+                                <button type="submit" name="catGeneral" class="btn btn-outline btn-success">General</button>
                             </form>  
 
                         </div>
                     </div>
-
-                    <!-- Start of Search -->
-                    <form action="FaqServlet" method="post" style="display:inline;">
-                        <!-- for servlet to know it's searching for users --> 
-                        <input type="hidden" name="param" value="search"/>
-                        <input class="form-control" type = "text" name = "keyword" placeholder="Search by keywords..." style="width:50%; margin-bottom: 15px; display:inline;"/>
-                        <button class="btn btn-outline btn-primary" type="submit" value = "Submit">Search</button>
-                    </form>
-                    <!-- End of Search -->
-
-
-
                 </div>
             </div>
             <%
@@ -60,53 +50,43 @@
 
             <div class="row">
                 <div class="col-lg-12">
-                    <!-- Start of Add Special  -->
-                    <form action="FaqServlet" method="post" style="display:inline;">
-                        <input type="hidden" name="param" value="addQuestion"/>
-                        <input class="form-control" type="text" name="question" placeholder="Add a New Question..." style="width:50%; margin-bottom: 15px; display:inline;"/>
-                        <button type="submit" class="btn btn-outline btn-primary">Add Question</button>
-                    </form>
-                    <!-- End of Add Question -->
 
-                    <!-- Start of Special Table -->
+                    <a href="addFaq.jsp">Add new</a><br><br>
+
+                    <!-- Start of Faq Table -->
                     <div class="panel panel-default">
                         <div class="panel-heading">View all Frequently Asked Questions</div>
                         <div class="panel-body">
                             <div class="table-responsive">  
-                                <table class="table table-hover">
-                                    <thead>
-                                        <tr>
-                                            <th>#</th>
-                                            <th>Question</th>
-                                            <th>Answer</th>
-                                            <th></th>
-                                            <th></th>
-                                        </tr>
-                                    </thead>
-                                    <%
-                                        for (int i = 0; i < faqList.size(); i++) {
-                                            Faq faq = faqList.get(i);
-                                    %>
-                                    <tbody>
-                                        <tr>
-                                            <td><%=i + 1%></td>
-                                            <td><%=faq.getQuestion()%></td>
-                                            <td>
-                                                <form action="FaqServlet" method="post" style="display:inline;">
-                                                    <textarea name="answer" rows="4" cols="50" ><%=faq.getAnswer()%></textarea>
-                                                    <input type="hidden" name="param" value="addAnswer" />
-                                                    <input type="hidden" name="faqId" value=<%=faq.getFaqId()%> />
-                                                    <button type="submit" class="btn btn-outline btn-primary">Answer</button>
-                                                </form>
-                                            </td>
-
-                                            <td><a href="./FaqServlet?param=delete&faqId=<%=faq.getFaqId()%>">Delete</a></td>
-                                        </tr>
+                                <form action="FaqServlet" method="post">
+                                    <table class="table table-hover">
+                                        <thead>
+                                            <tr>
+                                                <th>#</th>
+                                                <th>Question</th>
+                                                <th>Answer</th>
+                                                <th>Category</th>
+                                                <th></th>
+                                            </tr>
+                                        </thead>
                                         <%
-                                            }
+                                            for (int i = 0; i < faqList.size(); i++) {
+                                                Faq faq = faqList.get(i);
                                         %>
-                                    </tbody>
-                                </table>
+                                        <tbody>
+                                            <tr>
+                                                <td><%=i + 1%></td>
+                                                <td><%=faq.getQuestion()%></td>
+                                                <td><%=faq.getAnswer()%></td>
+                                                <td><%=faq.getCategory()%></td>
+                                                <td><a href="./FaqServlet?param=details&index=<%=i%>">View</a></td>
+                                            </tr>
+                                            <%
+                                                }
+                                            %>
+                                        </tbody>
+                                    </table>
+                                </form>
                             </div>
                         </div>
                     </div>
