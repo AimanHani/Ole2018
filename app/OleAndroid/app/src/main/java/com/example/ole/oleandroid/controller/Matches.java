@@ -56,14 +56,18 @@ public class Matches extends AppCompatActivity {
 
         RequestQueue queue = Volley.newRequestQueue(getApplicationContext());
 
-        final String url = new DBConnection().manageMatchesUrl();
+        final String url = new DBConnection().getMatchesUrl();
 
         JsonObjectRequest getRequest = new JsonObjectRequest(Request.Method.GET, url, null,
                 new Response.Listener<JSONObject>() {
                     @Override
                     public void onResponse(JSONObject response) {
                         serverResponse[0] = response;
+                        //setMatchesText(response);
+                        TextView currentMatch = matchTextView.get(1);
                         setMatchesText(response);
+                        //currentMatch.setText(response.toString());
+
                     }
                 },
                 new Response.ErrorListener() {
@@ -130,8 +134,8 @@ public class Matches extends AppCompatActivity {
                 try {
 //                    JSONArray publicLeague = match.getJSONArray("results");
 //                    JSONObject firstMatch = publicLeague.getJSONObject(i);
-                    String date = match.getString("date");
-                    String time = match.getString("time");
+                    String date = match.getString("matchDate");
+                    String time = match.getString("matchTime");
                     String team1 = match.getString("team1");
                     String team2 = match.getString("team2");
 

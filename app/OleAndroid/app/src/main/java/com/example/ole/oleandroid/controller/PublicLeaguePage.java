@@ -3,6 +3,7 @@ package com.example.ole.oleandroid.controller;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -32,7 +33,7 @@ public class PublicLeaguePage extends AppCompatActivity {
     Button joinPublicLeague;
     String username;
     String results = "";
-    int leagueID;
+    int leagueID = 0;
     RequestQueue queue;
 
     @Override
@@ -62,29 +63,33 @@ public class PublicLeaguePage extends AppCompatActivity {
                     @Override
                     public void onResponse(JSONObject response) {
                         // display response
-                        //listPublicLeague.append(response.toString());
+                        //listPublicLeague.setText(response.toString());
                         try {
-
                             JSONArray publicLeague = response.getJSONArray("results");
                             JSONObject firstLeague = publicLeague.getJSONObject(0);
-                            leagueID = firstLeague.getInt("leagueId");
+                            listPublicLeague.setText(firstLeague.toString());
+
+                            leagueID = firstLeague.getInt("leagueID");
                             String prize = firstLeague.getString("prize");
-                            int tournamentID = firstLeague.getInt("tournamentId");
-                            int pointsAllocated = firstLeague.getInt("tournamentId");
+                            int tournamentID = firstLeague.getInt("tournamentID");
+                            int pointsAllocated = firstLeague.getInt("pointsAllocated");
                             String leagueName = firstLeague.getString("leagueName");
-                            //int numberOfParticipants = firstLeague.getInt("numberParticipants");
+                            int numberOfParticipants = firstLeague.getInt("numberOfParticipants");
                             //listPublicLeague.append("Username:"+userName);
-
-                            JSONArray participants = response.getJSONArray("participants");
-                            JSONObject participantsOne = participants.getJSONObject(0);
-                            int numberOfParticipants = participantsOne.getInt("num_participants");
-
-                            listPublicLeague.setText(leagueName + System.getProperty("line.separator"));
-                            listPublicLeague.append("League ID: " + leagueID + System.getProperty("line.separator"));
-                            listPublicLeague.append("Tournament ID: " + tournamentID + System.getProperty("line.separator"));
-                            listPublicLeague.append("Point Allocated " + pointsAllocated + System.getProperty("line.separator"));
-                            listPublicLeague.append("Final Prize: " + prize + System.getProperty("line.separator"));
-                            listPublicLeague.append("Number of Participants:" + numberOfParticipants);
+                            //listPublicLeague.setText(prize.toString());
+                            Log.d("prize", prize);
+                            System.out.println(prize);
+//                            JSONArray participants = response.getJSONArray("participants");
+//                            JSONObject participantsOne = participants.getJSONObject(0);
+                            //int numberOfParticipants = participantsOne.getInt("num_participants");
+                            //listPublicLeaguse.setText(firstLeague.getString("leagueName"));
+                            listPublicLeague.append(" "+leagueID);
+                            //listPublicLeague.setText(leagueName + System.getProperty("line.separator"));
+                            //listPublicLeague.append("League ID: " + leagueID + System.getProperty("line.separator"));
+                            //listPublicLeague.append("Tournament ID: " + tournamentID + System.getProperty("line.separator"));
+//                            listPublicLeague.append("Point Allocated " + pointsAllocated + System.getProperty("line.separator"));
+//                            listPublicLeague.append("Final Prize: " + prize + System.getProperty("line.separator"));
+//                            listPublicLeague.append("Number of Participants:" + numberOfParticipants);
 
 
                         } catch (JSONException e) {
@@ -104,36 +109,36 @@ public class PublicLeaguePage extends AppCompatActivity {
         queue.add(getRequest);
 
 
-        url = new DBConnection().manageMatchesUrl();
-
-        StringRequest stringRequest = new StringRequest(Request.Method.POST, url,
-                new Response.Listener<String>() {
-                    @Override
-                    public void onResponse(String serverResponse) {
-                        if (serverResponse.equals("true")) {
-                            joinPublicLeague.setEnabled(false);
-                        }
-                    }
-                },
-                new Response.ErrorListener() {
-                    @Override
-                    public void onErrorResponse(VolleyError volleyError) {
-                        System.out.println("error  :");
-                        volleyError.printStackTrace();
-                    }
-                }) {
-            @Override
-            protected Map<String, String> getParams() {
-                Map<String, String> params = new HashMap<String, String>();
-                params.put("username", username);
-                params.put("leagueId", leagueID + "");
-                params.put("method", "getMatchesLog");
-                return params;
-            }
-
-        };
-
-        queue.add(stringRequest);
+//        url = new DBConnection().manageMatchesUrl();
+//
+//        StringRequest stringRequest = new StringRequest(Request.Method.POST, url,
+//                new Response.Listener<String>() {
+//                    @Override
+//                    public void onResponse(String serverResponse) {
+//                        if (serverResponse.equals("true")) {
+//                            joinPublicLeague.setEnabled(false);
+//                        }
+//                    }
+//                },
+//                new Response.ErrorListener() {
+//                    @Override
+//                    public void onErrorResponse(VolleyError volleyError) {
+//                        System.out.println("error  :");
+//                        volleyError.printStackTrace();
+//                    }
+//                }) {
+//            @Override
+//            protected Map<String, String> getParams() {
+//                Map<String, String> params = new HashMap<String, String>();
+//                params.put("username", username);
+//                params.put("leagueId", leagueID + "");
+//                params.put("method", "getMatchesLog");
+//                return params;
+//            }
+//
+//        };
+//
+//        queue.add(stringRequest);
 
         joinPublicLeague.setOnClickListener((new View.OnClickListener() {
                     @Override
@@ -154,7 +159,7 @@ public class PublicLeaguePage extends AppCompatActivity {
                                         System.out.println("ServerResponse " + ServerResponse);
                                         if (!ServerResponse.equals("error")) {
                                             //result[0] = ServerResponse;
-                                            Intent intent = new Intent(PublicLeaguePage.this, SpecialsPredict.class);
+                                            Intent intent = new Intent(PublicLeaguePage.this, Matches.class);
                                             //Bundle b = getIntent().getExtras();
                                             b.putString("logId", ServerResponse);
                                             b.putString("leagueId", leagueID + "");
