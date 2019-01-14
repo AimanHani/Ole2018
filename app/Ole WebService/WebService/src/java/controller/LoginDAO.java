@@ -34,7 +34,13 @@ public class LoginDAO {
         if (username == null || password == null) {
             return false;
         }
-        String hashedPw = SHA1(password);
+        byte[]salt = getSalt(username);
+        
+        if(salt == null){
+          return false;  
+        }
+        
+        String hashedPw = new String(getSHA1SecurePassword(password,salt));
 
         ResultSet rs = null;
         try (Connection c = DBConnection.getConnection(); PreparedStatement ps = c.prepareStatement("Select username,password from user where username=? and password=?");) {
@@ -60,30 +66,48 @@ public class LoginDAO {
         return false;
     }
     
-     private static String convertToHex(byte[] data) {
-        StringBuffer buf = new StringBuffer();
-        for (int i = 0; i < data.length; i++) {
-            int halfbyte = (data[i] >>> 4) & 0x0F;
-            int two_halfs = 0;
-            do {
-                if ((0 <= halfbyte) && (halfbyte <= 9))
-                    buf.append((char) ('0' + halfbyte));
-                else
-                    buf.append((char) ('a' + (halfbyte - 10)));
-                halfbyte = data[i] & 0x0F;
-            } while (two_halfs++ < 1);
+    private static String getSHA1SecurePassword(String passwordToHash, byte[] salt)
+    {
+        String generatedPassword = null;
+        try {
+            MessageDigest md = MessageDigest.getInstance("SHA-1");
+            md.update(salt);
+            byte[] bytes = md.digest(passwordToHash.getBytes());
+            StringBuilder sb = new StringBuilder();
+            for(int i=0; i< bytes.length ;i++)
+            {
+                sb.append(Integer.toString((bytes[i] & 0xff) + 0x100, 16).substring(1));
+            }
+            generatedPassword = sb.toString();
         }
-        return buf.toString();
+        catch (NoSuchAlgorithmException e)
+        {
+            e.printStackTrace();
+        }
+        return generatedPassword;
     }
+   private static byte[] getSalt(String username) throws SQLException{
+        ResultSet rs = null;
+        try (Connection c = DBConnection.getConnection(); PreparedStatement ps = c.prepareStatement("Select salt from user where username=?");) {
 
-    public static String SHA1(String text)
-            throws NoSuchAlgorithmException, UnsupportedEncodingException {
-        MessageDigest md;
-        md = MessageDigest.getInstance("SHA-1");
-        byte[] sha1hash = new byte[40];
-        md.update(text.getBytes("iso-8859-1"), 0, text.length());
-        sha1hash = md.digest();
-        return convertToHex(sha1hash);
+            ps.setString(1, username);
+            byte[] salt = null;
+        
+
+            rs = ps.executeQuery();
+            while (rs.next()) {
+               salt = rs.getBytes(1);
+            }
+            return salt;
+        } catch (ClassNotFoundException e) {
+            System.out.println("check db connection class");
+        } finally {
+            if (rs != null) {
+                rs.close();
+            }
+        }
+        return null;
     }
+    
 
 }
