@@ -35,7 +35,7 @@ public class PublicLeaguePage extends AppCompatActivity {
     String username;
     String results = "";
     int leagueID;
-    int leagueID = 0;
+ //   int leagueID = 0;
     RequestQueue queue;
 
     @Override
@@ -46,7 +46,7 @@ public class PublicLeaguePage extends AppCompatActivity {
 
         username = b.getString("username");
         listPublicLeague = (TextView) findViewById(R.id.listPublicLeague);
-        joinPublicLeague = (Button) findViewById(R.id.join_btn);
+        //joinPublicLeague = (Button) findViewById(R.id.join_btn);
 
         System.out.println(b.get("leagueId"));
         queue = Volley.newRequestQueue(this);
@@ -78,8 +78,8 @@ public class PublicLeaguePage extends AppCompatActivity {
                             String prize = firstLeague.getString("prize");
                             int tournamentID = firstLeague.getInt("tournamentId");
                             int pointsAllocated = firstLeague.getInt("tournamentId");
-                            int tournamentID = firstLeague.getInt("tournamentID");
-                            int pointsAllocated = firstLeague.getInt("pointsAllocated");
+//                            int tournamentID = firstLeague.getInt("tournamentID");
+//                            int pointsAllocated = firstLeague.getInt("pointsAllocated");
                             String leagueName = firstLeague.getString("leagueName");
                             //int numberOfParticipants = firstLeague.getInt("numberParticipants");
                             int numberOfParticipants = firstLeague.getInt("numberOfParticipants");
@@ -101,7 +101,7 @@ public class PublicLeaguePage extends AppCompatActivity {
 
                             JSONArray participants = response.getJSONArray("participants");
                             JSONObject participantsOne = participants.getJSONObject(0);
-                            int numberOfParticipants = participantsOne.getInt("num_participants");
+     //                       int numberOfParticipants = participantsOne.getInt("num_participants");
 
                             listPublicLeague.setText(leagueName + System.getProperty("line.separator"));
                             listPublicLeague.append("League ID: " + leagueID + System.getProperty("line.separator"));
@@ -209,7 +209,7 @@ public class PublicLeaguePage extends AppCompatActivity {
                                         if (!ServerResponse.equals("error")) {
                                             //result[0] = ServerResponse;
                                             Intent intent = new Intent(PublicLeaguePage.this, SpecialsPredict.class);
-                                            Intent intent = new Intent(PublicLeaguePage.this, Matches.class);
+                                           //s Intent intent = new Intent(PublicLeaguePage.this, Matches.class);
                                             //Bundle b = getIntent().getExtras();
                                             b.putString("logId", ServerResponse);
                                             b.putString("leagueId", leagueID + "");
