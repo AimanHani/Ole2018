@@ -40,7 +40,7 @@ public class Profile extends AppCompatActivity {
         details = findViewById(R.id.details);
         home = findViewById(R.id.home);
 
-        Bundle b = getIntent().getExtras();
+        final Bundle b = getIntent().getExtras();
         matchId = b.getString("matchId");
         logId = b.getString("logId");
         username = b.getString("username");
@@ -55,12 +55,12 @@ public class Profile extends AppCompatActivity {
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String serverResponse) {
-                        try {
-                            finalResults = setOutput(finalResults, serverResponse);
-                        } catch (JSONException e) {
-                            e.printStackTrace();
-                        }
-                        details.setText(finalResults);
+//                        try {
+//                            finalResults = setOutput(finalResults, serverResponse);
+//                        } catch (JSONException e) {
+//                            e.printStackTrace();
+//                        }
+                        details.setText(serverResponse);
                     }
                 },
                 new Response.ErrorListener() {
@@ -91,6 +91,7 @@ public class Profile extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(Profile.this, Home.class);
+                intent.putExtras(b);
                 startActivity(intent);
             }
         });

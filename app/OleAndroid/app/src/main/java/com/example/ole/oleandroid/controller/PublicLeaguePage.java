@@ -3,10 +3,10 @@ package com.example.ole.oleandroid.controller;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.widget.Toolbar;
+
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
-import android.widget.ListView;
 import android.widget.TextView;
 
 import com.android.volley.Request;
@@ -35,8 +35,8 @@ public class PublicLeaguePage extends AppCompatActivity {
     String username;
     String results = "";
     int leagueID;
+    int leagueID = 0;
     RequestQueue queue;
-    ListView listViewPublicLeague;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,15 +46,17 @@ public class PublicLeaguePage extends AppCompatActivity {
 
         username = b.getString("username");
         listPublicLeague = (TextView) findViewById(R.id.listPublicLeague);
-        //joinPublicLeague = (Button) findViewById(R.id.join_btn);
+        joinPublicLeague = (Button) findViewById(R.id.join_btn);
 
         System.out.println(b.get("leagueId"));
         queue = Volley.newRequestQueue(this);
+
 
         if (b.get("leagueId") != null) {
             joinPublicLeague.setEnabled(false);
             //joinPublicLeague.setC
         }
+
 
         String url = new DBConnection().getPublicLeagueUrl();
 
@@ -64,17 +66,38 @@ public class PublicLeaguePage extends AppCompatActivity {
                     public void onResponse(JSONObject response) {
                         // display response
                         //listPublicLeague.append(response.toString());
+                        //listPublicLeague.setText(response.toString());
                         try {
 
                             JSONArray publicLeague = response.getJSONArray("results");
                             JSONObject firstLeague = publicLeague.getJSONObject(0);
                             leagueID = firstLeague.getInt("leagueId");
+                            listPublicLeague.setText(firstLeague.toString());
+
+                            leagueID = firstLeague.getInt("leagueID");
                             String prize = firstLeague.getString("prize");
                             int tournamentID = firstLeague.getInt("tournamentId");
                             int pointsAllocated = firstLeague.getInt("tournamentId");
+                            int tournamentID = firstLeague.getInt("tournamentID");
+                            int pointsAllocated = firstLeague.getInt("pointsAllocated");
                             String leagueName = firstLeague.getString("leagueName");
                             //int numberOfParticipants = firstLeague.getInt("numberParticipants");
+                            int numberOfParticipants = firstLeague.getInt("numberOfParticipants");
                             //listPublicLeague.append("Username:"+userName);
+                            //listPublicLeague.setText(prize.toString());
+                            Log.d("prize", prize);
+                            System.out.println(prize);
+//                            JSONArray participants = response.getJSONArray("participants");
+//                            JSONObject participantsOne = participants.getJSONObject(0);
+                            //int numberOfParticipants = participantsOne.getInt("num_participants");
+                            //listPublicLeaguse.setText(firstLeague.getString("leagueName"));
+                            listPublicLeague.append(" "+leagueID);
+                            //listPublicLeague.setText(leagueName + System.getProperty("line.separator"));
+                            //listPublicLeague.append("League ID: " + leagueID + System.getProperty("line.separator"));
+                            //listPublicLeague.append("Tournament ID: " + tournamentID + System.getProperty("line.separator"));
+//                            listPublicLeague.append("Point Allocated " + pointsAllocated + System.getProperty("line.separator"));
+//                            listPublicLeague.append("Final Prize: " + prize + System.getProperty("line.separator"));
+//                            listPublicLeague.append("Number of Participants:" + numberOfParticipants);
 
                             JSONArray participants = response.getJSONArray("participants");
                             JSONObject participantsOne = participants.getJSONObject(0);
@@ -106,6 +129,36 @@ public class PublicLeaguePage extends AppCompatActivity {
 
 
         url = new DBConnection().manageMatchesUrl();
+//        url = new DBConnection().manageMatchesUrl();
+//
+//        StringRequest stringRequest = new StringRequest(Request.Method.POST, url,
+//                new Response.Listener<String>() {
+//                    @Override
+//                    public void onResponse(String serverResponse) {
+//                        if (serverResponse.equals("true")) {
+//                            joinPublicLeague.setEnabled(false);
+//                        }
+//                    }
+//                },
+//                new Response.ErrorListener() {
+//                    @Override
+//                    public void onErrorResponse(VolleyError volleyError) {
+//                        System.out.println("error  :");
+//                        volleyError.printStackTrace();
+//                    }
+//                }) {
+//            @Override
+//            protected Map<String, String> getParams() {
+//                Map<String, String> params = new HashMap<String, String>();
+//                params.put("username", username);
+//                params.put("leagueId", leagueID + "");
+//                params.put("method", "getMatchesLog");
+//                return params;
+//            }
+//
+//        };
+//
+//        queue.add(stringRequest);
 
         StringRequest stringRequest = new StringRequest(Request.Method.POST, url,
                 new Response.Listener<String>() {
@@ -156,6 +209,7 @@ public class PublicLeaguePage extends AppCompatActivity {
                                         if (!ServerResponse.equals("error")) {
                                             //result[0] = ServerResponse;
                                             Intent intent = new Intent(PublicLeaguePage.this, SpecialsPredict.class);
+                                            Intent intent = new Intent(PublicLeaguePage.this, Matches.class);
                                             //Bundle b = getIntent().getExtras();
                                             b.putString("logId", ServerResponse);
                                             b.putString("leagueId", leagueID + "");
