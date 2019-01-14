@@ -58,6 +58,18 @@ public class SpecialsServlet extends HttpServlet {
             }
 
         }
+        
+        
+        //before userDetail.jsp loads, this servlet will be called first
+        //to pick the index of arraylist<user> the user detail will extract info from
+        //requests = request.getParameter("param");
+        if (requests != null && requests.equals("details")) {
+            String specialIndex = request.getParameter("index");
+            Specials specialObj = specialsList.get(Integer.parseInt(specialIndex));
+            request.setAttribute("specialObj", specialObj);
+            rd = request.getRequestDispatcher("specialDetail.jsp");
+            rd.forward(request, response);
+        }
 
         if (requests != null && requests.equals("add")) {
             String description = request.getParameter("description");
@@ -110,6 +122,17 @@ public class SpecialsServlet extends HttpServlet {
                 //rd.forward(request, response);
             }
 
+        }
+        
+        if (requests != null && requests.equals("updateOneSpecial")) {
+            String specialId = request.getParameter("id1");
+            String description = request.getParameter("description");
+            Boolean outcome = SpecialsDAO.updateOneSpecial(Integer.parseInt(specialId), description);
+            if (outcome) {
+                System.out.println("SUCCESS");
+                rd = request.getRequestDispatcher("./SpecialsServlet?param=loadAll");
+                rd.forward(request, response);
+            }
         }
 
     }

@@ -5,11 +5,15 @@ public class Faq {
     private int faqId;
     private String question;
     private String answer;
+    private String category;
+
+   
     
-        public Faq(int faqId, String question, String answer){
+    public Faq(int faqId, String question, String answer, String category){
         this.faqId = faqId;
         this.question = question;
         this.answer = answer;
+        this.category = category;
     }
     
     public int getFaqId() {
@@ -34,5 +38,13 @@ public class Faq {
 
     public void setAnswer(String answer) {
         this.answer = answer;
+    } 
+    
+    public String getCategory() {
+        return category;
+    }
+
+    public void setCategory(String category) {
+        this.category = category;
     }
 }

@@ -5,7 +5,7 @@
  */
 package servlet;
 
-import controller.FaqDAO;
+import controller.AskDAO;
 import java.io.IOException;
 import java.util.ArrayList;
 import javax.servlet.RequestDispatcher;
@@ -14,12 +14,12 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import model.Faq;
+import model.Ask;
 
-@WebServlet(name = "FaqServlet", urlPatterns = {"/FaqServlet"})
-public class FaqServlet extends HttpServlet {
-
-    ArrayList<Faq> faqList = null;
+@WebServlet(name = "AskServlet", urlPatterns = {"/AskServlet"})
+public class AskServlet extends HttpServlet {
+    
+    ArrayList<Ask> askList = null;
     RequestDispatcher rd = null;
     String requests = null;
 
@@ -34,144 +34,103 @@ public class FaqServlet extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-
-        requests = request.getParameter("param");
+        
+                requests = request.getParameter("param");
 
         //before specials.jsp loads, this servlet will be called first to load all specials from the db
         if ((requests != null && requests.equals("loadAll")) || (request.getParameter("loadAll") != null)) {
-            faqList = FaqDAO.getAllFaq();
-            if (faqList != null) {
-                request.setAttribute("faq", faqList);
-                rd = request.getRequestDispatcher("faq.jsp");
-                //System.out.println("sioze sss= " + faqList.size());
+            askList = AskDAO.getAll();
+            if (askList != null) {
+                request.setAttribute("ask", askList);
+                rd = request.getRequestDispatcher("askOle.jsp");
                 rd.forward(request, response);
             }
         }
-
-        //before userDetail.jsp loads, this servlet will be called first
-        //to pick the index of arraylist<user> the user detail will extract info from
-        //requests = request.getParameter("param");
-        if (requests != null && requests.equals("details")) {
-            String faqIndex = request.getParameter("index");
-            //System.out.println("sioze = " + faqList.size());
-            faqList = FaqDAO.getAllFaq();
-            Faq faqObj = faqList.get(Integer.parseInt(faqIndex));
-            request.setAttribute("faqObj", faqObj);
-            rd = request.getRequestDispatcher("faqDetail.jsp");
-            rd.forward(request, response);
-        }
-
         if ((requests != null && requests.equals("loadAll")) || (request.getParameter("loadUnread") != null)) {
-            faqList = FaqDAO.getUnreadFaq();
-            if (faqList != null) {
-                request.setAttribute("faq", faqList);
-                rd = request.getRequestDispatcher("faq.jsp");
+            askList = AskDAO.getUnreadAsk();
+            if (askList != null) {
+                request.setAttribute("ask", askList);
+                rd = request.getRequestDispatcher("askOle.jsp");
                 rd.forward(request, response);
             }
         }
+        
         if ((requests != null && requests.equals("loadAll")) || (request.getParameter("catPublic") != null)) {
-            faqList = FaqDAO.getCategoryFaq("Public League");
-            if (faqList != null) {
-                request.setAttribute("faq", faqList);
-                rd = request.getRequestDispatcher("faq.jsp");
+            askList = AskDAO.getCategoryAsk("Public League");
+            if (askList != null) {
+                request.setAttribute("ask", askList);
+                rd = request.getRequestDispatcher("askOle.jsp");
                 rd.forward(request, response);
             }
         }
-
+        
         if ((requests != null && requests.equals("loadAll")) || (request.getParameter("catPrivate") != null)) {
-            faqList = FaqDAO.getCategoryFaq("Private League");
-            if (faqList != null) {
-                request.setAttribute("faq", faqList);
-                rd = request.getRequestDispatcher("faq.jsp");
+            askList = AskDAO.getCategoryAsk("Private League");
+            if (askList != null) {
+                request.setAttribute("ask", askList);
+                rd = request.getRequestDispatcher("askOle.jsp");
                 rd.forward(request, response);
             }
         }
-
+        
         if ((requests != null && requests.equals("loadAll")) || (request.getParameter("catGeneral") != null)) {
-            faqList = FaqDAO.getCategoryFaq("General");
-            if (faqList != null) {
-                request.setAttribute("faq", faqList);
-                rd = request.getRequestDispatcher("faq.jsp");
+            askList = AskDAO.getCategoryAsk("General");
+            if (askList != null) {
+                request.setAttribute("ask", askList);
+                rd = request.getRequestDispatcher("askOle.jsp");
                 rd.forward(request, response);
             }
         }
-
-        if (requests != null && requests.equals("update")) {
-            String question = request.getParameter("question");
-            String answer = request.getParameter("answer");
-            String faqId = request.getParameter("faqId");
-
-            Boolean outcome = FaqDAO.update(Integer.parseInt(faqId), question, answer);
-            if (outcome) {
-                System.out.println("SUCCESS");
-                rd = request.getRequestDispatcher("./FaqServlet?param=loadAll");
-                rd.forward(request, response);
-            }
-        }
-
+        
+        
         if (requests != null && requests.equals("addQuestion")) {
             String question = request.getParameter("question");
-            Boolean outcome = FaqDAO.addQuesFaq(question);
+            Boolean outcome = AskDAO.addQuesAsk(question);
             if (outcome) {
                 System.out.println("SUCCESS");
-                rd = request.getRequestDispatcher("./FaqServlet?param=loadAll");
+                rd = request.getRequestDispatcher("./AskServlet?param=loadAll");
                 rd.forward(request, response);
-            } else {
+            }else{
                 System.out.println("fail/duplicate");
-                rd = request.getRequestDispatcher("./FaqServlet?param=loadAll");
+                rd = request.getRequestDispatcher("./AskServlet?param=loadAll");
                 rd.forward(request, response);
             }
         }
-
+        
         if (requests != null && requests.equals("addAnswer")) {
             String answer = request.getParameter("answer");
-            String faqId = request.getParameter("faqId");
-            System.out.println("Hello " + faqId);
+            String askId = request.getParameter("askId");
+            System.out.println("Hello " + askId);
             System.out.println("Hello " + answer);
-            Boolean outcome = FaqDAO.addAnsFaq(Integer.parseInt(faqId), answer);
+            Boolean outcome = AskDAO.addAnsAsk(Integer.parseInt(askId),answer);
             if (outcome) {
                 System.out.println("SUCCESS");
-                rd = request.getRequestDispatcher("./FaqServlet?param=loadAll");
+                rd = request.getRequestDispatcher("./AskServlet?param=loadAll");
                 rd.forward(request, response);
             }
         }
 
         if (requests != null && requests.equals("delete")) {
-            String faqId = request.getParameter("faqId");
-            Boolean outcome = FaqDAO.deleteFaq(Integer.parseInt(faqId));
+            String askId = request.getParameter("askId");
+            Boolean outcome = AskDAO.deleteAsk(Integer.parseInt(askId));
             if (outcome) {
                 System.out.println("SUCCESS");
-                rd = request.getRequestDispatcher("./FaqServlet?param=loadAll");
+                rd = request.getRequestDispatcher("./AskServlet?param=loadAll");
                 rd.forward(request, response);
             }
 
         }
-
-        if (requests != null && requests.equals("add")) {
-            String question = request.getParameter("question");
-            String answer = request.getParameter("answer");
-            String category = request.getParameter("category");
-
-            Boolean outcome = FaqDAO.add(question, answer, category);
-            if (outcome) {
-                System.out.println("SUCCESS");
-                rd = request.getRequestDispatcher("./FaqServlet?param=loadAll");
-                rd.forward(request, response);
-            }
-
-        }
-
+        
         if (requests != null && requests.equals("search")) {
             //System.out.println("HEY IM HERE TEEHEE");
             String keyword = request.getParameter("keyword");
-            faqList = FaqDAO.searchKeyword(keyword);
-            if (faqList != null) {
-                request.setAttribute("faq", faqList);
-                rd = request.getRequestDispatcher("faq.jsp");
+            askList = AskDAO.searchKeyword(keyword);
+            if (askList != null) {
+                request.setAttribute("ask", askList);
+                rd = request.getRequestDispatcher("askOle.jsp");
                 rd.forward(request, response);
             }
         }
-
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

@@ -30,6 +30,25 @@ CREATE TABLE `admin` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
+-- Table structure for table `askole`
+--
+
+DROP TABLE IF EXISTS `askole`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `askole` (
+  `askId` int(20) NOT NULL AUTO_INCREMENT,
+  `question` varchar(200) NOT NULL,
+  `answer` varchar(200) NOT NULL,
+  `category` varchar(50) NOT NULL,
+  `username` varchar(20) NOT NULL,
+  PRIMARY KEY (`askId`),
+  KEY `username_idx` (`username`),
+  CONSTRAINT `username` FOREIGN KEY (`username`) REFERENCES `user` (`username`) ON DELETE NO ACTION ON UPDATE NO ACTION
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
 -- Table structure for table `faq`
 --
 
@@ -40,8 +59,9 @@ CREATE TABLE `faq` (
   `faqId` int(20) NOT NULL AUTO_INCREMENT,
   `question` varchar(200) NOT NULL,
   `answer` varchar(200) NOT NULL,
+  `category` varchar(50) NOT NULL,
   PRIMARY KEY (`faqId`)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM AUTO_INCREMENT=24 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -138,7 +158,7 @@ CREATE TABLE `matcheslog` (
   KEY `matchId_fk_matcheslog_idx` (`matchId`),
   CONSTRAINT `logId_fk_matcheslog` FOREIGN KEY (`logId`) REFERENCES `log` (`logId`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `matchId_fk_matcheslog` FOREIGN KEY (`matchId`) REFERENCES `match` (`matchId`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -186,7 +206,7 @@ CREATE TABLE `specials` (
   `description` varchar(200) NOT NULL,
   `status` varchar(10) NOT NULL,
   PRIMARY KEY (`specialsId`)
-) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=18 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -250,7 +270,7 @@ CREATE TABLE `user` (
   `password` varchar(45) NOT NULL,
   `dob` date NOT NULL,
   `country` varchar(20) NOT NULL,
-  `contactNo` varchar(10) NOT NULL,
+  `contactNo` varchar(15) NOT NULL,
   `email` varchar(100) NOT NULL,
   `favoriteTeam` varchar(45) NOT NULL,
   PRIMARY KEY (`username`)
@@ -266,4 +286,4 @@ CREATE TABLE `user` (
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2018-12-19 14:52:16
+-- Dump completed on 2019-01-11  2:39:16

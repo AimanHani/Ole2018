@@ -67,7 +67,8 @@
                                                 <td><%=i + 1%></td>
                                                 <td><%=special.getDescription()%></td>
                                                 <td><%=special.getStatus()%></td>
-                                                <td><a href="./SpecialsServlet?param=delete&id1=<%=special.getSpecialsId()%>">Delete</a></td>
+                                                <%-- <td><a href="./SpecialsServlet?param=delete&id1=<%=special.getSpecialsId()%>">Delete</a></td> --%>
+                                                <td><a href="./SpecialsServlet?param=details&index=<%=i%>">View</a></td>
                                             </tr>
                                             <%
                                                 }
