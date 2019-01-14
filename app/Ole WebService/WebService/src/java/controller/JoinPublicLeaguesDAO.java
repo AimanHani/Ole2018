@@ -5,7 +5,6 @@
  */
 package controller;
 
-import static controller.SignUpDAO.SHA1;
 import dbConnection.DBConnection;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
