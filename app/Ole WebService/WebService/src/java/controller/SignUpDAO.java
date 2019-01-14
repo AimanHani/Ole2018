@@ -9,6 +9,7 @@ import dbConnection.DBConnection;
 import java.io.UnsupportedEncodingException;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.security.SecureRandom;
 import java.sql.Connection;
 import java.sql.Date;
 import java.sql.PreparedStatement;
@@ -25,37 +26,38 @@ import model.Match;
  * @author user
  */
 public class SignUpDAO {
-    
-    public static String signUp(String username, String name, String password, String email, String birthdate, String contactNo, String country, String team) throws SQLException{
-        
-        boolean emailCheck = checkEmail(email);
-        if(emailCheck){
-        boolean status = false;
-        int rs = 0;
-        //if(isDateValid(birthdate)){
-            try (Connection c = DBConnection.getConnection(); PreparedStatement ps = c.prepareStatement("INSERT INTO user (username, name, password,dob, country, contactNo, email, favoriteTeam) VALUES(?,?,?,?,?,?,?,?)");) {
 
-            
+    public static String signUp(String username, String name, String password, String email, String birthdate, String contactNo, String country, String team) throws SQLException {
+
+        boolean usernameCheck = checkUsername(username);
+        boolean emailCheck = checkEmail(email);
+        if (emailCheck && usernameCheck) {
+
+            boolean status = false;
+            int rs = 0;
+            //if(isDateValid(birthdate)){
+            try (Connection c = DBConnection.getConnection(); PreparedStatement ps = c.prepareStatement("INSERT INTO user (username, name, password,dob, country, contactNo, email, favoriteTeam,salt) VALUES(?,?,?,?,?,?,?,?,?)");) {
+                byte[] salt = getSalt();
+
                 ps.setString(1, username);
                 ps.setString(2, name);
-                ps.setString(3,SHA1(password));
+                ps.setString(3, getSHA1SecurePassword(password, salt));
                 ps.setString(4, birthdate);
                 ps.setString(5, country);
-                ps.setString(6, contactNo); 
+                ps.setString(6, contactNo);
                 ps.setString(7, email);
                 ps.setString(8, team);
-                
+                ps.setBytes(9, salt);
                 rs = ps.executeUpdate();
-                if(rs>0){
+                if (rs > 0) {
                     return "success";
                 }
-            }catch (Exception e) {
+            } catch (Exception e) {
                 System.out.println("check db connection class" + e.toString());
-                return"check db connection class"+ e.toString();
-            } 
-            finally {
-                if (rs >0) {
-                rs=0;
+                return "check db connection class or no such algorithm error check getSalt()" + e.toString();
+            } finally {
+                if (rs > 0) {
+                    rs = 0;
                 }
             }
 //        }
@@ -63,16 +65,25 @@ public class SignUpDAO {
 //            return "birthdate error";
 //        }
 //        
-        return "username has been taken";
-    }
-        else{
-            return "email has been taken";
+
+        } else {
+            String msg = "";
+            if(!emailCheck){
+            msg = "email has been taken";
+            }
+            if(!usernameCheck){
+                 msg = "username has been taken";
+            }
+            if(!usernameCheck&&!emailCheck){
+                msg = "username and email have been taken";
+            }
+            return msg;
         }
-        
+         return "";
+
     }
-    
-    
-     final static String DATE_FORMAT = "yyyy-MM-dd";
+
+    final static String DATE_FORMAT = "yyyy-MM-dd";
 
     public static boolean isDateValid(String date) {
         try {
@@ -84,38 +95,37 @@ public class SignUpDAO {
             return false;
         }
     }
-    
-    private static String convertToHex(byte[] data) {
-        StringBuffer buf = new StringBuffer();
-        for (int i = 0; i < data.length; i++) {
-            int halfbyte = (data[i] >>> 4) & 0x0F;
-            int two_halfs = 0;
-            do {
-                if ((0 <= halfbyte) && (halfbyte <= 9))
-                    buf.append((char) ('0' + halfbyte));
-                else
-                    buf.append((char) ('a' + (halfbyte - 10)));
-                halfbyte = data[i] & 0x0F;
-            } while (two_halfs++ < 1);
+
+    private static String getSHA1SecurePassword(String passwordToHash, byte[] salt) {
+        String generatedPassword = null;
+        try {
+            MessageDigest md = MessageDigest.getInstance("SHA-1");
+            md.update(salt);
+            byte[] bytes = md.digest(passwordToHash.getBytes());
+            StringBuilder sb = new StringBuilder();
+            for (int i = 0; i < bytes.length; i++) {
+                sb.append(Integer.toString((bytes[i] & 0xff) + 0x100, 16).substring(1));
+            }
+            generatedPassword = sb.toString();
+        } catch (NoSuchAlgorithmException e) {
+            e.printStackTrace();
         }
-        return buf.toString();
+        return generatedPassword;
     }
 
-    public static String SHA1(String text)
-            throws NoSuchAlgorithmException, UnsupportedEncodingException {
-        MessageDigest md;
-        md = MessageDigest.getInstance("SHA-1");
-        byte[] sha1hash = new byte[40];
-        md.update(text.getBytes("iso-8859-1"), 0, text.length());
-        sha1hash = md.digest();
-        return convertToHex(sha1hash);
+    private static byte[] getSalt() throws NoSuchAlgorithmException {
+        SecureRandom sr = SecureRandom.getInstance("SHA1PRNG");
+        byte[] salt = new byte[16];
+        sr.nextBytes(salt);
+        return salt;
     }
-    public static boolean checkEmail(String email){
-         try (Connection conn = DBConnection.getConnection(); PreparedStatement stmt = conn.prepareStatement("select * from user where email = ?");) {
+
+    public static boolean checkEmail(String email) {
+        try (Connection conn = DBConnection.getConnection(); PreparedStatement stmt = conn.prepareStatement("select * from user where email = ?");) {
             stmt.setString(1, email);
             ResultSet rs = stmt.executeQuery();
 
-            if(rs.next()){
+            if (rs.next()) {
                 return false;
             }
 
@@ -124,6 +134,23 @@ public class SignUpDAO {
         } catch (ClassNotFoundException ex) {
             ex.printStackTrace();
         }
-         return true;
+        return true;
+    }
+
+    public static boolean checkUsername(String username) {
+        try (Connection conn = DBConnection.getConnection(); PreparedStatement stmt = conn.prepareStatement("select * from user where username = ?");) {
+            stmt.setString(1, username);
+            ResultSet rs = stmt.executeQuery();
+
+            if (rs.next()) {
+                return false;
+            }
+
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        } catch (ClassNotFoundException ex) {
+            ex.printStackTrace();
+        }
+        return true;
     }
 }

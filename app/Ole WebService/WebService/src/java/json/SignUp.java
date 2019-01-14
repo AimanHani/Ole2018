@@ -130,6 +130,12 @@ public class SignUp extends HttpServlet {
                 String[] invalidString = {invalidMsg};
                 json.put("messages",invalidString);
             }
+            else if(status.equals("username and email have been taken")){
+                json.put("status","error");
+                String invalidMsg = "username and email have been taken"+"/"+"";
+                String[] invalidString = {invalidMsg};
+                json.put("messages",invalidString);
+            }
             else{
                 json.put("status","error");
                 String invalidMsg = "check db connection class "+"/"+"";
