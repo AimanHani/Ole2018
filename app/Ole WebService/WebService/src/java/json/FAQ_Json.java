@@ -91,7 +91,7 @@ public class FAQ_Json extends HttpServlet {
         PrintWriter out = response.getWriter();
         String category = request.getParameter("category");
         FAQ faq;
-        HashMap<Integer, FAQ> recentMatches = FAQ_DAO.retreiveFAQ(category);
+        HashMap<Integer, FAQ> recentMatches = FAQ_DAO.retrieveFAQ(category);
         try {
             Iterator it = recentMatches.entrySet().iterator();
             while (it.hasNext()) {

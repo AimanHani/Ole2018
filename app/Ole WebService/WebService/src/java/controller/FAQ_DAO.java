@@ -22,7 +22,7 @@ import model.Match;
  * @author user
  */
 public class FAQ_DAO {
-    public static HashMap<Integer, FAQ> retreiveFAQ(String category){
+    public static HashMap<Integer, FAQ> retrieveFAQ(String category){
        HashMap<Integer, FAQ> faqList = new HashMap<Integer, FAQ>();
 
         try (Connection conn = DBConnection.getConnection(); PreparedStatement stmt = conn.prepareStatement("select faqId,question,answer from faq where category = ?");) {
