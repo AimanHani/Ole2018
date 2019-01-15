@@ -16,6 +16,12 @@ public class FAQ {
     public FAQ() {
     }
 
+    public FAQ(int id, String question, String answer) {
+        this.id = id;
+        this.question = question;
+        this.answer = answer;
+    }
+
     public FAQ(int id, String question, String answer, String category) {
         this.id = id;
         this.question = question;
