@@ -5,14 +5,13 @@
  */
 package json;
 
-import controller.SignUpDAO;
-import controller.LoginDAO;
+import controller.FAQ_DAO;
+import controller.GetMatchesDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.sql.SQLException;
-import java.text.DateFormat;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.ServletException;
@@ -20,7 +19,9 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
+import model.FAQ;
+import model.Match;
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -28,9 +29,8 @@ import org.json.JSONObject;
  *
  * @author user
  */
-
-@WebServlet(name = "SignUpJson", urlPatterns = {"/json/signUp"})
-public class SignUp extends HttpServlet {
+@WebServlet(name = "FAQ_Json", urlPatterns = {"json/faq"})
+public class FAQ_Json extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -49,10 +49,10 @@ public class SignUp extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet SignUp</title>");            
+            out.println("<title>Servlet FAQ_Json</title>");            
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet SignUp at " + request.getContextPath() + "</h1>");
+            out.println("<h1>Servlet FAQ_Json at " + request.getContextPath() + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -84,76 +84,38 @@ public class SignUp extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        
-          JSONObject json = new JSONObject();
+        JSONArray list = new JSONArray();
+        JSONObject parentJson = new JSONObject();
         response.setContentType("\"Content-Type\", \"application/x-www-form-urlencoded\"");
         response.setCharacterEncoding("utf-8");
         PrintWriter out = response.getWriter();
-
-        String username = request.getParameter("username");
-        String name  = request.getParameter("name");
-        String password = request.getParameter("password");
-        String email = request.getParameter("email");
-        String birthdate = request.getParameter("birthdate");
-        String contactNo = request.getParameter("contactNo");
-        String country = request.getParameter("country");
-        String team = request.getParameter("team");
-               
-        
-        String status = "";
-        String token = "";
-       
+        String category = request.getParameter("category");
+        FAQ faq;
+        HashMap<Integer, FAQ> recentMatches = FAQ_DAO.retrieveFAQ(category);
         try {
-            
-            status = SignUpDAO.signUp(username,  name, password,  email,  birthdate,  contactNo, country,team);
+            Iterator it = recentMatches.entrySet().iterator();
+            while (it.hasNext()) {
+                JSONObject json = new JSONObject();
+                Map.Entry pair = (Map.Entry) it.next();
+                int numberOfParticipants = 0;
+                //System.out.println(pair.getKey() + " = " + pair.getValue());
+                faq = (FAQ) pair.getValue();
+                json.put("faqid", faq.getId());
+                json.put("qeustion", faq.getQuestion());
+                json.put("answer", faq.getAnswer());
+                it.remove(); // avoids a ConcurrentModificationException
+                list.put(json);
 
-            if (status.equals("success")) {
-
-                json.put("Status", "new record has been created");
-               
-            } else if(status.equals("username has been taken")) {
-    
-                json.put("status","error");
-                String invalidMsg = "Your username has been taken"+"/"+"";
-                String[] invalidString = {invalidMsg};
-                json.put("messages",invalidString);
             }
-            else if(status.equals("birthdate error")){
-                json.put("status","error");
-                String invalidMsg = "birthdate error"+"/"+"";
-                String[] invalidString = {invalidMsg};
-                json.put("messages",invalidString);
-            }
-            else if(status.equals("email has been taken")){
-                json.put("status","error");
-                String invalidMsg = "email has been taken"+"/"+"";
-                String[] invalidString = {invalidMsg};
-                json.put("messages",invalidString);
-            }
-            else if(status.equals("username and email have been taken")){
-                json.put("status","error");
-                String invalidMsg = "username and email have been taken"+"/"+"";
-                String[] invalidString = {invalidMsg};
-                json.put("messages",invalidString);
-            }
-            else{
-                json.put("status","error");
-                String invalidMsg = "check db connection class "+"/"+"";
-                String[] invalidString = {invalidMsg};
-                json.put("messages",invalidString);
-            }
-            out.print(json);
+            parentJson.put("results", list);
+            out.print(parentJson);
             out.flush();
 
-        } catch (SQLException e) {
+        } catch (JSONException e) {
             e.printStackTrace();
-        } catch (JSONException ex) {
-            Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, ex);
         }
-      
+
     }
-    
-   
 
     /**
      * Returns a short description of the servlet.

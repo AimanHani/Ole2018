@@ -86,7 +86,16 @@ public class Login extends AppCompatActivity {
                                 @Override
                                 public void onResponse(String ServerResponse) {
                                     System.out.println(ServerResponse);
-                                    if (!ServerResponse.equals("error")) {
+                                    String status = "";
+                                     try {
+                                         JSONObject result = new JSONObject(ServerResponse);
+                                         status = result.getString("status");
+                                    } catch (JSONException e) {
+                                        e.printStackTrace();
+                                    }
+
+
+                                    if (!status.equals("error")) {
                                         Intent intent = new Intent(Login.this, Home.class);
                                         Bundle bundle = new Bundle();
                                         bundle.putString("username", username.getText().toString());
@@ -112,7 +121,7 @@ public class Login extends AppCompatActivity {
 
                             try {
                                 params.put("username", username.getText().toString());
-                                params.put("password", SHA1(password.getText().toString()));
+                                params.put("password", password.getText().toString());
                             } catch (Exception e) {
                             }
 
