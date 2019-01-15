@@ -10,11 +10,11 @@
     <ImageView
         android:id="@+id/profileImage"
         android:layout_width="match_parent"
-        android:layout_height="253dp"
+        android:layout_height="298dp"
         android:adjustViewBounds="true"
         android:cropToPadding="true"
         android:scaleType="fitXY"
-        app:layout_constraintBottom_toTopOf="@+id/publicLeagueImage"
+        app:layout_constraintBottom_toTopOf="@+id/leagueImage"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
@@ -35,7 +35,7 @@
         android:textColorLink="@color/white"
         android:textSize="55sp"
         android:typeface="sans"
-        app:layout_constraintBottom_toTopOf="@+id/publicLeagueImage"
+        app:layout_constraintBottom_toTopOf="@+id/leagueImage"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
@@ -43,72 +43,36 @@
         app:layout_constraintVertical_bias="0.557" />
 
     <ImageView
-        android:id="@+id/publicLeagueImage"
+        android:id="@+id/leagueImage"
         android:layout_width="match_parent"
-        android:layout_height="235dp"
-        android:layout_marginTop="220dp"
+        android:layout_height="296dp"
+        android:layout_marginTop="288dp"
         android:scaleType="fitXY"
-        app:layout_constraintBottom_toTopOf="@+id/privateLeagueImage"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.48000002"
         app:srcCompat="@drawable/home_public" />
 
     <TextView
-        android:id="@+id/publicLeague"
+        android:id="@+id/league"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="223dp"
         android:fontFamily="sans-serif-condensed"
-        android:text="P U B L I C           L E A G U E"
+        android:text="L E A G U E"
         android:textAlignment="center"
         android:textAllCaps="true"
         android:textColor="@color/white"
         android:textColorLink="@color/white"
         android:textSize="55sp"
         android:typeface="sans"
-        app:layout_constraintBottom_toTopOf="@+id/publicLeagueImage"
+        app:layout_constraintBottom_toTopOf="@+id/leagueImage"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/profile"
-        app:layout_constraintVertical_bias="0.417" />
-
-    <ImageView
-        android:id="@+id/privateLeagueImage"
-        android:layout_width="match_parent"
-        android:layout_height="218dp"
-        android:layout_marginBottom="17dp"
-        android:scaleType="fitXY"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/publicLeagueImage"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/publicLeagueImage"
-        app:layout_constraintVertical_bias="0.582"
-        app:srcCompat="@drawable/home_private" />
-
-    <TextView
-        android:id="@+id/privateLeague"
-        android:layout_width="match_parent"
-        android:layout_height="146dp"
-        android:layout_marginBottom="25dp"
-        android:fontFamily="sans-serif-condensed"
-        android:lines="2"
-        android:text="P R I V A T E        L E A G U E"
-        android:textAlignment="center"
-        android:textAllCaps="true"
-        android:textColor="@color/white"
-        android:textSize="55sp"
-        android:typeface="sans"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/publicLeagueImage"
-        app:layout_constraintVertical_bias="1.0" />
+        app:layout_constraintVertical_bias="0.091" />
 
 
 </android.support.constraint.ConstraintLayout>
