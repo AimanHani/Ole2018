@@ -165,7 +165,7 @@ public class Signup extends AppCompatActivity {
                         try {
                             params.put("username", username.getText( ).toString( ));
                             params.put("name", name.getText( ).toString( ));
-                            params.put("password", SHA1(password.getText( ).toString( )));
+                            params.put("password", password.getText( ).toString( ));
                             params.put("birthdate", birthdate.getText( ).toString( ));
                             params.put("country", clickedCountryName);
                             params.put("contactNo", contactNo.getText( ).toString( ));
