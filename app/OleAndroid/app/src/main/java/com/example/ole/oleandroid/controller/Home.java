@@ -12,7 +12,7 @@ import com.example.ole.oleandroid.R;
 
 public class Home extends AppCompatActivity {
 
-    TextView league;
+    TextView leagues;
     TextView profile;
 
     @Override
@@ -20,11 +20,11 @@ public class Home extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
 
-        league = findViewById(R.id.league);
+        leagues = findViewById(R.id.leagues);
         profile = findViewById(R.id.profile);
         System.out.println("home");
 
-        league.setOnClickListener(new View.OnClickListener() {
+        leagues.setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {
 
                 Intent intent = new Intent(Home.this, Leagues.class);

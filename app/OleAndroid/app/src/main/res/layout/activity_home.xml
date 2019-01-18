@@ -55,12 +55,12 @@
         app:srcCompat="@drawable/home_public" />
 
     <TextView
-        android:id="@+id/league"
+        android:id="@+id/leagues"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="223dp"
         android:fontFamily="sans-serif-condensed"
-        android:text="L E A G U E"
+        android:text="L E A G U E S"
         android:textAlignment="center"
         android:textAllCaps="true"
         android:textColor="@color/white"
