@@ -20,7 +20,7 @@ import java.security.NoSuchAlgorithmException;
 public class SignupDAO {
     private static Context context;
     public static String validate (final String username, final String name, final String password, final Date birthday, final String contactNo,final String email,final String country, final String team){
-        String url = new DBConnection().getLoginUrl();
+        String url = DBConnection.getLoginUrl();
         final String[] results = new String[1];
 
         // Creating string request with post method.

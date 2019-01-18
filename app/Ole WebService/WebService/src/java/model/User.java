@@ -13,20 +13,20 @@ import org.eclipse.persistence.jpa.jpql.parser.DateTime;
  * @author user
  */
 public class User {
-    private String userName;
+    private String username;
     private String name;
     private String password;
-    private Date dateOfBirth;
+    private Date dob;
     private String country;
     private String contactNumber;
     private String email;
     private String favoriteTeam;
 
-    public User(String userName, String name, String password, Date dateOfBirth, String country, String contactNumber, String email, String favoriteTeam) {
-        this.userName = userName;
+    public User(String username, String name, String password, Date dob, String country, String contactNumber, String email, String favoriteTeam) {
+        this.username = username;
         this.name = name;
         this.password = password;
-        this.dateOfBirth = dateOfBirth;
+        this.dob = dob;
         this.country = country;
         this.contactNumber = contactNumber;
         this.email = email;
@@ -36,12 +36,12 @@ public class User {
     public User() {
     }
 
-    public String getUserName() {
-        return userName;
+    public String getUsername() {
+        return username;
     }
 
-    public void setUserName(String userName) {
-        this.userName = userName;
+    public void setUsername(String username) {
+        this.username = username;
     }
 
     public String getName() {
@@ -60,12 +60,12 @@ public class User {
         this.password = password;
     }
 
-    public Date getDateOfBirth() {
-        return dateOfBirth;
+    public Date getDob() {
+        return dob;
     }
 
-    public void setDateOfBirth(Date dateOfBirth) {
-        this.dateOfBirth = dateOfBirth;
+    public void setDob(Date dob) {
+        this.dob = dob;
     }
 
     public String getCountry() {

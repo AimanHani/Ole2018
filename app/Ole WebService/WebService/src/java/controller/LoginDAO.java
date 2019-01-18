@@ -34,25 +34,30 @@ public class LoginDAO {
         if (username == null || password == null) {
             return false;
         }
-        byte[]salt = getSalt(username);
-        
-        if(salt == null){
-          return false;  
-        }
-        
-        String hashedPw = new String(getSHA1SecurePassword(password,salt));
+//        byte[] salt = getSalt(username);
+//
+//        if (salt == null) {
+//            return false;
+//        }
 
         ResultSet rs = null;
-        try (Connection c = DBConnection.getConnection(); PreparedStatement ps = c.prepareStatement("Select username,password from user where username=? and password=?");) {
-
+        try (Connection c = DBConnection.getConnection(); PreparedStatement ps = c.prepareStatement("Select username, password, salt from user where username=?");) {
             ps.setString(1, username);
-            ps.setString(2,hashedPw);
+            //ps.setString(2,hashedPw);
 
             rs = ps.executeQuery();
             while (rs.next()) {
                 String queryUsername = rs.getString(1);
                 String queryPassword = rs.getString(2);
-                if (queryUsername.equals(username) && queryPassword.equals(hashedPw)) {
+                byte[] querySalt = rs.getBytes(3);
+                
+                if (querySalt == null) {
+                    return false;
+                }
+
+                String hashedPw = new String(getSHA1SecurePassword(password, querySalt));
+
+                if (queryPassword.equals(hashedPw)) {
                     return true;
                 }
             }
@@ -65,38 +70,34 @@ public class LoginDAO {
         }
         return false;
     }
-    
-    private static String getSHA1SecurePassword(String passwordToHash, byte[] salt)
-    {
+
+    private static String getSHA1SecurePassword(String passwordToHash, byte[] salt) {
         String generatedPassword = null;
         try {
             MessageDigest md = MessageDigest.getInstance("SHA-1");
             md.update(salt);
             byte[] bytes = md.digest(passwordToHash.getBytes());
             StringBuilder sb = new StringBuilder();
-            for(int i=0; i< bytes.length ;i++)
-            {
+            for (int i = 0; i < bytes.length; i++) {
                 sb.append(Integer.toString((bytes[i] & 0xff) + 0x100, 16).substring(1));
             }
             generatedPassword = sb.toString();
-        }
-        catch (NoSuchAlgorithmException e)
-        {
+        } catch (NoSuchAlgorithmException e) {
             e.printStackTrace();
         }
         return generatedPassword;
     }
-   private static byte[] getSalt(String username) throws SQLException{
+
+    private static byte[] getSalt(String username) throws SQLException {
         ResultSet rs = null;
         try (Connection c = DBConnection.getConnection(); PreparedStatement ps = c.prepareStatement("Select salt from user where username=?");) {
 
             ps.setString(1, username);
             byte[] salt = null;
-        
 
             rs = ps.executeQuery();
             while (rs.next()) {
-               salt = rs.getBytes(1);
+                salt = rs.getBytes(1);
             }
             return salt;
         } catch (ClassNotFoundException e) {
@@ -108,6 +109,5 @@ public class LoginDAO {
         }
         return null;
     }
-    
 
 }

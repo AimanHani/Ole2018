@@ -13,10 +13,12 @@ import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.RequestFuture;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.ole.oleandroid.R;
 import com.example.ole.oleandroid.dbConnection.DBConnection;
+import com.example.ole.oleandroid.model.User;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -35,7 +37,6 @@ public class Login extends AppCompatActivity {
     RequestQueue requestQueue;
     TextView result;
     Button facebookButton;
-    //= Volley.newRequestQueue(getApplicationContext());
 
 
     @Override
@@ -76,35 +77,53 @@ public class Login extends AppCompatActivity {
 //                                    intent.putExtras(bundle);
 //                                    startActivity(intent);
                 if (username.getText().toString().equals("") || password.getText().toString().equals("")) {
-                    loadSamePage();
+                    //loadSamePage();
                 } else {
-                    System.out.println("here2");
+                    System.out.println("Signing In");
+
+                    //tries to login
+                    //String status = LoginDAO.validate(username.getText().toString(), password.getText().toString(), getApplicationContext());
                     String url = new DBConnection().getLoginUrl();
+                    final String[] status = {"error"};
+                    RequestFuture<JSONObject> requestFuture = RequestFuture.newFuture();
+
 
                     StringRequest stringRequest = new StringRequest(Request.Method.POST, url,
                             new Response.Listener<String>() {
                                 @Override
                                 public void onResponse(String ServerResponse) {
                                     System.out.println(ServerResponse);
-                                    String status = "";
-                                     try {
-                                         JSONObject result = new JSONObject(ServerResponse);
-                                         status = result.getString("status");
-                                    } catch (JSONException e) {
-                                        e.printStackTrace();
-                                    }
+                                        try {
+                                            JSONObject result = new JSONObject(ServerResponse);
+                                            status[0] = result.getString("status");
 
+                                            JSONObject user = result.getJSONObject("user");
+                                            String username = user.getString("username");
+                                            String name = user.getString("name");
+                                            String password = user.getString("password");
+                                            String dob = user.getString("dob");
+                                            String country = user.getString("country");
+                                            String contactNum = user.getString("contactNum");
+                                            String email = user.getString("email");
+                                            String favoriteTeam = user.getString("favoriteTeam");
 
-                                    if (!status.equals("error")) {
-                                        Intent intent = new Intent(Login.this, Home.class);
-                                        Bundle bundle = new Bundle();
-                                        bundle.putString("username", username.getText().toString());
-                                        bundle.putString("userInfo", ServerResponse);
-                                        intent.putExtras(bundle);
-                                        startActivity(intent);
-                                    } else {
-                                        loadSamePage();
-                                    }
+                                            User userDetails = new User(username, name, password, dob, country, contactNum, email, favoriteTeam);
+                                            UserDAO.setLoginUser(userDetails);
+
+                                            if (!status[0].equals("error")) {
+                                                Intent intent = new Intent(Login.this, Home.class);
+                                                Bundle bundle = new Bundle();
+                                                bundle.putString("username", username);
+                                                intent.putExtras(bundle);
+                                                startActivity(intent);
+                                            } else {
+                                                //loadSamePage();
+                                            }
+
+                                        } catch (JSONException e) {
+                                            e.printStackTrace();
+                                        }
+
                                 }
                             },
                             new Response.ErrorListener() {
@@ -112,22 +131,15 @@ public class Login extends AppCompatActivity {
                                 public void onErrorResponse(VolleyError volleyError) {
                                     System.out.println("error");
                                     volleyError.printStackTrace();
-                                    loadSamePage();
                                 }
                             }) {
                         @Override
                         protected Map<String, String> getParams() {
                             Map<String, String> params = new HashMap<String, String>();
-
-                            try {
-                                params.put("username", username.getText().toString());
-                                params.put("password", password.getText().toString());
-                            } catch (Exception e) {
-                            }
-
+                            params.put("username", username.getText().toString());
+                            params.put("password", password.getText().toString());
                             return params;
                         }
-
                     };
 
                     RequestQueue requestQueue = Volley.newRequestQueue(getApplicationContext());
@@ -152,32 +164,6 @@ public class Login extends AppCompatActivity {
     public void loadSamePage() {
         Intent intent = new Intent(Login.this, Login.class);
         startActivity(intent);
-    }
-
-    private static String convertToHex(byte[] data) {
-        StringBuffer buf = new StringBuffer();
-        for (int i = 0; i < data.length; i++) {
-            int halfbyte = (data[i] >>> 4) & 0x0F;
-            int two_halfs = 0;
-            do {
-                if ((0 <= halfbyte) && (halfbyte <= 9))
-                    buf.append((char) ('0' + halfbyte));
-                else
-                    buf.append((char) ('a' + (halfbyte - 10)));
-                halfbyte = data[i] & 0x0F;
-            } while (two_halfs++ < 1);
-        }
-        return buf.toString();
-    }
-
-    public static String SHA1(String text)
-            throws NoSuchAlgorithmException, UnsupportedEncodingException {
-        MessageDigest md;
-        md = MessageDigest.getInstance("SHA-1");
-        byte[] sha1hash = new byte[40];
-        md.update(text.getBytes("iso-8859-1"), 0, text.length());
-        sha1hash = md.digest();
-        return convertToHex(sha1hash);
     }
 }
 
