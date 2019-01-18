@@ -6,6 +6,7 @@
 package json;
 
 import controller.PublicLeagueProfileDAO;
+import controller.UserDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
@@ -86,13 +87,14 @@ public class PublicLeagueProfileJson extends HttpServlet {
         PrintWriter out = response.getWriter();
         String username = request.getParameter("username");
         ArrayList<PublicLeagueProfile> leagueList = PublicLeagueProfileDAO.getUserPrediction(username);
-        User u = PublicLeagueProfileDAO.getUserInfo(username);
+        User u = UserDAO.getUserInfo(username);
+
         try {
 
             if (leagueList != null) {
                 JSONObject user = new JSONObject();
                 user.put("name", u.getName());
-                user.put("dob", u.getDateOfBirth());
+                user.put("dob", u.getDob());
                 user.put("country", u.getCountry());
                 user.put("contactNum", u.getContactNumber());
                 user.put("email", u.getEmail());

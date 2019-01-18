@@ -79,7 +79,7 @@ public class Profile extends AppCompatActivity {
 
         RequestQueue requestQueue = Volley.newRequestQueue(getApplicationContext());
 
-        String url = new DBConnection().profileUrl();
+        String url = DBConnection.profileUrl();
 
         StringRequest stringRequest = new StringRequest(Request.Method.POST, url,
                 new Response.Listener<String>() {
