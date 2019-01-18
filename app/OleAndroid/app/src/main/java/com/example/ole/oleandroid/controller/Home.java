@@ -9,11 +9,13 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.ole.oleandroid.R;
+import com.example.ole.oleandroid.pageController.FAQ;
 
 public class Home extends AppCompatActivity {
 
     TextView publicLeagues;
     TextView privateLeagues;
+    TextView faq;
     TextView profile;
 
     @Override
@@ -23,6 +25,7 @@ public class Home extends AppCompatActivity {
 
         publicLeagues = findViewById(R.id.publicLeagues);
         privateLeagues = findViewById(R.id.privateLeagues);
+        faq = findViewById(R.id.faq);
         profile = findViewById(R.id.profile);
         System.out.println("home");
 
@@ -30,6 +33,26 @@ public class Home extends AppCompatActivity {
             public void onClick(View view) {
 
                 Intent intent = new Intent(Home.this, Leagues.class);
+                Bundle b = getIntent().getExtras();
+                intent.putExtras(b);
+                startActivity(intent);
+            }
+        });
+
+        privateLeagues.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View view) {
+
+                Intent intent = new Intent(Home.this, Leagues.class);
+                Bundle b = getIntent().getExtras();
+                intent.putExtras(b);
+                startActivity(intent);
+            }
+        });
+
+        faq.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View view) {
+
+                Intent intent = new Intent(Home.this, FAQ.class);
                 Bundle b = getIntent().getExtras();
                 intent.putExtras(b);
                 startActivity(intent);
