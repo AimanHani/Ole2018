@@ -1,9 +1,12 @@
 package com.example.ole.oleandroid.controller;
 
 
+import android.app.DatePickerDialog;
+import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
 import android.nfc.Tag;
 import android.os.Bundle;
@@ -12,8 +15,10 @@ import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
+import android.view.Window;
 import android.widget.AdapterView;
 import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -44,6 +49,7 @@ import java.time.LocalDate;
 import java.time.Period;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Timer;
@@ -57,6 +63,9 @@ public class Signup extends AppCompatActivity {
     private ArrayList<TeamItems> mTeamList;
     private TeamAdapter mAdapter2;
     private Timer timer;
+    private Dialog dialog;
+    private Button birthdateButton;
+    private DatePickerDialog.OnDateSetListener dateSetListener;
     EditText username, name, password, birthdate, email, contactNo;
     Button signupBtn;
     Spinner spinnerTeams, spinnerCountries;
@@ -65,6 +74,7 @@ public class Signup extends AppCompatActivity {
     String clickedTeamName;
     String clickedCountryName;
     RequestQueue requestQueue;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -86,7 +96,6 @@ public class Signup extends AppCompatActivity {
         tickDone.setBounds(0, 0, tickDone.getIntrinsicWidth( ), tickDone.getIntrinsicHeight( ));
         //result = findViewById(R.id.result);
         validationOnTextView();//method used to vaidate when user input see the method at the buttom
-
 
         mAdapter = new CountryAdapter(this, mCountryList);
         spinnerCountries.setAdapter(mAdapter);
@@ -143,7 +152,7 @@ public class Signup extends AppCompatActivity {
                                 System.out.println(ServerResponse);
                                 //results[0] = ServerResponse;
                                 //result.append(ServerResponse);
-                                Intent intent = new Intent(Signup.this, Login.class);
+                                Intent intent = new Intent(Signup.this, Home.class);
                                 startActivity(intent);
                             }
                         },
@@ -197,29 +206,31 @@ public class Signup extends AppCompatActivity {
         if (!validate( )) {
             onSignupFailed( );
             return;
+        }else {
+
+            signupBtn.setEnabled(false);
+
+            /*final ProgressDialog progressDialog = new ProgressDialog(Signup.this,
+                    R.style.AppTheme);
+            progressDialog.setIndeterminate(true);
+            progressDialog.setMessage("Creating Account...");
+            progressDialog.show();*/
+
+
+            // TODO: Implement your own signup logic here.
+
+            /*new android.os.Handler().postDelayed(
+                    new Runnable() {
+                        public void run() {
+                            // On complete call either onSignupSuccess or onSignupFailed
+                            // depending on success
+                            onSignupSuccess();
+                            // onSignupFailed();
+                            progressDialog.dismiss();
+                        }
+                    }, 3000); */
+            onSignupSuccess();
         }
-
-        signupBtn.setEnabled(false);
-
-        final ProgressDialog progressDialog = new ProgressDialog(Signup.this,
-                R.style.AppTheme);
-        progressDialog.setIndeterminate(true);
-        progressDialog.setMessage("Creating Account...");
-        progressDialog.show( );
-
-
-        // TODO: Implement your own signup logic here.
-
-        new android.os.Handler( ).postDelayed(
-                new Runnable( ) {
-                    public void run() {
-                        // On complete call either onSignupSuccess or onSignupFailed
-                        // depending on success
-                        onSignupSuccess( );
-                        // onSignupFailed();
-                        progressDialog.dismiss( );
-                    }
-                }, 3000);
     }
 
 
@@ -227,6 +238,34 @@ public class Signup extends AppCompatActivity {
         signupBtn.setEnabled(true);
         setResult(RESULT_OK, null);
         finish( );
+        successfulAlertDialog();
+    }
+
+    public void successfulAlertDialog(){
+        dialog = new Dialog(Signup.this);
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        dialog.setContentView(R.layout.successful_pop_up);
+
+        Button close = dialog.findViewById(R.id.close);
+
+        close.setEnabled(true);
+
+        close.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.cancel();
+            }
+        });
+        dialog.show();
+
+        /*signup.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v1) {
+                Intent launchActivity1= new Intent(MainActivity.this,SignUp.class);
+                startActivity(launchActivity1);
+
+            }*/
     }
 
     public void onSignupFailed() {
@@ -557,6 +596,32 @@ public class Signup extends AppCompatActivity {
 
             }
         });
+        birthdateButton = findViewById(R.id.birthdateButton);
+        birthdateButton.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View view){
+                Calendar cal = Calendar.getInstance();
+                int year = cal.get(Calendar.YEAR);
+                int month = cal.get(Calendar.MONTH);
+                int day = cal.get(Calendar.DAY_OF_MONTH);
+
+                DatePickerDialog dialog = new DatePickerDialog(
+                        Signup.this,
+                        android.R.style.Theme_Material_Dialog_MinWidth,
+                        dateSetListener,year,month,day);
+                //dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.blue(0b1449)));
+                dialog.show();
+            }
+        });
+        dateSetListener = new DatePickerDialog.OnDateSetListener(){
+            @Override
+            public void onDateSet(DatePicker datePicker, int year, int month, int day) {
+                month = month + 1;
+                Log.d(TAG, "onDateset: yyyy-mm-dd: "+year+"-"+month+"-"+day);
+                String date = year+"-"+month+"-"+day;
+                birthdate.setText(date);
+            }
+        };
 
         birthdate.addTextChangedListener(new TextWatcher( ) {
             @Override
@@ -598,6 +663,8 @@ public class Signup extends AppCompatActivity {
                 }, 600); // 600ms delay before the timer executes the „run“ method from TimerTask
             }
         });
+
+
         contactNo.addTextChangedListener(new TextWatcher( ) {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {

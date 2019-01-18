@@ -17,18 +17,18 @@ public class LoadingPage extends AppCompatActivity {
         Thread background = new Thread() {
             public void run() {
                 try {
-                    // Thread will sleep for 5 seconds
-                    sleep(5*1000);
+                    // Thread will sleep for 3 seconds
+                    sleep(3*1000);
 
-                    // After 5 seconds redirect to another intent
-                    //if (isFirstTime()) {
+                    // After 3 seconds redirect to another intent
+                    if (isFirstTime()) {
                         // What you do when the Application is Opened First time Goes here
                         Intent i=new Intent(getBaseContext(),OnBoardingActivity.class);
                         startActivity(i);
-                    //}else{
-                    //    Intent j = new Intent(getBaseContext(),Login.class );
-                    //    startActivity(j);
-                    //}
+                    }else{
+                        Intent j = new Intent(getBaseContext(),Login.class );
+                        startActivity(j);
+                    }
 
 
                     //Remove activity
