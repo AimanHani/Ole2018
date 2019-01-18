@@ -47,7 +47,7 @@ public class SpecialListAdapter extends BaseAdapter {
         if (convertView == null) {
             viewHolder = new SpecialListAdapter.ViewHolder();
             convertView = LayoutInflater.from(context).
-                    inflate(R.layout.speciallistlayout, parent, false);
+                    inflate(R.layout.activity_speciallist, parent, false);
         }
 
         /**
