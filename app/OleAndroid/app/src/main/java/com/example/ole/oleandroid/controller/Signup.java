@@ -616,7 +616,7 @@ public class Signup extends AppCompatActivity {
             @Override
             public void onDateSet(DatePicker datePicker, int year, int month, int day) {
                 month = month + 1;
-                Log.d(TAG, "onDateset: yyyy-mm-dd: "+year+"-"+month+"-"+day);
+                Log.d(TAG, "yyyy-mm-dd:"+year+"-"+month+"-"+day);
                 String date = year+"-"+month+"-"+day;
                 birthdate.setText(date);
             }
