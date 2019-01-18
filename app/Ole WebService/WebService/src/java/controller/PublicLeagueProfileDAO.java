@@ -56,25 +56,23 @@ public class PublicLeagueProfileDAO {
         }
         return null;
     }
-public static User getUserInfo(String username) {
-    User u = new User();
-     try (Connection conn = DBConnection.getConnection(); PreparedStatement stmt = conn.prepareStatement("Select * from user where username = ?");) {
-             stmt.setString(1, username);
+    public static User getUserInfo(String username) {
+        User u = new User();
+        try (Connection conn = DBConnection.getConnection(); PreparedStatement stmt = conn.prepareStatement("Select * from user where username = ?");) {
+            stmt.setString(1, username);
             ResultSet rs = stmt.executeQuery();
-            
 
             while (rs.next()) {
                 String username1 = rs.getString(1);
                 String name = rs.getString(2);
                 String password = rs.getString(3);
-                Date dob  = rs.getDate(4);
+                Date dob = rs.getDate(4);
                 String country = rs.getString(5);
                 String contactNum = rs.getString(6);
                 String email = rs.getString(7);
                 String favoriteTeam = rs.getString(8);
 
-
-                u = new User(username1, name,password, dob, country, contactNum, email, favoriteTeam);
+                u = new User(username1, name, password, dob, country, contactNum, email, favoriteTeam);
 
             }
             rs.close();
@@ -85,7 +83,7 @@ public static User getUserInfo(String username) {
         } catch (ClassNotFoundException ex) {
             ex.printStackTrace();
         }
-        
-    return null;
-}
+
+        return null;
+    }
 }

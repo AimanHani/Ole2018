@@ -6,6 +6,7 @@
 package json;
 
 import controller.LoginDAO;
+import controller.PublicLeagueProfileDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.io.UnsupportedEncodingException;
@@ -19,6 +20,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import model.User;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -82,25 +84,30 @@ public class Login extends HttpServlet {
         try {
             
             status = LoginDAO.validate(username, password);
-            //secret is se1234567890sese
             
-            if (username!= null && password!= null && username.equals("admin") && password.equals("se1234567890sese")) {
-                HttpSession session = request.getSession();
-                session.setAttribute("admin", true);
-                status = true;
-            }
-
             if (status) {
-
+                User u = PublicLeagueProfileDAO.getUserInfo(username);
+                
+                JSONObject userDetails = new JSONObject();
+                userDetails.put("username", u.getUsername());
+                userDetails.put("password", u.getPassword());
+                userDetails.put("name", u.getName());
+                userDetails.put("dob", u.getDob());
+                userDetails.put("country", u.getCountry());
+                userDetails.put("contactNum", u.getContactNumber());
+                userDetails.put("email", u.getEmail());
+                userDetails.put("favoriteTeam", u.getFavoriteTeam());
+                
                 json.put("status", "success");
+                json.put("user", userDetails);
                
             } else {
-    
                 json.put("status","error");
                 String invalidMsg = "invalid username"+"/"+"password";
                 String[] invalidString = {invalidMsg};
                 json.put("messages",invalidString);
             }
+            
             out.print(json);
             out.flush();
 
