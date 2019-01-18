@@ -24,23 +24,53 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class Profile extends AppCompatActivity {
-    TextView details;
-    Button home;
+//    TextView details;
 
-    String matchId;
+    Button home;
+    TextView header;
+    TextView predictionHeader;
+    TextView pointsHeader;
+    TextView pointsGotten;
+    TextView msgeNoPredic;
+    TextView profileName;
+    TextView userName;
+    TextView profileDOB;
+    TextView userDOB;
+    TextView profileCountry;
+    TextView userCountry;
+    TextView profileFavTeam;
+    TextView userFavTeam;
+
+    /*String matchId;
     String logId;
     String username;
-    String finalResults;
+    String finalResults;*/
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile);
 
-        details = findViewById(R.id.details);
+//        details = findViewById(R.id.details);
         home = findViewById(R.id.home);
+        header = findViewById(R.id.header);
+        pointsHeader = findViewById(R.id.pointsHeader);
+        pointsGotten = findViewById(R.id.pointsGotten);
+        predictionHeader = findViewById(R.id.predictionHeader);
+        msgeNoPredic = findViewById(R.id.msgeNoPredic);
+        profileName = findViewById(R.id.profileName);
+        userName = findViewById(R.id.userName);
+        profileDOB = findViewById(R.id.profileDOB);
+        userDOB = findViewById(R.id.userDOB);
+        profileCountry = findViewById(R.id.profileCountry);
+        userCountry = findViewById(R.id.userCountry);
+        profileFavTeam = findViewById(R.id.profileFavTeam);
+        userFavTeam = findViewById(R.id.profileFavTeam);
 
-        final Bundle b = getIntent().getExtras();
+
+
+
+        /*final Bundle b = getIntent().getExtras();
         matchId = b.getString("matchId");
         logId = b.getString("logId");
         username = b.getString("username");
@@ -83,14 +113,14 @@ public class Profile extends AppCompatActivity {
         };
 
 
-        requestQueue.add(stringRequest);
+        requestQueue.add(stringRequest);*/
 
 
         home.setOnClickListener(new View.OnClickListener() {
-
-            @Override
             public void onClick(View view) {
+
                 Intent intent = new Intent(Profile.this, Home.class);
+                Bundle b = getIntent().getExtras();
                 intent.putExtras(b);
                 startActivity(intent);
             }
@@ -98,7 +128,7 @@ public class Profile extends AppCompatActivity {
 
     }
 
-    private String setOutput(String finalResults, String serverResponse) throws JSONException {
+    /*private String setOutput(String finalResults, String serverResponse) throws JSONException {
         JSONObject results = new JSONObject(serverResponse);
         JSONArray firstObject = results.getJSONArray("results");
         JSONObject prevPrediction = firstObject.getJSONObject(0);
@@ -111,5 +141,5 @@ public class Profile extends AppCompatActivity {
                 prevPrediction.getString("team2") + " : " + prevPrediction.getString("team2_prediction");
 
         return finalResults;
-    }
+    }*/
 }
