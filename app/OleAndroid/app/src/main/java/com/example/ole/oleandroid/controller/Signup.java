@@ -227,7 +227,7 @@ public class Signup extends AppCompatActivity {
                             // onSignupFailed();
                             progressDialog.dismiss();
                         }
-                    }, 3000); */
+                    }, 3000);*/
             onSignupSuccess();
         }
     }
@@ -489,7 +489,7 @@ public class Signup extends AppCompatActivity {
                             }
                         });
                     }
-                }, 600); // 600ms delay before the timer executes the „run“ method from TimerTask
+                }, 100); // 600ms delay before the timer executes the „run“ method from TimerTask
 
             }
         });
@@ -526,7 +526,7 @@ public class Signup extends AppCompatActivity {
                             }
                         });
                     }
-                }, 600); // 600ms delay before the timer executes the „run“ method from TimerTask
+                }, 100); // 600ms delay before the timer executes the „run“ method from TimerTask
 
 
             }
@@ -591,11 +591,12 @@ public class Signup extends AppCompatActivity {
                             }
                         });
                     }
-                }, 600); // 600ms delay before the timer executes the „run“ method from TimerTask
+                }, 100); // 600ms delay before the timer executes the „run“ method from TimerTask
 
             }
         });
-        birthdateButton = findViewById(R.id.birthdateButton);
+        //Calender Code (TBC)
+        /*birthdateButton = findViewById(R.id.birthdateButton);
         birthdateButton.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view){
@@ -620,7 +621,7 @@ public class Signup extends AppCompatActivity {
                 String date = year+"-"+month+"-"+day;
                 birthdate.setText(date);
             }
-        };
+        }; */
 
         birthdate.addTextChangedListener(new TextWatcher( ) {
             @Override
@@ -659,7 +660,7 @@ public class Signup extends AppCompatActivity {
                             }
                         });
                     }
-                }, 600); // 600ms delay before the timer executes the „run“ method from TimerTask
+                }, 100); // 600ms delay before the timer executes the „run“ method from TimerTask
             }
         });
 
@@ -695,7 +696,7 @@ public class Signup extends AppCompatActivity {
                             }
                         });
                     }
-                }, 600); // 600ms delay before the timer executes the „run“ method from TimerTask
+                }, 100); // 600ms delay before the timer executes the „run“ method from TimerTask
             }
         });
     }

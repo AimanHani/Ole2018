@@ -7,11 +7,11 @@
     android:layout_height="match_parent">
 
     <TextView
-        android:id="@+id/createPrivateLeagueText"
+        android:id="@+id/PrivateLeagueText"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginTop="16dp"
-        android:text="Create a Private League"
+        android:text="Private League"
         android:textAlignment="center"
         android:textAllCaps="false"
         android:textSize="24sp"
@@ -20,7 +20,7 @@
         tools:layout_editor_absoluteX="65dp" />
 
     <LinearLayout
-        android:id="@+id/selectMatchLayout"
+        android:id="@+id/leagueNameLayout"
         android:layout_width="320dp"
         android:layout_height="50dp"
         android:layout_marginLeft="32dp"
@@ -28,34 +28,6 @@
         android:orientation="horizontal"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toTopOf="parent">
-
-        <TextView
-            android:id="@+id/selectMatch"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-
-            android:text="Select a Match: "
-            tools:layout_editor_absoluteX="16dp"
-            tools:layout_editor_absoluteY="82dp"
-            />
-
-        <Spinner
-            android:id="@+id/selectMatchInput"
-            android:layout_width="200dp"
-            android:layout_height="match_parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            android:layout_gravity="right"
-            android:entries="@array/match_array_temp" />
-    </LinearLayout>
-
-    <LinearLayout
-        android:id="@+id/leagueNameLayout"
-        android:layout_width="320dp"
-        android:layout_height="50dp"
-        android:layout_marginLeft="32dp"
-        android:orientation="horizontal"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/selectMatchLayout">
 
         <TextView
             android:id="@+id/leagueName"
@@ -70,8 +42,8 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:ems="10"
-            android:hint="League Name"
             android:inputType="textPersonName"
+            android:text="KFChickenMen"
             android:textAlignment="textStart"
             app:layout_constraintEnd_toEndOf="parent" />
     </LinearLayout>
@@ -98,13 +70,13 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:ems="10"
-            android:hint="Prize"
             android:inputType="textPersonName"
+            android:text="KFC Big Bucket"
             app:layout_constraintEnd_toEndOf="parent" />
     </LinearLayout>
 
     <LinearLayout
-        android:id="@+id/friendListLayout"
+        android:id="@+id/CreatedBy"
         android:layout_width="320dp"
         android:layout_height="50dp"
         android:layout_marginLeft="32dp"
@@ -116,11 +88,11 @@
             android:id="@+id/friendList"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Friend List: "
+            android:text="Created By: "
             tools:layout_editor_absoluteX="43dp"
             tools:layout_editor_absoluteY="231dp" />
 
-        <EditText
+        <TextView
             android:id="@+id/userSearch"
             style="@android:style/Widget.DeviceDefault.Light.AutoCompleteTextView"
             android:layout_width="match_parent"
@@ -129,37 +101,72 @@
             android:layout_marginEnd="16dp"
             android:layout_marginBottom="8dp"
             android:ems="10"
-            android:hint="Search Username"
-            android:inputType="textPersonName"
             android:singleLine="false"
+            android:text="Me"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent" />
     </LinearLayout>
 
-    <LinearLayout
-        android:id="@+id/setPasswordLayout"
-        android:layout_width="320dp"
-        android:layout_height="50dp"
+    <ImageView
+        android:id="@+id/userProfilePicture"
+        android:layout_width="59dp"
+        android:layout_height="59dp"
         android:layout_marginLeft="32dp"
-        android:orientation="horizontal"
+        android:layout_marginTop="312dp"
+        android:adjustViewBounds="false"
+        android:cropToPadding="false"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/friendListLayout">
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/user"
+        tools:srcCompat="@tools:sample/avatars" />
 
-        <TextView
-            android:id="@+id/setPassword"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Set Password: "
-            tools:layout_editor_absoluteX="16dp"
-            tools:layout_editor_absoluteY="155dp" />
+    <EditText
+        android:id="@+id/editText3"
+        android:layout_width="200dp"
+        android:layout_height="59dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="312dp"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:text="MarkJacob29"
+        app:layout_constraintLeft_toRightOf="@+id/userProfilePicture"
+        app:layout_constraintTop_toTopOf="parent" />
 
-        <EditText
-            android:id="@+id/setpasswordInput"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:ems="10"
-            android:hint="Password"
-            android:inputType="textPersonName"
-            app:layout_constraintEnd_toEndOf="parent" />
-    </LinearLayout>
+    <ImageView
+        android:id="@+id/userProfilePicture2"
+        android:layout_width="59dp"
+        android:layout_height="59dp"
+        android:layout_marginLeft="32dp"
+        android:layout_marginTop="392dp"
+        android:adjustViewBounds="false"
+        android:cropToPadding="false"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/user"
+        tools:srcCompat="@tools:sample/avatars" />
+
+    <EditText
+        android:id="@+id/editText4"
+        android:layout_width="200dp"
+        android:layout_height="59dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="392dp"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:text="Gucci2004"
+        app:layout_constraintLeft_toRightOf="@+id/userProfilePicture"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/textView4"
+        android:layout_width="match_parent"
+        android:layout_height="55dp"
+        android:layout_marginStart="30dp"
+        android:layout_marginEnd="30dp"
+        android:text="Member List"
+        android:textAlignment="viewStart"
+        android:textSize="24sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:layout_editor_absoluteY="268dp" />
 </android.support.constraint.ConstraintLayout>
