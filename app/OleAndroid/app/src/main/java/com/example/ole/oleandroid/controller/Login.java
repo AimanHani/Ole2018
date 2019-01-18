@@ -56,7 +56,7 @@ public class Login extends AppCompatActivity {
         //setContentView(R.layout.activity_loading_page);
 
         /**
-         * for now i link it to check leagues (public and private)
+         * YT: for now i link it to check leagues (public and private)
          */
         facebookButton.setOnClickListener(new View.OnClickListener() {
             @Override

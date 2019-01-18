@@ -1,6 +1,5 @@
 package com.example.ole.oleandroid.controller;
 
-
 import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.app.ProgressDialog;
@@ -208,7 +207,7 @@ public class Signup extends AppCompatActivity {
             return;
         }else {
 
-            signupBtn.setEnabled(false);
+        signupBtn.setEnabled(false);
 
             /*final ProgressDialog progressDialog = new ProgressDialog(Signup.this,
                     R.style.AppTheme);

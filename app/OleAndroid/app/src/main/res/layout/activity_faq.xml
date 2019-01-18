@@ -1,0 +1,161 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".pageController.FAQ">
+
+        <TextView
+            android:id="@+id/faqLabel"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="32dp"
+            android:fontFamily="sans-serif-condensed"
+            android:text="F A Q"
+            android:textAlignment="center"
+            android:textAllCaps="true"
+            android:textColor="@color/black"
+            android:textSize="30sp"
+            android:typeface="sans"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="551dp"
+            android:layout_marginTop="32dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/faqLabel">
+
+            <LinearLayout
+                android:id="@+id/faqFrame"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical" >
+
+                <TextView
+                    android:id="@+id/faqProfileHeader"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/themeColor"
+                    android:fontFamily="sans-serif-condensed"
+                    android:text="P R O F I L E"
+                    android:textAllCaps="true"
+                    android:textColor="@color/white"
+                    android:textSize="25sp"
+                    android:typeface="sans" />
+
+                <TextView
+                    android:id="@+id/faqQuesOne"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/idle_dot"
+                    android:text="How do I change my password?"
+                    android:textColor="@color/black"
+                    android:textColorLink="@color/white"
+                    android:textSize="20sp"
+                    tools:layout_editor_absoluteX="163dp"
+                    tools:layout_editor_absoluteY="144dp" />
+
+                <TextView
+                    android:id="@+id/faqAnsOne"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/white"
+                    android:text='To change your password, simply click on "Change Password" in Settings from the Menu bar.'
+                    android:textColor="@color/black"
+                    android:textSize="20sp"
+                    android:visibility="gone"/>
+
+                <TextView
+                    android:id="@+id/faqQuesTwo"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/idle_dot"
+                    android:text="How do I change my password?"
+                    android:textColor="@color/black"
+                    android:textSize="20sp"
+                    tools:layout_editor_absoluteX="163dp"
+                    tools:layout_editor_absoluteY="144dp" />
+
+                <TextView
+                    android:id="@+id/faqAndTwo"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/white"
+                    android:text='To change your password, simply click on "Change Password" in Settings from the Menu bar.'
+                    android:textColor="@color/black"
+                    android:textSize="20sp"
+                    android:visibility="gone"/>
+
+                <TextView
+                    android:id="@+id/faqLeaguesHeader"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/themeColor"
+                    android:fontFamily="sans-serif-condensed"
+                    android:text="L E A G U E S"
+                    android:textAllCaps="true"
+                    android:textColor="@color/white"
+                    android:textSize="25sp"
+                    android:typeface="sans" />
+
+                <TextView
+                    android:id="@+id/faqQuesThree"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/idle_dot"
+                    android:text="What is the difference between Private and Public league?"
+                    android:textColor="@color/black"
+                    android:textSize="20sp"
+                    tools:layout_editor_absoluteX="163dp"
+                    tools:layout_editor_absoluteY="144dp" />
+
+                <TextView
+                    android:id="@+id/faqAnsThree"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/white"
+                    android:text="In Public League, you are predicting among all the users of the Ole Football application. \n\n In Private League, you are allowed to create and join a group to predict among members of the group."
+                    android:textColor="@color/black"
+                    android:textSize="20sp"/>
+
+                <TextView
+                    android:id="@+id/faqQuesFour"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/idle_dot"
+                    android:text="How do I change my password?"
+                    android:textColor="@color/black"
+                    android:textSize="20sp"
+                    tools:layout_editor_absoluteX="163dp"
+                    tools:layout_editor_absoluteY="144dp" />
+
+                <TextView
+                    android:id="@+id/faqAnsFour"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/white"
+                    android:text='To change your password, simply click on "Change Password" in Settings from the Menu bar.'
+                    android:textColor="@color/black"
+                    android:textSize="20sp"
+                    android:visibility="gone"/>
+
+                <Button
+                    android:id="@+id/askOleButton"
+                    style="?attr/buttonBarButtonStyle"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/themeColor"
+                    android:text="Ask Ole!"
+                    android:textColor="@color/white"
+                    android:textSize="20sp"
+                    tools:layout_editor_absoluteY="305dp" />
+
+            </LinearLayout>
+        </ScrollView>
+</android.support.constraint.ConstraintLayout>

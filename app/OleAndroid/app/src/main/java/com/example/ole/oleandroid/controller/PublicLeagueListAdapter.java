@@ -1,39 +1,39 @@
 package com.example.ole.oleandroid.controller;
 
-import android.content.ClipData;
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
+
 import com.example.ole.oleandroid.R;
 
 import java.util.ArrayList;
 
-public class SpecialListAdapter extends BaseAdapter {
+public class PublicLeagueListAdapter extends BaseAdapter {
     private Context context; //context
-    private ArrayList<Integer> pointsList; //data source of the list adapter
+    private ArrayList<Integer> scoreList; //data source of the list adapter
     private ViewHolder viewHolder;
 
     private static class ViewHolder {
-        TextView points;
+        TextView score;
     }
 
     //public constructor
-    public SpecialListAdapter(Context context, ArrayList<Integer> pointsList) {
+    public PublicLeagueListAdapter(Context context, ArrayList<Integer> scoreList) {
         this.context = context;
-        this.pointsList = pointsList;
+        this.scoreList = scoreList;
     }
 
     @Override
     public int getCount() {
-        return pointsList.size(); //returns total of items in the list
+        return scoreList.size(); //returns total of items in the list
     }
 
     @Override
     public Object getItem(int position) {
-        return pointsList.get(position); //returns list item at the specified position
+        return scoreList.get(position); //returns list item at the specified position
     }
 
     @Override
@@ -45,18 +45,18 @@ public class SpecialListAdapter extends BaseAdapter {
     public View getView(int position, View convertView, ViewGroup parent) {
         // inflate the layout for each list row
         if (convertView == null) {
-            viewHolder = new SpecialListAdapter.ViewHolder();
+            viewHolder = new PublicLeagueListAdapter.ViewHolder();
             convertView = LayoutInflater.from(context).
-                    inflate(R.layout.speciallistlayout, parent, false);
+                    inflate(R.layout.publicleaguelistlayout, parent, false);
         }
 
         /**
-         * This will tell initialize the textview element in speciallistlayout
+         * This will tell initialize the textview element in publicleaguelistlayout
          */
-        viewHolder.points = convertView.findViewById(R.id.points);
+        viewHolder.score = convertView.findViewById(R.id.currentscore);
 
         //this will get each point from the arraylist
-        viewHolder.points.setText(pointsList.get(position).toString());
+        viewHolder.score.setText(scoreList.get(position).toString());
 
         /*
         // get current item to be displayed

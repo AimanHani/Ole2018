@@ -35,7 +35,7 @@ public class PublicLeaguePage extends AppCompatActivity {
     String username;
     String results = "";
     int leagueID;
- //   int leagueID = 0;
+    //int leagueID = 0;
     RequestQueue queue;
 
     @Override
@@ -71,9 +71,17 @@ public class PublicLeaguePage extends AppCompatActivity {
 
                             JSONArray publicLeague = response.getJSONArray("results");
                             JSONObject firstLeague = publicLeague.getJSONObject(0);
+                            leagueID = firstLeague.getInt("leagueId");
                             //leagueID = firstLeague.getInt("leagueId");
                             listPublicLeague.setText(firstLeague.toString());
 
+                            leagueID = firstLeague.getInt("leagueID");
+                            String prize = firstLeague.getString("prize");
+                            int tournamentID = firstLeague.getInt("tournamentId");
+                            int pointsAllocated = firstLeague.getInt("tournamentId");
+                            String leagueName = firstLeague.getString("leagueName");
+                            //int numberOfParticipants = firstLeague.getInt("numberParticipants");
+                            int numberOfParticipants = firstLeague.getInt("numberOfParticipants");
 //                            leagueID = firstLeague.getInt("leagueID");
 //                            String prize = firstLeague.getString("prize");
 //                            int tournamentID = firstLeague.getInt("tournamentId");
@@ -85,6 +93,8 @@ public class PublicLeaguePage extends AppCompatActivity {
 //                            int numberOfParticipants = firstLeague.getInt("numberOfParticipants");
                             //listPublicLeague.append("Username:"+userName);
                             //listPublicLeague.setText(prize.toString());
+                            Log.d("prize", prize);
+                            System.out.println(prize);
 //                            Log.d("prize", prize);
 //                            System.out.println(prize);
 ////                            JSONArray participants = response.getJSONArray("participants");
@@ -101,6 +111,12 @@ public class PublicLeaguePage extends AppCompatActivity {
 //
 //                            JSONArray participants = response.getJSONArray("participants");
 //                            JSONObject participantsOne = participants.getJSONObject(0);
+                            //int numberOfParticipants = participantsOne.getInt("num_participants");
+                            //listPublicLeaguse.setText(firstLeague.getString("leagueName"));
+                            listPublicLeague.append(" "+leagueID);
+                            //listPublicLeague.setText(leagueName + System.getProperty("line.separator"));
+                            //listPublicLeague.append("League ID: " + leagueID + System.getProperty("line.separator"));
+                            //listPublicLeague.append("Tournament ID: " + tournamentID + System.getProperty("line.separator"));
      //                       int numberOfParticipants = participantsOne.getInt("num_participants");
 
 //                            listPublicLeague.setText(leagueName + System.getProperty("line.separator"));
@@ -109,6 +125,17 @@ public class PublicLeaguePage extends AppCompatActivity {
 //                            listPublicLeague.append("Point Allocated " + pointsAllocated + System.getProperty("line.separator"));
 //                            listPublicLeague.append("Final Prize: " + prize + System.getProperty("line.separator"));
 //                            listPublicLeague.append("Number of Participants:" + numberOfParticipants);
+
+                            JSONArray participants = response.getJSONArray("participants");
+                            JSONObject participantsOne = participants.getJSONObject(0);
+                            //int numberOfParticipants = participantsOne.getInt("num_participants");
+
+                            listPublicLeague.setText(leagueName + System.getProperty("line.separator"));
+                            listPublicLeague.append("League ID: " + leagueID + System.getProperty("line.separator"));
+                            listPublicLeague.append("Tournament ID: " + tournamentID + System.getProperty("line.separator"));
+                            listPublicLeague.append("Point Allocated " + pointsAllocated + System.getProperty("line.separator"));
+                            listPublicLeague.append("Final Prize: " + prize + System.getProperty("line.separator"));
+                            listPublicLeague.append("Number of Participants:" + numberOfParticipants);
 
 
                         } catch (JSONException e) {
@@ -165,6 +192,7 @@ public class PublicLeaguePage extends AppCompatActivity {
                     @Override
                     public void onResponse(String serverResponse) {
                         if (serverResponse.equals("true")) {
+                            joinPublicLeague.setEnabled(false);
                             //joinPublicLeague.setEnabled(false);
                         }
                     }
@@ -189,6 +217,64 @@ public class PublicLeaguePage extends AppCompatActivity {
 
         queue.add(stringRequest);
 
+        joinPublicLeague.setOnClickListener((new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        final String[] result = new String[0];
+                        //RequestQueue requestQueue = Volley.newRequestQueue(getApplicationContext());
+
+                        //String result = publicLeagueInsertUser(userName, leagueID, queue);
+
+                        String url = new DBConnection().insertUserPublicLeagueUrl();
+
+
+                        // Creating string request with post method.
+                        StringRequest stringRequest = new StringRequest(Request.Method.POST, url,
+                                new Response.Listener<String>() {
+                                    @Override
+                                    public void onResponse(String ServerResponse) {
+                                        System.out.println("ServerResponse " + ServerResponse);
+                                        if (!ServerResponse.equals("error")) {
+                                            //result[0] = ServerResponse;
+                                            Intent intent = new Intent(PublicLeaguePage.this, SpecialsPredict.class);
+                                            //Intent intent = new Intent(PublicLeaguePage.this, Matches.class);
+                                            //Bundle b = getIntent().getExtras();
+                                            b.putString("logId", ServerResponse);
+                                            b.putString("leagueId", leagueID + "");
+                                            System.out.println(b.getString("logId") + " " + b.getString("userID"));
+                                            intent.putExtras(b);
+                                            startActivity(intent);
+                                        }
+                                    }
+                                },
+                                new Response.ErrorListener() {
+                                    @Override
+                                    public void onErrorResponse(VolleyError volleyError) {
+                                        System.out.println("error  :");
+                                        //volleyError.printStackTrace();
+                                        result[0] = "error";
+                                    }
+                                }) {
+                            @Override
+                            protected Map<String, String> getParams() {
+                                Map<String, String> params = new HashMap<String, String>();
+                                try {
+                                    params.put("username", username);
+                                    params.put("leagueId", leagueID + "");
+
+                                } catch (Exception e) {
+
+                                }
+                                return params;
+                            }
+
+                        };
+                        queue.add(stringRequest);
+
+
+                    }
+                })
+        );
 //        joinPublicLeague.setOnClickListener((new View.OnClickListener() {
 //                    @Override
 //                    public void onClick(View v) {
