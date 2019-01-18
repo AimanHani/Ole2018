@@ -1,12 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".controller.PrivateLeagueTemp">
-
+    tools:context=".controller.private_league_create">
 
     <Button
         android:id="@+id/createPrivateLeagueText"
@@ -15,11 +13,16 @@
         android:layout_alignParentBottom="true"
         android:layout_alignParentLeft="true"
         android:background="@color/themeColor"
-        android:text="CREATE PRIVATE LEAGUE"
+        android:text="PRIVATE LEAGUE"
         android:textColor="@color/white"
         android:textSize="18sp"
         android:textStyle="bold"
-        android:visibility="visible" />
+        android:visibility="visible"
+
+
+
+        />
+
 
     <LinearLayout
         android:id="@+id/selectMatchLayout"
@@ -32,17 +35,17 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <TextView
-            android:id="@+id/selectMatch"
+            android:id="@+id/selectLeague"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
 
-            android:text="Select a Match: "
+            android:text="Select a League: "
             tools:layout_editor_absoluteX="16dp"
             tools:layout_editor_absoluteY="82dp"
             />
 
         <Spinner
-            android:id="@+id/selectMatchInput"
+            android:id="@+id/leagueid"
             android:layout_width="200dp"
             android:layout_height="match_parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -60,7 +63,7 @@
         app:layout_constraintTop_toBottomOf="@id/selectMatchLayout">
 
         <TextView
-            android:id="@+id/leagueName"
+            android:id="@+id/leagueNameText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="League Name: "
@@ -68,11 +71,11 @@
             tools:layout_editor_absoluteY="116dp" />
 
         <EditText
-            android:id="@+id/leagueNameInput"
+            android:id="@+id/leaguename"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:ems="10"
-            android:hint="League Name"
+            android:hint="Your League Name"
             android:inputType="textPersonName"
             android:textAlignment="textStart"
             app:layout_constraintEnd_toEndOf="parent" />
@@ -88,7 +91,7 @@
         app:layout_constraintTop_toBottomOf="@id/leagueNameLayout">
 
         <TextView
-            android:id="@+id/privatePrize"
+            android:id="@+id/privatePrizeText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Prize: "
@@ -96,7 +99,7 @@
             tools:layout_editor_absoluteY="155dp" />
 
         <EditText
-            android:id="@+id/privatePrizeInput"
+            android:id="@+id/prize"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:ems="10"
@@ -104,7 +107,6 @@
             android:inputType="textPersonName"
             app:layout_constraintEnd_toEndOf="parent" />
     </LinearLayout>
-
     <LinearLayout
         android:id="@+id/friendListLayout"
         android:layout_width="320dp"
@@ -139,7 +141,7 @@
     </LinearLayout>
 
     <LinearLayout
-        android:id="@+id/setPasswordLayout"
+        android:id="@+id/setStartDateLayout"
         android:layout_width="320dp"
         android:layout_height="50dp"
         android:layout_marginLeft="32dp"
@@ -148,20 +150,97 @@
         app:layout_constraintTop_toBottomOf="@id/friendListLayout">
 
         <TextView
-            android:id="@+id/setPassword"
+            android:id="@+id/setStartDate"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Set Password: "
+            android:text="Start Date: "
             tools:layout_editor_absoluteX="16dp"
             tools:layout_editor_absoluteY="155dp" />
 
         <EditText
-            android:id="@+id/setpasswordInput"
+            android:id="@+id/startdate"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:hint="Start date"
+            android:inputType="textPersonName"
+            app:layout_constraintEnd_toEndOf="parent" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/setEndtDateLayout"
+        android:layout_width="320dp"
+        android:layout_height="50dp"
+        android:layout_marginLeft="32dp"
+        android:layout_marginTop="40dp"
+        android:orientation="horizontal"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/friendListLayout">
+
+        <TextView
+            android:id="@+id/setEndDate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="End Date:   "
+            tools:layout_editor_absoluteX="16dp"
+            tools:layout_editor_absoluteY="155dp" />
+
+        <EditText
+            android:id="@+id/enddate"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:hint="End date"
+            android:inputType="textPersonName" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/setPasswordLayout"
+        android:layout_width="320dp"
+        android:layout_height="50dp"
+        android:layout_marginLeft="32dp"
+        android:layout_marginTop="88dp"
+        android:orientation="horizontal"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/friendListLayout">
+
+    <TextView
+        android:id="@+id/setPassword"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Set Password: "
+        tools:layout_editor_absoluteX="16dp"
+        tools:layout_editor_absoluteY="155dp" />
+
+        <EditText
+            android:id="@+id/password"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:ems="10"
             android:hint="Password"
             android:inputType="textPersonName"
             app:layout_constraintEnd_toEndOf="parent" />
+
+
     </LinearLayout>
+
+    <Button
+        android:id="@+id/createLeague"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentBottom="true"
+        android:background="@color/themeColor"
+        android:text="CREATE LEAGUE!"
+        android:textColor="@color/white"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        android:visibility="visible"
+        tools:layout_editor_absoluteX="16dp"
+        tools:layout_editor_absoluteY="508dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"/>
+
+
 </android.support.constraint.ConstraintLayout>
