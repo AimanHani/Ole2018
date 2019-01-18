@@ -4,17 +4,17 @@ import java.util.Date;
 
 public class User {
 
-    private String userName;
+    private String username;
     private String name;
     private String password;
-    private Date dateOfBirth;
+    private String dateOfBirth;
     private String country;
     private String contactNumber;
     private String email;
     private String favoriteTeam;
 
-    public User(String userName, String name, String password, Date dateOfBirth, String country, String contactNumber, String email, String favoriteTeam) {
-        this.userName = userName;
+    public User(String username, String name, String password, String dateOfBirth, String country, String contactNumber, String email, String favoriteTeam) {
+        this.username = username;
         this.name = name;
         this.password = password;
         this.dateOfBirth = dateOfBirth;
@@ -28,11 +28,11 @@ public class User {
     }
 
     public String getUserName() {
-        return userName;
+        return username;
     }
 
-    public void setUserName(String userName) {
-        this.userName = userName;
+    public void setUserName(String username) {
+        this.username = username;
     }
 
     public String getName() {
@@ -51,11 +51,11 @@ public class User {
         this.password = password;
     }
 
-    public Date getDateOfBirth() {
+    public String getDateOfBirth() {
         return dateOfBirth;
     }
 
-    public void setDateOfBirth(Date dateOfBirth) {
+    public void setDateOfBirth(String dateOfBirth) {
         this.dateOfBirth = dateOfBirth;
     }
 

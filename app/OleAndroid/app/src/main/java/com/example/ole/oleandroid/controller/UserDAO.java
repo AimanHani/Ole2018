@@ -5,22 +5,22 @@ import com.example.ole.oleandroid.model.User;
 import java.util.ArrayList;
 
 public class UserDAO {
-    private ArrayList<User> allUsers = new ArrayList();
-    private User loginUser;
+    private static ArrayList<User> allUsers = new ArrayList();
+    private static User loginUser;
 
     public void setAllUsers(ArrayList<User> allUsers) {
         this.allUsers = allUsers;
     }
 
-    public void addUsers(User user){
+    public static void addUsers(User user){
         allUsers.add(user);
     }
 
-    public User getLoginUser() {
+    public static User getLoginUser() {
         return loginUser;
     }
 
-    public void setLoginUser(User loginUser) {
-        this.loginUser = loginUser;
+    public static void setLoginUser(User user) {
+        loginUser = user;
     }
 }
