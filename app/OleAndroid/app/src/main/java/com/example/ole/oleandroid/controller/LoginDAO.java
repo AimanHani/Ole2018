@@ -24,7 +24,7 @@ import java.util.Map;
 public class LoginDAO {
 
     public static String validate (final String username, final String password, Context context){
-        String url = new DBConnection().getLoginUrl();
+        String url = DBConnection.getLoginUrl();
         final boolean[] process = {true};
         final String[] status = {"error"};
         RequestFuture<JSONObject> requestFuture = RequestFuture.newFuture();
