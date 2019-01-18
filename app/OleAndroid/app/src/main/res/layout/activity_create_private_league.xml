@@ -6,18 +6,19 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <TextView
+
+    <Button
         android:id="@+id/createPrivateLeagueText"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginTop="16dp"
-        android:text="Create a Private League"
-        android:textAlignment="center"
-        android:textAllCaps="false"
-        android:textSize="24sp"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        tools:layout_editor_absoluteX="65dp" />
+        android:layout_height="68dp"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:background="@color/themeColor"
+        android:text="CREATE PRIVATE LEAGUE"
+        android:textColor="@color/white"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        android:visibility="visible" />
 
     <LinearLayout
         android:id="@+id/selectMatchLayout"
