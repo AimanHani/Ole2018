@@ -42,7 +42,7 @@ public class Home extends AppCompatActivity {
         privateLeagues.setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {
 
-                Intent intent = new Intent(Home.this, private_league_create.class);
+                Intent intent = new Intent(Home.this, PrivateLeagueHome.class);
                 Bundle b = getIntent().getExtras();
                 intent.putExtras(b);
                 startActivity(intent);

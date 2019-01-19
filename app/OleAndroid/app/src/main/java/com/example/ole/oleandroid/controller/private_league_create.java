@@ -65,7 +65,7 @@ public class private_league_create extends AppCompatActivity {
                             @Override
                             public void onResponse(String ServerResponse) {
                                 System.out.println(ServerResponse);
-                                Intent intent = new Intent(private_league_create.this, Home.class);
+                                Intent intent = new Intent(private_league_create.this, PrivateLeagueHome.class);
                                 startActivity(intent);
                             }
                         },
