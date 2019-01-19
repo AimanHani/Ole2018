@@ -13,27 +13,27 @@ import java.util.ArrayList;
 
 public class PublicLeagueListAdapter extends BaseAdapter {
     private Context context; //context
-    private ArrayList<Integer> scoreList; //data source of the list adapter
+    private ArrayList<String> leaguelist;//data source of the list adapter
     private ViewHolder viewHolder;
 
     private static class ViewHolder {
-        TextView score;
+        TextView league;
     }
 
     //public constructor
-    public PublicLeagueListAdapter(Context context, ArrayList<Integer> scoreList) {
+    public PublicLeagueListAdapter(Context context, ArrayList<String> leaguelist) {
         this.context = context;
-        this.scoreList = scoreList;
+        this.leaguelist = leaguelist;
     }
 
     @Override
     public int getCount() {
-        return scoreList.size(); //returns total of items in the list
+        return leaguelist.size(); //returns total of items in the list
     }
 
     @Override
     public Object getItem(int position) {
-        return scoreList.get(position); //returns list item at the specified position
+        return leaguelist.get(position); //returns list item at the specified position
     }
 
     @Override
@@ -53,10 +53,10 @@ public class PublicLeagueListAdapter extends BaseAdapter {
         /**
          * This will tell initialize the textview element in publicleaguelistlayout
          */
-        viewHolder.score = convertView.findViewById(R.id.currentscore);
+        viewHolder.league = convertView.findViewById(R.id.leaguename);
 
         //this will get each point from the arraylist
-        viewHolder.score.setText(scoreList.get(position).toString());
+        viewHolder.league.setText(leaguelist.get(position).toString());
 
         /*
         // get current item to be displayed
