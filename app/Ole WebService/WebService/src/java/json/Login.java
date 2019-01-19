@@ -7,6 +7,7 @@ package json;
 
 import controller.LoginDAO;
 import controller.PublicLeagueProfileDAO;
+import controller.UserDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.io.UnsupportedEncodingException;
@@ -86,7 +87,7 @@ public class Login extends HttpServlet {
             status = LoginDAO.validate(username, password);
             
             if (status) {
-                User u = PublicLeagueProfileDAO.getUserInfo(username);
+                User u = UserDAO.getUserInfo(username);
                 
                 JSONObject userDetails = new JSONObject();
                 userDetails.put("username", u.getUsername());

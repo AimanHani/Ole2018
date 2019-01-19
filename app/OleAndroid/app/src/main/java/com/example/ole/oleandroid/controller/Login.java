@@ -79,15 +79,14 @@ public class Login extends AppCompatActivity {
                 if (username.getText().toString().equals("") || password.getText().toString().equals("")) {
                     //loadSamePage();
                 } else {
-                    System.out.println("Signing In");
+                    System.out.println("Signing In "+username.getText().toString());
 
                     //tries to login
                     //String status = LoginDAO.validate(username.getText().toString(), password.getText().toString(), getApplicationContext());
                     String url = DBConnection.getLoginUrl();
                     final String[] status = {"error"};
-                    //RequestFuture<JSONObject> requestFuture = RequestFuture.newFuture();
 
-
+// comments starts here if want to bypass login webservice
                     StringRequest stringRequest = new StringRequest(Request.Method.POST, url,
                             new Response.Listener<String>() {
                                 @Override
@@ -97,23 +96,24 @@ public class Login extends AppCompatActivity {
                                             JSONObject result = new JSONObject(ServerResponse);
                                             status[0] = result.getString("status");
 
-                                            JSONObject user = result.getJSONObject("user");
-                                            String username = user.getString("username");
-                                            String name = user.getString("name");
-                                            String password = user.getString("password");
-                                            String dob = user.getString("dob");
-                                            String country = user.getString("country");
-                                            String contactNum = user.getString("contactNum");
-                                            String email = user.getString("email");
-                                            String favoriteTeam = user.getString("favoriteTeam");
+                                            if (status[0].equals("success")) {
+                                                JSONObject user = result.getJSONObject("user");
+                                                String usernameRetrieved = user.getString("username");
+                                                String name = user.getString("name");
+                                                String password = user.getString("password");
+                                                String dob = user.getString("dob");
+                                                String country = user.getString("country");
+                                                String contactNum = user.getString("contactNum");
+                                                String email = user.getString("email");
+                                                String favoriteTeam = user.getString("favoriteTeam");
 
-                                            User userDetails = new User(username, name, password, dob, country, contactNum, email, favoriteTeam);
-                                            UserDAO.setLoginUser(userDetails);
+                                                User userDetails = new User(usernameRetrieved, name, password, dob, country, contactNum, email, favoriteTeam);
+                                                UserDAO.setLoginUser(userDetails);
 
-                                            if (!status[0].equals("error")) {
+
                                                 Intent intent = new Intent(Login.this, Home.class);
                                                 Bundle bundle = new Bundle();
-                                                bundle.putString("username", username);
+                                                bundle.putString("username", usernameRetrieved);
                                                 intent.putExtras(bundle);
                                                 startActivity(intent);
                                             } else {
@@ -144,6 +144,14 @@ public class Login extends AppCompatActivity {
 
                     RequestQueue requestQueue = Volley.newRequestQueue(getApplicationContext());
                     requestQueue.add(stringRequest);
+//comments stop here
+
+                    // codes to bypass login with webservice
+//                    Intent intent = new Intent(Login.this, Home.class);
+//                    Bundle bundle = new Bundle();
+//                    bundle.putString("username", username.getText().toString());
+//                    intent.putExtras(bundle);
+//                    startActivity(intent);
 
                 }
             }

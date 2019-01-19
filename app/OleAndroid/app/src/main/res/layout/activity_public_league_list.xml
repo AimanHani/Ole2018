@@ -5,7 +5,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:orientation="vertical"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    tools:context=".controller.PublicLeagueList"> <!-- THIS LINE WAS ADDED TO CONNECT TO PublicLeagueList.java -->
 
     <Button
         android:layout_width="match_parent"

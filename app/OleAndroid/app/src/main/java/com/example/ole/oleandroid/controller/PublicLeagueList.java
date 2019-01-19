@@ -22,7 +22,7 @@ public class PublicLeagueList extends AppCompatActivity{
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.publicleaguelist);
+        setContentView(R.layout.activity_public_league_list); // changed from publicleaguelist to activity_public_league_list
         publicLeagueListView = findViewById(R.id.publicLeagueListView);
         joinleaguebtn = findViewById(R.id.joinleaguebtn);
 
