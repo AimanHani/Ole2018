@@ -140,7 +140,7 @@ public class Signup extends AppCompatActivity {
 //                String results = LoginDAO.validate(username.getText().toString(), password.getText().toString());
 //                result.append(results);
 
-                String url = new DBConnection( ).getSignupUrl( );
+                String url = DBConnection.getSignupUrl( );
                 //final String[] results = new String[1];
 
                 // Creating string request with post method.

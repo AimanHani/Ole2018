@@ -83,9 +83,9 @@ public class Login extends AppCompatActivity {
 
                     //tries to login
                     //String status = LoginDAO.validate(username.getText().toString(), password.getText().toString(), getApplicationContext());
-                    String url = new DBConnection().getLoginUrl();
+                    String url = DBConnection.getLoginUrl();
                     final String[] status = {"error"};
-                    RequestFuture<JSONObject> requestFuture = RequestFuture.newFuture();
+                    //RequestFuture<JSONObject> requestFuture = RequestFuture.newFuture();
 
 
                     StringRequest stringRequest = new StringRequest(Request.Method.POST, url,
