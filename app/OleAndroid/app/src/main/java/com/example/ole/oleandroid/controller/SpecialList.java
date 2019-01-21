@@ -17,12 +17,11 @@ public class SpecialList extends AppCompatActivity{
     SpecialListAdapter specialListAdapter;
     ArrayList<Integer> pointsList;
     ListView specialListView;
-    Button confirmspecialsbtn;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.speciallist);
+        setContentView(R.layout.speciallist); //contain item list view e.g. item1, item2
         pointsList = new ArrayList<>();
         specialListView = findViewById(R.id.specialListView);
 
@@ -32,17 +31,6 @@ public class SpecialList extends AppCompatActivity{
 
         specialListAdapter = new SpecialListAdapter(SpecialList.this, pointsList);
         specialListView.setAdapter(specialListAdapter);
-
-
-        //after user confirm specials prediction should go to EplMatchesList java class, but i havent
-        //created that yet so i redirect to Home first
-        confirmspecialsbtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(SpecialList.this , Home.class);
-                startActivity(intent);
-            }
-        });
 
     }
 
