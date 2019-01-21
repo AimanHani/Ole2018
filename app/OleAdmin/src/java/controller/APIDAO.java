@@ -12,6 +12,7 @@ import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import java.text.SimpleDateFormat;
 import java.sql.Date;
+import java.text.ParseException;
 
 public class APIDAO {
 
@@ -314,5 +315,53 @@ public class APIDAO {
             Logger.getLogger(SpecialsDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
         return false;
+    }
+     public static int loadMatchesFromAPI(String matchId,String leagueID, String matchDate, String matchTime, String team1,String team2,String team1Score,String team2Score){
+        int status = 0;
+        try (Connection c = DBConnection.getConnection(); PreparedStatement ps = c.prepareStatement("INSERT INTO testloadmatch(matchId,tournamentId,date,time,team1,team2,team1_score,team2_score) VALUES(?,?,?,?,?,?,?,?)");) {
+            SimpleDateFormat formatter = new SimpleDateFormat("yyyy-mm-dd");
+                    SimpleDateFormat formatter2 = new SimpleDateFormat("hh:mm:ss"); // This line
+
+                    Date d1 = new java.sql.Date(formatter.parse(matchDate).getTime());
+                    System.out.println(d1);
+
+                    //Time t1 = new java.sql.Time(formatter2.parse(eTime).getTime());
+                    //System.out.println(team1_score);
+                    Date date = new Date(Integer.parseInt(matchTime) * 1000L); // convert seconds to milliseconds
+
+                    SimpleDateFormat dateFormat1 = new SimpleDateFormat("yyyy-MM-dd"); // the format of your date 
+                    SimpleDateFormat dateFormat2 = new SimpleDateFormat("HH:mm:ss"); // the format of your date
+
+                    String formattedDate = dateFormat1.format(date);
+                    System.out.println(formattedDate);
+
+                    String formattedTime = dateFormat2.format(date);
+                    System.out.println(formattedTime);
+
+                    if (team1Score == null) {
+                        team1Score = "-1";
+                    }
+                    if (team2Score == null) {
+                        team2Score = "-1";
+                    }
+
+                    ps.setString(1, matchId);
+                    ps.setString(2, leagueID);
+                    ps.setString(3, formattedDate);
+                    ps.setString(4, formattedTime);
+                    ps.setString(5, team1);
+                    ps.setString(6, team2);
+                    ps.setInt(7, Integer.parseInt(team1Score));
+                    ps.setInt(8, Integer.parseInt(team2Score));
+                    ps.executeUpdate();
+                    return status;
+        } catch (SQLException ex) {
+            Logger.getLogger(APIDAO.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(APIDAO.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ParseException ex) {
+            Logger.getLogger(APIDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return 1;
     }
 }
