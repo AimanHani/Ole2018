@@ -9,9 +9,15 @@ import dbConnection.DBConnection;
 import java.sql.Connection;
 import java.sql.Date;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Time;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import model.PrivateLeague;
+import model.Match;
+import org.eclipse.persistence.jpa.jpql.parser.DateTime;
 
 /**
  *
@@ -33,7 +39,6 @@ public class PrivateLeagaueDAO {
                 ps.setString(5, endDate);
                 ps.setString(6, username);
                 ps.setInt(7, leagueId);
-                
 
                 rs = ps.executeUpdate();
                 if (rs > 0) {
@@ -48,6 +53,37 @@ public class PrivateLeagaueDAO {
         }
         return "error";
     }
+
+    public static PrivateLeague retrievePrivateLeagueByName(String name) {
+
+        PrivateLeague pl = null;
+        try (Connection conn = DBConnection.getConnection(); PreparedStatement stmt = conn.prepareStatement("select privateleagueid,name,prize,startDate,endDate,leagueKeyId,username where name = ? ");) {
+            stmt.setString(1, name);
+            ResultSet rs = stmt.executeQuery();
+
+            while (rs.next()) {
+                int privateLeagueId = rs.getInt(1);
+                String privateLeagueName = name;
+                String prize = rs.getNString(3);
+                Date startDate = rs.getDate(4);
+                Date endDate = rs.getDate(5);
+                int leagueKeyId = rs.getInt(6);
+                String username = rs.getString(7);
+                pl = new PrivateLeague(privateLeagueId, privateLeagueName, prize, startDate, endDate, leagueKeyId,username);
+
+            }
+            rs.close();
+            return pl;
+
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        } catch (ClassNotFoundException ex) {
+            ex.printStackTrace();
+        }
+
+        return null;
+    }
+
     final static String DATE_FORMAT = "yyyy-MM-dd";
 
     public static boolean isDateValid(String date) {
