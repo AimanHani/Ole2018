@@ -10,6 +10,13 @@ package model;
  * @author user
  */
 public class AllPublicLeague {
+
+    public AllPublicLeague(int leagueID, int tournamentID, int pointsAllocated, String leagueName) {
+        this.leagueID = leagueID;
+        this.tournamentID = tournamentID;
+        this.pointsAllocated = pointsAllocated;
+        this.leagueName = leagueName;
+    }
     private int leagueID;
     private String prize;
     private int tournamentID;

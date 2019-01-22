@@ -20,7 +20,9 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import model.FAQ;
+import controller.PrivateLeagaueDAO;
+import controller.PublicLeaguesDAO;
+import model.AllPublicLeague;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -43,19 +45,7 @@ public class PrivateLeague extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
-        try (PrintWriter out = response.getWriter()) {
-            /* TODO output your page here. You may use following sample code. */
-            out.println("<!DOCTYPE html>");
-            out.println("<html>");
-            out.println("<head>");
-            out.println("<title>Servlet PrivateLeague</title>");            
-            out.println("</head>");
-            out.println("<body>");
-            out.println("<h1>Servlet PrivateLeague at " + request.getContextPath() + "</h1>");
-            out.println("</body>");
-            out.println("</html>");
-        }
+
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -71,6 +61,75 @@ public class PrivateLeague extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         processRequest(request, response);
+        JSONArray list = new JSONArray();
+        JSONObject parentJson = new JSONObject();
+        response.setContentType("\"Content-Type\", \"application/x-www-form-urlencoded\"");
+        response.setCharacterEncoding("utf-8");
+        PrintWriter out = response.getWriter();
+        String leagueName = request.getParameter("leagueName");
+        model.PrivateLeague pl;
+        AllPublicLeague apl;
+        JSONObject json = new JSONObject();
+        HashMap<Integer, model.PrivateLeague> privateLeaguesByname;
+        try {
+            if (leagueName != null) {
+                apl = PrivateLeagaueDAO.retrieveLeague(leagueName);
+                if (apl != null) {
+                    json.put("LeagueId", apl.getLeagueID());
+                    json.put("tournamentId", apl.getTournamentID());
+                    json.put("pointsAllocated", apl.getPointsAllocated());
+                    json.put("leagueName", apl.getLeagueName());
+                    list.put(json);
+                    privateLeaguesByname = PrivateLeagaueDAO.retrievePrivateLeagueByName(apl.getLeagueID());
+
+                    if (privateLeaguesByname != null) {
+
+                        Iterator it = privateLeaguesByname.entrySet().iterator();
+                        while (it.hasNext()) {
+
+                            Map.Entry pair = (Map.Entry) it.next();
+                            //System.out.println(pair.getKey() + " = " + pair.getValue());
+                            pl = (model.PrivateLeague) pair.getValue();
+                            json.put("privateLeagueID",pl.getPrivateLeaugeId());
+                            json.put("prize",pl.getPrize());
+                            json.put("startDate", pl.getStartDate());
+                            json.put("endDate",pl.getEndDate());
+                            json.put("leagueKeyId",pl.getLeagueId());
+                            json.put("userName",pl.getUsername());
+
+                            it.remove(); // avoids a ConcurrentModificationException
+                            list.put(json);
+
+                        }
+                        parentJson.put("results", list);
+                        out.print(parentJson);
+                        out.flush();
+                    } else {
+
+                        json.put("status", "error");
+                        String invalidMsg = "private league error" + "/" + "";
+                        String[] invalidString = {invalidMsg};
+                        json.put("messages", invalidString);
+                        parentJson.put("results", list);
+                        out.print(parentJson);
+                        out.flush();
+                    }
+
+                } else {
+                    json.put("status", "error");
+                    String invalidMsg = "Cannot retrieve league" + "/" + "";
+                    String[] invalidString = {invalidMsg};
+                    json.put("messages", invalidString);
+                    parentJson.put("results", list);
+                    out.print(parentJson);
+                    out.flush();
+
+                }
+            }
+        }catch (JSONException e) {
+            e.printStackTrace();
+        }
+        
     }
 
     /**
@@ -84,7 +143,7 @@ public class PrivateLeague extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-         JSONObject json = new JSONObject();
+          JSONObject json = new JSONObject();
         response.setContentType("\"Content-Type\", \"application/x-www-form-urlencoded\"");
         response.setCharacterEncoding("utf-8");
         PrintWriter out = response.getWriter();
@@ -93,15 +152,16 @@ public class PrivateLeague extends HttpServlet {
         String password = request.getParameter("password");
         String prize = request.getParameter("prize");
         String leagueName = request.getParameter("leagueName");
-        int leagueId = Integer.parseInt(request.getParameter("leagueId"));
+        //int leagueId = Integer.parseInt(request.getParameter("leagueId"));
         String startDate = request.getParameter("startDate");
         String endDate = request.getParameter("endDate");
-        
+        String pointsAllocated = request.getParameter("pointsAllocated");
+        String tournamentId = request.getParameter("tournamentId");
         String status = "";
         try {
             
-
-                status = PrivateLeagaueDAO.createPrivateLeague(leagueName,prize ,password, startDate ,endDate ,username ,leagueId);
+            System.out.println(username+password);
+                status = PrivateLeagaueDAO.createPrivateLeague(leagueName, prize, password, startDate, endDate, username, pointsAllocated, tournamentId);
                 if (status.equals("successful")) {
 
                     json.put("status", "successful");
