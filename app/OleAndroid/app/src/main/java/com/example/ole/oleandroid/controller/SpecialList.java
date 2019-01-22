@@ -34,4 +34,10 @@ public class SpecialList extends AppCompatActivity{
 
     }
 
+    //image of the prediction item e.g. best player
+    //dropdown list of the player name
+    //points that could be earned from this prediction item
+    //double it button
+    //if click on the button, points x2
+
 }

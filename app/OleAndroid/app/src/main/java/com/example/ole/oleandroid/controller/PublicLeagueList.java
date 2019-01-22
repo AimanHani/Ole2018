@@ -37,4 +37,8 @@ public class PublicLeagueList extends AppCompatActivity{
 
     }
 
+    //league logo
+    //league name
+    //join btn
+
 }
