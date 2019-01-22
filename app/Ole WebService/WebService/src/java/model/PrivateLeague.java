@@ -13,23 +13,46 @@ import java.util.ArrayList;
  * @author user
  */
 public class PrivateLeague {
+
+    private int privateLeaugeId;
     private String leagueName;
+    private String prize;
     private String password;
-    private String specials;
-    private String teamPref;
     private Date startDate;
     private Date endDate;
     private int leagueId;
+    private String username;
 
-    public PrivateLeague(String leagueName, String password, String specials, String teamPref, Date startDate, Date endDate, int leagueId, ArrayList<User> participants) {
-        this.leagueName = leagueName;
-        this.password = password;
-        this.specials = specials;
-        this.teamPref = teamPref;
+    //private int pointsAllocated;
+    //private int tournamentId;
+    public PrivateLeague(int privateLeaugeId, String prize, Date startDate, Date endDate, int leagueId, String username) {
+        this.privateLeaugeId = privateLeaugeId;
+        this.prize = prize;
         this.startDate = startDate;
         this.endDate = endDate;
         this.leagueId = leagueId;
-        this.participants = participants;
+        this.username = username;
+    }
+
+    public int getPrivateLeaugeId() {
+        return privateLeaugeId;
+    }
+
+    public String getPrize() {
+        return prize;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public PrivateLeague(int privateLeaugeId, String leagueName, String prize, Date startDate, Date endDate, int leagueId) {
+        this.privateLeaugeId = privateLeaugeId;
+        this.leagueName = leagueName;
+        this.prize = prize;
+        this.startDate = startDate;
+        this.endDate = endDate;
+        this.leagueId = leagueId;
     }
 
     public int getLeagueId() {
@@ -40,25 +63,7 @@ public class PrivateLeague {
         this.leagueId = leagueId;
     }
 
-    public ArrayList<User> getParticipants() {
-        return participants;
-    }
-
-    public void setParticipants(ArrayList<User> participants) {
-        this.participants = participants;
-    }
-    private ArrayList<User>participants;
-
     public PrivateLeague() {
-    }
-
-    public PrivateLeague(String leagueName, String password, String specials, String teamPref, Date startDate, Date endDate) {
-        this.leagueName = leagueName;
-        this.password = password;
-        this.specials = specials;
-        this.teamPref = teamPref;
-        this.startDate = startDate;
-        this.endDate = endDate;
     }
 
     public String getLeagueName() {
@@ -75,22 +80,6 @@ public class PrivateLeague {
 
     public void setPassword(String password) {
         this.password = password;
-    }
-
-    public String getSpecials() {
-        return specials;
-    }
-
-    public void setSpecials(String specials) {
-        this.specials = specials;
-    }
-
-    public String getTeamPref() {
-        return teamPref;
-    }
-
-    public void setTeamPref(String teamPref) {
-        this.teamPref = teamPref;
     }
 
     public Date getStartDate() {

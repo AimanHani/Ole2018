@@ -34,7 +34,8 @@ public class private_league_create extends AppCompatActivity {
     Button createLeague;
     Spinner leagueid;
     String username ;
-    //int leagueid = 2;
+    String tournamentId = "2";
+    String pointsAllocated = "1";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,6 +47,7 @@ public class private_league_create extends AppCompatActivity {
         final User u = (User)i.getSerializableExtra("User");
 
         username = u.getUserName();
+
         Spinner leagueid =  findViewById(R.id.leagueid);
         //leagueid = (EditText) findViewById(R.id.leagueid);
         leaguename = (EditText) findViewById(R.id.leaguename);
@@ -92,7 +94,8 @@ public class private_league_create extends AppCompatActivity {
                             params.put("password", password.getText( ).toString( ));
                             params.put("prize", prize.getText( ).toString( ));
                             params.put("leagueName", leaguename.getText( ).toString( ));
-                            params.put("leagueId", "2");
+                            params.put("tournamentId", tournamentId);
+                            params.put("pointsAllocated", pointsAllocated);
                             params.put("startDate", startdate.getText( ).toString( ));
                             params.put("endDate", enddate.getText( ).toString( ));
                             validate( );

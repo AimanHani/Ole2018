@@ -65,8 +65,7 @@ public class Login extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(Login.this , PublicLeagueList.class);
-                startActivity(intent);
-            }
+                 startActivity(intent);            }
         });
 
 
@@ -94,43 +93,17 @@ public class Login extends AppCompatActivity {
                                 @Override
                                 public void onResponse(String ServerResponse) {
                                     System.out.println(ServerResponse);
-                                    try {
-                                        JSONObject result = new JSONObject(ServerResponse);
-                                        status[0] = result.getString("status");
-
-                                        if (status[0].equals("success")) {
-                                            JSONObject user = result.getJSONObject("user");
-                                            String usernameRetrieved = user.getString("username");
-                                            String name = user.getString("name");
-                                            String password = user.getString("password");
-                                            String dob = user.getString("dob");
-                                            String country = user.getString("country");
-                                            String contactNum = user.getString("contactNum");
-                                            String email = user.getString("email");
-                                            String favoriteTeam = user.getString("favoriteTeam");
-
-                                            User userDetails = new User(usernameRetrieved, name, password, dob, country, contactNum, email, favoriteTeam);
-                                            UserDAO.setLoginUser(userDetails);
 
 
-                                            Intent intent = new Intent(Login.this, Home.class);
-                                            Bundle bundle = new Bundle();
-                                            bundle.putString("username", usernameRetrieved);
-                                            intent.putExtras(bundle);
 
-                                            //parse user object
-                                            intent.putExtra("User", userDetails);
 
-                                            startActivity(intent);
 
-                                        } else {
-                                            //loadSamePage();
-                                        }
 
-                                    } catch (JSONException e) {
-                                        e.printStackTrace();
-                                    }
 
+
+                                       
+
+     
                                 }
                             },
                             new Response.ErrorListener() {
