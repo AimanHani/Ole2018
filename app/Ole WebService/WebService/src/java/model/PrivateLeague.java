@@ -22,9 +22,9 @@ public class PrivateLeague {
     private int leagueId;
     private String username;
 
-    public PrivateLeague(int privateLeaugeId, String leagueName, String prize, Date startDate, Date endDate, int leagueId, String username) {
+    public PrivateLeague(int privateLeaugeId, String prize, Date startDate, Date endDate, int leagueId, String username) {
         this.privateLeaugeId = privateLeaugeId;
-        this.leagueName = leagueName;
+       
         this.prize = prize;
         this.startDate = startDate;
         this.endDate = endDate;

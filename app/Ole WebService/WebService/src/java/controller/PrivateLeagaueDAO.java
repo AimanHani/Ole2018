@@ -15,6 +15,8 @@ import java.sql.Time;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.HashMap;
+import model.AllPublicLeague;
 import model.PrivateLeague;
 import model.Match;
 import org.eclipse.persistence.jpa.jpql.parser.DateTime;
@@ -25,22 +27,40 @@ import org.eclipse.persistence.jpa.jpql.parser.DateTime;
  */
 public class PrivateLeagaueDAO {
 
-    public static String createPrivateLeague(String leagueName, String prize, String password, String startDate, String endDate, String username, int leagueId) {
+       public static String createPrivateLeague(String leagueName, String prize, String password, String startDate, String endDate, String username, String pointsAllocated, String tournamentId) {
         int rs = 0;
         // I follow the php script to set the point as 0 here
-        int points = 0;
+
         if (isDateValid(startDate) && isDateValid(endDate)) {
-            try (Connection c = DBConnection.getConnection(); PreparedStatement ps = c.prepareStatement("INSERT INTO privateleague (name, prize, password,startDate,endDate,username,leagueKeyId) VALUES (?,?,?,?,?,?,?)");) {
+            try (Connection c1 = DBConnection.getConnection(); PreparedStatement ps1 = c1.prepareStatement("INSERT INTO league (tournamentId, pointsAllocated, leagueName) VALUES (?, ?, ?)");) {
+                System.out.println(ps1);
+                ps1.setInt(1, Integer.parseInt(tournamentId));
+                ps1.setInt(2, Integer.parseInt(pointsAllocated));
+                ps1.setString(3, leagueName);
 
-                ps.setString(1, leagueName);
-                ps.setString(2, prize);
-                ps.setString(3, password);
-                ps.setString(4, startDate);
-                ps.setString(5, endDate);
-                ps.setString(6, username);
-                ps.setInt(7, leagueId);
+                rs = ps1.executeUpdate();
 
-                rs = ps.executeUpdate();
+                try (Connection c2 = DBConnection.getConnection(); PreparedStatement ps2 = c2.prepareStatement("SELECT * FROM `league` where leagueName='" + leagueName + "'");) {
+                    ResultSet resultSet = ps2.executeQuery();
+                    if (resultSet.next()) {
+                        int leagueID = resultSet.getInt(1);
+                        try (Connection c3 = DBConnection.getConnection(); PreparedStatement ps3 = c3.prepareStatement("INSERT INTO privateleague (prize, password,startDate,endDate,username,leagueKeyId) VALUES (?,?,?,?,?,?)");) {
+                            ps3.setString(1, prize);
+                            ps3.setString(2, password);
+                            ps3.setString(3, startDate);
+                            ps3.setString(4, endDate);
+                            ps3.setString(5, username);
+                            ps3.setInt(6, leagueID);
+                            rs = ps3.executeUpdate();
+                        }
+                    }
+                    if (rs > 0) {
+                        return "successful";
+                    }
+                } catch (Exception e) {
+                    System.out.println("check db connection class");
+                }
+
                 if (rs > 0) {
                     return "successful";
                 }
@@ -53,27 +73,55 @@ public class PrivateLeagaueDAO {
         }
         return "error";
     }
+    public static AllPublicLeague retrieveLeague(String leagueName){
+           PrivateLeague pl = null;
+        AllPublicLeague apl = null;
+        try (Connection conn = DBConnection.getConnection(); PreparedStatement stmt = conn.prepareStatement("select leagueId,tournamentId,pointsAllocated from league where leagueName = ? ");) {
+            stmt.setString(1, leagueName);
+            ResultSet rs = stmt.executeQuery();
 
-    public static PrivateLeague retrievePrivateLeagueByName(String name) {
+            while (rs.next()) {
+                int leagueKeyId = rs.getInt(1);
+                int tournamentId = rs.getInt(2);
+                int pointsAllocated = rs.getInt(3);
+                
+                apl = new AllPublicLeague(leagueKeyId, tournamentId,pointsAllocated,leagueName);
 
-        PrivateLeague pl = null;
-        try (Connection conn = DBConnection.getConnection(); PreparedStatement stmt = conn.prepareStatement("select privateleagueid,name,prize,startDate,endDate,leagueKeyId,username where name = ? ");) {
-            stmt.setString(1, name);
+            }
+            rs.close();
+            return apl;
+
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        } catch (ClassNotFoundException ex) {
+            ex.printStackTrace();
+        }
+        
+        return null;
+    }
+
+    public static HashMap<Integer, model.PrivateLeague> retrievePrivateLeagueByName(int leagueId) {
+
+        HashMap<Integer,model.PrivateLeague>privateLeaguesList = new HashMap<Integer,model.PrivateLeague>();
+        try (Connection conn = DBConnection.getConnection(); PreparedStatement stmt = conn.prepareStatement("select privateleagueid,prize,startDate,endDate,leagueKeyId,username from privateleague where leagueKeyId = ?");) {
+            stmt.setInt(1, leagueId);
             ResultSet rs = stmt.executeQuery();
 
             while (rs.next()) {
                 int privateLeagueId = rs.getInt(1);
-                String privateLeagueName = name;
-                String prize = rs.getNString(3);
-                Date startDate = rs.getDate(4);
-                Date endDate = rs.getDate(5);
-                int leagueKeyId = rs.getInt(6);
-                String username = rs.getString(7);
-                pl = new PrivateLeague(privateLeagueId, privateLeagueName, prize, startDate, endDate, leagueKeyId,username);
+                String prize = rs.getString(2);
+                Date startDate = rs.getDate(3);
+                Date endDate = rs.getDate(4);
+                int leagueKeyId= rs.getInt(5);
+                String username = rs.getString(6);
+               
+                
+                privateLeaguesList.put(privateLeagueId,new model.PrivateLeague(privateLeagueId, prize, startDate, endDate, leagueKeyId,username));
+               
 
             }
             rs.close();
-            return pl;
+            return privateLeaguesList;
 
         } catch (SQLException ex) {
             ex.printStackTrace();
