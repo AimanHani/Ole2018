@@ -2,6 +2,7 @@ package com.example.ole.oleandroid.controller;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
@@ -24,6 +25,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.Serializable;
 import java.io.UnsupportedEncodingException;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
@@ -115,7 +117,12 @@ public class Login extends AppCompatActivity {
                                                 Bundle bundle = new Bundle();
                                                 bundle.putString("username", usernameRetrieved);
                                                 intent.putExtras(bundle);
+
+                                                //parse user object
+                                                intent.putExtra("User", userDetails);
+
                                                 startActivity(intent);
+
                                             } else {
                                                 //loadSamePage();
                                             }

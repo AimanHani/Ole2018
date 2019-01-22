@@ -7,6 +7,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import com.example.ole.oleandroid.model.User;
 
 import com.example.ole.oleandroid.R;
 import com.example.ole.oleandroid.pageController.FAQ;
@@ -18,16 +19,22 @@ public class Home extends AppCompatActivity {
     TextView faq;
     TextView profile;
 
+
     @Override
     protected void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
+
+        //get user object
+        Intent i = getIntent();
+        final User u = (User)i.getSerializableExtra("User");
 
         publicLeagues = findViewById(R.id.publicLeagues);
         privateLeagues = findViewById(R.id.privateLeagues);
         faq = findViewById(R.id.faq);
         profile = findViewById(R.id.profile);
         System.out.println("home");
+
 
         publicLeagues.setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {
@@ -46,7 +53,10 @@ public class Home extends AppCompatActivity {
                 Intent intent = new Intent(Home.this, PrivateLeagueHome.class);
                 Bundle b = getIntent().getExtras();
                 intent.putExtras(b);
+                intent.putExtra("User", u);
                 startActivity(intent);
+
+
             }
         });
 
@@ -66,6 +76,7 @@ public class Home extends AppCompatActivity {
                 Intent intent = new Intent(Home.this, Profile.class);
                 Bundle b = getIntent().getExtras();
                 intent.putExtras(b);
+                intent.putExtra("User", u);
                 startActivity(intent);
             }
         });
