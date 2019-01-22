@@ -9,6 +9,7 @@ import dbConnection.DBConnection;
 import java.sql.Connection;
 import java.sql.Date;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -19,23 +20,40 @@ import java.text.SimpleDateFormat;
  */
 public class PrivateLeagaueDAO {
 
-    public static String createPrivateLeague(String leagueName, String prize, String password, String startDate, String endDate, String username, int leagueId) {
+    public static String createPrivateLeague(String leagueName, String prize, String password, String startDate, String endDate, String username, String pointsAllocated, String tournamentId) {
         int rs = 0;
         // I follow the php script to set the point as 0 here
-        int points = 0;
+
         if (isDateValid(startDate) && isDateValid(endDate)) {
-            try (Connection c = DBConnection.getConnection(); PreparedStatement ps = c.prepareStatement("INSERT INTO privateleague (name, prize, password,startDate,endDate,username,leagueKeyId) VALUES (?,?,?,?,?,?,?)");) {
+            try (Connection c1 = DBConnection.getConnection(); PreparedStatement ps1 = c1.prepareStatement("INSERT INTO league (tournamentId, pointsAllocated, leagueName) VALUES (?, ?, ?)");) {
+                System.out.println(ps1);
+                ps1.setInt(1, Integer.parseInt(tournamentId));
+                ps1.setInt(2, Integer.parseInt(pointsAllocated));
+                ps1.setString(3, leagueName);
 
-                ps.setString(1, leagueName);
-                ps.setString(2, prize);
-                ps.setString(3, password);
-                ps.setString(4, startDate);
-                ps.setString(5, endDate);
-                ps.setString(6, username);
-                ps.setInt(7, leagueId);
-                
+                rs = ps1.executeUpdate();
 
-                rs = ps.executeUpdate();
+                try (Connection c2 = DBConnection.getConnection(); PreparedStatement ps2 = c2.prepareStatement("SELECT * FROM `league` where leagueName='" + leagueName + "'");) {
+                    ResultSet resultSet = ps2.executeQuery();
+                    if (resultSet.next()) {
+                        int leagueID = resultSet.getInt(1);
+                        try (Connection c3 = DBConnection.getConnection(); PreparedStatement ps3 = c3.prepareStatement("INSERT INTO privateleague (prize, password,startDate,endDate,username,leagueKeyId) VALUES (?,?,?,?,?,?)");) {
+                            ps3.setString(1, prize);
+                            ps3.setString(2, password);
+                            ps3.setString(3, startDate);
+                            ps3.setString(4, endDate);
+                            ps3.setString(5, username);
+                            ps3.setInt(6, leagueID);
+                            rs = ps3.executeUpdate();
+                        }
+                    }
+                    if (rs > 0) {
+                        return "successful";
+                    }
+                } catch (Exception e) {
+                    System.out.println("check db connection class");
+                }
+
                 if (rs > 0) {
                     return "successful";
                 }
@@ -54,9 +72,9 @@ public class PrivateLeagaueDAO {
         try {
             DateFormat df = new SimpleDateFormat(DATE_FORMAT);
             df.setLenient(false);
-            df.parse(date);
+            //df.parse(date);
             return true;
-        } catch (ParseException e) {
+        } catch (Exception e) {
             return false;
         }
     }

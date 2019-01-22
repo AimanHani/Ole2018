@@ -20,6 +20,8 @@ public class PrivateLeague {
     private Date startDate;
     private Date endDate;
     private int leagueId;
+    //private int pointsAllocated;
+    //private int tournamentId;
 
     public PrivateLeague(String leagueName, String password, String specials, String teamPref, Date startDate, Date endDate, int leagueId, ArrayList<User> participants) {
         this.leagueName = leagueName;

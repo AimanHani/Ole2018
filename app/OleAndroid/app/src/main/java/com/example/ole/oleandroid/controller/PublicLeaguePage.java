@@ -41,7 +41,7 @@ public class PublicLeaguePage extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_public_league);
+        setContentView(R.layout.activity_public_league_list);
         final Bundle b = getIntent().getExtras();
 
         username = b.getString("username");
