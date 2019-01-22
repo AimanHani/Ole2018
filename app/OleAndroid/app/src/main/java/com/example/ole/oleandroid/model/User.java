@@ -2,7 +2,11 @@ package com.example.ole.oleandroid.model;
 
 import java.util.Date;
 
-public class User {
+import java.io.Serializable;
+
+@SuppressWarnings("serial") //With this annotation we are going to hide compiler warnings
+public class User implements Serializable {
+//public class User {
 
     private String username;
     private String name;

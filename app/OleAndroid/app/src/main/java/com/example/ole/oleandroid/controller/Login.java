@@ -38,6 +38,7 @@ public class Login extends AppCompatActivity {
     TextView result;
     Button facebookButton;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -61,6 +62,8 @@ public class Login extends AppCompatActivity {
         facebookButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Intent intent = new Intent(Login.this , Leagues.class);
+                 startActivity(intent);
                 Intent intent = new Intent(Login.this , PublicLeagueList.class);
                 startActivity(intent);
             }
@@ -68,6 +71,8 @@ public class Login extends AppCompatActivity {
 
 
         signin.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
             @Override
             public void onClick(View view) {
 //                Intent intent = new Intent(Login.this, Home.class);
@@ -91,10 +96,23 @@ public class Login extends AppCompatActivity {
                                 @Override
                                 public void onResponse(String ServerResponse) {
                                     System.out.println(ServerResponse);
+                                        try {
+                                            JSONObject result = new JSONObject(ServerResponse);
+                                            status[0] = result.getString("status");
                                     try {
                                         JSONObject result = new JSONObject(ServerResponse);
                                         status[0] = result.getString("status");
 
+                                            if (status[0].equals("success")) {
+                                                JSONObject user = result.getJSONObject("user");
+                                                String usernameRetrieved = user.getString("username");
+                                                String name = user.getString("name");
+                                                String password = user.getString("password");
+                                                String dob = user.getString("dob");
+                                                String country = user.getString("country");
+                                                String contactNum = user.getString("contactNum");
+                                                String email = user.getString("email");
+                                                String favoriteTeam = user.getString("favoriteTeam");
                                         if (status[0].equals("success")) {
                                             JSONObject user = result.getJSONObject("user");
                                             String usernameRetrieved = user.getString("username");
@@ -106,10 +124,23 @@ public class Login extends AppCompatActivity {
                                             String email = user.getString("email");
                                             String favoriteTeam = user.getString("favoriteTeam");
 
+                                                User userDetails = new User(usernameRetrieved, name, password, dob, country, contactNum, email, favoriteTeam);
+                                                UserDAO.setLoginUser(userDetails);
                                             User userDetails = new User(usernameRetrieved, name, password, dob, country, contactNum, email, favoriteTeam);
                                             UserDAO.setLoginUser(userDetails);
 
 
+                                                Intent intent = new Intent(Login.this, Home.class);
+                                                Bundle bundle = new Bundle();
+                                                bundle.putString("username", usernameRetrieved);
+                                                intent.putExtras(bundle);
+                                                startActivity(intent);
+                                            } else {
+                                                //loadSamePage();
+                                            }
+
+                                        } catch (JSONException e) {
+                                            e.printStackTrace();
                                             Intent intent = new Intent(Login.this, Home.class);
                                             Bundle bundle = new Bundle();
                                             bundle.putString("username", usernameRetrieved);
@@ -117,6 +148,15 @@ public class Login extends AppCompatActivity {
                                             startActivity(intent);
                                         } else {
                                             //loadSamePage();
+
+
+
+
+
+
+
+
+
                                         }
 
                                     } catch (JSONException e) {
@@ -173,3 +213,4 @@ public class Login extends AppCompatActivity {
         startActivity(intent);
     }
 }
+

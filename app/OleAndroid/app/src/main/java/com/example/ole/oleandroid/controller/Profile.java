@@ -15,6 +15,7 @@ import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.ole.oleandroid.R;
 import com.example.ole.oleandroid.dbConnection.DBConnection;
+import com.example.ole.oleandroid.model.User;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -41,6 +42,7 @@ public class Profile extends AppCompatActivity {
     TextView profileFavTeam;
     TextView userFavTeam;
 
+
     /*String matchId;
     String logId;
     String username;
@@ -50,6 +52,11 @@ public class Profile extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile);
+
+        //get user object
+        Intent i = getIntent();
+        final User u = (User)i.getSerializableExtra("User");
+
 
 //        details = findViewById(R.id.details);
         home = findViewById(R.id.home);
@@ -65,9 +72,13 @@ public class Profile extends AppCompatActivity {
         profileCountry = findViewById(R.id.profileCountry);
         userCountry = findViewById(R.id.userCountry);
         profileFavTeam = findViewById(R.id.profileFavTeam);
-        userFavTeam = findViewById(R.id.profileFavTeam);
+        userFavTeam = findViewById(R.id.userFavTeam);
 
 
+        userName.setText(u.getUserName());
+        userDOB.setText(u.getDateOfBirth());
+        userCountry.setText(u.getCountry());
+        userFavTeam.setText(u.getFavoriteTeam());
 
 
         /*final Bundle b = getIntent().getExtras();
