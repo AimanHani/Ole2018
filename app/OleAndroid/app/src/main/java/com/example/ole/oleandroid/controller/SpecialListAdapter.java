@@ -15,7 +15,7 @@ import com.example.ole.oleandroid.R;
 
 import java.util.ArrayList;
 
-public class SpecialListAdapter extends BaseAdapter {
+public class SpecialListAdapter extends BaseAdapter{
     private Context context; //context
     private ArrayList<Integer> pointsList; //data source of the list adapter
     private ViewHolder viewHolder;
@@ -63,9 +63,6 @@ public class SpecialListAdapter extends BaseAdapter {
         //this will get each point from the arraylist
         viewHolder.points.setText(pointsList.get(position).toString());
 
-        //confirmspecialsbtn = convertView.findViewById(R.id.confirmspecialsbtn);
-        //confirmspecialsbtn.setOnClickListener(this);
-
         /*
         // get current item to be displayed
         Item currentItem = (Item) getItem(position);
@@ -85,12 +82,19 @@ public class SpecialListAdapter extends BaseAdapter {
         return convertView;
     }
 
-    /*@Override
-    public void onClick(View view) {
-        Intent intent = new Intent(context, Home.class);
-        context.startActivity(intent);
-    }*/
+/*    public void onCreate(Bundle savedInstanceState){
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.speciallist);
 
+        confirmspecialsbtn = (Button) findViewById(R.id.confirmspecialsbtn);
+        confirmspecialsbtn.setOnClickListener(new View.OnClickListener()){
+            @Override
+            public voic onClick(View v){
+                Intent intent = new Intent(context, Home.class);
+                context.startActivity(intent);
+            }
+        }
+    }*/
 }
 
 
