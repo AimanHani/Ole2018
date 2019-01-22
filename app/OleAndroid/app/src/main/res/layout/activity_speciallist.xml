@@ -5,18 +5,6 @@
     android:layout_height="match_parent"
     android:orientation="vertical" >
 
-    <Button
-        android:layout_width="match_parent"
-        android:layout_height="68dp"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentLeft="true"
-        android:background="@color/themeColor"
-        android:text="SPECIALS"
-        android:textColor="@color/white"
-        android:textSize="18sp"
-        android:textStyle="bold"
-        android:visibility="visible" />
-
     <LinearLayout
         android:layout_width="match_parent"
         android:orientation="horizontal"
@@ -84,18 +72,6 @@
         </LinearLayout>
     </LinearLayout>
 
-    <Button
-        android:id="@+id/confirmspecialsbtn"
-        android:layout_width="match_parent"
-        android:layout_height="60dp"
-        android:layout_marginStart="0dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginBottom="0dp"
-        android:background="@color/themeColor"
-        android:gravity="center"
-        android:text="Confirm Specials"
-        android:textColor="@color/white"
-        android:textSize="20sp" />
 
 
 </LinearLayout>

@@ -2,10 +2,14 @@ package com.example.ole.oleandroid.controller;
 
 import android.content.ClipData;
 import android.content.Context;
+import android.content.Intent;
+import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
 import com.example.ole.oleandroid.R;
 
@@ -15,6 +19,7 @@ public class SpecialListAdapter extends BaseAdapter {
     private Context context; //context
     private ArrayList<Integer> pointsList; //data source of the list adapter
     private ViewHolder viewHolder;
+    private Button confirmspecialsbtn;
 
     private static class ViewHolder {
         TextView points;
@@ -58,6 +63,9 @@ public class SpecialListAdapter extends BaseAdapter {
         //this will get each point from the arraylist
         viewHolder.points.setText(pointsList.get(position).toString());
 
+        //confirmspecialsbtn = convertView.findViewById(R.id.confirmspecialsbtn);
+        //confirmspecialsbtn.setOnClickListener(this);
+
         /*
         // get current item to be displayed
         Item currentItem = (Item) getItem(position);
@@ -76,4 +84,13 @@ public class SpecialListAdapter extends BaseAdapter {
         // returns the view for the current row
         return convertView;
     }
+
+    /*@Override
+    public void onClick(View view) {
+        Intent intent = new Intent(context, Home.class);
+        context.startActivity(intent);
+    }*/
+
 }
+
+

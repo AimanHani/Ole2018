@@ -33,13 +33,20 @@ public class private_league_create extends AppCompatActivity {
     EditText leaguename, prize, startdate, enddate, password;
     Button createLeague;
     Spinner leagueid;
-    String username = "boy831201";
-    //int leagueid = 2;
+    String username ;
+    String tournamentId = "2";
+    String pointsAllocated = "1";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_private_league_create);
+
+        //get user object
+        Intent i = getIntent();
+        final User u = (User)i.getSerializableExtra("User");
+
+        username = u.getUserName();
 
         Spinner leagueid =  findViewById(R.id.leagueid);
         //leagueid = (EditText) findViewById(R.id.leagueid);
@@ -57,6 +64,7 @@ public class private_league_create extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 System.out.println("Creating Private League");
+
                 String url = new DBConnection( ).insertPrivateLeagueUrl( );
 
                 // Creating string request with post method.
@@ -82,11 +90,12 @@ public class private_league_create extends AppCompatActivity {
                     protected Map<String, String> getParams() {
                         Map<String, String> params = new HashMap<String, String>( );
                         try {
-                            params.put("username", username.toString( ));
+                            params.put("username", username);
                             params.put("password", password.getText( ).toString( ));
                             params.put("prize", prize.getText( ).toString( ));
                             params.put("leagueName", leaguename.getText( ).toString( ));
-                            params.put("leagueId", "2");
+                            params.put("tournamentId", tournamentId);
+                            params.put("pointsAllocated", pointsAllocated);
                             params.put("startDate", startdate.getText( ).toString( ));
                             params.put("endDate", enddate.getText( ).toString( ));
                             validate( );

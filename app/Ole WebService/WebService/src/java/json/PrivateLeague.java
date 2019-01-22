@@ -6,7 +6,6 @@
 package json;
 
 import controller.AskOleDAO;
-import controller.PrivateLeagaueDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.Date;
@@ -20,7 +19,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import controller.PrivateLeagaueDAO;
+import controller.PrivateLeagueDAO;
 import controller.PublicLeaguesDAO;
 import model.AllPublicLeague;
 import org.json.JSONArray;
@@ -73,13 +72,13 @@ public class PrivateLeague extends HttpServlet {
         HashMap<Integer, model.PrivateLeague> privateLeaguesByname;
         try {
             if (leagueName != null) {
-                apl = PrivateLeagaueDAO.retrieveLeague(leagueName);
+                apl = PrivateLeagueDAO.retrieveLeague(leagueName);
                 if (apl != null) {
                     json.put("LeagueId", apl.getLeagueID());
                     json.put("tournamentId", apl.getTournamentID());
                     json.put("pointsAllocated", apl.getPointsAllocated());
                     json.put("leagueName", apl.getLeagueName());
-                    privateLeaguesByname = PrivateLeagaueDAO.retrievePrivateLeagueByName(apl.getLeagueID());
+                    privateLeaguesByname = PrivateLeagueDAO.retrievePrivateLeagueByName(apl.getLeagueID());
 
                     if (privateLeaguesByname != null) {
                         if (privateLeaguesByname.size() != 0) {
@@ -151,7 +150,7 @@ public class PrivateLeague extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        JSONObject json = new JSONObject();
+            JSONObject json = new JSONObject();
         response.setContentType("\"Content-Type\", \"application/x-www-form-urlencoded\"");
         response.setCharacterEncoding("utf-8");
         PrintWriter out = response.getWriter();
@@ -167,38 +166,33 @@ public class PrivateLeague extends HttpServlet {
         String tournamentId = request.getParameter("tournamentId");
         String status = "";
         try {
-<<<<<<< HEAD
-
-            System.out.println(username + password);
-            status = PrivateLeagaueDAO.createPrivateLeague(leagueName, prize, password, startDate, endDate, username, pointsAllocated, tournamentId);
-            if (status.equals("successful")) {
-=======
             
             System.out.println(username+password);
-                status = PrivateLeagaueDAO.createPrivateLeague(leagueName, prize, password, startDate, endDate, username, pointsAllocated, tournamentId);
+                status = PrivateLeagueDAO.createPrivateLeague(leagueName, prize, password, startDate, endDate, username, pointsAllocated, tournamentId);
                 if (status.equals("successful")) {
->>>>>>> 624ee2e7be5743cc273b124de6dd31f29b78b38e
 
-                json.put("status", "successful");
-            } else if (status.equals("start date and end date is not in valid format")) {
-                json.put("status", "start date or end date is not in valid format");
-                String invalidMsg = "Something is wrong check checkS" + "/" + "";
-                String[] invalidString = {invalidMsg};
-                json.put("messages", invalidString);
-            } else {
+                    json.put("status", "successful");
+                }
+                else if(status.equals("start date and end date is not in valid format")){
+                    json.put("status", "start date or end date is not in valid format");
+                    String invalidMsg = "Something is wrong check checkS" + "/" + "";
+                    String[] invalidString = {invalidMsg};
+                    json.put("messages", invalidString);
+                }
+                else {
 
-                json.put("status", "error");
-                String invalidMsg = "Something is wrong check checkS" + "/" + "";
-                String[] invalidString = {invalidMsg};
-                json.put("messages", invalidString);
-            }
-            out.print(json);
-            out.flush();
+                    json.put("status", "error");
+                    String invalidMsg = "Something is wrong check checkS" + "/" + "";
+                    String[] invalidString = {invalidMsg};
+                    json.put("messages", invalidString);
+                }
+                out.print(json);
+                out.flush();
+           
 
         } catch (JSONException ex) {
             Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, ex);
         }
-
     }
 
     /**

@@ -2,6 +2,7 @@ package com.example.ole.oleandroid.controller;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
@@ -24,6 +25,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.Serializable;
 import java.io.UnsupportedEncodingException;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
@@ -62,15 +64,14 @@ public class Login extends AppCompatActivity {
         facebookButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(Login.this , Leagues.class);
-                 startActivity(intent);
-            }
+                Intent intent = new Intent(Login.this , PublicLeagueList.class);
+                 startActivity(intent);            }
         });
 
 
         signin.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
+            @Override
+            public void onClick(View view) {
 //                Intent intent = new Intent(Login.this, Home.class);
 //                Bundle bundle = new Bundle();
 //                                    bundle.putString("userID", "bob");
@@ -92,38 +93,17 @@ public class Login extends AppCompatActivity {
                                 @Override
                                 public void onResponse(String ServerResponse) {
                                     System.out.println(ServerResponse);
-                                        try {
-                                            JSONObject result = new JSONObject(ServerResponse);
-                                            status[0] = result.getString("status");
-
-                                            if (status[0].equals("success")) {
-                                                JSONObject user = result.getJSONObject("user");
-                                                String usernameRetrieved = user.getString("username");
-                                                String name = user.getString("name");
-                                                String password = user.getString("password");
-                                                String dob = user.getString("dob");
-                                                String country = user.getString("country");
-                                                String contactNum = user.getString("contactNum");
-                                                String email = user.getString("email");
-                                                String favoriteTeam = user.getString("favoriteTeam");
-
-                                                User userDetails = new User(usernameRetrieved, name, password, dob, country, contactNum, email, favoriteTeam);
-                                                UserDAO.setLoginUser(userDetails);
 
 
-                                                Intent intent = new Intent(Login.this, Home.class);
-                                                Bundle bundle = new Bundle();
-                                                bundle.putString("username", usernameRetrieved);
-                                                intent.putExtras(bundle);
-                                                startActivity(intent);
-                                            } else {
-                                                //loadSamePage();
-                                            }
 
-                                        } catch (JSONException e) {
-                                            e.printStackTrace();
-                                        }
 
+
+
+
+
+                                       
+
+     
                                 }
                             },
                             new Response.ErrorListener() {

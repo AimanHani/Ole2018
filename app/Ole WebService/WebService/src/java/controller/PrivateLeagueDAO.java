@@ -10,11 +10,10 @@ import java.sql.Connection;
 import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-<<<<<<< HEAD
+
 import java.sql.SQLException;
 import java.sql.Time;
-=======
->>>>>>> 624ee2e7be5743cc273b124de6dd31f29b78b38e
+
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -28,13 +27,11 @@ import org.eclipse.persistence.jpa.jpql.parser.DateTime;
  *
  * @author user
  */
-public class PrivateLeagaueDAO {
+public class PrivateLeagueDAO {
 
-<<<<<<< HEAD
-       public static String createPrivateLeague(String leagueName, String prize, String password, String startDate, String endDate, String username, String pointsAllocated, String tournamentId) {
-=======
+
     public static String createPrivateLeague(String leagueName, String prize, String password, String startDate, String endDate, String username, String pointsAllocated, String tournamentId) {
->>>>>>> 624ee2e7be5743cc273b124de6dd31f29b78b38e
+
         int rs = 0;
         // I follow the php script to set the point as 0 here
 

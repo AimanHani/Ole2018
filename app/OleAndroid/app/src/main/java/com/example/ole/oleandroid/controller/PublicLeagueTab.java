@@ -24,7 +24,7 @@ public class PublicLeagueTab extends Fragment {
             PublicLeagueTab.this.getActivity().finish();
         }*/
 
-        view = inflater.inflate(R.layout.activity_public_league, container, false);
+        view = inflater.inflate(R.layout.activity_public_league_list, container, false);
 
 
 
