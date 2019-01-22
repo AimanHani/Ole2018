@@ -41,7 +41,14 @@ public class Profile extends AppCompatActivity {
     TextView userCountry;
     TextView profileFavTeam;
     TextView userFavTeam;
-
+    TextView totWonHeader;
+    TextView totWon;
+    TextView totLostHeader;
+    TextView totLost;
+    TextView totPlayHeader;
+    TextView totPlayed;
+    TextView accuracyHeader;
+    TextView accuracy;
 
     /*String matchId;
     String logId;
@@ -73,6 +80,13 @@ public class Profile extends AppCompatActivity {
         userCountry = findViewById(R.id.userCountry);
         profileFavTeam = findViewById(R.id.profileFavTeam);
         userFavTeam = findViewById(R.id.userFavTeam);
+        totWonHeader = findViewById(R.id.totWonHeader);
+        totWon = findViewById(R.id.totWon);
+        totLostHeader = findViewById(R.id.totLostHeader);
+        totLost = findViewById(R.id.totLost);
+        totPlayHeader = findViewById(R.id.totPlayHeader);
+        accuracyHeader = findViewById(R.id.accuracyHeader);
+        accuracy = findViewById(R.id.accuracy);
 
 
         userName.setText(u.getUserName());

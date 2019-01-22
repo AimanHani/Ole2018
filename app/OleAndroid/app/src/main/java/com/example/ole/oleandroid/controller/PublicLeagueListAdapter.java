@@ -65,7 +65,6 @@ public class PublicLeagueListAdapter extends BaseAdapter implements View.OnClick
         viewHolder.joinleaguebtn.setTag(position); //label the first item on the list
         viewHolder.joinleaguebtn.setOnClickListener(this);
 
-
         /*
         // get current item to be displayed
         Item currentItem = (Item) getItem(position);
@@ -74,24 +73,19 @@ public class PublicLeagueListAdapter extends BaseAdapter implements View.OnClick
         TextView points = (TextView)
                 convertView.findViewById(R.id.text_view_item_name);
 
-
         //sets the text for item name and item description from the current item object
         textViewItemName.setText(currentItem.getItemName());
         textViewItemDescription.setText(currentItem.getItemDescription());
-
         */
 
-        // returns the view for the current row
-
-
-        return convertView;
+        return convertView;// returns the view for the current row
     }
 
     public void onClick(View view){
         int position =(Integer)view.getTag();
         switch(view.getId()){
             case R.id.joinleaguebtn:
-                Intent intent = new Intent(context, SpecialList.class);
+                Intent intent = new Intent(context, Leagues.class);
                 Bundle bundle = new Bundle();
                 bundle.putString("leagueid", "1");
                 intent.putExtras(bundle);

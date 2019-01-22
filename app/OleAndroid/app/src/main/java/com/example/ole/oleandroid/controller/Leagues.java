@@ -9,6 +9,7 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
+import android.view.View;
 
 import com.example.ole.oleandroid.R;
 import com.example.ole.oleandroid.model.PublicLeague;
@@ -61,8 +62,8 @@ public class Leagues extends AppCompatActivity {
     //add the child fragments
     private void setupViewPager(ViewPager viewPager){
         adapter = new Adapter(getSupportFragmentManager());
-        adapter.addFragment(new PublicLeagueTab(),getString(R.string.publicLeague));
-        adapter.addFragment(new PrivateLeagueTab(), getString(R.string.privateLeague));
+        adapter.addFragment(new PastMatches(),"Past");
+        adapter.addFragment(new UpcomingMatches(), "Upcoming");
         viewPager.setAdapter(adapter);
     }
 
@@ -98,6 +99,7 @@ public class Leagues extends AppCompatActivity {
             return mFragmentTitleList.get(position);
         }
     }
+
 
 
 }
