@@ -167,10 +167,17 @@ public class PrivateLeague extends HttpServlet {
         String tournamentId = request.getParameter("tournamentId");
         String status = "";
         try {
+<<<<<<< HEAD
 
             System.out.println(username + password);
             status = PrivateLeagaueDAO.createPrivateLeague(leagueName, prize, password, startDate, endDate, username, pointsAllocated, tournamentId);
             if (status.equals("successful")) {
+=======
+            
+            System.out.println(username+password);
+                status = PrivateLeagaueDAO.createPrivateLeague(leagueName, prize, password, startDate, endDate, username, pointsAllocated, tournamentId);
+                if (status.equals("successful")) {
+>>>>>>> 624ee2e7be5743cc273b124de6dd31f29b78b38e
 
                 json.put("status", "successful");
             } else if (status.equals("start date and end date is not in valid format")) {
