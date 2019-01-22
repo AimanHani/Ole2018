@@ -11,17 +11,28 @@ package model;
  */
 public class AllPublicLeague {
 
+    private int leagueID;
+    private String prize;
+    private int tournamentID;
+    private int pointsAllocated;
+    private String tournamentName;
+    private String leagueName;
+
     public AllPublicLeague(int leagueID, int tournamentID, int pointsAllocated, String leagueName) {
         this.leagueID = leagueID;
         this.tournamentID = tournamentID;
         this.pointsAllocated = pointsAllocated;
         this.leagueName = leagueName;
     }
-    private int leagueID;
-    private String prize;
-    private int tournamentID;
-    private int pointsAllocated;
-    private String tournamentName;
+
+    public AllPublicLeague(int leagueID, String prize, int tournamentID, int pointsAllocated, String leagueName, String tournamentName) {
+        this.leagueID = leagueID;
+        this.prize = prize;
+        this.tournamentID = tournamentID;
+        this.pointsAllocated = pointsAllocated;
+        this.leagueName = leagueName;
+        this.tournamentName = tournamentName;
+    }
 
     public String getTournamentName() {
         return tournamentName;
@@ -34,26 +45,7 @@ public class AllPublicLeague {
     public AllPublicLeague(int leagueID) {
         this.leagueID = leagueID;
     }
-    private String leagueName;
-    
 
- public AllPublicLeague(int leagueID, String prize, int tournamentID, int pointsAllocated, String leagueName) {
-        this.leagueID = leagueID;
-        this.prize = prize;
-        this.tournamentID = tournamentID;
-        this.pointsAllocated = pointsAllocated;
-        this.leagueName = leagueName;
-    }
-
-    public AllPublicLeague(int legaueID, String prize, int tournamentID, int pointsAllocated, String leagueName, String tournamentName) {
-        this.leagueID = leagueID;
-        this.prize = prize;
-        this.tournamentID = tournamentID;
-        this.pointsAllocated = pointsAllocated;
-        this.leagueName = leagueName;
-        this.tournamentName = tournamentName;
-    }
-    
     public int getTournamentID() {
         return tournamentID;
     }
@@ -93,5 +85,5 @@ public class AllPublicLeague {
     public void setPrize(String prize) {
         this.prize = prize;
     }
-    
+
 }

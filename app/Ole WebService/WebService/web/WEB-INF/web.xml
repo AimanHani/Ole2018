@@ -53,4 +53,8 @@
         <servlet-name>GetMatchesJson</servlet-name>
         <url-pattern>/json/getMatches</url-pattern>
     </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>PublicLeagueJson</servlet-name>
+        <url-pattern>/json/PublicLeagueJson</url-pattern>
+    </servlet-mapping>
 </web-app>

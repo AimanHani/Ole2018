@@ -20,7 +20,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import controller.PrivateLeagueDAO;
-import controller.PublicLeaguesDAO;
 import model.AllPublicLeague;
 import org.json.JSONArray;
 import org.json.JSONException;

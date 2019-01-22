@@ -5,7 +5,7 @@
  */
 package json;
 
-import controller.PublicLeaguesDAO;
+import controller.PublicLeagueDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.HashMap;
@@ -72,7 +72,7 @@ public class AllPublicLeagues extends HttpServlet {
         response.setCharacterEncoding("utf-8");
         PrintWriter out = response.getWriter();
         AllPublicLeague apl;
-        HashMap<Integer, AllPublicLeague> AllPublicLeagues = PublicLeaguesDAO.retrieveAllPublicLeagues();
+        HashMap<Integer, AllPublicLeague> AllPublicLeagues = PublicLeagueDAO.retrieveAllPublicLeagues();
         try {
             Iterator it = AllPublicLeagues.entrySet().iterator();
             while (it.hasNext()) {
@@ -87,7 +87,7 @@ public class AllPublicLeagues extends HttpServlet {
                 json.put("pointsAllocated", apl.getPointsAllocated());
                 json.put("leagueName", apl.getLeagueName());
                 json.put("tournamentName", apl.getTournamentName());
-                numberOfParticipants = PublicLeaguesDAO.getNumbersOfParticipantsInTheLeague(apl.getLeagueID());
+                numberOfParticipants = PublicLeagueDAO.getNumbersOfParticipantsInTheLeague(apl.getLeagueID());
                 json.put("numberOfParticipants", numberOfParticipants);
                 it.remove(); // avoids a ConcurrentModificationException
                 list.put(json);

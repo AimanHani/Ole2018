@@ -10,27 +10,15 @@ package model;
  * @author user
  */
 public class PublicLeague {
+
     private int leagueID;
     private String prize;
     private int tournamentID;
     private int pointsAllocated;
     private String tournamentName;
-
-    public String getTournamentName() {
-        return tournamentName;
-    }
-
-    public void setTournamentName(String tournamentName) {
-        this.tournamentName = tournamentName;
-    }
-
-    public PublicLeague(int leagueID) {
-        this.leagueID = leagueID;
-    }
     private String leagueName;
-    
 
- public PublicLeague(int leagueID, String prize, int tournamentID, int pointsAllocated, String leagueName) {
+    public PublicLeague(int leagueID, String prize, int tournamentID, int pointsAllocated, String leagueName) {
         this.leagueID = leagueID;
         this.prize = prize;
         this.tournamentID = tournamentID;
@@ -46,7 +34,19 @@ public class PublicLeague {
         this.leagueName = leagueName;
         this.tournamentName = tournamentName;
     }
-    
+
+    public String getTournamentName() {
+        return tournamentName;
+    }
+
+    public void setTournamentName(String tournamentName) {
+        this.tournamentName = tournamentName;
+    }
+
+    public PublicLeague(int leagueID) {
+        this.leagueID = leagueID;
+    }
+
     public int getTournamentID() {
         return tournamentID;
     }
@@ -86,5 +86,5 @@ public class PublicLeague {
     public void setPrize(String prize) {
         this.prize = prize;
     }
-    
+
 }

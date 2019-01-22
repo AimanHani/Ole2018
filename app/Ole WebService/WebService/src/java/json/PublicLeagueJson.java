@@ -5,11 +5,10 @@
  */
 package json;
 
-import controller.GetMatchesDAO;
-import controller.JoinPublicLeaguesDAO;
 import controller.PublicLeagueDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
@@ -21,17 +20,17 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import model.AllPublicLeague;
-import model.Match;
+import model.PublicLeague;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 /**
  *
- * @author user
+ * @author Hazirah
  */
-@WebServlet(name = "GetMatchesJson", urlPatterns = {"/json/getMatches"})
-public class GetMatches extends HttpServlet {
+@WebServlet(name = "PublicLeagueJson", urlPatterns = {"/json/PublicLeagueJson"})
+public class PublicLeagueJson extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -50,10 +49,10 @@ public class GetMatches extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet GetMatch</title>");
+            out.println("<title>Servlet PublicLeagueJson</title>");
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet GetMatch at " + request.getContextPath() + "</h1>");
+            out.println("<h1>Servlet PublicLeagueJson at " + request.getContextPath() + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -71,41 +70,38 @@ public class GetMatches extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        
         JSONArray list = new JSONArray();
         JSONObject parentJson = new JSONObject();
         response.setContentType("\"Content-Type\", \"application/x-www-form-urlencoded\"");
         response.setCharacterEncoding("utf-8");
         PrintWriter out = response.getWriter();
-        Match m;
-        HashMap<Integer, Match> recentMatches = GetMatchesDAO.getRecentMatches();
-        try {
-            Iterator it = recentMatches.entrySet().iterator();
-            while (it.hasNext()) {
-                JSONObject json = new JSONObject();
-                Map.Entry pair = (Map.Entry) it.next();
-                int numberOfParticipants = 0;
-                //System.out.println(pair.getKey() + " = " + pair.getValue());
-                m = (Match) pair.getValue();
-                json.put("matchId", m.getMatchID());
-                json.put("tournamentId", m.getTournamentID());
-                json.put("matchDate", m.getMatchDate());
-                json.put("matchTime", m.getMatchTime());
-                json.put("team1", m.getTeam1());
-                json.put("team2", m.getTeam2());
-                json.put("team1Score", m.getTeam1Score());
-                json.put("team2Score", m.getTeam2Score());
-                it.remove(); // avoids a ConcurrentModificationException
-                list.put(json);
 
+        ArrayList<PublicLeague> publicLeagueList = PublicLeagueDAO.getPublicLeagues();
+        
+        System.out.println(publicLeagueList.size());
+        try {
+            for (int i = 0; i < publicLeagueList.size(); i++) {
+
+                JSONObject json = new JSONObject();
+                PublicLeague publicLeague = publicLeagueList.get(i);
+                System.out.println(publicLeague.getLeagueName());
+                json.put("leagueID", publicLeague.getLeagueID());
+                json.put("prize", publicLeague.getPrize());
+                json.put("tournamentID", publicLeague.getTournamentID());
+                json.put("pointsAllocated", publicLeague.getPointsAllocated());
+                json.put("leagueName", publicLeague.getLeagueName());
+                json.put("tournamentName", publicLeague.getTournamentName());
+                list.put(json);
             }
+
             parentJson.put("results", list);
             out.print(parentJson);
             out.flush();
-
-        } catch (JSONException e) {
-            e.printStackTrace();
+            
+        } catch (JSONException ex) {
+            Logger.getLogger(PublicLeagueJson.class.getName()).log(Level.SEVERE, null, ex);
         }
-
     }
 
     /**
@@ -119,47 +115,7 @@ public class GetMatches extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        JSONArray list = new JSONArray();
-        JSONObject parentJson = new JSONObject();
-        response.setContentType("\"Content-Type\", \"application/x-www-form-urlencoded\"");
-        response.setCharacterEncoding("utf-8");
-        PrintWriter out = response.getWriter();
-
-        int matchID = Integer.parseInt(request.getParameter("matchId"));
-        String status = "";
-        Match m;
-
-        try {
-
-            m = GetMatchesDAO.getOneMatch(matchID);
-            if (m != null) {
-                JSONObject json = new JSONObject();
-                json.put("matchId", m.getMatchID());
-                json.put("matchDate", m.getMatchDate());
-                json.put("matchTime", m.getMatchTime());
-                json.put("team1", m.getTeam1());
-                json.put("team2", m.getTeam2());
-
-                list.put(json);
-                parentJson.put("results", list);
-                out.print(parentJson);
-                out.flush();
-
-            } else {
-                JSONObject json = new JSONObject();
-
-                json.put("status", "error");
-                String invalidMsg = "Something is wrong check checkS" + "/" + "";
-                String[] invalidString = {invalidMsg};
-                json.put("messages", invalidString);
-                parentJson.put("results", list);
-                out.print(parentJson);
-                out.flush();
-            }
-
-        } catch (JSONException ex) {
-            Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        processRequest(request, response);
     }
 
     /**
