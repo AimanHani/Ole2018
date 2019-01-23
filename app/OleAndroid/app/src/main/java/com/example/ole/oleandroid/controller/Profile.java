@@ -62,8 +62,8 @@ public class Profile extends AppCompatActivity {
 
         //get user object
         Intent i = getIntent();
-        final User u = (User)i.getSerializableExtra("User");
-
+        //final User u = (User)i.getSerializableExtra("User");
+        User loginUser = UserDAO.getLoginUser();
 
 //        details = findViewById(R.id.details);
         home = findViewById(R.id.home);
@@ -71,7 +71,7 @@ public class Profile extends AppCompatActivity {
         pointsHeader = findViewById(R.id.pointsHeader);
         pointsGotten = findViewById(R.id.pointsGotten);
         predictionHeader = findViewById(R.id.predictionHeader);
-        msgeNoPredic = findViewById(R.id.msgeNoPredic);
+        //msgeNoPredic = findViewById(R.id.msgeNoPredic);
         profileName = findViewById(R.id.profileName);
         userName = findViewById(R.id.userName);
         profileDOB = findViewById(R.id.profileDOB);
@@ -89,10 +89,10 @@ public class Profile extends AppCompatActivity {
         accuracy = findViewById(R.id.accuracy);
 
 
-        userName.setText(u.getUserName());
-        userDOB.setText(u.getDateOfBirth());
-        userCountry.setText(u.getCountry());
-        userFavTeam.setText(u.getFavoriteTeam());
+        userName.setText(loginUser.getUserName());
+        userDOB.setText(loginUser.getDateOfBirth());
+        userCountry.setText(loginUser.getCountry());
+        userFavTeam.setText(loginUser.getFavoriteTeam());
 
 
         /*final Bundle b = getIntent().getExtras();
