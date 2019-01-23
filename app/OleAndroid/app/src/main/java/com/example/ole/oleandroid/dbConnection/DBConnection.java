@@ -24,7 +24,7 @@ public class DBConnection {
     }
     
     public static String getPublicLeagueUrl(){
-        String url = mainUrl + "/json/allPublicLeagues";
+        String url = mainUrl + "/json/PublicLeagueJson";
         return url;
     }
 

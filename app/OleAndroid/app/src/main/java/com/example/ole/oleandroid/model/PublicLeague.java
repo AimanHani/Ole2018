@@ -58,6 +58,14 @@ public class PublicLeague {
         return prize;
     }
 
+    public String getTournamentName() {
+        return tournamentName;
+    }
+
+    public void setTournamentName(String tournamentName) {
+        this.tournamentName = tournamentName;
+    }
+
     public int getPointsAllocated() {
         return pointsAllocated;
     }
