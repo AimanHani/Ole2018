@@ -82,19 +82,7 @@ public class SpecialListAdapter extends BaseAdapter{
         return convertView;
     }
 
-/*    public void onCreate(Bundle savedInstanceState){
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.speciallist);
 
-        confirmspecialsbtn = (Button) findViewById(R.id.confirmspecialsbtn);
-        confirmspecialsbtn.setOnClickListener(new View.OnClickListener()){
-            @Override
-            public voic onClick(View v){
-                Intent intent = new Intent(context, Home.class);
-                context.startActivity(intent);
-            }
-        }
-    }*/
 }
 
 

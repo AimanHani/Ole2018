@@ -71,7 +71,7 @@ public class Profile extends AppCompatActivity {
         pointsHeader = findViewById(R.id.pointsHeader);
         pointsGotten = findViewById(R.id.pointsGotten);
         predictionHeader = findViewById(R.id.predictionHeader);
-        msgeNoPredic = findViewById(R.id.msgeNoPredic);
+        //msgeNoPredic = findViewById(R.id.msgeNoPredic);
         profileName = findViewById(R.id.profileName);
         userName = findViewById(R.id.userName);
         profileDOB = findViewById(R.id.profileDOB);
