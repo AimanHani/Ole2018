@@ -29,7 +29,6 @@ import org.eclipse.persistence.jpa.jpql.parser.DateTime;
  */
 public class PrivateLeagueDAO {
 
-
     public static String createPrivateLeague(String leagueName, String prize, String password, String startDate, String endDate, String username, String pointsAllocated, String tournamentId) {
 
         int rs = 0;
@@ -56,6 +55,15 @@ public class PrivateLeagueDAO {
                             ps3.setString(5, username);
                             ps3.setInt(6, leagueID);
                             rs = ps3.executeUpdate();
+
+                            try (Connection c4 = DBConnection.getConnection(); PreparedStatement ps4 = c4.prepareStatement("insert into log(username, leagueId, points) values ('admin', " + leagueID + ", -1)");) {
+                                rs = ps4.executeUpdate();
+                                if (rs > 0) {
+                                    return "successful";
+                                }
+                            } catch (Exception e) {
+
+                            }
                         }
                     }
                     if (rs > 0) {
@@ -64,7 +72,6 @@ public class PrivateLeagueDAO {
                 } catch (Exception e) {
                     System.out.println("check db connection class");
                 }
-
                 if (rs > 0) {
                     return "successful";
                 }
@@ -77,8 +84,9 @@ public class PrivateLeagueDAO {
         }
         return "error";
     }
-    public static AllPublicLeague retrieveLeague(String leagueName){
-           PrivateLeague pl = null;
+
+    public static AllPublicLeague retrieveLeague(String leagueName) {
+        PrivateLeague pl = null;
         AllPublicLeague apl = null;
         try (Connection conn = DBConnection.getConnection(); PreparedStatement stmt = conn.prepareStatement("select leagueId,tournamentId,pointsAllocated from league where leagueName = ? ");) {
             stmt.setString(1, leagueName);
@@ -88,8 +96,8 @@ public class PrivateLeagueDAO {
                 int leagueKeyId = rs.getInt(1);
                 int tournamentId = rs.getInt(2);
                 int pointsAllocated = rs.getInt(3);
-                
-                apl = new AllPublicLeague(leagueKeyId, tournamentId,pointsAllocated,leagueName);
+
+                apl = new AllPublicLeague(leagueKeyId, tournamentId, pointsAllocated, leagueName);
 
             }
             rs.close();
@@ -100,13 +108,13 @@ public class PrivateLeagueDAO {
         } catch (ClassNotFoundException ex) {
             ex.printStackTrace();
         }
-        
+
         return null;
     }
 
     public static HashMap<Integer, model.PrivateLeague> retrievePrivateLeagueByName(int leagueId) {
 
-        HashMap<Integer,model.PrivateLeague>privateLeaguesList = new HashMap<Integer,model.PrivateLeague>();
+        HashMap<Integer, model.PrivateLeague> privateLeaguesList = new HashMap<Integer, model.PrivateLeague>();
         try (Connection conn = DBConnection.getConnection(); PreparedStatement stmt = conn.prepareStatement("select privateleagueid,prize,startDate,endDate,leagueKeyId,username from privateleague where leagueKeyId = ?");) {
             stmt.setInt(1, leagueId);
             ResultSet rs = stmt.executeQuery();
@@ -116,12 +124,10 @@ public class PrivateLeagueDAO {
                 String prize = rs.getString(2);
                 Date startDate = rs.getDate(3);
                 Date endDate = rs.getDate(4);
-                int leagueKeyId= rs.getInt(5);
+                int leagueKeyId = rs.getInt(5);
                 String username = rs.getString(6);
-               
-                
-                privateLeaguesList.put(privateLeagueId,new model.PrivateLeague(privateLeagueId, prize, startDate, endDate, leagueKeyId,username));
-               
+
+                privateLeaguesList.put(privateLeagueId, new model.PrivateLeague(privateLeagueId, prize, startDate, endDate, leagueKeyId, username));
 
             }
             rs.close();

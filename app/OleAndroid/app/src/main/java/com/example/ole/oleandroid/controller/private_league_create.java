@@ -30,12 +30,12 @@ import android.widget.Spinner;
 import android.widget.Toast;
 
 public class private_league_create extends AppCompatActivity {
-    EditText leaguename, prize, startdate, enddate, password;
+    EditText leaguename, prize, startdate, enddate, password, pointsAllocated;
     Button createLeague;
     Spinner leagueid;
     String username ;
     String tournamentId = "2";
-    String pointsAllocated = "1";
+    //String pointsAllocated = "1";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,8 +43,9 @@ public class private_league_create extends AppCompatActivity {
         setContentView(R.layout.activity_private_league_create);
 
         //get user object
-        Intent i = getIntent();
-        final User u = (User)i.getSerializableExtra("User");
+        //Intent i = getIntent();
+        //final User u = (User)i.getSerializableExtra("User");
+        User u = UserDAO.getLoginUser();
 
         username = u.getUserName();
 
@@ -55,6 +56,7 @@ public class private_league_create extends AppCompatActivity {
         startdate = (EditText) findViewById(R.id.startdate);
         enddate = (EditText) findViewById(R.id.enddate);
         password = (EditText) findViewById(R.id.password);
+        pointsAllocated = (EditText) findViewById(R.id.pointsAllocated);
         createLeague = (Button) findViewById(R.id.createLeague);
 
 
@@ -95,7 +97,7 @@ public class private_league_create extends AppCompatActivity {
                             params.put("prize", prize.getText( ).toString( ));
                             params.put("leagueName", leaguename.getText( ).toString( ));
                             params.put("tournamentId", tournamentId);
-                            params.put("pointsAllocated", pointsAllocated);
+                            params.put("pointsAllocated", pointsAllocated.getText( ).toString( ));
                             params.put("startDate", startdate.getText( ).toString( ));
                             params.put("endDate", enddate.getText( ).toString( ));
                             validate( );

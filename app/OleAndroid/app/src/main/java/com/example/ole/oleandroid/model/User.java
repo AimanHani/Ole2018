@@ -5,8 +5,8 @@ import java.util.Date;
 import java.io.Serializable;
 
 @SuppressWarnings("serial") //With this annotation we are going to hide compiler warnings
-public class User implements Serializable {
-//public class User {
+//public class User implements Serializable {
+public class User {
 
     private String username;
     private String name;

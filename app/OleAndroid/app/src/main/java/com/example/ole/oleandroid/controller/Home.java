@@ -26,8 +26,9 @@ public class Home extends AppCompatActivity {
         setContentView(R.layout.activity_home);
 
         //get user object
-        Intent i = getIntent();
-        final User u = (User)i.getSerializableExtra("User");
+        //Intent i = getIntent();
+        //final User u = (User)i.getSerializableExtra("User");
+        //User loginUser = UserDAO.getLoginUser();
 
         publicLeagues = findViewById(R.id.publicLeagues);
         privateLeagues = findViewById(R.id.privateLeagues);
@@ -53,7 +54,7 @@ public class Home extends AppCompatActivity {
                 Intent intent = new Intent(Home.this, PrivateLeagueHome.class);
                 Bundle b = getIntent().getExtras();
                 intent.putExtras(b);
-                intent.putExtra("User", u);
+                //intent.putExtra("User", u);
                 startActivity(intent);
 
 
@@ -76,7 +77,7 @@ public class Home extends AppCompatActivity {
                 Intent intent = new Intent(Home.this, Profile.class);
                 Bundle b = getIntent().getExtras();
                 intent.putExtras(b);
-                intent.putExtra("User", u);
+                //intent.putExtra("User", u);
                 startActivity(intent);
             }
         });
