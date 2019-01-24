@@ -1,5 +1,9 @@
 package controller;
 
+import com.mashape.unirest.http.HttpResponse;
+import com.mashape.unirest.http.JsonNode;
+import com.mashape.unirest.http.Unirest;
+import com.mashape.unirest.http.exceptions.UnirestException;
 import dbConnection.DBConnection;
 import java.io.FileReader;
 import java.sql.Connection;
@@ -315,6 +319,22 @@ public class APIDAO {
             Logger.getLogger(SpecialsDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
         return false;
+    }
+    public static org.json.JSONObject loadAPIMatch() {
+        boolean status = false;
+        try {
+            HttpResponse<JsonNode> response = Unirest.get("https://api-football-v1.p.mashape.com/fixtures/league/2")
+                    .header("X-Mashape-Key", "KlMp6AFpI6mshMZeTmH8WA9qrKHVp1AuUANjsnoJbPWm4lRZPr")
+                    .header("Accept", "application/json").asJson();
+           
+            org.json.JSONObject jsonObject= new org.json.JSONObject(response.getBody());
+            
+            status = true;
+            return jsonObject;
+        } catch (UnirestException ex) {
+            Logger.getLogger(MatchesDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return null;
     }
      public static int loadMatchesFromAPI(String matchId,String leagueID, String matchDate, String matchTime, String team1,String team2,String team1Score,String team2Score){
         int status = 0;

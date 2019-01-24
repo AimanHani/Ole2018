@@ -69,7 +69,7 @@ public class APICallServlet extends HttpServlet {
             throws ServletException, IOException {
         JSONArray list = new JSONArray();
         JSONObject parentJson = new JSONObject();
-        JSONObject json = MatchesDAO.loadAPIMatch();
+        JSONObject json = APIDAO.loadAPIMatch();
         JSONObject result = new JSONObject();
         response.setContentType("\"Content-Type\", \"application/x-www-form-urlencoded\"");
         response.setCharacterEncoding("utf-8");
