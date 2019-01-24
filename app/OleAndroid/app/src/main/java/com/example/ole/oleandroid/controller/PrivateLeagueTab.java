@@ -5,7 +5,6 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-
 import com.example.ole.oleandroid.R;
 
 public class PrivateLeagueTab extends Fragment {
@@ -18,7 +17,7 @@ public class PrivateLeagueTab extends Fragment {
          *  Remember to put the no connection
          */
 
-        view = inflater.inflate(R.layout.activity_private_league, container, false);
+        view = inflater.inflate(R.layout.activity_private_league_home, container, false);
 
 
 
