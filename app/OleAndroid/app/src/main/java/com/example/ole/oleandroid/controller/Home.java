@@ -18,6 +18,7 @@ public class Home extends AppCompatActivity {
     TextView privateLeagues;
     TextView faq;
     TextView profile;
+    TextView leaderboard;
 
 
     @Override
@@ -34,6 +35,7 @@ public class Home extends AppCompatActivity {
         privateLeagues = findViewById(R.id.privateLeagues);
         faq = findViewById(R.id.faq);
         profile = findViewById(R.id.profile);
+        leaderboard = findViewById(R.id.leaderboard);
         System.out.println("home");
 
 
@@ -75,6 +77,17 @@ public class Home extends AppCompatActivity {
             public void onClick(View view) {
 
                 Intent intent = new Intent(Home.this, Profile.class);
+                Bundle b = getIntent().getExtras();
+                intent.putExtras(b);
+                //intent.putExtra("User", u);
+                startActivity(intent);
+            }
+        });
+
+        leaderboard.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View view) {
+
+                Intent intent = new Intent(Home.this, Leaderboard.class);
                 Bundle b = getIntent().getExtras();
                 intent.putExtras(b);
                 //intent.putExtra("User", u);

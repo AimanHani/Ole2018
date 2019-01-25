@@ -13,7 +13,7 @@ import com.example.ole.oleandroid.R;
 public class PrivateLeaderboard extends Fragment implements View.OnClickListener {
 
     View view;
-    Button createPrivLeague;
+    Button createPrivateLeague;
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState){
 
@@ -22,8 +22,8 @@ public class PrivateLeaderboard extends Fragment implements View.OnClickListener
          */
 
         view = inflater.inflate(R.layout.activity_private_leaderboard, container, false);
-        createPrivLeague = (Button) view.findViewById(R.id.createPrivateLeague);
-        createPrivLeague.setOnClickListener(this);
+        createPrivateLeague = (Button) view.findViewById(R.id.createPrivateLeague);
+        createPrivateLeague.setOnClickListener(this);
         return view;
     }
 
