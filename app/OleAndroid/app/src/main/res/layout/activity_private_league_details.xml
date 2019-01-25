@@ -7,39 +7,148 @@
     android:layout_height="match_parent"
     tools:context=".controller.private_league_details">
 
+    <Button
+        android:id="@+id/PrivateLeagueText"
+        android:layout_width="match_parent"
+        android:layout_height="68dp"
+        android:background="@color/themeColor"
+        android:text="PRIVATE LEAGUE"
+        android:textColor="@color/white"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        android:visibility="visible"
+        tools:layout_editor_absoluteX="0dp"
+        tools:layout_editor_absoluteY="0dp"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"/>
+
     <LinearLayout
-        android:id="@+id/selectMatchLayout"
-        android:layout_width="320dp"
-        android:layout_height="50dp"
-        android:layout_marginLeft="32dp"
-        android:layout_marginTop="100dp"
+        android:id="@+id/matchScoreDisplay"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="8dp"
         android:orientation="horizontal"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toBottomOf="@id/PrivateLeagueText">
 
-        <TextView
-            android:id="@+id/selectLeague"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+        <android.support.constraint.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp">
 
-            android:text="Created by:"
-            tools:layout_editor_absoluteX="16dp"
-            tools:layout_editor_absoluteY="82dp" />
+            <TextView
+                android:id="@+id/rightTeamName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="8dp"
+                android:layout_weight="1.1"
+                android:gravity="center"
+                android:text="Chelsea"
+                android:textSize="20sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.515" />
+
+            <ImageView xmlns:app="http://schemas.android.com/apk/res-auto"
+                android:id="@+id/rightTeam"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:layout_gravity="center"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginBottom="8dp"
+                android:src="@drawable/chelsea"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/rightTeamName"
+                app:layout_constraintHorizontal_bias="0.421"
+                app:layout_constraintStart_toEndOf="@+id/currentscore"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.0" />
+
+            <TextView
+                android:id="@+id/currentscore"
+                android:layout_width="40dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginBottom="8dp"
+                android:layout_weight="1.1"
+                android:gravity="center"
+                android:text="_ : _"
+                android:textSize="20sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
 
+            <ImageView xmlns:app="http://schemas.android.com/apk/res-auto"
+                android:id="@+id/leftTeam"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:layout_gravity="center"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginBottom="8dp"
+                android:src="@drawable/arsenal"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/currentscore"
+                app:layout_constraintStart_toEndOf="@+id/leftTeamName"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/leftTeamName"
+                android:layout_width="wrap_content"
+                android:layout_height="37dp"
+                android:layout_gravity="center"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="8dp"
+                android:layout_weight="1.1"
+                android:gravity="center"
+                android:text="Arsenal"
+                android:textSize="20sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+
+        </android.support.constraint.ConstraintLayout>
     </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="3dp"
+        android:layout_gravity="center"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="8dp"
+        android:background="@color/themeColor"
+        app:layout_constraintBottom_toTopOf="@+id/leagueNameLayout"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
 
     <LinearLayout
         android:id="@+id/leagueNameLayout"
         android:layout_width="320dp"
         android:layout_height="50dp"
         android:layout_marginLeft="32dp"
+        android:layout_marginTop="16dp"
         android:orientation="horizontal"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/selectMatchLayout">
+        app:layout_constraintTop_toBottomOf="@id/matchScoreDisplay">
 
         <TextView
-            android:id="@+id/leagueNameText"
+            android:id="@+id/leagueName"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="League Name: "
@@ -47,12 +156,12 @@
             tools:layout_editor_absoluteY="116dp" />
 
         <EditText
-            android:id="@+id/leaguename"
+            android:id="@+id/leagueNameInput"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:ems="10"
-            android:hint="Your League Name"
             android:inputType="textPersonName"
+            android:text="KFChickenUs"
             android:textAlignment="textStart"
             app:layout_constraintEnd_toEndOf="parent" />
     </LinearLayout>
@@ -67,7 +176,7 @@
         app:layout_constraintTop_toBottomOf="@id/leagueNameLayout">
 
         <TextView
-            android:id="@+id/privatePrizeText"
+            android:id="@+id/privatePrize"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Prize: "
@@ -75,16 +184,17 @@
             tools:layout_editor_absoluteY="155dp" />
 
         <EditText
-            android:id="@+id/prize"
+            android:id="@+id/privatePrizeInput"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:ems="10"
-            android:hint="Prize"
             android:inputType="textPersonName"
+            android:text="KFC Big Bucket"
             app:layout_constraintEnd_toEndOf="parent" />
     </LinearLayout>
+
     <LinearLayout
-        android:id="@+id/friendListLayout"
+        android:id="@+id/CreatedBy"
         android:layout_width="320dp"
         android:layout_height="50dp"
         android:layout_marginLeft="32dp"
@@ -96,12 +206,12 @@
             android:id="@+id/friendList"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Points Allocated:"
+            android:text="Created By: "
             tools:layout_editor_absoluteX="43dp"
             tools:layout_editor_absoluteY="231dp" />
 
-        <EditText
-            android:id="@+id/pointsAllocated"
+        <TextView
+            android:id="@+id/creator"
             style="@android:style/Widget.DeviceDefault.Light.AutoCompleteTextView"
             android:layout_width="match_parent"
             android:layout_height="55dp"
@@ -109,115 +219,157 @@
             android:layout_marginEnd="16dp"
             android:layout_marginBottom="8dp"
             android:ems="10"
-            android:hint="Points Allocated"
-            android:inputType="textPersonName"
-            android:singleLine="false"
+            android:text="ReginaPhalange999"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent" />
     </LinearLayout>
 
-    <LinearLayout
-        android:id="@+id/setStartDateLayout"
-        android:layout_width="320dp"
-        android:layout_height="50dp"
-        android:layout_marginLeft="32dp"
-        android:orientation="horizontal"
+    <TextView
+        android:id="@+id/memberListText"
+        android:layout_width="match_parent"
+        android:layout_height="38dp"
+        android:layout_marginTop="16dp"
+        android:text="Member List"
+        android:textAlignment="viewStart"
+        android:textSize="24sp"
+        app:layout_constraintBottom_toTopOf="@+id/memberScrollView"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/CreatedBy" />
+
+    <ScrollView
+        android:id="@+id/memberScrollView"
+        android:layout_width="match_parent"
+        android:layout_height="151dp"
+        app:layout_constraintBottom_toTopOf="@id/predictButton"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/friendListLayout">
+        app:layout_constraintTop_toBottomOf="@id/memberListText">
 
-        <TextView
-            android:id="@+id/setStartDate"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Start Date: "
-            tools:layout_editor_absoluteX="16dp"
-            tools:layout_editor_absoluteY="155dp" />
-
-        <EditText
-            android:id="@+id/startdate"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:ems="10"
-            android:hint="Start date"
-            android:inputType="textPersonName"
-            app:layout_constraintEnd_toEndOf="parent" />
+            android:orientation="vertical">
 
-    </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal">
 
-    <LinearLayout
-        android:id="@+id/setEndtDateLayout"
-        android:layout_width="320dp"
-        android:layout_height="50dp"
-        android:layout_marginLeft="32dp"
-        android:layout_marginTop="40dp"
-        android:orientation="horizontal"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/friendListLayout">
+                <ImageView
+                    android:id="@+id/userProfilePicture"
+                    android:layout_width="59dp"
+                    android:layout_height="59dp"
+                    android:adjustViewBounds="false"
+                    android:cropToPadding="false"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:srcCompat="@drawable/user"
+                    tools:srcCompat="@tools:sample/avatars" />
 
-        <TextView
-            android:id="@+id/setEndDate"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="End Date:   "
-            tools:layout_editor_absoluteX="16dp"
-            tools:layout_editor_absoluteY="155dp" />
+                <EditText
+                    android:id="@+id/editText3"
+                    android:layout_width="200dp"
+                    android:layout_height="59dp"
+                    android:ems="10"
+                    android:inputType="textPersonName"
+                    android:text="ReginaPhalange999"
+                    app:layout_constraintLeft_toRightOf="@+id/userProfilePicture"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
 
-        <EditText
-            android:id="@+id/enddate"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:ems="10"
-            android:hint="End date"
-            android:inputType="textPersonName" />
-    </LinearLayout>
+                <Button
+                    android:id="@+id/button"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="View" />
+            </LinearLayout>
 
-    <LinearLayout
-        android:id="@+id/setPasswordLayout"
-        android:layout_width="320dp"
-        android:layout_height="50dp"
-        android:layout_marginLeft="32dp"
-        android:layout_marginTop="88dp"
-        android:orientation="horizontal"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/friendListLayout">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal">
 
-        <TextView
-            android:id="@+id/setPassword"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Enter password"
-            tools:layout_editor_absoluteX="16dp"
-            tools:layout_editor_absoluteY="155dp" />
+                <ImageView
+                    android:id="@+id/userProfilePicture2"
+                    android:layout_width="59dp"
+                    android:layout_height="59dp"
+                    android:adjustViewBounds="false"
+                    android:cropToPadding="false"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:srcCompat="@drawable/user"
+                    tools:srcCompat="@tools:sample/avatars" />
 
-        <EditText
-            android:id="@+id/password"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:ems="10"
-            android:hint="Password"
-            android:inputType="textPersonName"
-            app:layout_constraintEnd_toEndOf="parent" />
+                <EditText
+                    android:id="@+id/editText4"
+                    android:layout_width="200dp"
+                    android:layout_height="59dp"
+                    android:ems="10"
+                    android:inputType="textPersonName"
+                    android:text="Gucci2004"
+                    app:layout_constraintLeft_toRightOf="@+id/userProfilePicture"
+                    app:layout_constraintTop_toTopOf="parent" />
 
+                <Button
+                    android:id="@+id/button2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Edit" />
+            </LinearLayout>
 
-    </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:id="@+id/userProfilePicture3"
+                    android:layout_width="59dp"
+                    android:layout_height="59dp"
+                    android:adjustViewBounds="false"
+                    android:cropToPadding="false"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:srcCompat="@drawable/user"
+                    tools:srcCompat="@tools:sample/avatars" />
+
+                <EditText
+                    android:id="@+id/editText5"
+                    android:layout_width="200dp"
+                    android:layout_height="59dp"
+                    android:ems="10"
+                    android:inputType="textPersonName"
+                    android:text="MrsBong23"
+                    app:layout_constraintLeft_toRightOf="@+id/userProfilePicture"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <Button
+                    android:id="@+id/button3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="View" />
+            </LinearLayout>
+
+        </LinearLayout>
+    </ScrollView>
 
     <Button
-        android:id="@+id/createLeague"
+        android:id="@+id/predictButton"
         android:layout_width="match_parent"
-        android:layout_height="60dp"
+        android:layout_height="57dp"
         android:layout_alignParentLeft="true"
         android:layout_alignParentBottom="true"
         android:background="@color/themeColor"
-        android:text="CREATE LEAGUE!"
+        android:text="I want to predict"
         android:textColor="@color/white"
         android:textSize="18sp"
         android:textStyle="bold"
         android:visibility="visible"
-        tools:layout_editor_absoluteX="16dp"
-        tools:layout_editor_absoluteY="508dp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"/>
-
-
+        app:layout_constraintLeft_toLeftOf="parent"
+        tools:layout_editor_absoluteX="0dp" />
 
 </android.support.constraint.ConstraintLayout>

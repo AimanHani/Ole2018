@@ -16,7 +16,7 @@ public class PrivateLeagueTemp extends AppCompatActivity{
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_private_league_create);
+        setContentView(R.layout.activity_private_league_temp);
 
         predictButton = findViewById(R.id.predictButton);
 

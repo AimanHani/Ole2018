@@ -23,7 +23,7 @@ public class PrivateLeagueChoosematchActivity extends AppCompatActivity {
         selectmatch.setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {
 
-                Intent intent = new Intent(PrivateLeagueChoosematchActivity.this, PrivateLeagueTemp.class);
+                Intent intent = new Intent(PrivateLeagueChoosematchActivity.this, private_league_details.class);
                 Bundle b = getIntent().getExtras();
                 intent.putExtras(b);
                 startActivity(intent);

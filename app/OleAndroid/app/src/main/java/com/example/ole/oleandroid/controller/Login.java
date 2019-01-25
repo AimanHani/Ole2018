@@ -87,7 +87,7 @@ public class Login extends AppCompatActivity {
                     //String status = LoginDAO.validate(username.getText().toString(), password.getText().toString(), getApplicationContext());
                     String url = DBConnection.getLoginUrl();
                     final String[] status = {"error"};
-
+/*
 // comments starts here if want to bypass login webservice
                     StringRequest stringRequest = new StringRequest(Request.Method.POST, url,
                             new Response.Listener<String>() {
@@ -146,15 +146,15 @@ public class Login extends AppCompatActivity {
                     RequestQueue requestQueue = Volley.newRequestQueue(getApplicationContext());
                     VolleyRequest.setRequestQueue(requestQueue);
                     VolleyRequest.addRequestString(stringRequest);
-
+*/
 //comments stop here
 
                     // codes to bypass login with webservice
-//                    Intent intent = new Intent(Login.this, Home.class);
-//                    Bundle bundle = new Bundle();
-//                    bundle.putString("username", username.getText().toString());
-//                    intent.putExtras(bundle);
-//                    startActivity(intent);
+                    Intent intent = new Intent(Login.this, Home.class);
+                    Bundle bundle = new Bundle();
+                    bundle.putString("username", username.getText().toString());
+                    intent.putExtras(bundle);
+                    startActivity(intent);
 
                 }
             }
