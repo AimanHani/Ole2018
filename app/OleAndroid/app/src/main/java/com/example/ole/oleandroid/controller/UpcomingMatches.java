@@ -12,15 +12,12 @@ import com.example.ole.oleandroid.R;
 
 public class UpcomingMatches extends Fragment implements View.OnClickListener {
 
-    View view;
-    Button predictspecials;
-
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState){
-
+        View view;
+        Button predictspecials;
         /**
          *  Remember to put the no connection
          */
-
+        public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState){
         view = inflater.inflate(R.layout.activity_upcoming_matches, container, false);
         predictspecials = (Button) view.findViewById(R.id.predictspecials);
         predictspecials.setOnClickListener(this);
