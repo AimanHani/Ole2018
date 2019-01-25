@@ -25,7 +25,7 @@ public class PrivateLeague {
 
     //private int pointsAllocated;
     //private int tournamentId;
-    public PrivateLeague(int privateLeaugeId, String prize, Date startDate, Date endDate, int leagueId, String username) {
+    public PrivateLeague(String prize, Date startDate, Date endDate, int leagueId, String username) {
         this.privateLeaugeId = privateLeaugeId;
         this.prize = prize;
         this.startDate = startDate;
@@ -46,7 +46,7 @@ public class PrivateLeague {
         return username;
     }
 
-    public PrivateLeague(int privateLeaugeId, String leagueName, String prize, Date startDate, Date endDate, int leagueId) {
+    public PrivateLeague(String leagueName, String prize, Date startDate, Date endDate, int leagueId) {
         this.privateLeaugeId = privateLeaugeId;
         this.leagueName = leagueName;
         this.prize = prize;

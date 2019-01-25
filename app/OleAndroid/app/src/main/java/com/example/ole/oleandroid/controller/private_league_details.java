@@ -17,13 +17,13 @@ public class private_league_details extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_private_league_details);
 
-        /*
+/*
         Intent i = getIntent();
-        final PrivateLeague pl = (PrivateLeague) i.getSerializableExtra("PL");
+        final PrivateLeague pl = (PrivateLeague)i.getSerializableExtra("PL");
 
-        leagueNameInput = findViewById(R.id.leagueNameInput);
+        leagueNameInput = findViewById(R.id.leaguename);
 
-        leagueNameInput.setText(pl.getUsername());
-        */
+        leagueNameInput.setText(pl.getLeagueName());
+*/
     }
 }
