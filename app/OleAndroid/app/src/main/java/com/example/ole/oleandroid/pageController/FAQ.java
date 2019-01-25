@@ -11,6 +11,8 @@ import android.view.ViewGroup;
 import android.widget.LinearLayout;
 
 import com.example.ole.oleandroid.R;
+import com.example.ole.oleandroid.controller.Home;
+import com.example.ole.oleandroid.controller.Profile;
 
 public class FAQ extends AppCompatActivity {
 
@@ -45,6 +47,16 @@ public class FAQ extends AppCompatActivity {
         askMore = findViewById(R.id.faqAskMore);
 
         ctaAsk = findViewById(R.id.askOleButton);
+
+        ctaAsk.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View view) {
+
+                Intent intent = new Intent(FAQ.this, AskOle.class);
+                Bundle b = getIntent().getExtras();
+                intent.putExtras(b);
+                startActivity(intent);
+            }
+        });
 
         /*frame.setOnTouchListener(new View.OnTouchListener() {
             @Override
