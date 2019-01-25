@@ -61,19 +61,21 @@ public class PrivateLeagueHome extends AppCompatActivity {
         searchLeagueName = findViewById(R.id.searchLeagueName);
         searchLeagueName.setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {
-/*
+
+                /*
                 if (leaguename.getText().toString().equals("")) {
                     //loadSamePage();
                 } else {
                     System.out.println("Retrieving..."+ leaguename.getText().toString());
-                    String url = DBConnection.insertPrivateLeagueUrl();
+                    String url = DBConnection.insertPrivateLeagueUrl()+"?leagueName="+leaguename.getText().toString()
+                            ;
                     final String[] status = {"error"};
 
                     StringRequest stringRequest = new StringRequest(Request.Method.GET, url,
                             new Response.Listener<String>() {
                                 @Override
                                 public void onResponse(String ServerResponse) {
-                                    System.out.println(ServerResponse);
+                                    System.out.println("HELLOOOO" + ServerResponse);
                                     try {
 
                                         JSONObject result = new JSONObject(ServerResponse);
@@ -91,7 +93,7 @@ public class PrivateLeagueHome extends AppCompatActivity {
                                             String startDate = league.getString("startDate");
                                             String endDate = league.getString("endDate");
                                             int leagueKeyId = league.getInt("leagueKeyId");
-                                            String username = league.getString("username");
+                                            String username = league.getString("userName");
                                             try {
                                                 pl = new PrivateLeague(privateLeagueId, prize,java.sql.Date.valueOf(startDate), java.sql.Date.valueOf(endDate), leagueKeyId, username);
                                                 //pl = new PrivateLeague(privateLeaugeId, leagueName,java.sql.Date.valueOf(startDate), java.sql.Date.valueOf(endDate), leagueKeyId, username);
@@ -129,8 +131,8 @@ public class PrivateLeagueHome extends AppCompatActivity {
                         }
                     };
 
-                    RequestQueue requestQueue = Volley.newRequestQueue(getApplicationContext());
-                    VolleyRequest.setRequestQueue(requestQueue);
+                    //RequestQueue requestQueue = Volley.newRequestQueue(getApplicationContext());
+                    //VolleyRequest.setRequestQueue(requestQueue);
                     VolleyRequest.addRequestString(stringRequest);
 
                 }

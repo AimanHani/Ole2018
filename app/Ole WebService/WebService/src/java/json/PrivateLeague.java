@@ -99,8 +99,8 @@ public class PrivateLeague extends HttpServlet {
                                 //list.put(json);
 
                             }
-                            list.put(json);
-                            parentJson.put("results", list);
+                            parentJson.put("status", "success");
+                            parentJson.put("results", json);
                             out.print(parentJson);
                             out.flush();
                         } else {
