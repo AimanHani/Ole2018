@@ -17,22 +17,26 @@ import android.support.v4.view.ViewPager;
 import com.example.ole.oleandroid.R;
 
 public class PrivateLeaguePredictscoreActivity extends Fragment implements View.OnClickListener{
-
     View view;
     Button confirmPrediction;
-
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+    /**
+     *  Remember to put the no connection
+     */
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState){
         view = inflater.inflate(R.layout.activity_private_league_predictscore, container, false);
         confirmPrediction = (Button) view.findViewById(R.id.confirmPrediction);
         confirmPrediction.setOnClickListener(this);
         return view;
     }
+
     @Override
     public void onClick(View v) {
         switch (v.getId()){
-            case R.id.predictspecials:
+            case R.id.confirmPrediction:
                 Intent intent = new Intent(getActivity(), PrivateLeagueFinaltempActivity.class);
                 this.startActivity(intent);
         }
     }
+    //for backend:
+    //use bundle to pass the data (list of specials)
 }

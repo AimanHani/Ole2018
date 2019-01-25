@@ -62,8 +62,8 @@ public class PrivateLeagueTabActivity extends AppCompatActivity {
     //add the child fragments
     private void setupViewPager(ViewPager viewPager){
         adapter = new Adapter(getSupportFragmentManager());
-        adapter.addFragment(new PastMatches(),"Past");
         adapter.addFragment(new PrivateLeaguePredictscoreActivity(), "Upcoming");
+        adapter.addFragment(new PastMatches(),"Past");
         viewPager.setAdapter(adapter);
     }
 
@@ -99,7 +99,4 @@ public class PrivateLeagueTabActivity extends AppCompatActivity {
             return mFragmentTitleList.get(position);
         }
     }
-
-
-
 }
