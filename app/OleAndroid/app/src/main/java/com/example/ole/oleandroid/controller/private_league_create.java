@@ -45,9 +45,9 @@ public class private_league_create extends AppCompatActivity {
         //get user object
         //Intent i = getIntent();
         //final User u = (User)i.getSerializableExtra("User");
-        User u = UserDAO.getLoginUser();
+        //User u = UserDAO.getLoginUser();
 
-        username = u.getUserName();
+        //username = u.getUserName();
 
         Spinner leagueid =  findViewById(R.id.leagueid);
         //leagueid = (EditText) findViewById(R.id.leagueid);
@@ -65,8 +65,14 @@ public class private_league_create extends AppCompatActivity {
         createLeague.setOnClickListener(new View.OnClickListener( ) {
             @Override
             public void onClick(View view) {
-                System.out.println("Creating Private League");
 
+//link to epl page, currently with only English Premier League
+                Intent intent = new Intent(private_league_create.this, PrivateLeagueChoosematchActivity.class);
+                Bundle b = getIntent().getExtras();
+                intent.putExtras(b);
+                startActivity(intent);
+                System.out.println("Creating Private League");
+/*
                 String url = new DBConnection( ).insertPrivateLeagueUrl( );
 
                 // Creating string request with post method.
@@ -75,7 +81,7 @@ public class private_league_create extends AppCompatActivity {
                             @Override
                             public void onResponse(String ServerResponse) {
                                 System.out.println(ServerResponse);
-                                Intent intent = new Intent(private_league_create.this, PrivateLeagueHome.class);
+                                Intent intent = new Intent(private_league_create.this, PrivateLeagueChoosematchActivity.class);
                                 startActivity(intent);
                             }
                         },
@@ -111,6 +117,7 @@ public class private_league_create extends AppCompatActivity {
                 RequestQueue requestQueue = Volley.newRequestQueue(getApplicationContext( ));
                 // Adding the StringRequest object into requestQueue.
                 requestQueue.add(stringRequest);
+                */
             }
         });
     }

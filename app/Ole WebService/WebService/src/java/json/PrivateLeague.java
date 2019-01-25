@@ -94,13 +94,14 @@ public class PrivateLeague extends HttpServlet {
                                 json.put("endDate", pl.getEndDate());
                                 json.put("leagueKeyId", pl.getLeagueId());
                                 json.put("userName", pl.getUsername());
+                                json.put("password", pl.getPassword());
 
                                 it.remove(); // avoids a ConcurrentModificationException
                                 //list.put(json);
 
                             }
-                            list.put(json);
-                            parentJson.put("results", list);
+                            parentJson.put("status", "success");
+                            parentJson.put("results", json);
                             out.print(parentJson);
                             out.flush();
                         } else {

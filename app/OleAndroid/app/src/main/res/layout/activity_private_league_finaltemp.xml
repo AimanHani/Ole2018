@@ -4,9 +4,11 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    tools:context=".controller.PrivateLeagueFinaltempActivity">
 
-    <Button
+
+<Button
         android:id="@+id/PrivateLeagueText"
         android:layout_width="match_parent"
         android:layout_height="68dp"

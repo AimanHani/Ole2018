@@ -3,29 +3,27 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".controller.Leaderboard">
+    android:layout_height="match_parent">
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
 
-        <TextView
-            android:id="@+id/leaderboardHeader"
+        <Button
             android:layout_width="match_parent"
             android:layout_height="68dp"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentLeft="true"
             android:background="@color/themeColor"
-            android:gravity="center"
-            android:text="L E A D E R B O A R D"
+            android:text="KFChickenUs"
             android:textColor="@color/white"
-            android:textSize="30sp"
+            android:textSize="18sp"
             android:textStyle="bold"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            android:visibility="visible" />
 
         <android.support.design.widget.TabLayout
-            android:id="@+id/leaderboardFrame"
+            android:id="@+id/leagueTabLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:alpha="1"
@@ -36,11 +34,11 @@
             app:tabTextColor="@color/black" />
 
         <android.support.v4.view.ViewPager
-            android:id="@+id/viewPagerId"
+            android:id="@+id/viewpagerId"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
-        </android.support.v4.view.ViewPager>
-    </LinearLayout>
+            android:layout_height="match_parent"></android.support.v4.view.ViewPager>
 
+
+    </LinearLayout>
 
 </android.support.constraint.ConstraintLayout>

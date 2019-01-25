@@ -26,8 +26,10 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <ScrollView
+        android:id="@+id/scrollView"
         android:layout_width="match_parent"
-        android:layout_height="551dp"
+        android:layout_height="match_parent"
+        android:layout_marginTop="68dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
@@ -36,8 +38,9 @@
         <LinearLayout
             android:id="@+id/faqFrame"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
 
+            android:filterTouchesWhenObscured="false"
             android:orientation="vertical">
 
             <TextView
@@ -185,13 +188,15 @@
                 android:id="@+id/askOleButton"
                 style="?attr/buttonBarButtonStyle"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="60dp"
                 android:background="@color/themeColor"
+                android:baselineAligned="false"
                 android:text="Ask Ole!"
                 android:textColor="@color/white"
                 android:textSize="20sp"
-                tools:layout_editor_absoluteY="305dp" />
+                app:layout_constraintBottom_toTopOf="@+id/scrollView" />
 
         </LinearLayout>
     </ScrollView>
+
 </android.support.constraint.ConstraintLayout>

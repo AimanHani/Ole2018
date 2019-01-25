@@ -1,6 +1,5 @@
 package com.example.ole.oleandroid.controller;
 
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -13,27 +12,27 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 
 import com.example.ole.oleandroid.R;
-
+import com.example.ole.oleandroid.model.PublicLeague;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class Leaderboard extends AppCompatActivity {
+public class PrivateLeagueTabActivity extends AppCompatActivity {
 
-    TabLayout leaderboardFrame;
+    TabLayout leagueTabLayout;
     ViewPager viewPager;
     Adapter adapter;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_leaderboard);
+        setContentView(R.layout.activity_private_league_tab);
 
-        viewPager = findViewById(R.id.viewPagerId);
+        viewPager = findViewById(R.id.viewpagerId);
         setupViewPager(viewPager);
 
-        leaderboardFrame = findViewById(R.id.leaderboardFrame);
-        leaderboardFrame.setupWithViewPager(viewPager);
+        leagueTabLayout = findViewById(R.id.leagueTabLayout);
+        leagueTabLayout.setupWithViewPager(viewPager);
     }
 
     @Override
@@ -48,7 +47,7 @@ public class Leaderboard extends AppCompatActivity {
         // reload the fragments, in case of the deletion of event by user
         if(viewPager != null) {
             Fragment fragment = getSupportFragmentManager().findFragmentByTag("android:switcher:"
-                    + R.id.viewPagerId + ":" + viewPager.getCurrentItem());
+                    + R.id.viewpagerId + ":" + viewPager.getCurrentItem());
             if (fragment != null && viewPager.getCurrentItem() == 0) {
                 setupViewPager(viewPager);
             } else {
@@ -60,10 +59,11 @@ public class Leaderboard extends AppCompatActivity {
         }
     }
 
+    //add the child fragments
     private void setupViewPager(ViewPager viewPager){
         adapter = new Adapter(getSupportFragmentManager());
-        adapter.addFragment(new PublicLeaderboard(),"Public League");
-        adapter.addFragment(new PrivateLeaderboard(), "Private League");
+        adapter.addFragment(new PrivateLeaguePredictscoreActivity(), "Upcoming");
+        adapter.addFragment(new PastMatches(),"Past");
         viewPager.setAdapter(adapter);
     }
 
