@@ -64,55 +64,85 @@
 
     <ImageView
         android:id="@+id/publicLeagueImage"
-        android:layout_width="match_parent"
-        android:layout_height="198dp"
+        android:layout_width="192dp"
+        android:layout_height="202dp"
+        android:layout_marginEnd="196dp"
         android:scaleType="fitXY"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/profileImage"
         app:srcCompat="@drawable/home_public" />
 
     <TextView
         android:id="@+id/publicLeagues"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="32dp"
+        android:layout_width="188dp"
+        android:layout_height="96dp"
+        android:layout_marginTop="48dp"
+        android:layout_marginEnd="192dp"
         android:fontFamily="sans-serif-condensed"
         android:text="P U B L I C\nL E A G U E S"
         android:textAlignment="center"
         android:textAllCaps="true"
         android:textColor="@color/white"
         android:textColorLink="@color/white"
-        android:textSize="55sp"
+        android:textSize="37sp"
         android:typeface="sans"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/profileImage" />
+        app:layout_constraintTop_toTopOf="@+id/publicLeagueImage" />
 
     <ImageView
         android:id="@+id/privateLeagueImage"
-        android:layout_width="match_parent"
-        android:layout_height="192dp"
+        android:layout_width="194dp"
+        android:layout_height="202dp"
         android:scaleType="fitXY"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/publicLeagueImage"
+        app:layout_constraintTop_toBottomOf="@+id/profileFaqImage"
         app:srcCompat="@drawable/home_private" />
 
     <TextView
         android:id="@+id/privateLeagues"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="28dp"
+        android:layout_width="192dp"
+        android:layout_height="101dp"
+        android:layout_marginTop="48dp"
         android:fontFamily="sans-serif-condensed"
         android:text="P R I V A T E\nL E A G U E S"
         android:textAlignment="center"
         android:textColor="@color/white"
-        android:textSize="55sp"
+        android:textSize="37sp"
         android:typeface="sans"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/privateLeagueImage" />
+
+    <ImageView
+        android:id="@+id/leaderboardHeader"
+        android:layout_width="match_parent"
+        android:layout_height="173dp"
+        android:layout_marginTop="396dp"
+        android:scaleType="fitXY"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/private_league_temp_picture" />
+
+    <TextView
+        android:id="@+id/leaderboard"
+        android:layout_width="386dp"
+        android:layout_height="56dp"
+        android:layout_marginTop="60dp"
+        android:fontFamily="sans-serif-condensed"
+        android:text="L E A D E R B O A R D"
+        android:textAlignment="center"
+        android:textColor="@color/white"
+        android:textSize="37sp"
+        android:typeface="sans"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/leaderboardHeader" />
 
     <android.support.constraint.Guideline
         android:id="@+id/guideline3"
