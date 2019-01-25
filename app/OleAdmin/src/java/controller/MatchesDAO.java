@@ -93,20 +93,5 @@ public class MatchesDAO {
         }
         return matchesList;
     }
-    public static JSONObject loadAPIMatch() {
-        boolean status = false;
-        try {
-            HttpResponse<JsonNode> response = Unirest.get("https://api-football-v1.p.mashape.com/fixtures/league/2")
-                    .header("X-Mashape-Key", "KlMp6AFpI6mshMZeTmH8WA9qrKHVp1AuUANjsnoJbPWm4lRZPr")
-                    .header("Accept", "application/json").asJson();
-           
-            JSONObject jsonObject= new JSONObject(response.getBody());
-            
-            status = true;
-            return jsonObject;
-        } catch (UnirestException ex) {
-            Logger.getLogger(MatchesDAO.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        return null;
-    }
+    
 }
