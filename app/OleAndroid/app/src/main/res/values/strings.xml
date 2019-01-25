@@ -23,6 +23,10 @@
     <string name="publicLeague">Public League</string>
     <string name="privateLeague">Private League</string>
 
+    <string-array name="league_array_temp">
+        <item>English Premier League</item>
+    </string-array>
+
     <string-array name="match_array_temp">
         <item>Arsenal VS Chelsea</item>
         <item>Manchester VS Liverpool</item>
