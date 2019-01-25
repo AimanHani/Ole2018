@@ -76,9 +76,9 @@ public class ManageSpecials extends HttpServlet {
         response.setContentType("\"Content-Type\", \"application/x-www-form-urlencoded\"");
         response.setCharacterEncoding("utf-8");
         PrintWriter out = response.getWriter();
-        int logID = Integer.parseInt(request.getParameter("logId"));
+        int logid = Integer.parseInt(request.getParameter("logid"));
         Special s;
-        HashMap<Integer, Special> specialsList = ManageSpecialsDAO.getSpecials(logID);
+        HashMap<Integer, Special> specialsList = ManageSpecialsDAO.getSpecials(logid);
         try {
             Iterator it = specialsList.entrySet().iterator();
             while (it.hasNext()) {
@@ -87,8 +87,9 @@ public class ManageSpecials extends HttpServlet {
                 int numberOfParticipants = 0;
                 //System.out.println(pair.getKey() + " = " + pair.getValue());
                 s = (Special) pair.getValue();
-                json.put("SpecialsID", s.getSpecialsID());
-                json.put("Description", s.getDescription());
+                json.put("specialsId", s.getSpecialsID());
+                json.put("description", s.getDescription());
+                json.put("points", s.getPoints());
                 it.remove(); // avoids a ConcurrentModificationException
                 list.put(json);
 
@@ -121,7 +122,7 @@ public class ManageSpecials extends HttpServlet {
         response.setCharacterEncoding("utf-8");
         PrintWriter out = response.getWriter();
 
-        int logID = Integer.parseInt(request.getParameter("logId"));
+        int logID = Integer.parseInt(request.getParameter("logid"));
         String specialsID = request.getParameter("specialsId");
         String prediction = request.getParameter("prediction");
         
@@ -162,8 +163,9 @@ public class ManageSpecials extends HttpServlet {
                 int numberOfParticipants = 0;
                 //System.out.println(pair.getKey() + " = " + pair.getValue());
                 s = (Special) pair.getValue();
-                json.put("SpecialsID", s.getSpecialsID());
-                json.put("Description", s.getDescription());
+                json.put("specialsId", s.getSpecialsID());
+                json.put("description", s.getDescription());
+                json.put("points", s.getPoints());
                 it.remove(); // avoids a ConcurrentModificationException
                 list.put(json);
 

@@ -10,15 +10,23 @@ package model;
  * @author user
  */
 public class Special {
+
     private int specialsID;
     private String description;
+    private int points;
 
-    public Special() {
-    }
-
-    public Special(int specialsID, String description) {
+    public Special(int specialsID, String description, int points) {
         this.specialsID = specialsID;
         this.description = description;
+        this.points = points;
+    }
+
+    public int getPoints() {
+        return points;
+    }
+
+    public void setPoints(int points) {
+        this.points = points;
     }
 
     public int getSpecialsID() {
@@ -36,5 +44,5 @@ public class Special {
     public void setDescription(String description) {
         this.description = description;
     }
-    
+
 }

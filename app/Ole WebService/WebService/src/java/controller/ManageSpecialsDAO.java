@@ -21,16 +21,16 @@ import model.Special;
 public class ManageSpecialsDAO {
     public static HashMap<Integer, Special>getSpecials(int logID){
         HashMap<Integer, Special>specialsList = new HashMap();
-         try (Connection conn = DBConnection.getConnection(); PreparedStatement stmt = conn.prepareStatement("select s.specialsId, s.description from specialsLog sl, specials s where sl.specialsId = s.specialsId and sl.logId =? ");) {
+         try (Connection conn = DBConnection.getConnection(); PreparedStatement stmt = conn.prepareStatement("select s.specialsId, s.description, s.points from specialslog sl, specials s where sl.specialsId = s.specialsId and sl.logid =?");) {
             stmt.setInt(1, logID);
              ResultSet rs = stmt.executeQuery();
 
             while (rs.next()) {
                 int specialsID = rs.getInt(1);
                 String description = rs.getString(2);
+                int points = rs.getInt(3);
                 
-
-                specialsList.put(specialsID,new Special(specialsID,description));
+                specialsList.put(specialsID,new Special(specialsID,description, points));
                 
             }
             rs.close();

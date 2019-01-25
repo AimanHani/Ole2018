@@ -17,6 +17,7 @@ public class PublicLeague {
     private int pointsAllocated;
     private String tournamentName;
     private String leagueName;
+    private int logId;
 
     public PublicLeague(int leagueID, String prize, int tournamentID, int pointsAllocated, String leagueName) {
         this.leagueID = leagueID;
@@ -26,15 +27,24 @@ public class PublicLeague {
         this.leagueName = leagueName;
     }
 
-    public PublicLeague(int leagueID, String prize, int tournamentID, int pointsAllocated, String leagueName, String tournamentName) {
+    public PublicLeague(int leagueID, String prize, int tournamentID, int pointsAllocated, String tournamentName, String leagueName, int logId) {
         this.leagueID = leagueID;
         this.prize = prize;
         this.tournamentID = tournamentID;
         this.pointsAllocated = pointsAllocated;
-        this.leagueName = leagueName;
         this.tournamentName = tournamentName;
+        this.leagueName = leagueName;
+        this.logId = logId;
     }
 
+    public int getLogId() {
+        return logId;
+    }
+
+    public void setLogId(int logId) {
+        this.logId = logId;
+    }
+    
     public String getTournamentName() {
         return tournamentName;
     }

@@ -15,21 +15,23 @@ import java.util.HashMap;
 import model.User;
 import model.AllPublicLeague;
 import model.PublicLeague;
+
 /**
  *
  * @author user
  */
 public class PublicLeagueDAO {
-    
+
     public static ArrayList<PublicLeague> getPublicLeagues() {
         ArrayList<PublicLeague> publicLeagueList = new ArrayList<>();
 
-        try (Connection conn = DBConnection.getConnection(); 
+        try (Connection conn = DBConnection.getConnection();
                 PreparedStatement stmt = conn.prepareStatement(
-                        "select l.leagueId, pl.prize, l.leagueName, t.tournamentId, l.pointsAllocated, t.name \n" +
-                            "from publicleague pl, league l, tournament t\n" +
-                            "where pl.leagueId = l.leagueId\n" +
-                            "and t.tournamentId = l.tournamentId;");) {
+                        "select l.leagueId, pl.prize, l.leagueName, t.tournamentId, l.pointsAllocated, t.name as \"tournamentName\", log.logId\n"
+                        + "from publicleague pl, league l, tournament t, log\n"
+                        + "where pl.leagueId = l.leagueId\n"
+                        + "and t.tournamentId = l.tournamentId\n"
+                        + "and log.leagueId = l.leagueId;");) {
             ResultSet rs = stmt.executeQuery();
 
             while (rs.next()) {
@@ -39,8 +41,9 @@ public class PublicLeagueDAO {
                 int tournamentID = rs.getInt(4);
                 int pointsAllocated = rs.getInt(5);
                 String tournamentName = rs.getString(6);
+                int logid = rs.getInt(7);
 
-                publicLeagueList.add(new PublicLeague(leagueID, prize, tournamentID,pointsAllocated,leagueName,tournamentName));
+                publicLeagueList.add(new PublicLeague(leagueID, prize, tournamentID, pointsAllocated, leagueName, tournamentName,logid));
             }
             rs.close();
 
@@ -51,10 +54,9 @@ public class PublicLeagueDAO {
         }
         return publicLeagueList;
     }
-    
+
     public static HashMap<Integer, AllPublicLeague> retrieveAllPublicLeagues() {
         HashMap<Integer, AllPublicLeague> dbAllPublicLeague = new HashMap<Integer, AllPublicLeague>();
-        
 
         try (Connection conn = DBConnection.getConnection(); PreparedStatement stmt = conn.prepareStatement("SELECT l.leagueId, prize, t.tournamentId, pointsAllocated, leagueName,t.name  FROM publicleague pl, league l, tournament t where l.leagueId = pl.leagueId");) {
             ResultSet rs = stmt.executeQuery();
@@ -67,7 +69,7 @@ public class PublicLeagueDAO {
                 String leagueName = rs.getString(5);
                 String tournamentName = rs.getString(6);
 
-                dbAllPublicLeague.put(legaueID,new AllPublicLeague(legaueID, prize,tournamentID,pointsAllocated,leagueName,tournamentName));
+                dbAllPublicLeague.put(legaueID, new AllPublicLeague(legaueID, prize, tournamentID, pointsAllocated, leagueName, tournamentName));
             }
             rs.close();
 
@@ -78,17 +80,15 @@ public class PublicLeagueDAO {
         }
         return dbAllPublicLeague;
     }
-    
-    
-    
-    public static int getNumbersOfParticipantsInTheLeague(int leagueID){
+
+    public static int getNumbersOfParticipantsInTheLeague(int leagueID) {
         int totalNumberOfParticipants = 0;
-        
-        try (Connection conn = DBConnection.getConnection(); PreparedStatement stmt = conn.prepareStatement("SELECT count(username) AS num_participants, l.leagueId from log l inner join publicleague p where l.leagueId ="+leagueID+"");) {
+
+        try (Connection conn = DBConnection.getConnection(); PreparedStatement stmt = conn.prepareStatement("SELECT count(username) AS num_participants, l.leagueId from log l inner join publicleague p where l.leagueId =" + leagueID + "");) {
             ResultSet rs = stmt.executeQuery();
 
             while (rs.next()) {
-                totalNumberOfParticipants = rs.getInt(1);                                                
+                totalNumberOfParticipants = rs.getInt(1);
             }
             rs.close();
 
@@ -99,5 +99,5 @@ public class PublicLeagueDAO {
         }
         return totalNumberOfParticipants;
     }
-    
+
 }

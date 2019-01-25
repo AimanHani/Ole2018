@@ -40,11 +40,12 @@ public class Login extends HttpServlet {
      * @param response servlet response
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
-   
-    }
-
-    // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
-    /**
+     *
+     * }
+     *
+     * //
+     * <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
+     * /**
      * Handles the HTTP <code>GET</code> method.
      *
      * @param request servlet request
@@ -69,26 +70,36 @@ public class Login extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-       
+
         //processRequest(request, response);
-        
-            JSONObject json = new JSONObject();
+        JSONObject json = new JSONObject();
         response.setContentType("\"Content-Type\", \"application/x-www-form-urlencoded\"");
         response.setCharacterEncoding("utf-8");
         PrintWriter out = response.getWriter();
 
-        String username = request.getParameter("username");
-        String password = request.getParameter("password");
+        System.out.println(request.getHeader("params"));
+        JSONObject headers = null;
+        String username = null;
+        String password = null;
+        
+        try {
+            headers = new JSONObject(request.getHeader("params"));
+            username = headers.getString("username");
+            password = headers.getString("password");
+        } catch (JSONException ex) {
+            Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
         boolean status = false;
         String token = "";
-       
+
         try {
-            
+
             status = LoginDAO.validate(username, password);
-            
+
             if (status) {
                 User u = UserDAO.getUserInfo(username);
-                
+
                 JSONObject userDetails = new JSONObject();
                 userDetails.put("username", u.getUsername());
                 userDetails.put("password", u.getPassword());
@@ -98,17 +109,17 @@ public class Login extends HttpServlet {
                 userDetails.put("contactNum", u.getContactNumber());
                 userDetails.put("email", u.getEmail());
                 userDetails.put("favoriteTeam", u.getFavoriteTeam());
-                
+
                 json.put("status", "success");
                 json.put("user", userDetails);
-               
+
             } else {
-                json.put("status","error");
-                String invalidMsg = "invalid username"+"/"+"password";
+                json.put("status", "error");
+                String invalidMsg = "invalid username" + "/" + "password";
                 String[] invalidString = {invalidMsg};
-                json.put("messages",invalidString);
+                json.put("messages", invalidString);
             }
-            
+
             out.print(json);
             out.flush();
 
@@ -125,8 +136,6 @@ public class Login extends HttpServlet {
         }
 
     }
-        
-    
 
     /**
      * Returns a short description of the servlet.
