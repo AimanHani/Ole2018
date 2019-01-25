@@ -145,8 +145,6 @@
 
         </LinearLayout>
 
-
-
     </LinearLayout>
 
     <LinearLayout
@@ -196,6 +194,8 @@
         </android.support.constraint.ConstraintLayout>
 
     </LinearLayout>
+
+
 
 
 </LinearLayout>

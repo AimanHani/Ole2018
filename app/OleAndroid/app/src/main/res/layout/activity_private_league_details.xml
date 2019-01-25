@@ -185,7 +185,7 @@
             android:id="@+id/setPassword"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Set Password: "
+            android:text="Enter password"
             tools:layout_editor_absoluteX="16dp"
             tools:layout_editor_absoluteY="155dp" />
 
