@@ -36,7 +36,7 @@
         <LinearLayout
             android:id="@+id/faqFrame"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="572dp"
 
             android:filterTouchesWhenObscured="false"
             android:orientation="vertical">
@@ -186,7 +186,8 @@
                 android:id="@+id/askOleButton"
                 style="?attr/buttonBarButtonStyle"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="60dp"
+                android:layout_marginTop="512dp"
                 android:background="@color/themeColor"
                 android:text="Ask Ole!"
                 android:textColor="@color/white"
@@ -195,4 +196,5 @@
 
         </LinearLayout>
     </ScrollView>
+
 </android.support.constraint.ConstraintLayout>
