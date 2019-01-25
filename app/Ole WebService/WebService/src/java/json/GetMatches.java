@@ -78,7 +78,7 @@ public class GetMatches extends HttpServlet {
         PrintWriter out = response.getWriter();
         Match m;
         String parameter = request.getParameter("matchStatus");
-        if (parameter.equals("recent")) {
+        if (parameter.equals("future")) {
             HashMap<Integer, Match> recentMatches = GetMatchesDAO.getRecentMatches();
             try {
                 Iterator it = recentMatches.entrySet().iterator();
