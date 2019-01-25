@@ -77,33 +77,66 @@ public class GetMatches extends HttpServlet {
         response.setCharacterEncoding("utf-8");
         PrintWriter out = response.getWriter();
         Match m;
-        HashMap<Integer, Match> recentMatches = GetMatchesDAO.getRecentMatches();
-        try {
-            Iterator it = recentMatches.entrySet().iterator();
-            while (it.hasNext()) {
-                JSONObject json = new JSONObject();
-                Map.Entry pair = (Map.Entry) it.next();
-                int numberOfParticipants = 0;
-                //System.out.println(pair.getKey() + " = " + pair.getValue());
-                m = (Match) pair.getValue();
-                json.put("matchId", m.getMatchID());
-                json.put("tournamentId", m.getTournamentID());
-                json.put("matchDate", m.getMatchDate());
-                json.put("matchTime", m.getMatchTime());
-                json.put("team1", m.getTeam1());
-                json.put("team2", m.getTeam2());
-                json.put("team1Score", m.getTeam1Score());
-                json.put("team2Score", m.getTeam2Score());
-                it.remove(); // avoids a ConcurrentModificationException
-                list.put(json);
+        String parameter = request.getParameter("matchStatus");
+        if (parameter.equals("future")) {
+            HashMap<Integer, Match> recentMatches = GetMatchesDAO.getRecentMatches();
+            try {
+                Iterator it = recentMatches.entrySet().iterator();
+                while (it.hasNext()) {
+                    JSONObject json = new JSONObject();
+                    Map.Entry pair = (Map.Entry) it.next();
+                    int numberOfParticipants = 0;
+                    //System.out.println(pair.getKey() + " = " + pair.getValue());
+                    m = (Match) pair.getValue();
+                    json.put("matchId", m.getMatchID());
+                    json.put("tournamentId", m.getTournamentID());
+                    json.put("matchDate", m.getMatchDate());
+                    json.put("matchTime", m.getMatchTime());
+                    json.put("team1", m.getTeam1());
+                    json.put("team2", m.getTeam2());
+                    json.put("team1Score", m.getTeam1Score());
+                    json.put("team2Score", m.getTeam2Score());
+                    it.remove(); // avoids a ConcurrentModificationException
+                    list.put(json);
 
+                }
+                parentJson.put("results", list);
+                out.print(parentJson);
+                out.flush();
+
+            } catch (JSONException e) {
+                e.printStackTrace();
             }
-            parentJson.put("results", list);
-            out.print(parentJson);
-            out.flush();
+        }
+        else{
+            HashMap<Integer, Match> pastMatches = GetMatchesDAO.getPastMatches();
+            try {
+                Iterator it = pastMatches.entrySet().iterator();
+                while (it.hasNext()) {
+                    JSONObject json = new JSONObject();
+                    Map.Entry pair = (Map.Entry) it.next();
+                    int numberOfParticipants = 0;
+                    //System.out.println(pair.getKey() + " = " + pair.getValue());
+                    m = (Match) pair.getValue();
+                    json.put("matchId", m.getMatchID());
+                    json.put("tournamentId", m.getTournamentID());
+                    json.put("matchDate", m.getMatchDate());
+                    json.put("matchTime", m.getMatchTime());
+                    json.put("team1", m.getTeam1());
+                    json.put("team2", m.getTeam2());
+                    json.put("team1Score", m.getTeam1Score());
+                    json.put("team2Score", m.getTeam2Score());
+                    it.remove(); // avoids a ConcurrentModificationException
+                    list.put(json);
 
-        } catch (JSONException e) {
-            e.printStackTrace();
+                }
+                parentJson.put("results", list);
+                out.print(parentJson);
+                out.flush();
+
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
         }
 
     }
