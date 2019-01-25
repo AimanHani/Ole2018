@@ -115,7 +115,7 @@ public class PrivateLeagueDAO {
     public static HashMap<Integer, model.PrivateLeague> retrievePrivateLeagueByName(int leagueId) {
 
         HashMap<Integer, model.PrivateLeague> privateLeaguesList = new HashMap<Integer, model.PrivateLeague>();
-        try (Connection conn = DBConnection.getConnection(); PreparedStatement stmt = conn.prepareStatement("select prize,startDate,endDate,leagueKeyId,username from privateleague where leagueKeyId = ?");) {
+        try (Connection conn = DBConnection.getConnection(); PreparedStatement stmt = conn.prepareStatement("select prize,startDate,endDate,leagueKeyId,username,password from privateleague where leagueKeyId = ?");) {
             stmt.setInt(1, leagueId);
             ResultSet rs = stmt.executeQuery();
 
@@ -125,8 +125,9 @@ public class PrivateLeagueDAO {
                 Date endDate = rs.getDate(3);
                 int leagueKeyId = rs.getInt(4);
                 String username = rs.getString(5);
+                String password = rs.getString(6);
 
-                privateLeaguesList.put(leagueKeyId, new model.PrivateLeague(prize, startDate, endDate, leagueKeyId, username));
+                privateLeaguesList.put(leagueKeyId, new model.PrivateLeague(prize, startDate, endDate, leagueKeyId, username,password));
 
             }
             rs.close();
