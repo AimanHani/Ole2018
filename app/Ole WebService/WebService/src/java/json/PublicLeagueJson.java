@@ -92,6 +92,8 @@ public class PublicLeagueJson extends HttpServlet {
                 json.put("pointsAllocated", publicLeague.getPointsAllocated());
                 json.put("leagueName", publicLeague.getLeagueName());
                 json.put("tournamentName", publicLeague.getTournamentName());
+                json.put("logId", publicLeague.getLogId()
+                );
                 list.put(json);
             }
 
