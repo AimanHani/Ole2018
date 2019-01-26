@@ -37,7 +37,7 @@ public class UpcomingMatches extends Fragment implements View.OnClickListener {
         }
     }
 
-    public static void setLeagueId (int id){
+    public static void setLogId(int id){
         logId = id;
     }
     //for backend:

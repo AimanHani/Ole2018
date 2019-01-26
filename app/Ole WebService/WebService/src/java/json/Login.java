@@ -76,25 +76,14 @@ public class Login extends HttpServlet {
         response.setContentType("\"Content-Type\", \"application/x-www-form-urlencoded\"");
         response.setCharacterEncoding("utf-8");
         PrintWriter out = response.getWriter();
-
-        System.out.println(request.getHeader("params"));
-        JSONObject headers = null;
-        String username = null;
-        String password = null;
         
-        try {
-            headers = new JSONObject(request.getHeader("params"));
-            username = headers.getString("username");
-            password = headers.getString("password");
-        } catch (JSONException ex) {
-            Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, ex);
-        }
-
+        String username = request.getParameter("username");
+        String password = request.getParameter("password");;
+        //System.out.println("username: "+ username+ ", password: "+password);
+        
         boolean status = false;
-        String token = "";
 
         try {
-
             status = LoginDAO.validate(username, password);
 
             if (status) {
@@ -116,8 +105,7 @@ public class Login extends HttpServlet {
             } else {
                 json.put("status", "error");
                 String invalidMsg = "invalid username" + "/" + "password";
-                String[] invalidString = {invalidMsg};
-                json.put("messages", invalidString);
+                json.put("messages", invalidMsg);
             }
 
             out.print(json);

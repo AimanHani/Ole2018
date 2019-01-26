@@ -205,7 +205,7 @@ public class Signup extends AppCompatActivity {
         if (!validate( )) {
             onSignupFailed( );
             return;
-        }else {
+        } else {
 
         signupBtn.setEnabled(false);
 
@@ -330,7 +330,7 @@ public class Signup extends AppCompatActivity {
             valid = false;
         }
         if (validateBirthdate.isEmpty( ) || !isDateValid(validateBirthdate)) {
-            birthdate.setError("Please enter the date as yyyy-MM-dd format");
+            birthdate.setError("Please enter the date as dd-mm-yyyy format");
             valid = false;
         }
         if (!validateBirthdate.isEmpty( ) && isDateValid(validateBirthdate)) {
@@ -398,33 +398,8 @@ public class Signup extends AppCompatActivity {
         }
     }
 
-    private static String convertToHex(byte[] data) {
-        StringBuffer buf = new StringBuffer( );
-        for (int i = 0; i < data.length; i++) {
-            int halfbyte = (data[i] >>> 4) & 0x0F;
-            int two_halfs = 0;
-            do {
-                if ((0 <= halfbyte) && (halfbyte <= 9))
-                    buf.append((char) ('0' + halfbyte));
-                else
-                    buf.append((char) ('a' + (halfbyte - 10)));
-                halfbyte = data[i] & 0x0F;
-            } while (two_halfs++ < 1);
-        }
-        return buf.toString( );
-    }
-
-    public static String SHA1(String text)
-            throws NoSuchAlgorithmException, UnsupportedEncodingException {
-        MessageDigest md;
-        md = MessageDigest.getInstance("SHA-1");
-        byte[] sha1hash = new byte[40];
-        md.update(text.getBytes("iso-8859-1"), 0, text.length( ));
-        sha1hash = md.digest( );
-        return convertToHex(sha1hash);
-    }
-
-    final static String DATE_FORMAT = "yyyy-MM-dd";
+    //final static String DATE_FORMAT = "yyyy-MM-dd";
+    final static String DATE_FORMAT = "dd-MM-yyyy";
 
     public static boolean isDateValid(String date) {
         try {
@@ -443,7 +418,7 @@ public class Signup extends AppCompatActivity {
 
     public static int calculateAge(String birthDay) {
         if ((birthDay != null)) {
-            DateTimeFormatter formatter_1 = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+            DateTimeFormatter formatter_1 = DateTimeFormatter.ofPattern(DATE_FORMAT);
             LocalDate birthDate = LocalDate.parse(birthDay, formatter_1);
             LocalDate today = LocalDate.now( );
             return Period.between(birthDate, today).getYears( );
@@ -596,7 +571,7 @@ public class Signup extends AppCompatActivity {
             }
         });
         //Calender Code (TBC)
-        /*birthdateButton = findViewById(R.id.birthdateButton);
+        birthdateButton = findViewById(R.id.birthdateButton);
         birthdateButton.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view){
@@ -617,11 +592,16 @@ public class Signup extends AppCompatActivity {
             @Override
             public void onDateSet(DatePicker datePicker, int year, int month, int day) {
                 month = month + 1;
-                Log.d(TAG, "yyyy-mm-dd:"+year+"-"+month+"-"+day);
-                String date = year+"-"+month+"-"+day;
+                String mth = month + "";
+                if (month < 10 ){
+                    mth = "0"+mth;
+                }
+                Log.d(TAG, DATE_FORMAT+year+"-"+month+"-"+day);
+                String date = day+"-"+mth+"-"+year;
+                Log.d(TAG, DATE_FORMAT+date);
                 birthdate.setText(date);
             }
-        }; */
+        };
 
         birthdate.addTextChangedListener(new TextWatcher( ) {
             @Override
@@ -646,7 +626,7 @@ public class Signup extends AppCompatActivity {
                             @Override
                             public void run() {
                                 if (!isDateValid(s.toString( ))) {
-                                    birthdate.setError("Please enter the date as yyyy-MM-dd format");
+                                    birthdate.setError("Please enter the date as dd-MM-yyyy format");
                                 }
                                 if (isDateValid(s.toString( ))) {
                                     int age = calculateAge(s.toString( ));

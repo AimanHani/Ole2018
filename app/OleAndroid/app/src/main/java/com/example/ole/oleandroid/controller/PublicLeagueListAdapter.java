@@ -26,6 +26,7 @@ public class PublicLeagueListAdapter extends BaseAdapter implements View.OnClick
     }
 
     //public constructor
+    // passes in a PublicLeague Arraylist so will be able to retrieve the logId as well and not just the name
     public PublicLeagueListAdapter(Context context, ArrayList<PublicLeague> leaguelist) {
         this.context = context;
         this.leaguelist = leaguelist;
