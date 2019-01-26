@@ -18,6 +18,8 @@ import com.example.ole.oleandroid.model.User;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.HashMap;
+
 
 public class Login extends AppCompatActivity {
     EditText username, password;
@@ -31,10 +33,6 @@ public class Login extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-
-        StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
-        StrictMode.setThreadPolicy(policy);
-
         username = (EditText) findViewById(R.id.username);
         password = (EditText) findViewById(R.id.password);
         signin = (Button) findViewById(R.id.signin);
@@ -62,6 +60,8 @@ public class Login extends AppCompatActivity {
         signin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
+                StrictMode.setThreadPolicy(policy);
 
 // comments starts here if want to bypass login webservice
                 if (username.getText().toString().equals("") || password.getText().toString().equals("")) {
@@ -78,12 +78,13 @@ public class Login extends AppCompatActivity {
                         e.printStackTrace();
                     }
 
-                    String url = DBConnection.getLoginUrl();
+                    String send = concatUsernamePwd(username.getText().toString(), password.getText().toString());
 
+                    String url = DBConnection.getLoginUrl();
                     PostHttp connection = new PostHttp();
                     String response = null;
                     try {
-                        response = connection.post(url, json.toString());
+                        response = connection.postForm(url, send);
                         System.out.println(response);
 
                         JSONObject result = new JSONObject(response);
@@ -118,16 +119,15 @@ public class Login extends AppCompatActivity {
                     }
 
 
-
 //comments stop here
-/*
+
                     // codes to bypass login with webservice
-                    Intent intent = new Intent(Login.this, Home.class);
-                    Bundle bundle = new Bundle();
-                    bundle.putString("username", username.getText().toString());
-                    intent.putExtras(bundle);
-                    startActivity(intent);
-*/
+//                    Intent intent = new Intent(Login.this, Home.class);
+//                    Bundle bundle = new Bundle();
+//                    bundle.putString("username", username.getText().toString());
+//                    intent.putExtras(bundle);
+//                    startActivity(intent);
+//
                 }
             }
 
@@ -144,9 +144,14 @@ public class Login extends AppCompatActivity {
 
     }
 
+
     public void loadSamePage() {
         Intent intent = new Intent(Login.this, Login.class);
         startActivity(intent);
+    }
+
+    public String concatUsernamePwd(String username, String pwd) {
+        return "username=" + username + "&password=" + pwd;
     }
 }
 
