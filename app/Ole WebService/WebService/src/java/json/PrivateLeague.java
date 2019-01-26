@@ -150,48 +150,143 @@ public class PrivateLeague extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-            JSONObject json = new JSONObject();
+
+        JSONObject json = new JSONObject();
         response.setContentType("\"Content-Type\", \"application/x-www-form-urlencoded\"");
         response.setCharacterEncoding("utf-8");
         PrintWriter out = response.getWriter();
-
-        String username = request.getParameter("username");
-        String password = request.getParameter("password");
-        String prize = request.getParameter("prize");
-        String leagueName = request.getParameter("leagueName");
-        //int leagueId = Integer.parseInt(request.getParameter("leagueId"));
-        String startDate = request.getParameter("startDate");
-        String endDate = request.getParameter("endDate");
-        String pointsAllocated = request.getParameter("pointsAllocated");
-        String tournamentId = request.getParameter("tournamentId");
-        String status = "";
+        System.out.println(request.getHeader("params"));
+        JSONObject headers = null;
+        String head = "";
         try {
-            
-            System.out.println(username+password);
-                status = PrivateLeagueDAO.createPrivateLeague(leagueName, prize, password, startDate, endDate, username, pointsAllocated, tournamentId);
-                if (status.equals("successful")) {
+            headers = new JSONObject(request.getHeader("params"));
+            head = headers.getString("method");
+        } catch (Exception e) {
+        }
 
-                    json.put("status", "successful");
-                }
-                else if(status.equals("start date and end date is not in valid format")){
-                    json.put("status", "start date or end date is not in valid format");
-                    String invalidMsg = "Something is wrong check checkS" + "/" + "";
-                    String[] invalidString = {invalidMsg};
-                    json.put("messages", invalidString);
-                }
-                else {
-
-                    json.put("status", "error");
-                    String invalidMsg = "Something is wrong check checkS" + "/" + "";
-                    String[] invalidString = {invalidMsg};
-                    json.put("messages", invalidString);
-                }
-                out.print(json);
-                out.flush();
-           
-
-        } catch (JSONException ex) {
-            Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, ex);
+        switch (head) {
+            case "insertNew":
+                try {
+                    headers = new JSONObject(request.getHeader("params"));
+                    String username = headers.getString("username");
+                    String password = headers.getString("password");
+                    String prize = headers.getString("prize");
+                    String leagueName = headers.getString("leagueName");
+                    //int leagueId = Integer.parseInt(request.getParameter("leagueId"));
+                    String startDate = headers.getString("startDate");
+                    String endDate = headers.getString("endDate");
+                    String pointsAllocated = headers.getString("pointsAllocated");
+                    String tournamentId = headers.getString("tournamentId");
+                    String status = "";
+                    
+                    //System.out.println(username + password);
+                    //System.out.println(tournamentId + leagueName);
+                    status = PrivateLeagueDAO.createPrivateLeague(leagueName, prize, password, startDate, endDate, username, pointsAllocated, tournamentId);
+                    if (status.equals("successful")) {
+                        
+                        json.put("status", "successful");
+                    } else if (status.equals("start date and end date is not in valid format")) {
+                        json.put("status", "start date or end date is not in valid format");
+                        String invalidMsg = "Something is wrong check checkS" + "/" + "";
+                        String[] invalidString = {invalidMsg};
+                        json.put("messages", invalidString);
+                    } else {
+                        
+                        json.put("status", "error");
+                        String invalidMsg = "Something is wrong check checkS" + "/" + "";
+                        String[] invalidString = {invalidMsg};
+                        json.put("messages", invalidString);
+                    }
+                    out.print(json);
+                    out.flush();
+                    
+                } catch (JSONException ex) {
+                    Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, ex);
+                }   break;
+            case "retrieveLeagueName":
+                System.out.println(request.getHeader("params"));
+                headers = null;
+                JSONArray list = new JSONArray();
+                JSONObject parentJson = new JSONObject();
+                model.PrivateLeague pl;
+                AllPublicLeague apl;
+                json = new JSONObject();
+                JSONObject league = new JSONObject();
+                HashMap<Integer, model.PrivateLeague> privateLeaguesByname;
+                try {
+                    headers = new JSONObject(request.getHeader("params"));
+                    String leagueName = headers.getString("leagueName");
+                    if (leagueName != null) {
+                        apl = PrivateLeagueDAO.retrieveLeague(leagueName);
+                        
+                        if (apl != null) {
+                            league.put("LeagueId", apl.getLeagueID());
+                            league.put("tournamentId", apl.getTournamentID());
+                            league.put("pointsAllocated", apl.getPointsAllocated());
+                            league.put("leagueName", apl.getLeagueName());
+                            privateLeaguesByname = PrivateLeagueDAO.retrievePrivateLeagueByName(apl.getLeagueID());
+                            
+                            
+                            if (privateLeaguesByname != null) {
+                                if (!privateLeaguesByname.isEmpty()) {
+                                    
+                                    Iterator it = privateLeaguesByname.entrySet().iterator();
+                                    while (it.hasNext()) {
+                                        
+                                        Map.Entry pair = (Map.Entry) it.next();
+                                        //System.out.println(pair.getKey() + " = " + pair.getValue());
+                                        pl = (model.PrivateLeague) pair.getValue();
+                                        league.put("privateLeagueID", pl.getPrivateLeaugeId());
+                                        league.put("prize", pl.getPrize());
+                                        league.put("startDate", pl.getStartDate());
+                                        league.put("endDate", pl.getEndDate());
+                                        league.put("leagueKeyId", pl.getLeagueId());
+                                        league.put("userName", pl.getUsername());
+                                        league.put("password", pl.getPassword());
+                                        
+                                        it.remove(); // avoids a ConcurrentModificationException
+                                        //list.put(json);
+                                        
+                                    }
+                                    System.out.println("im here" + json);
+                                    json.put("status", "success");
+                                    json.put("league", league);
+                                    out.print(json);
+                                    out.flush();
+                                } else {
+                                    json.put("private league", "no private league exists under this league");
+                                    list.put(json);
+                                    parentJson.put("results", list);
+                                    out.print(parentJson);
+                                    out.flush();
+                                }
+                            } else {
+                                
+                                json.put("status", "error");
+                                String invalidMsg = "No private league exists under this league" + "/" + "";
+                                String[] invalidString = {invalidMsg};
+                                json.put("messages", invalidString);
+                                parentJson.put("results", list);
+                                out.print(parentJson);
+                                out.flush();
+                            }
+                            
+                        } else {
+                            json.put("status", "error");
+                            String invalidMsg = "Cannot retrieve league" + "/" + "";
+                            String[] invalidString = {invalidMsg};
+                            json.put("messages", invalidString);
+                            parentJson.put("results", list);
+                            out.print(parentJson);
+                            out.flush();
+                            
+                        }
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }   break;
+            default:
+                break;
         }
     }
 

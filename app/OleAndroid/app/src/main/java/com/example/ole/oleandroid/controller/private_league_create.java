@@ -18,6 +18,7 @@ import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.ole.oleandroid.R;
 import com.example.ole.oleandroid.dbConnection.DBConnection;
+import com.example.ole.oleandroid.dbConnection.PostHttp;
 import com.example.ole.oleandroid.model.CountryItem;
 import com.example.ole.oleandroid.model.User;
 
@@ -42,12 +43,12 @@ public class private_league_create extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_private_league_create);
 
+
         //get user object
         //Intent i = getIntent();
         //final User u = (User)i.getSerializableExtra("User");
-        //User u = UserDAO.getLoginUser();
-
-        //username = u.getUserName();
+        User u = UserDAO.getLoginUser();
+        username = u.getUserName();
 
         Spinner leagueid =  findViewById(R.id.leagueid);
         //leagueid = (EditText) findViewById(R.id.leagueid);
@@ -72,6 +73,45 @@ public class private_league_create extends AppCompatActivity {
                 intent.putExtras(b);
                 startActivity(intent);
                 System.out.println("Creating Private League");
+
+                final String[] status = {"error"};
+
+                JSONObject json = new JSONObject();
+                try {
+                    json.put("method", "insertNew");
+                    json.put("username", username);
+                    json.put("password", password.getText( ).toString( ));
+                    json.put("prize", prize.getText( ).toString( ));
+                    json.put("leagueName", leaguename.getText( ).toString( ));
+                    json.put("tournamentId", tournamentId);
+                    json.put("pointsAllocated", pointsAllocated.getText( ).toString( ));
+                    json.put("startDate", startdate.getText( ).toString( ));
+                    json.put("endDate", enddate.getText( ).toString( ));
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+                String url = DBConnection.insertPrivateLeagueUrl();
+
+                PostHttp connection = new PostHttp();
+                String response = null;
+                //System.out.println("HAHAHAHHA" + json.toString());
+
+                try {
+                    response = connection.post(url, json.toString());
+                    JSONObject result = new JSONObject(response);
+                    status[0] = result.getString("status");
+
+                    if (status[0].equals("success")) {
+                        System.out.println(response);
+                        intent = new Intent(private_league_create.this, PrivateLeagueChoosematchActivity.class);
+                        startActivity(intent);
+                    } else {
+                        //loadSamePage();
+                    }
+
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
 /*
                 String url = new DBConnection( ).insertPrivateLeagueUrl( );
 

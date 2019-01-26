@@ -88,12 +88,12 @@ public class Profile extends AppCompatActivity {
         accuracyHeader = findViewById(R.id.accuracyHeader);
         accuracy = findViewById(R.id.accuracy);
 
-/*
+
         userName.setText(loginUser.getUserName());
         userDOB.setText(loginUser.getDateOfBirth());
         userCountry.setText(loginUser.getCountry());
         userFavTeam.setText(loginUser.getFavoriteTeam());
-*/
+
 
         /*final Bundle b = getIntent().getExtras();
         matchId = b.getString("matchId");
