@@ -43,7 +43,7 @@ public class PublicLeagueDAO {
                 String tournamentName = rs.getString(6);
                 int logid = rs.getInt(7);
 
-                publicLeagueList.add(new PublicLeague(leagueID, prize, tournamentID, pointsAllocated, leagueName, tournamentName,logid));
+                publicLeagueList.add(new PublicLeague(leagueID, prize, tournamentID, pointsAllocated, tournamentName, leagueName, logid));
             }
             rs.close();
 
