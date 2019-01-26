@@ -1,4 +1,4 @@
-package com.example.ole.oleandroid.controller;
+package com.example.ole.oleandroid.dbConnection;
 
 import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.JsonObjectRequest;

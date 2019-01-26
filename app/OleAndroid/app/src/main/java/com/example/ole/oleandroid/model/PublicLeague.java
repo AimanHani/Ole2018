@@ -7,24 +7,25 @@ public class PublicLeague {
     private int pointsAllocated;
     private String leagueName;
     private String tournamentName;
+    private int logId;
 
-    public PublicLeague(int leagueId, int tournamentId, String prize, int pointsAllocated, String leagueName) {
+    public PublicLeague(int leagueId, int tournamentId, String prize, int pointsAllocated, String leagueName, String tournamentName, int logId) {
         this.leagueId = leagueId;
         this.tournamentId = tournamentId;
         this.prize = prize;
-        this.pointsAllocated = pointsAllocated;
-        this.leagueName = leagueName;
-    }
-
-    public PublicLeague(int leagueId, String prize, int tournamentId, int pointsAllocated, String leagueName, String tournamentName) {
-        this.leagueId = leagueId;
-        this.prize = prize;
-        this.tournamentId = tournamentId;
         this.pointsAllocated = pointsAllocated;
         this.leagueName = leagueName;
         this.tournamentName = tournamentName;
+        this.logId = logId;
     }
 
+    public int getLogId() {
+        return logId;
+    }
+
+    public void setLogId(int logId) {
+        this.logId = logId;
+    }
 
     public void setLeagueId(int leagueId) {
         this.leagueId = leagueId;

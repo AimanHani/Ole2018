@@ -76,9 +76,9 @@ public class ManageSpecials extends HttpServlet {
         response.setContentType("\"Content-Type\", \"application/x-www-form-urlencoded\"");
         response.setCharacterEncoding("utf-8");
         PrintWriter out = response.getWriter();
-        int logid = Integer.parseInt(request.getParameter("logid"));
+        int logId = Integer.parseInt(request.getParameter("logId"));
         Special s;
-        HashMap<Integer, Special> specialsList = ManageSpecialsDAO.getSpecials(logid);
+        HashMap<Integer, Special> specialsList = ManageSpecialsDAO.getSpecials(logId);
         try {
             Iterator it = specialsList.entrySet().iterator();
             while (it.hasNext()) {

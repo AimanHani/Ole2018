@@ -19,10 +19,10 @@ import model.Special;
  * @author user
  */
 public class ManageSpecialsDAO {
-    public static HashMap<Integer, Special>getSpecials(int logID){
+    public static HashMap<Integer, Special>getSpecials(int logId){
         HashMap<Integer, Special>specialsList = new HashMap();
          try (Connection conn = DBConnection.getConnection(); PreparedStatement stmt = conn.prepareStatement("select s.specialsId, s.description, s.points from specialslog sl, specials s where sl.specialsId = s.specialsId and sl.logid =?");) {
-            stmt.setInt(1, logID);
+            stmt.setInt(1, logId);
              ResultSet rs = stmt.executeQuery();
 
             while (rs.next()) {

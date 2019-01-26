@@ -21,7 +21,7 @@ public class Special {
         this.points = points;
     }
 
-    public int getPoints() {
+    public int getPoints() {    
         return points;
     }
 

@@ -12,33 +12,44 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import com.example.ole.oleandroid.R;
+import com.example.ole.oleandroid.model.Specials;
 
 import java.util.ArrayList;
 
 public class SpecialListAdapter extends BaseAdapter{
     private Context context; //context
     private ArrayList<Integer> pointsList; //data source of the list adapter
+    private ArrayList<String> specialNameList;
+    private ArrayList<Specials> specialsList;
     private ViewHolder viewHolder;
     private Button confirmspecialsbtn;
 
     private static class ViewHolder {
         TextView points;
+        TextView itemname;
+    }
+
+    public SpecialListAdapter(Context context, ArrayList<Specials> specialsList) {
+        this.context = context;
+        this.specialsList = specialsList;
     }
 
     //public constructor
-    public SpecialListAdapter(Context context, ArrayList<Integer> pointsList) {
+    public SpecialListAdapter(Context context, ArrayList<Integer> pointsList, ArrayList<String> specialNameList, ArrayList<Specials> specialsList) {
         this.context = context;
         this.pointsList = pointsList;
+        this.specialNameList = specialNameList;
+        this.specialsList = specialsList;
     }
 
     @Override
     public int getCount() {
-        return pointsList.size(); //returns total of items in the list
+        return specialsList.size(); //returns total of items in the list
     }
 
     @Override
     public Object getItem(int position) {
-        return pointsList.get(position); //returns list item at the specified position
+        return specialsList.get(position); //returns list item at the specified position
     }
 
     @Override
@@ -59,9 +70,11 @@ public class SpecialListAdapter extends BaseAdapter{
          * This will tell initialize the textview element in speciallistlayout
          */
         viewHolder.points = convertView.findViewById(R.id.points);
+        viewHolder.itemname = convertView.findViewById(R.id.itemname);
 
         //this will get each point from the arraylist
-        viewHolder.points.setText(pointsList.get(position).toString());
+        viewHolder.points.setText(specialsList.get(position).getPoints()+"");
+        viewHolder.itemname.setText(specialsList.get(position).getDescription());
 
         /*
         // get current item to be displayed

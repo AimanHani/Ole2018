@@ -11,12 +11,13 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.example.ole.oleandroid.R;
+import com.example.ole.oleandroid.model.PublicLeague;
 
 import java.util.ArrayList;
 
 public class PublicLeagueListAdapter extends BaseAdapter implements View.OnClickListener{
     private Context context; //context
-    private ArrayList<String> leaguelist;//data source of the list adapter
+    private ArrayList<PublicLeague> leaguelist;//data source of the list adapter
     private ViewHolder viewHolder;
 
     private static class ViewHolder {
@@ -25,7 +26,7 @@ public class PublicLeagueListAdapter extends BaseAdapter implements View.OnClick
     }
 
     //public constructor
-    public PublicLeagueListAdapter(Context context, ArrayList<String> leaguelist) {
+    public PublicLeagueListAdapter(Context context, ArrayList<PublicLeague> leaguelist) {
         this.context = context;
         this.leaguelist = leaguelist;
     }
@@ -60,9 +61,9 @@ public class PublicLeagueListAdapter extends BaseAdapter implements View.OnClick
         viewHolder.league = convertView.findViewById(R.id.leaguename);
         viewHolder.joinleaguebtn = convertView.findViewById(R.id.joinleaguebtn);
         //this will get each point from the arraylist
-        viewHolder.league.setText(leaguelist.get(position).toString());
-
+        viewHolder.league.setText(leaguelist.get(position).getLeagueName());
         viewHolder.joinleaguebtn.setTag(position); //label the first item on the list
+        //viewHolder.joinleaguebtn.setTag(2, leaguelist.get(position).getLogId());
         viewHolder.joinleaguebtn.setOnClickListener(this);
 
         /*
@@ -87,7 +88,7 @@ public class PublicLeagueListAdapter extends BaseAdapter implements View.OnClick
             case R.id.joinleaguebtn:
                 Intent intent = new Intent(context, Leagues.class);
                 Bundle bundle = new Bundle();
-                bundle.putString("leagueid", "1");
+                bundle.putInt("logId", (Integer) leaguelist.get(position).getLogId());
                 intent.putExtras(bundle);
                 context.startActivity(intent);
 

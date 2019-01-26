@@ -11,10 +11,11 @@ import android.widget.Button;
 import com.example.ole.oleandroid.R;
 
 public class UpcomingMatches extends Fragment implements View.OnClickListener {
+    View view;
+    Button predictspecials;
+    private static int logId;
 
-        View view;
-        Button predictspecials;
-        /**
+    /**
          *  Remember to put the no connection
          */
         public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState){
@@ -29,8 +30,15 @@ public class UpcomingMatches extends Fragment implements View.OnClickListener {
         switch (v.getId()){
             case R.id.predictspecials:
                 Intent intent = new Intent(getActivity(), SpecialList.class);
+                Bundle bundle = new Bundle();
+                bundle.putInt("logId", logId);
+                intent.putExtras(bundle);
                 this.startActivity(intent);
         }
+    }
+
+    public static void setLeagueId (int id){
+        logId = id;
     }
     //for backend:
     //use bundle to pass the data (list of specials)

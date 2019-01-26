@@ -22,11 +22,15 @@ public class Leagues extends AppCompatActivity {
     TabLayout leagueTabLayout;
     ViewPager viewPager;
     Adapter adapter;
+    int logId;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_leagues);
+
+        Bundle bundle = getIntent().getExtras();
+        logId = bundle.getInt("logId");
 
         viewPager = findViewById(R.id.viewpagerId);
         setupViewPager(viewPager);
@@ -63,7 +67,10 @@ public class Leagues extends AppCompatActivity {
     private void setupViewPager(ViewPager viewPager){
         adapter = new Adapter(getSupportFragmentManager());
         adapter.addFragment(new PastMatches(),"Past");
-        adapter.addFragment(new UpcomingMatches(), "Upcoming");
+        UpcomingMatches upcomingMatches = new UpcomingMatches();
+        upcomingMatches.setLeagueId(logId);
+        adapter.addFragment(upcomingMatches, "Upcoming");
+
         viewPager.setAdapter(adapter);
     }
 
