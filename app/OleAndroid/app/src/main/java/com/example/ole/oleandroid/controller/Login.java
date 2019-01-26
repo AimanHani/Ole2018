@@ -79,7 +79,7 @@ public class Login extends AppCompatActivity {
                     }
 
                     String url = DBConnection.getLoginUrl();
-/*
+
                     PostHttp connection = new PostHttp();
                     String response = null;
                     try {
@@ -116,18 +116,18 @@ public class Login extends AppCompatActivity {
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
-*/
+
 
 
 //comments stop here
-
+/*
                     // codes to bypass login with webservice
                     Intent intent = new Intent(Login.this, Home.class);
                     Bundle bundle = new Bundle();
                     bundle.putString("username", username.getText().toString());
                     intent.putExtras(bundle);
                     startActivity(intent);
-
+*/
                 }
             }
 
