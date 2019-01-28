@@ -12,8 +12,9 @@ public class HomeDAO {
 
     public static int getTotalUsers() {
         //SELECT count(*) FROM `users` 
-        String statement = "select count(*) from user";
+        String statement = "select count(*) from user where username != ?";
         try (Connection conn = DBConnection.getConnection(); PreparedStatement stmt = conn.prepareStatement(statement);) {
+            stmt.setString(1, "admin");
             ResultSet rs = stmt.executeQuery();
             while (rs.next()) {
                 return rs.getInt(1);

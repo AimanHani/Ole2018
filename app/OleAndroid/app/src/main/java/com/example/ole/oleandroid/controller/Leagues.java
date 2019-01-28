@@ -67,8 +67,9 @@ public class Leagues extends AppCompatActivity {
     private void setupViewPager(ViewPager viewPager){
         adapter = new Adapter(getSupportFragmentManager());
         adapter.addFragment(new PastMatches(),"Past");
+        // upcomingMatches now has a logId which u can set (so i can pass this logId on. logid is needed for specials list
         UpcomingMatches upcomingMatches = new UpcomingMatches();
-        upcomingMatches.setLeagueId(logId);
+        upcomingMatches.setLogId(logId);
         adapter.addFragment(upcomingMatches, "Upcoming");
 
         viewPager.setAdapter(adapter);

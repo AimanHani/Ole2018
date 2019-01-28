@@ -29,6 +29,7 @@ public class SpecialListAdapter extends BaseAdapter{
         TextView itemname;
     }
 
+    //uses list of specials Object so can get both points and name
     public SpecialListAdapter(Context context, ArrayList<Specials> specialsList) {
         this.context = context;
         this.specialsList = specialsList;

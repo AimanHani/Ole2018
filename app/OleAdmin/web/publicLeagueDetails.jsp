@@ -41,15 +41,15 @@
                                             <td><%=pl.getLeagueName()%></td>
                                             <td>
                                                 <form action="PublicLeagueServlet" method="post">
-                                                    <input type="hidden" name="param" value="updatePoints"/>
+                                                    <input type="hidden" name="param" value="update">
                                                     <input type="hidden" name="id" value=<%=pl.getLeagueID()%> />
                                                     <input class="form-control" type="text" name="points" value="<%=pl.getPointsAllocated()%>" style="width:30%; display:inline;">
-                                                    <button type="submit" class="btn btn-outline btn-warning">Update</button>
-                                                </form>
+                                                    <!--button type="submit" class="btn btn-outline btn-warning">Update</button>
+                                                </form!-->
                                             </td>
                                             <td>
-                                                <form action="PublicLeagueServlet" method="post">
-                                                    <input type="hidden" name="param" value="updatePrize"/>
+                                                <!--form action="PublicLeagueServlet" method="post"!-->
+                                                    <!--input type="hidden" name="param" value="updatePrize"/-->
                                                     <input type="hidden" name="id" value=<%=pl.getLeagueID()%> />
                                                     <input class="form-control" type="text" name="prize" value="<%=pl.getPrize()%>" style="width:70%; display:inline;"/> 
                                                     <button type="submit" class="btn btn-outline btn-warning">Update</button>

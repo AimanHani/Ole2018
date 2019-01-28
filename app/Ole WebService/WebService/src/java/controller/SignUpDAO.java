@@ -27,16 +27,21 @@ import model.Match;
  */
 public class SignUpDAO {
 
-    public static String signUp(String username, String name, String password, String email, String birthdate, String contactNo, String country, String team) throws SQLException {
+    public static String signUp(String username, String name, String password, String email, String birthdate, String contactNo, String country, String team) throws SQLException, ParseException {
 
         boolean usernameCheck = checkUsername(username);
         boolean emailCheck = checkEmail(email);
         if (emailCheck && usernameCheck) {
+            SimpleDateFormat fromUser = new SimpleDateFormat("dd-MM-yyyy");
+            SimpleDateFormat myFormat = new SimpleDateFormat("yyyy-MM-dd");
 
+            birthdate = myFormat.format(fromUser.parse(birthdate));
+
+            System.out.println(birthdate);
             boolean status = false;
             int rs = 0;
             //if(isDateValid(birthdate)){
-            try (Connection c = DBConnection.getConnection(); PreparedStatement ps = c.prepareStatement("INSERT INTO user (username, name, password,dob, country, contactNo, email, favoriteTeam,salt) VALUES(?,?,?,?,?,?,?,?,?)");) {
+            try (Connection c = DBConnection.getConnection(); PreparedStatement ps = c.prepareStatement("INSERT INTO user (username, name, password, dob, country, contactNo, email, favoriteTeam,salt) VALUES(?,?,?,?,?,?,?,?,?)");) {
                 byte[] salt = getSalt();
 
                 ps.setString(1, username);
@@ -68,18 +73,18 @@ public class SignUpDAO {
 
         } else {
             String msg = "";
-            if(!emailCheck){
-            msg = "email has been taken";
+            if (!emailCheck) {
+                msg = "email has been taken";
             }
-            if(!usernameCheck){
-                 msg = "username has been taken";
+            if (!usernameCheck) {
+                msg = "username has been taken";
             }
-            if(!usernameCheck&&!emailCheck){
+            if (!usernameCheck && !emailCheck) {
                 msg = "username and email have been taken";
             }
             return msg;
         }
-         return "";
+        return "";
 
     }
 

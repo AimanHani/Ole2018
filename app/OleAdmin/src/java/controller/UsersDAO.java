@@ -17,12 +17,13 @@ public class UsersDAO {
         //and creates a user object
         //users object will be stored in arraylist
         //arraylist of users will be returned to the usersservlet
-        String statement = "select * from user";
+        String statement = "select * from user where username !=?";
         ArrayList<Users> usersList = new ArrayList<>();
         try (Connection conn = DBConnection.getConnection(); PreparedStatement stmt = conn.prepareStatement(statement);) {
+            stmt.setString(1, "admin");
             ResultSet rs = stmt.executeQuery();
             while (rs.next()) {
-                Users user = new Users(rs.getString(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getString(5), rs.getInt(6), rs.getString(7), rs.getString(8));
+                Users user = new Users(rs.getString(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getString(5), rs.getString(6), rs.getString(7), rs.getString(8));
                 usersList.add(user);
             }
             rs.close();
@@ -44,7 +45,7 @@ public class UsersDAO {
         try (Connection conn = DBConnection.getConnection(); PreparedStatement stmt = conn.prepareStatement(statement);) {
             ResultSet rs = stmt.executeQuery();
             while (rs.next()) {
-                Users user = new Users(rs.getString(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getString(5), rs.getInt(6), rs.getString(7), rs.getString(8));
+                Users user = new Users(rs.getString(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getString(5), rs.getString(6), rs.getString(7), rs.getString(8));
                 usersList.add(user);
             }
             rs.close();

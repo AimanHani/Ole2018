@@ -7,6 +7,7 @@ package json;
 
 import controller.SignUpDAO;
 import controller.LoginDAO;
+import controller.UserDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.SQLException;
@@ -21,6 +22,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import model.User;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -28,7 +30,6 @@ import org.json.JSONObject;
  *
  * @author user
  */
-
 @WebServlet(name = "SignUpJson", urlPatterns = {"/json/signUp"})
 public class SignUp extends HttpServlet {
 
@@ -49,7 +50,7 @@ public class SignUp extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet SignUp</title>");            
+            out.println("<title>Servlet SignUp</title>");
             out.println("</head>");
             out.println("<body>");
             out.println("<h1>Servlet SignUp at " + request.getContextPath() + "</h1>");
@@ -84,76 +85,94 @@ public class SignUp extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        
-          JSONObject json = new JSONObject();
+
+        JSONObject json = new JSONObject();
         response.setContentType("\"Content-Type\", \"application/x-www-form-urlencoded\"");
         response.setCharacterEncoding("utf-8");
         PrintWriter out = response.getWriter();
-
+        
         String username = request.getParameter("username");
-        String name  = request.getParameter("name");
+        String name = request.getParameter("name");
         String password = request.getParameter("password");
         String email = request.getParameter("email");
         String birthdate = request.getParameter("birthdate");
         String contactNo = request.getParameter("contactNo");
         String country = request.getParameter("country");
         String team = request.getParameter("team");
-               
+        
+        System.out.println(username+" "+ birthdate);
         
         String status = "";
         String token = "";
-       
+
         try {
-            
-            status = SignUpDAO.signUp(username,  name, password,  email,  birthdate,  contactNo, country,team);
+
+            status = SignUpDAO.signUp(username, name, password, email, birthdate, contactNo, country, team);
 
             if (status.equals("success")) {
 
-                json.put("Status", "new record has been created");
-               
-            } else if(status.equals("username has been taken")) {
-    
-                json.put("status","error");
-                String invalidMsg = "Your username has been taken"+"/"+"";
+                json.put("status", "success");
+
+                Boolean statusLogin = LoginDAO.validate(username, password);
+
+                if (statusLogin) {
+                    User u = UserDAO.getUserInfo(username);
+
+                    JSONObject userDetails = new JSONObject();
+                    userDetails.put("username", u.getUsername());
+                    userDetails.put("password", u.getPassword());
+                    userDetails.put("name", u.getName());
+                    userDetails.put("dob", u.getDob());
+                    userDetails.put("country", u.getCountry());
+                    userDetails.put("contactNum", u.getContactNumber());
+                    userDetails.put("email", u.getEmail());
+                    userDetails.put("favoriteTeam", u.getFavoriteTeam());
+
+                    json.put("status", "success");
+                    json.put("user", userDetails);
+
+                } else {
+                    json.put("status", "error");
+                    String invalidMsg = "invalid username" + "/" + "password";
+                    json.put("messages", invalidMsg);
+                }
+
+            } else if (status.equals("username has been taken")) {
+                json.put("status", "error");
+                String invalidMsg = "Your username has been taken" + "/" + "";
                 String[] invalidString = {invalidMsg};
-                json.put("messages",invalidString);
-            }
-            else if(status.equals("birthdate error")){
-                json.put("status","error");
-                String invalidMsg = "birthdate error"+"/"+"";
+                json.put("messages", invalidString);
+            } else if (status.equals("birthdate error")) {
+                json.put("status", "error");
+                String invalidMsg = "birthdate error" + "/" + "";
                 String[] invalidString = {invalidMsg};
-                json.put("messages",invalidString);
-            }
-            else if(status.equals("email has been taken")){
-                json.put("status","error");
-                String invalidMsg = "email has been taken"+"/"+"";
+                json.put("messages", invalidString);
+            } else if (status.equals("email has been taken")) {
+                json.put("status", "error");
+                String invalidMsg = "email has been taken" + "/" + "";
                 String[] invalidString = {invalidMsg};
-                json.put("messages",invalidString);
-            }
-            else if(status.equals("username and email have been taken")){
-                json.put("status","error");
-                String invalidMsg = "username and email have been taken"+"/"+"";
+                json.put("messages", invalidString);
+            } else if (status.equals("username and email have been taken")) {
+                json.put("status", "error");
+                String invalidMsg = "username and email have been taken" + "/" + "";
                 String[] invalidString = {invalidMsg};
-                json.put("messages",invalidString);
-            }
-            else{
-                json.put("status","error");
-                String invalidMsg = "check db connection class "+"/"+"";
+                json.put("messages", invalidString);
+            } else {
+                json.put("status", "error");
+                String invalidMsg = "check db connection class " + "/" + "";
                 String[] invalidString = {invalidMsg};
-                json.put("messages",invalidString);
+                json.put("messages", invalidString);
             }
+
             out.print(json);
             out.flush();
 
-        } catch (SQLException e) {
+        } catch (Exception e) {
             e.printStackTrace();
-        } catch (JSONException ex) {
-            Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, e);
         }
-      
+
     }
-    
-   
 
     /**
      * Returns a short description of the servlet.

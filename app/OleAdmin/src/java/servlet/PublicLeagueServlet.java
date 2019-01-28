@@ -46,27 +46,29 @@ public class PublicLeagueServlet extends HttpServlet {
         }
         
         
-        if (requests != null && requests.equals("updatePoints")) {
+        if (requests != null && requests.equals("update")) {
             int id = Integer.parseInt(request.getParameter("id"));
             int points = Integer.parseInt(request.getParameter("points"));
-            Boolean outcome = PublicLeagueDAO.updatePoints(id, points);
-            if (outcome) {
+            String prize = request.getParameter("prize");
+            Boolean outcomePoints = PublicLeagueDAO.updatePoints(id, points);
+            Boolean outcomePrize = PublicLeagueDAO.updatePrize(id, prize);
+            if (outcomePoints && outcomePrize) {
                 System.out.println("SUCCESS");
                 rd = request.getRequestDispatcher("./PublicLeagueServlet?param=loadAll");
                 rd.forward(request, response);
             }
         }
         
-        if (requests != null && requests.equals("updatePrize")) {
-            int id = Integer.parseInt(request.getParameter("id"));
-            String prize = request.getParameter("prize");
-            Boolean outcome = PublicLeagueDAO.updatePrize(id, prize);
-            if (outcome) {
-                System.out.println("SUCCESS");
-                rd = request.getRequestDispatcher("./PublicLeagueServlet?param=loadAll");
-                rd.forward(request, response);
-            }
-        }
+//        if (requests != null && requests.equals("updatePrize")) {
+//            int id = Integer.parseInt(request.getParameter("id"));
+//            String prize = request.getParameter("prize");
+//            Boolean outcome = PublicLeagueDAO.updatePrize(id, prize);
+//            if (outcome) {
+//                System.out.println("SUCCESS");
+//                rd = request.getRequestDispatcher("./PublicLeagueServlet?param=loadAll");
+//                rd.forward(request, response);
+//            }
+//        }
         
     }
 
