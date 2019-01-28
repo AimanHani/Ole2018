@@ -7,11 +7,11 @@ public class Users {
     private String password;
     private String dob;
     private String country;
-    private int contactNo;
+    private String contactNo;
     private String email;
     private String favoriteTeam;
 
-    public Users(String username, String name, String password, String dob, String country, int contactNo, String email, String favoriteTeam) {
+    public Users(String username, String name, String password, String dob, String country, String contactNo, String email, String favoriteTeam) {
         this.username = username;
         this.name = name;
         this.password = password;
@@ -62,11 +62,11 @@ public class Users {
         this.country = country;
     }
 
-    public int getContactNo() {
+    public String getContactNo() {
         return contactNo;
     }
 
-    public void setContactNo(int contactNo) {
+    public void setContactNo(String contactNo) {
         this.contactNo = contactNo;
     }
 
