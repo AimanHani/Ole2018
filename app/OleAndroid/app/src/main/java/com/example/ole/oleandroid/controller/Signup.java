@@ -9,6 +9,7 @@ import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
 import android.nfc.Tag;
 import android.os.Bundle;
+import android.os.StrictMode;
 import android.support.v7.app.AppCompatActivity;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -31,8 +32,10 @@ import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.ole.oleandroid.R;
 import com.example.ole.oleandroid.dbConnection.DBConnection;
+import com.example.ole.oleandroid.dbConnection.PostHttp;
 import com.example.ole.oleandroid.model.CountryItem;
 import com.example.ole.oleandroid.model.TeamItems;
+import com.example.ole.oleandroid.model.User;
 
 import java.io.UnsupportedEncodingException;
 import java.security.MessageDigest;
@@ -41,12 +44,16 @@ import java.security.NoSuchAlgorithmException;
 import android.app.ProgressDialog;
 import android.os.Bundle;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.Period;
 import java.time.format.DateTimeFormatter;
+import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashMap;
@@ -79,8 +86,10 @@ public class Signup extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_signup);
+        initList();
 
-        initList( );
+        StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
+        StrictMode.setThreadPolicy(policy);
 
         Spinner spinnerCountries = findViewById(R.id.countries);
         Spinner spinnerTeams = findViewById(R.id.favouriteTeam);
@@ -91,8 +100,8 @@ public class Signup extends AppCompatActivity {
         email = findViewById(R.id.email);
         contactNo = findViewById(R.id.contactNo);
         signupBtn = findViewById(R.id.signupBtn);
-        tickDone = getResources( ).getDrawable(R.drawable.ic_done_black_24dp);
-        tickDone.setBounds(0, 0, tickDone.getIntrinsicWidth( ), tickDone.getIntrinsicHeight( ));
+        tickDone = getResources().getDrawable(R.drawable.ic_done_black_24dp);
+        tickDone.setBounds(0, 0, tickDone.getIntrinsicWidth(), tickDone.getIntrinsicHeight());
         //result = findViewById(R.id.result);
         validationOnTextView();//method used to vaidate when user input see the method at the buttom
 
@@ -103,12 +112,12 @@ public class Signup extends AppCompatActivity {
         spinnerTeams.setAdapter(mAdapter2);
 
 
-        spinnerCountries.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener( ) {
+        spinnerCountries.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 CountryItem clickedItem = (CountryItem) parent.getItemAtPosition(position);
-                clickedCountryName = clickedItem.getmCountryName( );
-                Toast.makeText(Signup.this, clickedCountryName + " selected", Toast.LENGTH_SHORT).show( );
+                clickedCountryName = clickedItem.getmCountryName();
+                Toast.makeText(Signup.this, clickedCountryName + " selected", Toast.LENGTH_SHORT).show();
             }
 
             @Override
@@ -116,12 +125,12 @@ public class Signup extends AppCompatActivity {
 
             }
         });
-        spinnerTeams.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener( ) {
+        spinnerTeams.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 TeamItems clickedItem = (TeamItems) parent.getItemAtPosition(position);
-                clickedTeamName = clickedItem.getmTeamName( );
-                Toast.makeText(Signup.this, clickedTeamName + " selected", Toast.LENGTH_SHORT).show( );
+                clickedTeamName = clickedItem.getmTeamName();
+                Toast.makeText(Signup.this, clickedTeamName + " selected", Toast.LENGTH_SHORT).show();
 
             }
 
@@ -131,116 +140,129 @@ public class Signup extends AppCompatActivity {
             }
 
         });
-        signupBtn.setOnClickListener(new View.OnClickListener( ) {
+        signupBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                signup( );
-                //result.setText("");
                 System.out.println("signup");
-//                String results = LoginDAO.validate(username.getText().toString(), password.getText().toString());
-//                result.append(results);
+                Dialog load = loadingDialog();
+                new android.os.Handler().postDelayed(
+                      new Runnable() {
+                            public void run() {
+                                //On complete call either onSignupSuccess or onSignupFailed
+                                // depending on success
+                                //onSignupSuccess();
+                                 //onSignupFailed();
+                                System.out.println("signup2");
 
-                String url = DBConnection.getSignupUrl( );
-                //final String[] results = new String[1];
-
-                // Creating string request with post method.
-                StringRequest stringRequest = new StringRequest(Request.Method.POST, url,
-                        new Response.Listener<String>( ) {
-                            @Override
-                            public void onResponse(String ServerResponse) {
-                                System.out.println(ServerResponse);
-                                //results[0] = ServerResponse;
-                                //result.append(ServerResponse);
-                                Intent intent = new Intent(Signup.this, Home.class);
-                                startActivity(intent);
                             }
-                        },
-                        new Response.ErrorListener( ) {
-                            @Override
-                            public void onErrorResponse(VolleyError volleyError) {
-                                System.out.println("error  :");
-                                volleyError.printStackTrace( );
+                        }, 3000);
+                //loadingDialog();
 
-                                Intent intent = new Intent(Signup.this, Signup.class);
-                                startActivity(intent);
-                                //result.append("error");
-                                //results[0] = "error";
-                            }
-                        }) {
-                    @Override
-                    protected Map<String, String> getParams() {
-                        Map<String, String> params = new HashMap<String, String>( );
-                        try {
-                            params.put("username", username.getText( ).toString( ));
-                            params.put("name", name.getText( ).toString( ));
-                            params.put("password", password.getText( ).toString( ));
-                            params.put("birthdate", birthdate.getText( ).toString( ));
-                            params.put("country", clickedCountryName);
-                            params.put("contactNo", contactNo.getText( ).toString( ));
-                            params.put("email", email.getText( ).toString( ));
-                            params.put("team", clickedTeamName);
-                            validate( );
-                        } catch (Exception e) {
 
+                // TODO: Implement your own signup logic here.
+
+//                new android.os.Handler().postDelayed(
+////                        new Runnable() {
+////                            public void run() {
+////                                // On complete call either onSignupSuccess or onSignupFailed
+////                                // depending on success
+////                                onSignupSuccess();
+////                                // onSignupFailed();
+////                                progressDialog.dismiss();
+////                            }
+////                        }, 3000);
+////                //onSignupSuccess();
+
+                boolean valid = validate();
+
+                if (!valid) {
+                    onSignupFailed();
+                    return;
+                } else {
+                    String usernameStr = username.getText().toString();
+                    String nameStr = name.getText().toString();
+                    String emailStr = email.getText().toString();
+                    String passwordStr = password.getText().toString();
+                    String birthdateStr = birthdate.getText().toString();
+                    String contactNoStr = contactNo.getText().toString();
+                    String teamStr = clickedTeamName;
+                    String countryStr = clickedCountryName;
+
+                    String send = concatParams(usernameStr, nameStr, passwordStr, birthdateStr, countryStr, contactNoStr, emailStr, teamStr);
+                    PostHttp connection = new PostHttp();
+                    String response = null;
+                    String url = DBConnection.getSignupUrl();
+
+                    try {
+                        response = connection.postForm(url, send);
+                        System.out.println(response);
+
+                        JSONObject result = new JSONObject(response);
+                        String status = result.getString("status");
+
+                        if (status.equals("success")) {
+                            JSONObject user = result.getJSONObject("user");
+                            String usernameRetrieved = user.getString("username");
+                            System.out.println(usernameRetrieved);
+                            String name = user.getString("name");
+                            String password = user.getString("password");
+                            String dob = user.getString("dob");
+                            String country = user.getString("country");
+                            String contactNum = user.getString("contactNum");
+                            String email = user.getString("email");
+                            String favoriteTeam = user.getString("favoriteTeam");
+
+                            User userDetails = new User(usernameRetrieved, name, password, dob, country, contactNum, email, favoriteTeam);
+                            UserDAO.setLoginUser(userDetails);
+                        } else {
+                            //loadSamePage();
                         }
-                        return params;
+
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                        load.dismiss();
+
                     }
-                };
 
-                // Creating RequestQueue.
-                RequestQueue requestQueue = Volley.newRequestQueue(getApplicationContext( ));
-
-                // Adding the StringRequest object into requestQueue.
-                requestQueue.add(stringRequest);
-
-
+                    signupBtn.setEnabled(false);
+                    onSignupSuccess();
+                }
             }
         });
     }
 
+    private String concatParams(String username, String name, String password, String birthdate, String country, String contactNo, String email, String team) {
+        String params = "username=" + username;
+        params += "&name=" + name;
+        params += "&password=" + password;
+        params += "&birthdate=" + birthdate;
+        params += "&country=" + country;
+        params += "&contactNo=" + contactNo;
+        params += "&email=" + email;
+        params += "&team=" + team;
 
-    public void signup() {
-        Log.d(TAG, "Signup");
-
-        if (!validate( )) {
-            onSignupFailed( );
-            return;
-        } else {
-
-        signupBtn.setEnabled(false);
-
-            /*final ProgressDialog progressDialog = new ProgressDialog(Signup.this,
-                    R.style.AppTheme);
-            progressDialog.setIndeterminate(true);
-            progressDialog.setMessage("Creating Account...");
-            progressDialog.show();*/
-
-
-            // TODO: Implement your own signup logic here.
-
-            /*new android.os.Handler().postDelayed(
-                    new Runnable() {
-                        public void run() {
-                            // On complete call either onSignupSuccess or onSignupFailed
-                            // depending on success
-                            onSignupSuccess();
-                            // onSignupFailed();
-                            progressDialog.dismiss();
-                        }
-                    }, 3000);*/
-            onSignupSuccess();
-        }
+        return params;
     }
 
 
     public void onSignupSuccess() {
         signupBtn.setEnabled(true);
         setResult(RESULT_OK, null);
-        finish( );
+        //finish();
         successfulAlertDialog();
     }
 
-    public void successfulAlertDialog(){
+    public Dialog loadingDialog() {
+        System.out.println("laoding pop");
+        dialog = new Dialog(Signup.this);
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        dialog.setContentView(R.layout.signup_loading_popup);
+
+        dialog.show();
+        return dialog;
+    }
+
+    public void successfulAlertDialog() {
         dialog = new Dialog(Signup.this);
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
         dialog.setContentView(R.layout.successful_pop_up);
@@ -253,6 +275,8 @@ public class Signup extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 dialog.cancel();
+                Intent intent = new Intent(Signup.this, Home.class);
+                startActivity(intent);
             }
         });
         dialog.show();
@@ -268,41 +292,41 @@ public class Signup extends AppCompatActivity {
     }
 
     public void onSignupFailed() {
-        Toast.makeText(getBaseContext( ), "Signup failed", Toast.LENGTH_LONG).show( );
+        Toast.makeText(getBaseContext(), "Signup failed", Toast.LENGTH_LONG).show();
 
         signupBtn.setEnabled(true);
     }
 
 
-   //methods used for above UI
+    //methods used for above UI
 
     public boolean validate() {
         boolean valid = true;
 
-        String validateuserName = username.getText( ).toString( );
-        String validateName = name.getText( ).toString( );
-        String validateEmail = email.getText( ).toString( );
-        String validatePassword = password.getText( ).toString( );
-        String validateBirthdate = birthdate.getText( ).toString( );
-        String validatePhoneNo = contactNo.getText( ).toString( );
+        String validateuserName = username.getText().toString();
+        String validateName = name.getText().toString();
+        String validateEmail = email.getText().toString();
+        String validatePassword = password.getText().toString();
+        String validateBirthdate = birthdate.getText().toString();
+        String validatePhoneNo = contactNo.getText().toString();
         String validateTeam = clickedTeamName;
         String validateCountries = clickedCountryName;
 
-        if (validateuserName.isEmpty( ) || name.length( ) < 3) {
+        if (validateuserName.isEmpty() || name.length() < 3) {
             username.setError("at least 3 characters");
             valid = false;
         } else {
             username.setError("Good", tickDone);
         }
 
-        if (validateName.isEmpty( ) || validateName.length( ) < 3) {
+        if (validateName.isEmpty() || validateName.length() < 3) {
             name.setError("at least 3 characters for your name");
 
         } else {
             name.setError("Good", tickDone);
         }
 
-        if (validateEmail.isEmpty( ) || !android.util.Patterns.EMAIL_ADDRESS.matcher(validateEmail).matches( )) {
+        if (validateEmail.isEmpty() || !android.util.Patterns.EMAIL_ADDRESS.matcher(validateEmail).matches()) {
             email.setError("enter a valid email address");
             valid = false;
         } else {
@@ -329,38 +353,38 @@ public class Signup extends AppCompatActivity {
             setSpinnerError(spinnerTeams, "Please select a favourite team");
             valid = false;
         }
-        if (validateBirthdate.isEmpty( ) || !isDateValid(validateBirthdate)) {
+        if (validateBirthdate.isEmpty() || !isDateValid(validateBirthdate)) {
             birthdate.setError("Please enter the date as dd-mm-yyyy format");
             valid = false;
         }
-        if (!validateBirthdate.isEmpty( ) && isDateValid(validateBirthdate)) {
-            int age = calculateAge(validateBirthdate);
-            if (age < 16) {
-                birthdate.setError("Your age must be at least 16");
-                valid = false;
-            } else {
-                birthdate.setError("Good", tickDone);
+        if (!validateBirthdate.isEmpty() && validateBirthdate.length() == 10) {
+            if (isDateValid(validateBirthdate)) {
+                int age = calculateAge(validateBirthdate);
+                if (age < 16) {
+                    birthdate.setError("Your age must be at least 16");
+                    valid = false;
+                } else {
+                    birthdate.setError("Good", tickDone);
+                }
             }
-
         }
-        if(!checkPhoneNumber(validatePhoneNo)||validatePhoneNo.isEmpty()){
+        if (!checkPhoneNumber(validatePhoneNo) || validatePhoneNo.isEmpty()) {
             contactNo.setError("Please enter a valid phone number with your country code");
             valid = false;
-        }
-        else{
-            contactNo.setError("Good",tickDone);
+        } else {
+            contactNo.setError("Good", tickDone);
         }
 
         return valid;
     }
 
     private void initList() {
-        mCountryList = new ArrayList<>( );
+        mCountryList = new ArrayList<>();
         mCountryList.add(new CountryItem("Singapore", R.drawable.singapore));
         mCountryList.add(new CountryItem("Malaysia", R.drawable.malaysia));
 
 
-        mTeamList = new ArrayList<>( );
+        mTeamList = new ArrayList<>();
         mTeamList.add(new TeamItems("Arsenal", R.drawable.arsenal));
         mTeamList.add(new TeamItems("AFC Bournemouth ", R.drawable.afc_bournemouth));
         mTeamList.add(new TeamItems("Brighton and Hove Albion", R.drawable.brighton));
@@ -386,14 +410,14 @@ public class Signup extends AppCompatActivity {
     }
 
     private void setSpinnerError(Spinner spinner, String error) {
-        View selectedView = spinner.getSelectedView( );
+        View selectedView = spinner.getSelectedView();
         if (selectedView != null && selectedView instanceof TextView) {
-            spinner.requestFocus( );
+            spinner.requestFocus();
             TextView selectedTextView = (TextView) selectedView;
             selectedTextView.setError("error"); // any name of the error will do
             selectedTextView.setTextColor(Color.RED); //text color in which you want your error message to be displayed
             selectedTextView.setText(error); // actual error message
-            spinner.performClick( ); // to open the spinner list if error is found.
+            spinner.performClick(); // to open the spinner list if error is found.
 
         }
     }
@@ -407,7 +431,7 @@ public class Signup extends AppCompatActivity {
             df.setLenient(false);
             df.parse(date);
             return true;
-        } catch (ParseException e) {
+        } catch (Exception e) {
             return false;
         }
     }
@@ -417,11 +441,17 @@ public class Signup extends AppCompatActivity {
     }
 
     public static int calculateAge(String birthDay) {
-        if ((birthDay != null)) {
+        if (birthDay != null) {
             DateTimeFormatter formatter_1 = DateTimeFormatter.ofPattern(DATE_FORMAT);
-            LocalDate birthDate = LocalDate.parse(birthDay, formatter_1);
-            LocalDate today = LocalDate.now( );
-            return Period.between(birthDate, today).getYears( );
+            LocalDate birthDate = null;
+            try {
+                birthDate = LocalDate.parse(birthDay, formatter_1);
+            } catch (Exception e) {
+                return 0;
+            }
+            LocalDate today = LocalDate.now();
+            int intervalYears = (int) ChronoUnit.YEARS.between(birthDate, today);
+            return intervalYears;
         } else {
             return 0;
         }
@@ -432,8 +462,8 @@ public class Signup extends AppCompatActivity {
         return phoneNumber.matches(regex);
     }
 
-    public void validationOnTextView(){
-        name.addTextChangedListener(new TextWatcher( ) {
+    public void validationOnTextView() {
+        name.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
 
@@ -442,20 +472,20 @@ public class Signup extends AppCompatActivity {
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 if (timer != null) {
-                    timer.cancel( );
+                    timer.cancel();
                 }
             }
 
             @Override
             public void afterTextChanged(final Editable s) {
-                timer = new Timer( );
-                timer.schedule(new TimerTask( ) {
+                timer = new Timer();
+                timer.schedule(new TimerTask() {
                     @Override
                     public void run() {
-                        Signup.this.runOnUiThread(new Runnable( ) {
+                        Signup.this.runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
-                                if (s.toString( ).isEmpty( ) || s.toString( ).length( ) < 3) {
+                                if (s.toString().isEmpty() || s.toString().length() < 3) {
                                     name.setError("at least 3 characters for your name");
 
                                 } else {
@@ -468,7 +498,7 @@ public class Signup extends AppCompatActivity {
 
             }
         });
-        username.addTextChangedListener(new TextWatcher( ) {
+        username.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
 
@@ -477,7 +507,7 @@ public class Signup extends AppCompatActivity {
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 if (timer != null) {
-                    timer.cancel( );
+                    timer.cancel();
                 }
 
             }
@@ -485,14 +515,14 @@ public class Signup extends AppCompatActivity {
             @Override
             public void afterTextChanged(final Editable s) {
 
-                timer = new Timer( );
-                timer.schedule(new TimerTask( ) {
+                timer = new Timer();
+                timer.schedule(new TimerTask() {
                     @Override
                     public void run() {
-                        Signup.this.runOnUiThread(new Runnable( ) {
+                        Signup.this.runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
-                                if (s.toString( ).isEmpty( ) || s.toString( ).length( ) < 5) {
+                                if (s.toString().isEmpty() || s.toString().length() < 5) {
                                     username.setError("at least 5 characters");
 
                                 } else {
@@ -506,7 +536,7 @@ public class Signup extends AppCompatActivity {
 
             }
         });
-        password.addTextChangedListener(new TextWatcher( ) {
+        password.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
 
@@ -519,7 +549,7 @@ public class Signup extends AppCompatActivity {
 
             @Override
             public void afterTextChanged(final Editable s) {
-                if (isStrong(s.toString( ))) {
+                if (isStrong(s.toString())) {
 
                     password.setError("Good", tickDone);
 
@@ -535,7 +565,7 @@ public class Signup extends AppCompatActivity {
 
             }
         });
-        email.addTextChangedListener(new TextWatcher( ) {
+        email.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
 
@@ -544,21 +574,21 @@ public class Signup extends AppCompatActivity {
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 if (timer != null) {
-                    timer.cancel( );
+                    timer.cancel();
                 }
 
             }
 
             @Override
             public void afterTextChanged(final Editable s) {
-                timer = new Timer( );
-                timer.schedule(new TimerTask( ) {
+                timer = new Timer();
+                timer.schedule(new TimerTask() {
                     @Override
                     public void run() {
-                        Signup.this.runOnUiThread(new Runnable( ) {
+                        Signup.this.runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
-                                if (!android.util.Patterns.EMAIL_ADDRESS.matcher(s.toString( )).matches( )) {
+                                if (!android.util.Patterns.EMAIL_ADDRESS.matcher(s.toString()).matches()) {
                                     email.setError("enter a valid email address");
                                 } else {
                                     email.setError("Good", tickDone);
@@ -572,9 +602,9 @@ public class Signup extends AppCompatActivity {
         });
         //Calender Code (TBC)
         birthdateButton = findViewById(R.id.birthdateButton);
-        birthdateButton.setOnClickListener(new View.OnClickListener(){
+        birthdateButton.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view){
+            public void onClick(View view) {
                 Calendar cal = Calendar.getInstance();
                 int year = cal.get(Calendar.YEAR);
                 int month = cal.get(Calendar.MONTH);
@@ -583,27 +613,27 @@ public class Signup extends AppCompatActivity {
                 DatePickerDialog dialog = new DatePickerDialog(
                         Signup.this,
                         android.R.style.Theme_Material_Dialog_MinWidth,
-                        dateSetListener,year,month,day);
+                        dateSetListener, year, month, day);
                 //dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.blue(0b1449)));
                 dialog.show();
             }
         });
-        dateSetListener = new DatePickerDialog.OnDateSetListener(){
+        dateSetListener = new DatePickerDialog.OnDateSetListener() {
             @Override
             public void onDateSet(DatePicker datePicker, int year, int month, int day) {
                 month = month + 1;
                 String mth = month + "";
-                if (month < 10 ){
-                    mth = "0"+mth;
+                if (month < 10) {
+                    mth = "0" + mth;
                 }
-                Log.d(TAG, DATE_FORMAT+year+"-"+month+"-"+day);
-                String date = day+"-"+mth+"-"+year;
-                Log.d(TAG, DATE_FORMAT+date);
+                Log.d(TAG, DATE_FORMAT + year + "-" + month + "-" + day);
+                String date = day + "-" + mth + "-" + year;
+                Log.d(TAG, DATE_FORMAT + date);
                 birthdate.setText(date);
             }
         };
 
-        birthdate.addTextChangedListener(new TextWatcher( ) {
+        birthdate.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
 
@@ -612,24 +642,24 @@ public class Signup extends AppCompatActivity {
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 if (timer != null) {
-                    timer.cancel( );
+                    timer.cancel();
                 }
             }
 
             @Override
             public void afterTextChanged(final Editable s) {
-                timer = new Timer( );
-                timer.schedule(new TimerTask( ) {
+                timer = new Timer();
+                timer.schedule(new TimerTask() {
                     @Override
                     public void run() {
-                        Signup.this.runOnUiThread(new Runnable( ) {
+                        Signup.this.runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
-                                if (!isDateValid(s.toString( ))) {
+                                if (!isDateValid(s.toString())) {
                                     birthdate.setError("Please enter the date as dd-MM-yyyy format");
                                 }
-                                if (isDateValid(s.toString( ))) {
-                                    int age = calculateAge(s.toString( ));
+                                if (isDateValid(s.toString())) {
+                                    int age = calculateAge(s.toString());
                                     if (age < 16) {
                                         birthdate.setError("You are under the age of 16");
                                     } else {
@@ -645,7 +675,7 @@ public class Signup extends AppCompatActivity {
         });
 
 
-        contactNo.addTextChangedListener(new TextWatcher( ) {
+        contactNo.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
 
@@ -654,17 +684,17 @@ public class Signup extends AppCompatActivity {
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 if (timer != null) {
-                    timer.cancel( );
+                    timer.cancel();
                 }
             }
 
             @Override
             public void afterTextChanged(final Editable s) {
-                timer = new Timer( );
-                timer.schedule(new TimerTask( ) {
+                timer = new Timer();
+                timer.schedule(new TimerTask() {
                     @Override
                     public void run() {
-                        Signup.this.runOnUiThread(new Runnable( ) {
+                        Signup.this.runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
                                 if (!checkPhoneNumber(s.toString())) {

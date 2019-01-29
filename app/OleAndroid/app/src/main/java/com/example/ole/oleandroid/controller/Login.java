@@ -40,7 +40,8 @@ public class Login extends AppCompatActivity {
 
         facebookButton = findViewById(R.id.facebookButton);
 
-
+        StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
+        StrictMode.setThreadPolicy(policy);
         //result = (TextView) findViewById(R.id.result);
 
         //setContentView(R.layout.activity_loading_page);
@@ -60,8 +61,7 @@ public class Login extends AppCompatActivity {
         signin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
-                StrictMode.setThreadPolicy(policy);
+
 
 // comments starts here if want to bypass login webservice
                 if (username.getText().toString().equals("") || password.getText().toString().equals("")) {

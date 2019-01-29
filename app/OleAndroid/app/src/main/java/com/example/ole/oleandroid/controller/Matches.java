@@ -56,7 +56,7 @@ public class Matches extends AppCompatActivity {
 
         RequestQueue queue = Volley.newRequestQueue(getApplicationContext());
 
-        final String url = new DBConnection().getMatchesUrl();
+        final String url = DBConnection.getMatchesUrl();
 
         JsonObjectRequest getRequest = new JsonObjectRequest(Request.Method.GET, url, null,
                 new Response.Listener<JSONObject>() {
