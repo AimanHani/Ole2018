@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package BackGroudTask;
+package backGroudTask;
 
 import controller.APIDAO;
 import java.util.Iterator;

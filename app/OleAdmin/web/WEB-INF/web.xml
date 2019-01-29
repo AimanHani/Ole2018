@@ -5,7 +5,7 @@
     </welcome-file-list>
     <listener>
         <description>ServletContextListener</description>
-        <listener-class>BackGroudTask.BackGroundJob</listener-class>
+        <listener-class>backGroudTask.BackGroundJob</listener-class>
     </listener>
     <session-config>
         <session-timeout>
