@@ -62,5 +62,15 @@ public class DBConnection {
         String url = mainUrl+"/json/manageSpecials";
         return url;
     }
+
+    public static String futureMatchesUrl(){
+        String url = mainUrl+"/json/getMatches?matchStatus=future";
+        return url;
+    }
+
+    public static String pastMatchesUrl(){
+        String url = mainUrl+"/json/getMatches?matchStatus=past";
+        return url;
+    }
 }
 

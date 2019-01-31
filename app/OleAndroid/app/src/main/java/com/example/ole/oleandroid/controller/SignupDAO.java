@@ -9,6 +9,10 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.ole.oleandroid.dbConnection.DBConnection;
+import com.example.ole.oleandroid.dbConnection.PostHttp;
+import com.example.ole.oleandroid.model.User;
+
+import org.json.JSONObject;
 
 import java.util.Date;
 import java.util.HashMap;
@@ -19,90 +23,49 @@ import java.security.NoSuchAlgorithmException;
 
 public class SignupDAO {
     private static Context context;
-    public static String validate (final String username, final String name, final String password, final Date birthday, final String contactNo,final String email,final String country, final String team){
-        String url = DBConnection.getLoginUrl();
-        final String[] results = new String[1];
 
-        // Creating string request with post method.
-        StringRequest stringRequest = new StringRequest(Request.Method.POST, url,
-                new Response.Listener<String>() {
-                    @Override
-                    public void onResponse(String ServerResponse) {
-                        System.out.println(ServerResponse);
-                        results[0] = ServerResponse;
-                    }
-                },
-                new Response.ErrorListener() {
-                    @Override
-                    public void onErrorResponse(VolleyError volleyError) {
-                        System.out.println("error  :");
-                        volleyError.printStackTrace();
+    public static Boolean validate(String send, String username, String pwd) {
+        PostHttp connection = new PostHttp();
+        String response = null;
+        String url = DBConnection.getSignupUrl();
+        String status = "error";
+        Boolean valid = false;
 
-                        results[0] = "error";
-                    }
-                }) {
-            @Override
-            protected Map<String, String> getParams() {
-                Map<String, String> params = new HashMap<String, String>( );
-                try {
+        try {
+            response = connection.postForm(url, send);
+            System.out.println(response);
 
+            JSONObject result = new JSONObject(response);
+            status = result.getString("status");
 
-                    // Creating Map String Params.
-
-
-                    // Adding All values to Params.
-                    // The firs argument should be same sa your MySQL database table columns.
-                    params.put("username", username);
-                    params.put("name", name);
-                    params.put("password", SHA1(password));
-                    params.put("dob", birthday.toString( ));
-                    params.put("country", country);
-                    params.put("contactNo", contactNo);
-                    params.put("email", email);
-                    params.put("favoriteTeam", team);
-
-
-                }
-                catch(Exception e){
-
-                }
-                return params;
+            if (status.equals("success")) {
+                JSONObject user = result.getJSONObject("user");
+                String usernameRetrieved = user.getString("username");
+                System.out.println(usernameRetrieved);
+                String name = user.getString("name");
+                String password = user.getString("password");
+                String dob = user.getString("dob");
+                String country = user.getString("country");
+                String contactNum = user.getString("contactNum");
+                String email = user.getString("email");
+                String favoriteTeam = user.getString("favoriteTeam");
+                valid = true;
+                User userDetails = new User(usernameRetrieved, name, password, dob, country, contactNum, email, favoriteTeam);
+                UserDAO.setLoginUser(userDetails);
+            } else {
+                //loadSamePage();
             }
 
-        };
+        } catch (Exception e) {
+            e.printStackTrace();
 
-        // Creating RequestQueue.
-        RequestQueue requestQueue = Volley.newRequestQueue(context.getApplicationContext());
+            if (LoginDAO.validate("username=" + username + "&password=" + pwd)){
+                return true;
+            }
 
-// Adding the StringRequest object into requestQueue.
-        requestQueue.add(stringRequest);
-        return results[0];
-
-    }
-    private static String convertToHex(byte[] data) {
-        StringBuffer buf = new StringBuffer();
-        for (int i = 0; i < data.length; i++) {
-            int halfbyte = (data[i] >>> 4) & 0x0F;
-            int two_halfs = 0;
-            do {
-                if ((0 <= halfbyte) && (halfbyte <= 9))
-                    buf.append((char) ('0' + halfbyte));
-                else
-                    buf.append((char) ('a' + (halfbyte - 10)));
-                halfbyte = data[i] & 0x0F;
-            } while(two_halfs++ < 1);
         }
-        return buf.toString();
-    }
 
-    public static String SHA1(String text)
-            throws NoSuchAlgorithmException, UnsupportedEncodingException {
-        MessageDigest md;
-        md = MessageDigest.getInstance("SHA-1");
-        byte[] sha1hash = new byte[40];
-        md.update(text.getBytes("iso-8859-1"), 0, text.length( ));
-        sha1hash = md.digest( );
-        return convertToHex(sha1hash);
+        return valid;
     }
 
 }

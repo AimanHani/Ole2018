@@ -101,6 +101,8 @@ public class GetMatches extends HttpServlet {
 
                 }
                 parentJson.put("results", list);
+                parentJson.put("status", "success");
+                parentJson.put("period", "future");
                 out.print(parentJson);
                 out.flush();
 
@@ -131,6 +133,8 @@ public class GetMatches extends HttpServlet {
 
                 }
                 parentJson.put("results", list);
+                parentJson.put("status", "success");
+                parentJson.put("period", "past");
                 out.print(parentJson);
                 out.flush();
 
