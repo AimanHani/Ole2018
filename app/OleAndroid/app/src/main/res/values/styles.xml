@@ -1,7 +1,7 @@
 <resources>
 
     <!-- Base application theme. -->
-    <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
+    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
         <!-- Customize your theme here. -->
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
@@ -15,24 +15,25 @@
         <item name="android:actionMenuTextColor">@color/white</item>
     </style>
 
-    <style name="AppTheme.NoActionBar">
-        <item name="windowActionBar">false</item>
-        <item name="windowNoTitle">true</item>
-    </style>
+    <!--<style name="AppTheme.NoActionBar">-->
+        <!--<item name="windowNoTitle">true</item>-->
+        <!--<item name="windowActionBar">false</item>-->
+    <!--</style>-->
 
     <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
 
     <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 
-    <style name="ThemeBar" parent="Theme.AppCompat.Light.NoActionBar">
+    <!--<style name="ThemeBar" parent="Theme.AppCompat.Light.NoActionBar">
 
-        <!-- turn status bar to white -->
+        &lt;!&ndash; turn status bar to white &ndash;&gt;
         <item name="android:statusBarColor">#0b1449</item>
-        <!-- Customize your theme here. -->
+        &lt;!&ndash; Customize your theme here. &ndash;&gt;
 
-        <!-- background turns white -->
+
+        &lt;!&ndash; background turns white &ndash;&gt;
         <item name="android:windowBackground">@android:color/white</item>
 
-    </style>
+    </style>-->
 
 </resources>
