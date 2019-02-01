@@ -28,25 +28,14 @@ public class Profile extends AppCompatActivity {
 //    TextView details;
 
     Button home;
-    TextView header;
-    TextView predictionHeader;
-    TextView pointsHeader;
     TextView pointsGotten;
-    TextView msgeNoPredic;
-    TextView profileName;
     TextView userName;
-    TextView profileCountry;
     TextView userCountry;
-    TextView profileFavTeam;
     TextView userFavTeam;
-    TextView totWonHeader;
-    TextView totWon;
-    TextView totLostHeader;
-    TextView totLost;
-    TextView totPlayHeader;
-    TextView totPlayed;
-    TextView accuracyHeader;
-    TextView accuracy;
+    TextView wonQty;
+    TextView lostQty;
+    TextView playQty;
+    TextView accQty;
 
     /*String matchId;
     String logId;
@@ -65,24 +54,14 @@ public class Profile extends AppCompatActivity {
 
 //        details = findViewById(R.id.details);
         home = findViewById(R.id.home);
-        header = findViewById(R.id.header);
-        pointsHeader = findViewById(R.id.pointsHeader);
         pointsGotten = findViewById(R.id.pointsGotten);
-        predictionHeader = findViewById(R.id.predictionHeader);
-        //msgeNoPredic = findViewById(R.id.msgeNoPredic);
-        profileName = findViewById(R.id.profileName);
         userName = findViewById(R.id.userName);
-        profileCountry = findViewById(R.id.profileCountry);
         userCountry = findViewById(R.id.userCountry);
-        profileFavTeam = findViewById(R.id.profileFavTeam);
         userFavTeam = findViewById(R.id.userFavTeam);
-        totWonHeader = findViewById(R.id.totWonHeader);
-        totWon = findViewById(R.id.totWon);
-        totLostHeader = findViewById(R.id.totLostHeader);
-        totLost = findViewById(R.id.totLost);
-        totPlayHeader = findViewById(R.id.totPlayHeader);
-        accuracyHeader = findViewById(R.id.accuracyHeader);
-        accuracy = findViewById(R.id.accuracy);
+        wonQty = findViewById(R.id.wonQty);
+        lostQty = findViewById(R.id.lostQty);
+        playQty = findViewById(R.id.playQty);
+        accQty = findViewById(R.id.accQty);
 
 
         userName.setText(loginUser.getUserName());

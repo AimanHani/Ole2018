@@ -220,7 +220,6 @@
                 android:layout_height="wrap_content"
                 android:layout_column="1"
                 android:layout_weight="4"
-                android:background="@drawable/border"
                 android:paddingTop="4dp"
                 android:paddingBottom="4dp"
                 android:text="Total Won"
@@ -230,7 +229,7 @@
                 android:textStyle="bold" />
 
             <TextView
-                android:id="@+id/TotLost"
+                android:id="@+id/totLost"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_column="2"

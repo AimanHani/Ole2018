@@ -56,7 +56,7 @@ public class FAQ extends AppCompatActivity {
             }
         });
 
-        priLeague.setOnClickListener(new View.OnClickListener() {
+        privLeague.setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {
 
                 Intent intent = new Intent(FAQ.this, FAQPrivate.class);
