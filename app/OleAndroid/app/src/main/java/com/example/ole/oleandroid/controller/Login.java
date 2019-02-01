@@ -43,7 +43,6 @@ public class Login extends AppCompatActivity {
         StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
         StrictMode.setThreadPolicy(policy);
         //result = (TextView) findViewById(R.id.result);
-
         //setContentView(R.layout.activity_loading_page);
 
         /**
@@ -52,18 +51,16 @@ public class Login extends AppCompatActivity {
         facebookButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(Login.this, SideMenuBar.class);
+                Intent intent = new Intent(Login.this, PrivateLeagueMain.class);
                 startActivity(intent);
             }
         });
-
 
         signin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
-
-// comments starts here if want to bypass login webservice
+        // comments starts here if want to bypass login webservice
                 if (username.getText().toString().equals("") || password.getText().toString().equals("")) {
                     //loadSamePage();
                 } else {
@@ -75,7 +72,7 @@ public class Login extends AppCompatActivity {
                     Boolean valid = LoginDAO.validate(send);
 
                     if (valid){
-                        Intent intent = new Intent(Login.this, Home.class);
+                        Intent intent = new Intent(Login.this, SideMenuBar.class);
                         Bundle bundle = new Bundle();
                         bundle.putString("username", username.getText().toString());
                         intent.putExtras(bundle);
@@ -83,9 +80,6 @@ public class Login extends AppCompatActivity {
                     } else {
 
                     }
-
-
-
 
 //comments stop here
 

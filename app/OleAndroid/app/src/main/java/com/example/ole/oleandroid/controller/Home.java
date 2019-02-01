@@ -41,7 +41,6 @@ public class Home extends AppCompatActivity {
 
         publicLeagues.setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {
-
                 //link to epl page, currently with only English Premier League
                 Intent intent = new Intent(Home.this, PublicLeagueList.class);
                 Bundle b = getIntent().getExtras();
@@ -52,7 +51,6 @@ public class Home extends AppCompatActivity {
 
         privateLeagues.setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {
-
                 Intent intent = new Intent(Home.this, PrivateLeagueHome.class);
                 Bundle b = getIntent().getExtras();
                 intent.putExtras(b);

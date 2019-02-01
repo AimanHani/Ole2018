@@ -69,18 +69,14 @@ public class PublicLeagueList extends AppCompatActivity {
                             publicLeagueObject.getInt("logId")
                     );
                     PublicLeagueDAO.addPublicleague(publicLeague);
-                    //leaguelist.add(publicLeague);
                 }
 
                 //i put 5,2 to test whether thing works, in the future pass in from database
                 //leaguelist.add("English Premier League");
                 PublicLeagueDAO.addPublicleague(new PublicLeague(1009,2,"Arsenal Jersey", 3, "Public League","Premier League", 5));
-//                leaguelist.add("League 3");
-//                leaguelist.add("League 4");
 
                 publicLeagueListAdapter = new PublicLeagueListAdapter(PublicLeagueList.this, PublicLeagueDAO.getAllPublicLeague());
                 publicLeagueListView.setAdapter(publicLeagueListAdapter);
-//        publicLeagueListView.setAdapter(publicLeagueListAdapter);
 
             } else {
                 //loadSamePage();
@@ -89,11 +85,5 @@ public class PublicLeagueList extends AppCompatActivity {
             System.out.println("error");
             e.printStackTrace();
         }
-
     }
-
-    //league logo
-    //league name
-    //join btn
-
 }

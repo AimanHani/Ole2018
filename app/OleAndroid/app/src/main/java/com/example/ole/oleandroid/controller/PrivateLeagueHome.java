@@ -59,12 +59,10 @@ public class PrivateLeagueHome extends AppCompatActivity {
             }
         });
 
-
         leaguename = (EditText) findViewById(R.id.leaguename);
         searchLeagueName = findViewById(R.id.searchLeagueName);
         searchLeagueName.setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {
-
 
                 if (leaguename.getText().toString().equals("")) {
                     //loadSamePage();

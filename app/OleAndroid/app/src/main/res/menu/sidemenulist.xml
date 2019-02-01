@@ -1,23 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <item android:id="@+id/profile"
+    <item android:id="@+id/menu_list_profile"
         android:title="Profile"
         android:icon="@drawable/icon_profile"/>
 
-    <item android:id="@+id/leagues"
+    <item android:id="@+id/menu_list_leagues"
         android:title="Leagues"
         android:icon="@drawable/icon_leagues"/>
 
-    <item android:id="@+id/leaderboard"
+    <item android:id="@+id/menu_list_leaderboard"
         android:title="Leaderboard"
         android:icon="@drawable/icon_leaderboard"/>
 
-    <item android:id="@+id/faq"
+    <item android:id="@+id/menu_list_faq"
         android:title="FAQ"
         android:icon="@drawable/icon_faq"/>
 
-    <item android:id="@+id/logout"
+    <item android:id="@+id/menu_list_logout"
         android:title="Logout"
         android:icon="@drawable/icon_logout"/>
 
