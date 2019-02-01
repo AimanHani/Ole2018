@@ -17,7 +17,7 @@
         android:background="@color/themeColor"
         android:fontFamily="sans-serif"
         android:gravity="center"
-        android:text="P R O F I L E"
+        android:text="PROFILE"
         android:textAlignment="center"
         android:textAllCaps="true"
         android:textColor="@color/white"
@@ -27,27 +27,6 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
-
-    <android.support.constraint.Guideline
-        android:id="@+id/center"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        app:layout_constraintGuide_begin="192dp" />
-
-    <android.support.constraint.Guideline
-        android:id="@+id/firstHalf"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        app:layout_constraintGuide_begin="96dp" />
-
-    <android.support.constraint.Guideline
-        android:id="@+id/secondHalf"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        app:layout_constraintGuide_begin="288dp" />
 
     <TextView
         android:id="@+id/pointsHeader"
@@ -84,9 +63,9 @@
         android:id="@+id/crown"
         android:layout_width="48dp"
         android:layout_height="44dp"
-        android:layout_marginStart="24dp"
+        android:layout_marginStart="28dp"
         android:layout_marginTop="15dp"
-        app:layout_constraintStart_toEndOf="@+id/center"
+        app:layout_constraintStart_toEndOf="@+id/pointsHeader"
         app:layout_constraintTop_toBottomOf="@+id/header"
         app:srcCompat="@drawable/crown" />
 
@@ -94,7 +73,7 @@
         android:id="@+id/profileName"
         android:layout_width="192dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="75dp"
+        android:layout_marginTop="90dp"
         android:background="#FFE6ECFE"
         android:fontFamily="sans-serif"
         android:paddingLeft="8dp"
@@ -109,7 +88,7 @@
         android:id="@+id/userName"
         android:layout_width="192dp"
         android:layout_height="0dp"
-        android:layout_marginTop="75dp"
+        android:layout_marginTop="90dp"
         android:background="#FFE6ECFE"
         android:fontFamily="sans-serif"
         android:paddingLeft="8dp"
@@ -119,34 +98,6 @@
         android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/header" />
-
-    <TextView
-        android:id="@+id/profileDOB"
-        android:layout_width="192dp"
-        android:layout_height="wrap_content"
-        android:background="#FFE6ECFE"
-        android:fontFamily="sans-serif"
-        android:paddingLeft="8dp"
-        android:text="Date of Birth"
-        android:textColor="@color/black"
-        android:textSize="20sp"
-        android:textStyle="bold"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/profileName" />
-
-    <TextView
-        android:id="@+id/userDOB"
-        android:layout_width="192dp"
-        android:layout_height="0dp"
-        android:background="#FFE6ECFE"
-        android:fontFamily="sans-serif"
-        android:paddingLeft="8dp"
-        android:paddingRight="8dp"
-        android:text="01-12-94"
-        android:textColor="@color/black"
-        android:textSize="20sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/userName" />
 
     <TextView
         android:id="@+id/profileCountry"
@@ -160,7 +111,7 @@
         android:textSize="20sp"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/profileDOB" />
+        app:layout_constraintTop_toBottomOf="@+id/profileName" />
 
     <ImageView
         android:id="@+id/countryImage"
@@ -169,7 +120,7 @@
         android:layout_marginEnd="150dp"
         android:background="#FFE6ECFE"
         app:layout_constraintEnd_toEndOf="@+id/userCountry"
-        app:layout_constraintTop_toBottomOf="@+id/userDOB"
+        app:layout_constraintTop_toBottomOf="@+id/userName"
         app:srcCompat="@drawable/singapore" />
 
     <TextView
@@ -184,7 +135,7 @@
         android:textColor="@color/black"
         android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/userDOB" />
+        app:layout_constraintTop_toBottomOf="@+id/userName" />
 
     <TextView
         android:id="@+id/profileFavTeam"
@@ -213,7 +164,7 @@
     <TextView
         android:id="@+id/userFavTeam"
         android:layout_width="150dp"
-        android:layout_height="0dp"
+        android:layout_height="wrap_content"
         android:background="#FFE6ECFE"
         android:fontFamily="sans-serif"
         android:paddingLeft="8dp"
@@ -241,7 +192,7 @@
         android:background="@color/themeColor"
         android:fontFamily="sans-serif"
         android:gravity="center"
-        android:text="P R E D I C T I O N S"
+        android:text="PREDICTIONS"
         android:textColor="@color/white"
         android:textSize="25sp"
         android:textStyle="bold|italic"
@@ -250,123 +201,148 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/header" />
 
-    <TextView
-        android:id="@+id/totWonHeader"
-        android:layout_width="192dp"
-        android:layout_height="73dp"
+    <TableLayout
+        android:id="@+id/predictTable"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:layout_marginTop="25dp"
-        android:layout_marginEnd="192dp"
-        android:background="@drawable/textview_border"
-        android:fontFamily="sans-serif"
-        android:text="Total Won "
-        android:textAlignment="center"
-        android:textColor="@color/black"
-        android:textSize="20sp"
-        android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/predictionHeader" />
+        android:gravity="center"
+        app:layout_constraintTop_toBottomOf="@+id/predictionHeader">
 
-    <TextView
-        android:id="@+id/totWon"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="79dp"
-        android:layout_marginTop="36dp"
-        android:text="0.00"
-        android:textColor="@color/colorPrimaryDark"
-        android:textSize="18sp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/totWonHeader" />
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:weightSum="8">
 
-    <TextView
-        android:id="@+id/totLostHeader"
-        android:layout_width="192dp"
-        android:layout_height="73dp"
-        android:layout_marginStart="192dp"
-        android:layout_marginTop="25dp"
-        android:background="@drawable/textview_border"
-        android:fontFamily="sans-serif"
-        android:text="Total Lost "
-        android:textAlignment="center"
-        android:textColor="@color/black"
-        android:textSize="20sp"
-        android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/predictionHeader" />
+            <TextView
+                android:id="@+id/totWon"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_column="1"
+                android:layout_weight="4"
+                android:background="@drawable/border"
+                android:paddingTop="4dp"
+                android:paddingBottom="4dp"
+                android:text="Total Won"
+                android:textAlignment="center"
+                android:textColor="@color/black"
+                android:textSize="20sp"
+                android:textStyle="bold" />
 
-    <TextView
-        android:id="@+id/totLost"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="36dp"
-        android:layout_marginEnd="78dp"
-        android:text="0.00"
-        android:textColor="#FF9F121E"
-        android:textSize="18sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/totLostHeader" />
+            <TextView
+                android:id="@+id/TotLost"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_column="2"
+                android:layout_weight="4"
+                android:paddingTop="4dp"
+                android:paddingBottom="4dp"
+                android:text="Total Lost"
+                android:textAlignment="center"
+                android:textColor="@color/black"
+                android:textSize="20sp"
+                android:textStyle="bold" />
 
-    <TextView
-        android:id="@+id/totPlayHeader"
-        android:layout_width="192dp"
-        android:layout_height="73dp"
-        android:layout_marginEnd="192dp"
-        android:background="@drawable/textview_border"
-        android:fontFamily="sans-serif"
-        android:text="Total Played"
-        android:textAlignment="center"
-        android:textColor="@color/black"
-        android:textSize="20sp"
-        android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/totWonHeader" />
+        </TableRow>
 
-    <TextView
-        android:id="@+id/totPlayed"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="79dp"
-        android:layout_marginTop="36dp"
-        android:text="0.00"
-        android:textColor="@color/design_default_color_primary_dark"
-        android:textSize="18sp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/totPlayHeader" />
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:weightSum="8">
 
-    <TextView
-        android:id="@+id/accuracyHeader"
-        android:layout_width="192dp"
-        android:layout_height="73dp"
-        android:layout_marginStart="192dp"
-        android:background="@drawable/textview_border"
-        android:fontFamily="sans-serif"
-        android:text="Accuracy"
-        android:textAlignment="center"
-        android:textColor="@color/black"
-        android:textSize="20sp"
-        android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/totLostHeader" />
+            <TextView
+                android:id="@+id/wonQty"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_column="1"
+                android:layout_weight="4"
+                android:paddingTop="4dp"
+                android:paddingBottom="4dp"
+                android:text="0.0"
+                android:textAlignment="center"
+                android:textColor="@color/colorPrimaryDark"
+                android:textSize="20sp" />
 
-    <TextView
-        android:id="@+id/accuracy"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="36dp"
-        android:layout_marginEnd="78dp"
-        android:text="0.00%"
-        android:textColor="@color/design_default_color_primary_dark"
-        android:textSize="18sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/totLostHeader" />
+            <TextView
+                android:id="@+id/lostQty"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_column="2"
+                android:layout_weight="4"
+                android:paddingTop="4dp"
+                android:paddingBottom="4dp"
+                android:text="0.0"
+                android:textAlignment="center"
+                android:textColor="#FFBC0000"
+                android:textSize="20sp" />
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:weightSum="8">
+
+            <TextView
+                android:id="@+id/totPlay"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_column="1"
+                android:layout_weight="4"
+                android:paddingTop="4dp"
+                android:paddingBottom="4dp"
+                android:text="Total Played"
+                android:textAlignment="center"
+                android:textColor="@color/black"
+                android:textSize="20sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/accuracy"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_column="2"
+                android:layout_weight="4"
+                android:paddingTop="4dp"
+                android:paddingBottom="4dp"
+                android:text="Accuracy"
+                android:textAlignment="center"
+                android:textColor="@color/black"
+                android:textSize="20sp"
+                android:textStyle="bold" />
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:weightSum="8">
+
+            <TextView
+                android:id="@+id/playQty"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_column="1"
+                android:layout_weight="4"
+                android:paddingTop="4dp"
+                android:paddingBottom="4dp"
+                android:text="0.0"
+                android:textAlignment="center"
+                android:textColor="@color/black"
+                android:textSize="20sp" />
+
+            <TextView
+                android:id="@+id/accQty"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_column="2"
+                android:layout_weight="4"
+                android:paddingTop="4dp"
+                android:paddingBottom="4dp"
+                android:text="0.00%"
+                android:textAlignment="center"
+                android:textColor="@color/black"
+                android:textSize="20sp" />
+        </TableRow>
+    </TableLayout>
 
     <Button
         android:id="@+id/home"

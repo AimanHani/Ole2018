@@ -35,8 +35,6 @@ public class Profile extends AppCompatActivity {
     TextView msgeNoPredic;
     TextView profileName;
     TextView userName;
-    TextView profileDOB;
-    TextView userDOB;
     TextView profileCountry;
     TextView userCountry;
     TextView profileFavTeam;
@@ -74,8 +72,6 @@ public class Profile extends AppCompatActivity {
         //msgeNoPredic = findViewById(R.id.msgeNoPredic);
         profileName = findViewById(R.id.profileName);
         userName = findViewById(R.id.userName);
-        profileDOB = findViewById(R.id.profileDOB);
-        userDOB = findViewById(R.id.userDOB);
         profileCountry = findViewById(R.id.profileCountry);
         userCountry = findViewById(R.id.userCountry);
         profileFavTeam = findViewById(R.id.profileFavTeam);
@@ -90,7 +86,6 @@ public class Profile extends AppCompatActivity {
 
 
         userName.setText(loginUser.getUserName());
-        userDOB.setText(loginUser.getDateOfBirth());
         userCountry.setText(loginUser.getCountry());
         userFavTeam.setText(loginUser.getFavoriteTeam());
 
