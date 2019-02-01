@@ -68,55 +68,23 @@ public class Login extends AppCompatActivity {
                     //loadSamePage();
                 } else {
                     System.out.println("Signing In " + username.getText().toString());
-                    final String[] status = {"error"};
-
-                    JSONObject json = new JSONObject();
-                    try {
-                        json.put("username", username.getText().toString());
-                        json.put("password", password.getText().toString());
-                    } catch (JSONException e) {
-                        e.printStackTrace();
-                    }
+                    String status = "error";
 
                     String send = concatUsernamePwd(username.getText().toString(), password.getText().toString());
 
-                    String url = DBConnection.getLoginUrl();
-                    PostHttp connection = new PostHttp();
-                    String response = null;
-                    try {
-                        response = connection.postForm(url, send);
-                        System.out.println(response);
+                    Boolean valid = LoginDAO.validate(send);
 
-                        JSONObject result = new JSONObject(response);
-                        status[0] = result.getString("status");
+                    if (valid){
+                        Intent intent = new Intent(Login.this, Home.class);
+                        Bundle bundle = new Bundle();
+                        bundle.putString("username", username.getText().toString());
+                        intent.putExtras(bundle);
+                        startActivity(intent);
+                    } else {
 
-                        if (status[0].equals("success")) {
-                            JSONObject user = result.getJSONObject("user");
-                            String usernameRetrieved = user.getString("username");
-                            System.out.println(usernameRetrieved);
-                            String name = user.getString("name");
-                            String password = user.getString("password");
-                            String dob = user.getString("dob");
-                            String country = user.getString("country");
-                            String contactNum = user.getString("contactNum");
-                            String email = user.getString("email");
-                            String favoriteTeam = user.getString("favoriteTeam");
-
-                            User userDetails = new User(usernameRetrieved, name, password, dob, country, contactNum, email, favoriteTeam);
-                            UserDAO.setLoginUser(userDetails);
-
-                            Intent intent = new Intent(Login.this, Home.class);
-                            Bundle bundle = new Bundle();
-                            bundle.putString("username", usernameRetrieved);
-                            intent.putExtras(bundle);
-                            startActivity(intent);
-                        } else {
-                            //loadSamePage();
-                        }
-
-                    } catch (Exception e) {
-                        e.printStackTrace();
                     }
+
+
 
 
 //comments stop here

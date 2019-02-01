@@ -3,6 +3,7 @@ package com.example.ole.oleandroid.pageController;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.CardView;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
@@ -17,16 +18,10 @@ import com.example.ole.oleandroid.controller.Profile;
 public class FAQ extends AppCompatActivity {
 
     LinearLayout frame;
-    TextView qOne;
-    TextView aOne;
-    TextView qTwo;
-    TextView aTwo;
-    TextView qThree;
-    TextView aThree;
-    TextView qFour;
-    TextView aFour;
-    TextView askMore;
-    Button ctaAsk;
+    CardView profile;
+    CardView pubLeague;
+    CardView privLeague;
+    CardView askOle;
 
 
     @Override
@@ -36,19 +31,42 @@ public class FAQ extends AppCompatActivity {
 
         frame = findViewById(R.id.faqFrame);
 
-        qOne = findViewById(R.id.faqQuesOne);
-        aOne = findViewById(R.id.faqAnsOne);
-        qTwo = findViewById(R.id.faqQuesTwo);
-        aTwo = findViewById(R.id.faqAnsTwo);
-        qThree = findViewById(R.id.faqQuesThree);
-        aThree = findViewById(R.id.faqAnsThree);
-        qFour = findViewById(R.id.faqQuesFour);
-        aFour = findViewById(R.id.faqAnsFour);
-        askMore = findViewById(R.id.faqAskMore);
+        profile = findViewById(R.id.profileCard);
+        pubLeague = findViewById(R.id.publicCard);
+        privLeague = findViewById(R.id.privateCard);
+        askOle = findViewById(R.id.askCard);
 
-        ctaAsk = findViewById(R.id.askOleButton);
+        profile.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View view) {
 
-        ctaAsk.setOnClickListener(new View.OnClickListener() {
+                Intent intent = new Intent(FAQ.this, FAQProfile.class);
+                Bundle b = getIntent().getExtras();
+                intent.putExtras(b);
+                startActivity(intent);
+            }
+        });
+
+        pubLeague.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View view) {
+
+                Intent intent = new Intent(FAQ.this, FAQPublic.class);
+                Bundle b = getIntent().getExtras();
+                intent.putExtras(b);
+                startActivity(intent);
+            }
+        });
+
+        priLeague.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View view) {
+
+                Intent intent = new Intent(FAQ.this, FAQPrivate.class);
+                Bundle b = getIntent().getExtras();
+                intent.putExtras(b);
+                startActivity(intent);
+            }
+        });
+
+        askOle.setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {
 
                 Intent intent = new Intent(FAQ.this, AskOle.class);

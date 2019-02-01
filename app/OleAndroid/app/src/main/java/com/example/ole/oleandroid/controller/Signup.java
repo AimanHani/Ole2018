@@ -144,18 +144,49 @@ public class Signup extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 System.out.println("signup");
-                Dialog load = loadingDialog();
-                new android.os.Handler().postDelayed(
-                      new Runnable() {
-                            public void run() {
-                                //On complete call either onSignupSuccess or onSignupFailed
-                                // depending on success
-                                //onSignupSuccess();
-                                 //onSignupFailed();
-                                System.out.println("signup2");
 
-                            }
-                        }, 3000);
+                boolean valid = validate();
+                if (!valid) {
+                    onSignupFailed();
+                    return;
+                } else {
+
+                    final Dialog load = loadingDialog();
+
+                    new android.os.Handler().postDelayed(
+                            new Runnable() {
+                                public void run() {
+                                    //On complete call either onSignupSuccess or onSignupFailed
+                                    // depending on success
+                                    //onSignupSuccess();
+                                    //onSignupFailed();
+                                    System.out.println("signup2");
+
+
+                                    String usernameStr = username.getText().toString();
+                                    String nameStr = name.getText().toString();
+                                    String emailStr = email.getText().toString();
+                                    String passwordStr = password.getText().toString();
+                                    String birthdateStr = birthdate.getText().toString();
+                                    String contactNoStr = contactNo.getText().toString();
+                                    String teamStr = clickedTeamName;
+                                    String countryStr = clickedCountryName;
+
+                                    String send = concatParams(usernameStr, nameStr, passwordStr, birthdateStr, countryStr, contactNoStr, emailStr, teamStr);
+
+                                    Boolean signUp = SignupDAO.validate(send, usernameStr, passwordStr);
+                                    load.cancel();
+
+                                    if (signUp) {
+                                        signupBtn.setEnabled(false);
+                                        onSignupSuccess();
+                                    } else {
+                                        onSignupFailed();
+                                        return;
+                                    }
+                                }
+                            }, 3000);
+                }
                 //loadingDialog();
 
 
@@ -173,60 +204,7 @@ public class Signup extends AppCompatActivity {
 ////                        }, 3000);
 ////                //onSignupSuccess();
 
-                boolean valid = validate();
 
-                if (!valid) {
-                    onSignupFailed();
-                    return;
-                } else {
-                    String usernameStr = username.getText().toString();
-                    String nameStr = name.getText().toString();
-                    String emailStr = email.getText().toString();
-                    String passwordStr = password.getText().toString();
-                    String birthdateStr = birthdate.getText().toString();
-                    String contactNoStr = contactNo.getText().toString();
-                    String teamStr = clickedTeamName;
-                    String countryStr = clickedCountryName;
-
-                    String send = concatParams(usernameStr, nameStr, passwordStr, birthdateStr, countryStr, contactNoStr, emailStr, teamStr);
-                    PostHttp connection = new PostHttp();
-                    String response = null;
-                    String url = DBConnection.getSignupUrl();
-
-                    try {
-                        response = connection.postForm(url, send);
-                        System.out.println(response);
-
-                        JSONObject result = new JSONObject(response);
-                        String status = result.getString("status");
-
-                        if (status.equals("success")) {
-                            JSONObject user = result.getJSONObject("user");
-                            String usernameRetrieved = user.getString("username");
-                            System.out.println(usernameRetrieved);
-                            String name = user.getString("name");
-                            String password = user.getString("password");
-                            String dob = user.getString("dob");
-                            String country = user.getString("country");
-                            String contactNum = user.getString("contactNum");
-                            String email = user.getString("email");
-                            String favoriteTeam = user.getString("favoriteTeam");
-
-                            User userDetails = new User(usernameRetrieved, name, password, dob, country, contactNum, email, favoriteTeam);
-                            UserDAO.setLoginUser(userDetails);
-                        } else {
-                            //loadSamePage();
-                        }
-
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                        load.dismiss();
-
-                    }
-
-                    signupBtn.setEnabled(false);
-                    onSignupSuccess();
-                }
             }
         });
     }
@@ -254,12 +232,12 @@ public class Signup extends AppCompatActivity {
 
     public Dialog loadingDialog() {
         System.out.println("laoding pop");
-        dialog = new Dialog(Signup.this);
-        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
-        dialog.setContentView(R.layout.signup_loading_popup);
+        Dialog dialog2 = new Dialog(Signup.this);
+        dialog2.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        dialog2.setContentView(R.layout.signup_loading_popup);
 
-        dialog.show();
-        return dialog;
+        dialog2.show();
+        return dialog2;
     }
 
     public void successfulAlertDialog() {
@@ -274,26 +252,19 @@ public class Signup extends AppCompatActivity {
         close.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                dialog.cancel();
                 Intent intent = new Intent(Signup.this, Home.class);
+                Bundle bundle = new Bundle();
+                bundle.putString("username", username.getText().toString());
+                intent.putExtras(bundle);
                 startActivity(intent);
+                dialog.cancel();
             }
         });
         dialog.show();
-
-        /*signup.setOnClickListener(new View.OnClickListener() {
-
-            @Override
-            public void onClick(View v1) {
-                Intent launchActivity1= new Intent(MainActivity.this,SignUp.class);
-                startActivity(launchActivity1);
-
-            }*/
     }
 
     public void onSignupFailed() {
         Toast.makeText(getBaseContext(), "Signup failed", Toast.LENGTH_LONG).show();
-
         signupBtn.setEnabled(true);
     }
 
