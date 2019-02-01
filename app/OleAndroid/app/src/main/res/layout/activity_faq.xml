@@ -42,8 +42,9 @@
         android:columnCount="2"
         android:columnOrderPreserved="false"
         android:padding="10dp"
-        android:rowCount="2">
+        android:rowCount="3">
 
+        <!--Profile-->
         <android.support.v7.widget.CardView
             android:id="@+id/profileCard"
             android:layout_width="0dp"
@@ -69,7 +70,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal"
                     android:layout_weight="10"
-                    android:src="@drawable/faq_profile" />
+                    android:src="@drawable/footballplayer" />
 
                 <TextView
                     android:layout_width="match_parent"
@@ -83,6 +84,47 @@
 
         </android.support.v7.widget.CardView>
 
+        <!--League-->
+        <android.support.v7.widget.CardView
+            android:id="@+id/generalCard"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_rowWeight="1"
+            android:layout_columnWeight="1"
+            android:layout_marginLeft="16dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginRight="16dp"
+            android:layout_marginBottom="16dp"
+            app:cardCornerRadius="8dp"
+            app:cardElevation="8dp">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical|center_horizontal"
+                android:layout_margin="16dp"
+                android:orientation="vertical">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_weight="10"
+                    android:src="@drawable/soccerball" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Leagues"
+                    android:textAlignment="center"
+                    android:textColor="@color/black"
+                    android:textSize="18dp"
+                    android:textStyle="bold" />
+            </LinearLayout>
+
+        </android.support.v7.widget.CardView>
+
+        <!--Public League-->
         <android.support.v7.widget.CardView
             android:id="@+id/publicCard"
             android:layout_width="0dp"
@@ -108,7 +150,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal"
                     android:layout_weight="10"
-                    android:src="@drawable/faq_public" />
+                    android:src="@drawable/footballteam" />
 
                 <TextView
                     android:layout_width="match_parent"
@@ -123,6 +165,7 @@
 
         </android.support.v7.widget.CardView>
 
+        <!--Private League-->
         <android.support.v7.widget.CardView
             android:id="@+id/privateCard"
             android:layout_width="0dp"
@@ -148,7 +191,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal"
                     android:layout_weight="10"
-                    android:src="@drawable/faq_private" />
+                    android:src="@drawable/soccerteam" />
 
                 <TextView
                     android:layout_width="match_parent"
@@ -163,6 +206,47 @@
 
         </android.support.v7.widget.CardView>
 
+        <!--Leaderboard-->
+        <android.support.v7.widget.CardView
+            android:id="@+id/leaderboardCard"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_rowWeight="1"
+            android:layout_columnWeight="1"
+            android:layout_marginLeft="16dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginRight="16dp"
+            android:layout_marginBottom="16dp"
+            app:cardCornerRadius="8dp"
+            app:cardElevation="8dp">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical|center_horizontal"
+                android:layout_margin="16dp"
+                android:orientation="vertical">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_weight="10"
+                    android:src="@drawable/trophy" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Leaderboard"
+                    android:textAlignment="center"
+                    android:textColor="@color/black"
+                    android:textSize="18dp"
+                    android:textStyle="bold" />
+            </LinearLayout>
+
+        </android.support.v7.widget.CardView>
+
+        <!--AskOle-->
         <android.support.v7.widget.CardView
             android:id="@+id/askCard"
             android:layout_width="0dp"
@@ -188,7 +272,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal"
                     android:layout_weight="10"
-                    android:src="@drawable/faq_askole" />
+                    android:src="@drawable/help" />
 
                 <TextView
                     android:layout_width="match_parent"
@@ -200,7 +284,11 @@
                     android:textStyle="bold" />
             </LinearLayout>
 
-        </android.support.v7.widget.CardView
+        </android.support.v7.widget.CardView>
+
+
+
+
 
     </GridLayout>
 
