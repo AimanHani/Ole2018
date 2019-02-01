@@ -87,6 +87,8 @@ public class SpecialList extends AppCompatActivity{
         specialListAdapter = new SpecialListAdapter(SpecialList.this, specialsList);
         specialListView.setAdapter(specialListAdapter);
 
+
+        //hani refer to this part for the pop up box
         confirmspecialsbtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

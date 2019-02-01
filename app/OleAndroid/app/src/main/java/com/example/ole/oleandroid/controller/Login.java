@@ -52,7 +52,7 @@ public class Login extends AppCompatActivity {
         facebookButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(Login.this, PublicLeagueList.class);
+                Intent intent = new Intent(Login.this, SideMenuBar.class);
                 startActivity(intent);
             }
         });

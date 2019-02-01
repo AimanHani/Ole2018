@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item android:id="@+id/profile"
+        android:title="Profile"
+        android:icon="@drawable/icon_profile"/>
+
+    <item android:id="@+id/leagues"
+        android:title="Leagues"
+        android:icon="@drawable/icon_leagues"/>
+
+    <item android:id="@+id/leaderboard"
+        android:title="Leaderboard"
+        android:icon="@drawable/icon_leaderboard"/>
+
+    <item android:id="@+id/faq"
+        android:title="FAQ"
+        android:icon="@drawable/icon_faq"/>
+
+    <item android:id="@+id/logout"
+        android:title="Logout"
+        android:icon="@drawable/icon_logout"/>
+
+</menu>
