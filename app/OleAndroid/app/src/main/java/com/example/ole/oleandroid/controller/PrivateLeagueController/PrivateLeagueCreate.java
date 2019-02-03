@@ -1,4 +1,4 @@
-package com.example.ole.oleandroid.controller;
+package com.example.ole.oleandroid.controller.PrivateLeagueController;
 
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
@@ -9,18 +9,12 @@ import android.widget.EditText;
 import android.widget.Spinner;
 
 import com.example.ole.oleandroid.R;
-import com.example.ole.oleandroid.dbConnection.DBConnection;
-import com.example.ole.oleandroid.dbConnection.PostHttp;
-import com.example.ole.oleandroid.model.User;
-
-import org.json.JSONException;
-import org.json.JSONObject;
 
 public class PrivateLeagueCreate extends AppCompatActivity {
-    EditText leaguename, prize, startdate, enddate, password, pointsAllocated;
+    EditText leaguename, prize, password, pointsAllocated;
     Button selectleague;
     Spinner leagueid;
-    String username ;
+    //String username ;
     String tournamentId = "2";
     //String pointsAllocated = "1";
 
@@ -31,72 +25,46 @@ public class PrivateLeagueCreate extends AppCompatActivity {
 
 
         //get user object
-        //Intent i = getIntent();
-        //final User u = (User)i.getSerializableExtra("User");
-        User u = UserDAO.getLoginUser();
-        username = u.getUserName();
+        //User u = UserDAO.getLoginUser();
+        //username = u.getUserName();
+        leaguename = (EditText) findViewById(R.id.leaguename);
+        prize = (EditText) findViewById(R.id.prize);
+        password = (EditText) findViewById(R.id.password);
+        //pointsAllocated = (EditText) findViewById(R.id.pointsAllocated);
+
 
         // Spinner leagueid =  findViewById(R.id.leagueid);
         //leagueid = (EditText) findViewById(R.id.leagueid);
-        leaguename = (EditText) findViewById(R.id.leaguename);
-        prize = (EditText) findViewById(R.id.prize);
+
         //startdate = (EditText) findViewById(R.id.startdate);
         //enddate = (EditText) findViewById(R.id.enddate);
-        password = (EditText) findViewById(R.id.password);
-        selectleague = (Button) findViewById(R.id.selectleague);
+
+        //selectleague = (Button) findViewById(R.id.selectleague);
 
 
 
-
+        selectleague = findViewById(R.id.selectleague);
         selectleague.setOnClickListener(new View.OnClickListener( ) {
             @Override
-            public void onClick(View view) {
+            public void onClick(View view){
 
-//link to epl page, currently with only English Premier League
-                Intent intent = new Intent(PrivateLeagueCreate.this, PrivateLeagueChoosematchActivity.class);
+            if (!leaguename.getText().equals("") && !prize.getText().equals("") && !password.getText().equals("")) {
+            //if (leaguename!=null && prize!=null && password!=null) {
+                Intent intent = new Intent(PrivateLeagueCreate.this, PrivateLeagueSelectLeaguesActivity.class);
+                intent.putExtra("leaguename", leaguename.getText().toString());
+                intent.putExtra("prize", prize.getText().toString());
+                intent.putExtra("password", password.getText().toString());
+                intent.putExtra("pointsAllocated", "10");
+                startActivity(intent);
+            } else {
+                Intent intent = new Intent(PrivateLeagueCreate.this, PrivateLeagueCreate.class);
                 Bundle b = getIntent().getExtras();
                 intent.putExtras(b);
                 startActivity(intent);
-                System.out.println("Creating Private League");
-
-                final String[] status = {"error"};
-
-                JSONObject json = new JSONObject();
-                try {
-                    json.put("method", "insertNew");
-                    json.put("username", username);
-                    json.put("password", password.getText( ).toString( ));
-                    json.put("prize", prize.getText( ).toString( ));
-                    json.put("leagueName", leaguename.getText( ).toString( ));
-                    //json.put("tournamentId", tournamentId);
-                    //json.put("pointsAllocated", pointsAllocated.getText( ).toString( ));
-                    //json.put("startDate", startdate.getText( ).toString( ));
-                    //json.put("endDate", enddate.getText( ).toString( ));
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
-                String url = DBConnection.insertPrivateLeagueUrl();
-
-                PostHttp connection = new PostHttp();
-                String response = null;
-                //System.out.println("HAHAHAHHA" + json.toString());
-
-                try {
-                    response = connection.post(url, json.toString());
-                    JSONObject result = new JSONObject(response);
-                    status[0] = result.getString("status");
-
-                    if (status[0].equals("success")) {
-                        System.out.println(response);
-                        intent = new Intent(PrivateLeagueCreate.this, PrivateLeagueChoosematchActivity.class);
-                        startActivity(intent);
-                    } else {
-                        //loadSamePage();
-                    }
-
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
+            }
+        }
+        });
+}
 /*
                 String url = new DBConnection( ).insertPrivateLeagueUrl( );
 
@@ -143,10 +111,5 @@ public class PrivateLeagueCreate extends AppCompatActivity {
                 // Adding the StringRequest object into requestQueue.
                 requestQueue.add(stringRequest);
                 */
-            }
-        });
-    }
-    public boolean validate(){
-        return true;
-    }
+
 }

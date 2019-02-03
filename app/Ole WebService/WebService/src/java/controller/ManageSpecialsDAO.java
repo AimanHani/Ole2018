@@ -61,4 +61,29 @@ public class ManageSpecialsDAO {
         return "error";
         
     }
+    public static HashMap<Integer, Special>getAllSpecials(){
+        HashMap<Integer, Special>specialsList = new HashMap();
+         try (Connection conn = DBConnection.getConnection(); PreparedStatement stmt = conn.prepareStatement("select * from specials where status = 'Y'");) {
+            
+            ResultSet rs = stmt.executeQuery();
+
+            while (rs.next()) {
+                int specialsID = rs.getInt(1);
+                String description = rs.getString(2);
+                int points = rs.getInt(4);
+                
+                specialsList.put(specialsID,new Special(specialsID,description, points));
+                
+            }
+            rs.close();
+
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        } catch (ClassNotFoundException ex) {
+            ex.printStackTrace();
+        }
+        return specialsList;
+    }
 }
+
+//select * from specials where status = 'Y'

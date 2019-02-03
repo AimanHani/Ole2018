@@ -141,8 +141,8 @@ public class Matches extends AppCompatActivity {
 
                     currentMatch.setText("Date: " + date + System.getProperty ("line.separator"));
                     currentMatch.append("Time Scheduled: " + time + System.getProperty ("line.separator")+ System.getProperty ("line.separator"));
-                    currentMatch.append("Team 1: " + team1+ System.getProperty ("line.separator"));
-                    currentMatch.append("Team 2: " + team2+ System.getProperty ("line.separator"));
+                    currentMatch.append("Teams 1: " + team1+ System.getProperty ("line.separator"));
+                    currentMatch.append("Teams 2: " + team2+ System.getProperty ("line.separator"));
 
                 } catch (JSONException e) {
                     e.printStackTrace();

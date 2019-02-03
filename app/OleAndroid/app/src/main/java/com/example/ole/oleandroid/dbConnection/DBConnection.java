@@ -2,7 +2,7 @@ package com.example.ole.oleandroid.dbConnection;
 
 public class DBConnection {
 
-    private static String mainUrl = "http://10.124.9.85:8084/WebService"; //may vary depends on wifi connection
+    private static String mainUrl = "http://192.168.0.112:8084/WebService"; //may vary depends on wifi connection
 
     // Hazirah ip: 192.168.39.1:3306, 192.168.1.35, 172.20.10.3
     // PHP: http://192.168.1.7:3306/ole
@@ -60,6 +60,16 @@ public class DBConnection {
 
     public static String manageSpecials(){
         String url = mainUrl+"/json/manageSpecials";
+        return url;
+    }
+
+    public static String getSpecials(){
+        String url = mainUrl+"/json/getSpecials";
+        return url;
+    }
+
+    public static String getTeams(){
+        String url = mainUrl+"/json/getTeam";
         return url;
     }
 

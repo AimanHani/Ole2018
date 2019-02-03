@@ -3,7 +3,6 @@ package com.example.ole.oleandroid.controller;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
-import android.support.design.widget.BottomNavigationView;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
@@ -14,9 +13,8 @@ import android.view.MenuItem;
 import android.view.View;
 
 import com.example.ole.oleandroid.R;
+import com.example.ole.oleandroid.controller.PrivateLeagueController.PrivateLeagueCreate;
 import com.example.ole.oleandroid.pageController.FAQ;
-import com.example.ole.oleandroid.pageController.FAQPrivate;
-import com.example.ole.oleandroid.pageController.FAQPublic;
 
 public class SideMenuBar extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
     private DrawerLayout mDrawerlayout;
@@ -47,7 +45,7 @@ public class SideMenuBar extends AppCompatActivity implements NavigationView.OnN
 
         privLeague.setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {
-                Intent intent = new Intent(SideMenuBar.this, PrivateLeagueHome.class);
+                Intent intent = new Intent(SideMenuBar.this, PrivateLeagueCreate.class);
                 startActivity(intent);
             }
         });

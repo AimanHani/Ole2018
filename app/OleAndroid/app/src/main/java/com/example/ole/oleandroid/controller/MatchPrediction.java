@@ -75,8 +75,8 @@ public class MatchPrediction extends AppCompatActivity {
 
             details.setText("Date " + date + System.getProperty("line.separator"));
             details.append("Time Scheduled: " + time + System.getProperty("line.separator") + System.getProperty("line.separator"));
-            details.append("Team 1: " + team1 + System.getProperty("line.separator"));
-            details.append("Team 2: " + team2 + System.getProperty("line.separator"));
+            details.append("Teams 1: " + team1 + System.getProperty("line.separator"));
+            details.append("Teams 2: " + team2 + System.getProperty("line.separator"));
             team1PredictionLabel.setText(team1 + " score: ");
             team2PredictionLabel.setText(team2 + " score: ");
 

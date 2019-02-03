@@ -1,18 +1,16 @@
-package com.example.ole.oleandroid.controller;
+package com.example.ole.oleandroid.controller.PrivateLeagueController;
 
-        import android.content.Intent;
         import android.os.Bundle;
         import android.support.annotation.Nullable;
+        import android.support.design.widget.FloatingActionButton;
         import android.support.design.widget.TabLayout;
         import android.support.v4.app.Fragment;
         import android.support.v4.app.FragmentManager;
         import android.support.v4.app.FragmentPagerAdapter;
         import android.support.v4.view.ViewPager;
         import android.support.v7.app.AppCompatActivity;
-        import android.view.View;
 
         import com.example.ole.oleandroid.R;
-        import com.example.ole.oleandroid.model.PublicLeague;
 
         import java.util.ArrayList;
         import java.util.List;
@@ -22,6 +20,8 @@ public class PrivateLeagueMain extends AppCompatActivity {
     TabLayout privateLeagueTabLayout;
     ViewPager viewPager;
     Adapter adapter;
+
+    FloatingActionButton addPrivateLeague;
     //int logId;
 
     @Override
@@ -37,6 +37,11 @@ public class PrivateLeagueMain extends AppCompatActivity {
 
         privateLeagueTabLayout = findViewById(R.id.privateLeagueTabLayout);
         privateLeagueTabLayout.setupWithViewPager(viewPager);
+
+
+
+
+
     }
 
     @Override
@@ -70,9 +75,13 @@ public class PrivateLeagueMain extends AppCompatActivity {
         // upcomingMatches now has a logId which u can set (so i can pass this logId on. logid is needed for specials list
         //UpcomingMatches upcomingMatches = new UpcomingMatches();
         //upcomingMatches.setLogId(logId);
+
+
         adapter.addFragment(new Discover(), "Discover");
 
         viewPager.setAdapter(adapter);
+
+
     }
 
     //ViewPagerAdapter class
@@ -106,5 +115,10 @@ public class PrivateLeagueMain extends AppCompatActivity {
         public CharSequence getPageTitle(int position) {
             return mFragmentTitleList.get(position);
         }
+
+
+
     }
+
+
 }

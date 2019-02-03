@@ -11,14 +11,7 @@ import android.widget.TextView;
 
 import com.android.volley.RequestQueue;
 import com.example.ole.oleandroid.R;
-import com.example.ole.oleandroid.dbConnection.DBConnection;
-import com.example.ole.oleandroid.dbConnection.PostHttp;
-import com.example.ole.oleandroid.model.User;
-
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import java.util.HashMap;
+import com.example.ole.oleandroid.controller.PrivateLeagueController.PrivateLeagueMain;
 
 
 public class Login extends AppCompatActivity {

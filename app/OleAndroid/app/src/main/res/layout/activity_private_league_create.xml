@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".controller.PrivateLeagueCreate">
+    tools:context=".controller.PrivateLeagueController.PrivateLeagueCreate">
 
     <Button
         android:id="@+id/selectLeagueText"
@@ -18,6 +18,7 @@
         android:textSize="18sp"
         android:textStyle="bold"
         android:visibility="visible" />
+
 
     <LinearLayout
         android:id="@+id/leagueNameLayout"
@@ -110,6 +111,9 @@
             app:layout_constraintEnd_toEndOf="parent" />
 
     </LinearLayout>
+
+
+
 
     <Button
         android:id="@+id/selectleague"

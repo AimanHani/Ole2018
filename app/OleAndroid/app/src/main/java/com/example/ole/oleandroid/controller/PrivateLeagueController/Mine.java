@@ -1,4 +1,4 @@
-package com.example.ole.oleandroid.controller;
+package com.example.ole.oleandroid.controller.PrivateLeagueController;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
