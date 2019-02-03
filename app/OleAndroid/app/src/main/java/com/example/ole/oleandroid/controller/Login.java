@@ -73,9 +73,9 @@ public class Login extends AppCompatActivity {
 
                     if (valid){
                         Intent intent = new Intent(Login.this, SideMenuBar.class);
-                        Bundle bundle = new Bundle();
-                        bundle.putString("username", username.getText().toString());
-                        intent.putExtras(bundle);
+//                        Bundle bundle = new Bundle();
+//                        bundle.putString("username", username.getText().toString());
+//                        intent.putExtras(bundle);
                         startActivity(intent);
                     } else {
 

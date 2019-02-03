@@ -118,7 +118,8 @@
         app:itemTextColor="@color/black"
         app:itemIconTint="@color/black"
         app:menu="@menu/sidemenulist"
-        android:layout_gravity="start">
+        android:layout_gravity="start"
+        android:id="@+id/sidemenu">
 
     </android.support.design.widget.NavigationView>
 

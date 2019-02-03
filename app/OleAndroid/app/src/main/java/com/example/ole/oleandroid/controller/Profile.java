@@ -119,8 +119,8 @@ public class Profile extends AppCompatActivity {
             public void onClick(View view) {
 
                 Intent intent = new Intent(Profile.this, Home.class);
-                Bundle b = getIntent().getExtras();
-                intent.putExtras(b);
+//                Bundle b = getIntent().getExtras();
+//                intent.putExtras(b);
                 startActivity(intent);
             }
         });

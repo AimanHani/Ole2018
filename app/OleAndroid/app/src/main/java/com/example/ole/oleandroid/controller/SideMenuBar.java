@@ -36,6 +36,7 @@ public class SideMenuBar extends AppCompatActivity implements NavigationView.OnN
         mDrawerlayout.addDrawerListener(mToggle);
         mToggle.syncState();
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        setNavigationViewListener();
 
         pubLeague.setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {
@@ -60,7 +61,7 @@ public class SideMenuBar extends AppCompatActivity implements NavigationView.OnN
                 startActivity(intent1);
                 break;
             case R.id.menu_list_leagues:
-                Intent intent2 = new Intent(SideMenuBar.this, Leagues.class);
+                Intent intent2 = new Intent(SideMenuBar.this, SideMenuBar.class);
                 startActivity(intent2);
                 break;
             case R.id.menu_list_leaderboard:
@@ -72,13 +73,19 @@ public class SideMenuBar extends AppCompatActivity implements NavigationView.OnN
                 startActivity(intent4);
                 break;
             case R.id.menu_list_logout:
-                Intent intent5 = new Intent(SideMenuBar.this, Home.class);
+                UserDAO.setLoginUser(null);
+                Intent intent5 = new Intent(SideMenuBar.this, Login.class);
                 startActivity(intent5);
                 break;
         }
 
         mDrawerlayout.closeDrawer(GravityCompat.START);
         return true;
+    }
+
+    private void setNavigationViewListener() {
+        NavigationView navigationView = (NavigationView) findViewById(R.id.sidemenu);
+        navigationView.setNavigationItemSelectedListener(this);
     }
 
 
