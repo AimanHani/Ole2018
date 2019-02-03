@@ -37,7 +37,7 @@ public class PrivateLeagueDAO {
         if (isDateValid(startDate) && isDateValid(endDate)) {
             try (Connection c1 = DBConnection.getConnection(); PreparedStatement ps1 = c1.prepareStatement("INSERT INTO league (tournamentId, pointsAllocated, leagueName) VALUES (?, ?, ?)");) {
                 System.out.println(ps1);
-                ps1.setInt(1, Integer.parseInt(tournamentId));
+                ps1.setString(1, tournamentId);
                 ps1.setInt(2, Integer.parseInt(pointsAllocated));
                 ps1.setString(3, leagueName);
 
@@ -60,6 +60,14 @@ public class PrivateLeagueDAO {
                                 rs = ps4.executeUpdate();
                                 if (rs > 0) {
                                     return "successful";
+                                }
+                                try (Connection c5 = DBConnection.getConnection(); PreparedStatement ps5 = c5.prepareStatement("insert into log(username, leagueId, points) values ('"+username+"', " + leagueID + ", -1)");) {
+                                    rs = ps5.executeUpdate();
+                                    if (rs > 0) {
+                                        return "successful";
+                                    }
+                                } catch (Exception e) {
+
                                 }
                             } catch (Exception e) {
 
@@ -127,7 +135,7 @@ public class PrivateLeagueDAO {
                 String username = rs.getString(5);
                 String password = rs.getString(6);
 
-                privateLeaguesList.put(leagueKeyId, new model.PrivateLeague(prize, startDate, endDate, leagueKeyId, username,password));
+                privateLeaguesList.put(leagueKeyId, new model.PrivateLeague(prize, startDate, endDate, leagueKeyId, username, password));
 
             }
             rs.close();

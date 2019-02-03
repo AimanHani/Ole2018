@@ -7,6 +7,7 @@ import android.view.View;
 import android.widget.Button;
 
 import com.example.ole.oleandroid.R;
+import com.example.ole.oleandroid.controller.PrivateLeagueController.PrivateLeagueDetails;
 
 public class PrivateLeagueChoosematchActivity extends AppCompatActivity {
 

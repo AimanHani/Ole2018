@@ -1,4 +1,4 @@
-package com.example.ole.oleandroid.controller;
+package com.example.ole.oleandroid.controller.PrivateLeagueController;
 
 import android.content.Intent;
 import android.support.design.widget.FloatingActionButton;

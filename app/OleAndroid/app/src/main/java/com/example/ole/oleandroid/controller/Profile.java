@@ -135,7 +135,7 @@ public class Profile extends AppCompatActivity {
                 "Match Predicted" + System.getProperty("line.separator") + System.getProperty("line.separator") +
                 "Date: " + prevPrediction.getString("date") + System.getProperty("line.separator") +
                 "Time: " + prevPrediction.getString("time") + System.getProperty("line.separator") + System.getProperty("line.separator") +
-                "Team : Prediction Score" + System.getProperty("line.separator") +
+                "Teams : Prediction Score" + System.getProperty("line.separator") +
                 prevPrediction.getString("team1") + " : " + prevPrediction.getString("team1_prediction") + System.getProperty("line.separator") +
                 prevPrediction.getString("team2") + " : " + prevPrediction.getString("team2_prediction");
 
