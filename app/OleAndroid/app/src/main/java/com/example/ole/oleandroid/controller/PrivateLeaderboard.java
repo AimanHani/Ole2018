@@ -31,7 +31,7 @@ public class PrivateLeaderboard extends Fragment implements View.OnClickListener
     public void onClick(View v) {
         switch (v.getId()){
             case R.id.createPrivateLeague:
-                Intent intent = new Intent(getActivity(), private_league_create.class);
+                Intent intent = new Intent(getActivity(), PrivateLeagueCreate.class);
                 this.startActivity(intent);
         }
     }

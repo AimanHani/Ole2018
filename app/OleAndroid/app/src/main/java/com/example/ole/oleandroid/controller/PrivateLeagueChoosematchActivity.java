@@ -5,7 +5,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
-import android.widget.EditText;
 
 import com.example.ole.oleandroid.R;
 
@@ -23,7 +22,7 @@ public class PrivateLeagueChoosematchActivity extends AppCompatActivity {
         selectmatch.setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {
 
-                Intent intent = new Intent(PrivateLeagueChoosematchActivity.this, private_league_details.class);
+                Intent intent = new Intent(PrivateLeagueChoosematchActivity.this, PrivateLeagueDetails.class);
                 Bundle b = getIntent().getExtras();
                 intent.putExtras(b);
                 startActivity(intent);

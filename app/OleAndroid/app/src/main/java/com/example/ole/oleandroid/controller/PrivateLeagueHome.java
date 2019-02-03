@@ -5,31 +5,16 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.Button;
 import android.widget.EditText;
 
-import com.android.volley.Request;
-import com.android.volley.RequestQueue;
-import com.android.volley.Response;
-import com.android.volley.VolleyError;
-import com.android.volley.toolbox.StringRequest;
-import com.android.volley.toolbox.Volley;
 import com.example.ole.oleandroid.R;
 
 import com.example.ole.oleandroid.dbConnection.DBConnection;
 import com.example.ole.oleandroid.dbConnection.PostHttp;
 import com.example.ole.oleandroid.model.PrivateLeague;
-import com.example.ole.oleandroid.model.User;
-import com.example.ole.oleandroid.pageController.FAQ;
 
-import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-
-
-import java.sql.Date;
-import java.util.HashMap;
-import java.util.Map;
 
 public class PrivateLeagueHome extends AppCompatActivity {
 
@@ -51,7 +36,7 @@ public class PrivateLeagueHome extends AppCompatActivity {
         addPrivateLeague = findViewById(R.id.addPrivateLeague);
         addPrivateLeague.setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {
-                Intent intent = new Intent(PrivateLeagueHome.this, private_league_create.class);
+                Intent intent = new Intent(PrivateLeagueHome.this, PrivateLeagueCreate.class);
                 Bundle b = getIntent().getExtras();
                 intent.putExtras(b);
                 //intent.putExtra("User", u);
@@ -114,7 +99,7 @@ public class PrivateLeagueHome extends AppCompatActivity {
                                 PrivateLeague.setPrivateLeague(privateleague);
                             }catch(Exception e){}
 
-                            Intent intent = new Intent(PrivateLeagueHome.this, private_league_details.class);
+                            Intent intent = new Intent(PrivateLeagueHome.this, PrivateLeagueDetails.class);
                             Bundle b = getIntent().getExtras();
                             intent.putExtras(b);
                             //intent.putExtra("PL", pl);
@@ -180,7 +165,7 @@ public class PrivateLeagueHome extends AppCompatActivity {
                                                 //(int privateLeaugeId, String leagueName, String prize, Date startDate, Date endDate, int leagueId) {
                                             }catch(Exception e){}
 
-                                            Intent intent = new Intent(PrivateLeagueHome.this, private_league_details.class);
+                                            Intent intent = new Intent(PrivateLeagueHome.this, PrivateLeagueDetails.class);
                                             Bundle b = getIntent().getExtras();
                                             intent.putExtras(b);
                                             intent.putExtra("PL", pl);
@@ -218,7 +203,7 @@ public class PrivateLeagueHome extends AppCompatActivity {
 
 */
 
-                Intent intent = new Intent(PrivateLeagueHome.this, private_league_details.class);
+                Intent intent = new Intent(PrivateLeagueHome.this, PrivateLeagueDetails.class);
                 Bundle b = getIntent().getExtras();
                 intent.putExtras(b);
                 //intent.putExtra("User", u);

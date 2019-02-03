@@ -10,10 +10,9 @@ import android.widget.TextView;
 
 import com.example.ole.oleandroid.R;
 import com.example.ole.oleandroid.model.PrivateLeague;
-import com.example.ole.oleandroid.model.User;
 
 
-public class private_league_details extends AppCompatActivity {
+public class PrivateLeagueDetails extends AppCompatActivity {
     //TextView leagueNameInput;
     Button predictButton;
     EditText privatePrizeInput, leagueNameInput;
@@ -41,7 +40,7 @@ public class private_league_details extends AppCompatActivity {
         predictButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {
 
-                Intent intent = new Intent(private_league_details.this, PrivateLeagueTabActivity.class);
+                Intent intent = new Intent(PrivateLeagueDetails.this, PrivateLeagueTabActivity.class);
                 Bundle b = getIntent().getExtras();
                 intent.putExtras(b);
                 startActivity(intent);
