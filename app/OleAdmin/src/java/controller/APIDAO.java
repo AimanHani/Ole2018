@@ -351,40 +351,7 @@ public class APIDAO {
         team2Scored = Integer.parseInt(team2Score);
 
         try (Connection c = DBConnection.getConnection(); PreparedStatement ps = c.prepareStatement("Update testloadmatch set team1_score = '" + team1Socred + "',team2_score = '" + team2Scored + "' where matchId = ?");) {
-//            SimpleDateFormat formatter = new SimpleDateFormat("yyyy-mm-dd");
-//                    SimpleDateFormat formatter2 = new SimpleDateFormat("hh:mm:ss"); // This line
-//
-//                    Date d1 = new java.sql.Date(formatter.parse(matchDate).getTime());
-//                    System.out.println(d1);
-//
-//                    //Time t1 = new java.sql.Time(formatter2.parse(eTime).getTime());
-//                    //System.out.println(team1_score);
-//                    Date date = new Date(Integer.parseInt(matchTime) * 1000L); // convert seconds to milliseconds
-//
-//                    SimpleDateFormat dateFormat1 = new SimpleDateFormat("yyyy-MM-dd"); // the format of your date 
-//                    SimpleDateFormat dateFormat2 = new SimpleDateFormat("HH:mm:ss"); // the format of your date
-//
-//                    String formattedDate = dateFormat1.format(date);
-//                    System.out.println(formattedDate);
-//
-//                    String formattedTime = dateFormat2.format(date);
-//                    System.out.println(formattedTime);
-//
-//                    if (team1Score == null) {
-//                        team1Score = "-1";
-//                    }
-//                    if (team2Score == null) {
-//                        team2Score = "-1";
-//                    }
-//
-//                    ps.setString(1, matchId);
-//                    ps.setString(2, leagueID);
-//                    ps.setString(3, formattedDate);
-//                    ps.setString(4, formattedTime);
-//                    ps.setString(5, team1);
-//                    ps.setString(6, team2);
-//                    ps.setInt(7, Integer.parseInt(team1Score));
-//                    ps.setInt(8, Integer.parseInt(team2Score));
+
             ps.setString(1, matchId);
             ps.executeUpdate();
             return status;
@@ -392,9 +359,6 @@ public class APIDAO {
             Logger.getLogger(APIDAO.class.getName()).log(Level.SEVERE, null, ex);
         } catch (ClassNotFoundException ex) {
             Logger.getLogger(APIDAO.class.getName()).log(Level.SEVERE, null, ex);
-//        } catch (ParseException ex) {
-//            Logger.getLogger(APIDAO.class.getName()).log(Level.SEVERE, null, ex);
-//        }
 
         }
         return 1;
