@@ -11,7 +11,9 @@
 
     <LinearLayout
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        tools:layout_editor_absoluteX="0dp"
+        tools:layout_editor_absoluteY="197dp">
 
         <ImageView
             android:id="@+id/footballplayer"
@@ -29,7 +31,6 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.106" />
-
 
         <TextView
             android:id="@+id/textView5"
@@ -57,7 +58,9 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:weightSum="5">
+        android:weightSum="5"
+        tools:layout_editor_absoluteX="149dp"
+        tools:layout_editor_absoluteY="0dp">
 
         <ImageView xmlns:app="http://schemas.android.com/apk/res-auto"
             android:id="@+id/leaguelogo"
@@ -98,17 +101,17 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:layout_weight="2"
             android:layout_marginStart="5dp"
             android:layout_marginTop="5dp"
             android:layout_marginEnd="5dp"
             android:layout_marginBottom="5dp"
+            android:layout_weight="2"
             android:text="View" />
 
     </LinearLayout>
 
     <android.support.design.widget.FloatingActionButton
-        android:id="@+id/addPrivateLeague"
+        android:id="@+id/createPrivateLeagueBtn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="16dp"
@@ -124,12 +127,15 @@
         android:id="@+id/createLeagueText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginRight="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="22dp"
         android:text="Create League"
         android:textColor="@color/black"
         android:textSize="20sp"
-        app:layout_constraintBottom_toBottomOf="@+id/addPrivateLeague"
-        app:layout_constraintRight_toLeftOf="@+id/addPrivateLeague"
-        app:layout_constraintTop_toTopOf="@+id/addPrivateLeague" />
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/createPrivateLeagueBtn"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent" />
 
 </android.support.constraint.ConstraintLayout>

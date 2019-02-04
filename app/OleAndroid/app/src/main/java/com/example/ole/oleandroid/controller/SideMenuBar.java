@@ -14,6 +14,7 @@ import android.view.View;
 
 import com.example.ole.oleandroid.R;
 import com.example.ole.oleandroid.controller.PrivateLeagueController.PrivateLeagueCreate;
+import com.example.ole.oleandroid.controller.PrivateLeagueController.PrivateLeagueMain;
 import com.example.ole.oleandroid.pageController.FAQ;
 
 public class SideMenuBar extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
@@ -45,7 +46,7 @@ public class SideMenuBar extends AppCompatActivity implements NavigationView.OnN
 
         privLeague.setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {
-                Intent intent = new Intent(SideMenuBar.this, PrivateLeagueCreate.class);
+                Intent intent = new Intent(SideMenuBar.this, PrivateLeagueMain.class);
                 startActivity(intent);
             }
         });

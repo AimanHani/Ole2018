@@ -37,11 +37,6 @@ public class PrivateLeagueMain extends AppCompatActivity {
 
         privateLeagueTabLayout = findViewById(R.id.privateLeagueTabLayout);
         privateLeagueTabLayout.setupWithViewPager(viewPager);
-
-
-
-
-
     }
 
     @Override
@@ -61,7 +56,6 @@ public class PrivateLeagueMain extends AppCompatActivity {
                 setupViewPager(viewPager);
             } else {
                 int position = viewPager.getCurrentItem();
-
                 setupViewPager(viewPager);
                 viewPager.setCurrentItem(position);
             }
@@ -76,12 +70,8 @@ public class PrivateLeagueMain extends AppCompatActivity {
         //UpcomingMatches upcomingMatches = new UpcomingMatches();
         //upcomingMatches.setLogId(logId);
 
-
         adapter.addFragment(new Discover(), "Discover");
-
         viewPager.setAdapter(adapter);
-
-
     }
 
     //ViewPagerAdapter class
@@ -115,10 +105,5 @@ public class PrivateLeagueMain extends AppCompatActivity {
         public CharSequence getPageTitle(int position) {
             return mFragmentTitleList.get(position);
         }
-
-
-
     }
-
-
 }
