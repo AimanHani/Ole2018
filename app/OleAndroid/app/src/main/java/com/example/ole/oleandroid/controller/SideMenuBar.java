@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
+import android.support.v4.app.Fragment;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -13,54 +14,60 @@ import android.view.MenuItem;
 import android.view.View;
 
 import com.example.ole.oleandroid.R;
-import com.example.ole.oleandroid.controller.PrivateLeagueController.PrivateLeagueCreate;
 import com.example.ole.oleandroid.controller.PrivateLeagueController.PrivateLeagueMain;
 import com.example.ole.oleandroid.pageController.FAQ;
 
 public class SideMenuBar extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
-    private DrawerLayout mDrawerlayout;
-    private ActionBarDrawerToggle mToggle;
+    DrawerLayout mDrawerlayout;
+    ActionBarDrawerToggle mToggle;
     CardView pubLeague;
     CardView privLeague;
 
     @Override
-    protected void onCreate (Bundle savedInstanceState){
+    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.sidemenubar);
-        pubLeague = findViewById(R.id.publicCard);
-        privLeague = findViewById(R.id.privateCard);
 
-        mDrawerlayout = (DrawerLayout)findViewById(R.id.drawer);
+//        pubLeague = findViewById(R.id.publicCard);
+//        privLeague = findViewById(R.id.privateCard);
+        mDrawerlayout = (DrawerLayout) findViewById(R.id.drawer);
         mToggle = new ActionBarDrawerToggle(this, mDrawerlayout, R.string.open, R.string.close);
         mDrawerlayout.addDrawerListener(mToggle);
         mToggle.syncState();
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         setNavigationViewListener();
 
-        pubLeague.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View view) {
-                Intent intent = new Intent(SideMenuBar.this, PublicLeagueList.class);
-                startActivity(intent);
-            }
-        });
-
-        privLeague.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View view) {
-                Intent intent = new Intent(SideMenuBar.this, PrivateLeagueMain.class);
-                startActivity(intent);
-            }
-        });
+//        pubLeague.setOnClickListener(new View.OnClickListener() {
+//            public void onClick(View view) {
+////                pubLeague.setVisibility(View.GONE);
+////                privLeague.setVisibility(View.GONE);
+//                Intent intent = new Intent(SideMenuBar.this, PublicLeagueList.class);
+//                startActivity(intent);
+//            }
+//        });
+//
+//        privLeague.setOnClickListener(new View.OnClickListener() {
+//            public void onClick(View view) {
+////                pubLeague.setVisibility(View.GONE);
+////                privLeague.setVisibility(View.GONE);
+//                Intent intent = new Intent(SideMenuBar.this, PrivateLeagueMain.class);
+//                startActivity(intent);
+//            }
+//        });
     }
 
     @Override
-    public boolean onNavigationItemSelected (@NonNull MenuItem item){
-        switch (item.getItemId()){
+    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+//        pubLeague.setVisibility(View.GONE);
+//        privLeague.setVisibility(View.GONE);
+        Fragment fragment = null;
+        switch (item.getItemId()) {
             case R.id.menu_list_profile:
                 Intent intent1 = new Intent(SideMenuBar.this, Profile.class);
                 startActivity(intent1);
                 break;
             case R.id.menu_list_leagues:
-                Intent intent2 = new Intent(SideMenuBar.this, SideMenuBar.class);
+                Intent intent2 = new Intent(SideMenuBar.this, Home.class);
                 startActivity(intent2);
                 break;
             case R.id.menu_list_leaderboard:
@@ -90,9 +97,18 @@ public class SideMenuBar extends AppCompatActivity implements NavigationView.OnN
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        if(mToggle.onOptionsItemSelected(item)){
+        if (mToggle.onOptionsItemSelected(item)) {
             return true;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void onBackPressed() {
+        if (mDrawerlayout.isDrawerOpen(GravityCompat.START)) {
+            mDrawerlayout.closeDrawer(GravityCompat.START);
+        } else {
+            super.onBackPressed();
+        }
     }
 }

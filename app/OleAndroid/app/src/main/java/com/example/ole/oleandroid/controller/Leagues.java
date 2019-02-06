@@ -1,5 +1,6 @@
 package com.example.ole.oleandroid.controller;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -9,6 +10,7 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
+import android.view.LayoutInflater;
 import android.view.View;
 
 import com.example.ole.oleandroid.R;
@@ -17,7 +19,7 @@ import com.example.ole.oleandroid.model.PublicLeague;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Leagues extends AppCompatActivity {
+public class Leagues extends SideMenuBar {
 
     TabLayout leagueTabLayout;
     ViewPager viewPager;
@@ -26,8 +28,13 @@ public class Leagues extends AppCompatActivity {
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
+//        super.onCreate(savedInstanceState);
+//        setContentView(R.layout.activity_leagues);
+
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_leagues);
+        LayoutInflater inflater = (LayoutInflater) this.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        View contentView = inflater.inflate(R.layout.activity_leagues, null, false);
+        super.mDrawerlayout.addView(contentView, 0);
 
         Bundle bundle = getIntent().getExtras();
         logId = bundle.getInt("logId");

@@ -1,8 +1,10 @@
 package com.example.ole.oleandroid.controller;
 
+import android.content.Context;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.TextView;
 
@@ -11,7 +13,7 @@ import com.example.ole.oleandroid.controller.PrivateLeagueController.PrivateLeag
 import com.example.ole.oleandroid.R;
 import com.example.ole.oleandroid.pageController.FAQ;
 
-public class Home extends AppCompatActivity {
+public class Home extends SideMenuBar{
 
     TextView publicLeagues;
     TextView privateLeagues;
@@ -22,8 +24,13 @@ public class Home extends AppCompatActivity {
 
     @Override
     protected void onCreate(final Bundle savedInstanceState) {
+//        super.onCreate(savedInstanceState);
+//        setContentView(R.layout.activity_home);
+
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_home);
+        LayoutInflater inflater = (LayoutInflater) this.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        View contentView = inflater.inflate(R.layout.activity_home, null, false);
+        super.mDrawerlayout.addView(contentView, 0);
 
         //get user object
         //Intent i = getIntent();
@@ -42,8 +49,8 @@ public class Home extends AppCompatActivity {
             public void onClick(View view) {
                 //link to epl page, currently with only English Premier League
                 Intent intent = new Intent(Home.this, PublicLeagueList.class);
-                Bundle b = getIntent().getExtras();
-                intent.putExtras(b);
+//                Bundle b = getIntent().getExtras();
+//                intent.putExtras(b);
                 startActivity(intent);
             }
         });
@@ -51,8 +58,8 @@ public class Home extends AppCompatActivity {
         privateLeagues.setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {
                 Intent intent = new Intent(Home.this, PrivateLeagueHome.class);
-                Bundle b = getIntent().getExtras();
-                intent.putExtras(b);
+//                Bundle b = getIntent().getExtras();
+//                intent.putExtras(b);
                 //intent.putExtra("User", u);
                 startActivity(intent);
 
@@ -64,8 +71,8 @@ public class Home extends AppCompatActivity {
             public void onClick(View view) {
 
                 Intent intent = new Intent(Home.this, FAQ.class);
-                Bundle b = getIntent().getExtras();
-                intent.putExtras(b);
+//                Bundle b = getIntent().getExtras();
+//                intent.putExtras(b);
                 startActivity(intent);
             }
         });
@@ -74,8 +81,8 @@ public class Home extends AppCompatActivity {
             public void onClick(View view) {
 
                 Intent intent = new Intent(Home.this, Profile.class);
-                Bundle b = getIntent().getExtras();
-                intent.putExtras(b);
+//                Bundle b = getIntent().getExtras();
+//                intent.putExtras(b);
                 //intent.putExtra("User", u);
                 startActivity(intent);
             }
@@ -85,8 +92,8 @@ public class Home extends AppCompatActivity {
             public void onClick(View view) {
 
                 Intent intent = new Intent(Home.this, Leaderboard.class);
-                Bundle b = getIntent().getExtras();
-                intent.putExtras(b);
+//                Bundle b = getIntent().getExtras();
+//                intent.putExtras(b);
                 //intent.putExtra("User", u);
                 startActivity(intent);
             }

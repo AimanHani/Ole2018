@@ -1,8 +1,10 @@
 package com.example.ole.oleandroid.controller;
 
+import android.content.Context;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -24,7 +26,7 @@ import org.json.JSONObject;
 import java.util.HashMap;
 import java.util.Map;
 
-public class Profile extends AppCompatActivity {
+public class Profile extends SideMenuBar {
 //    TextView details;
 
     Button home;
@@ -44,8 +46,13 @@ public class Profile extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+//        super.onCreate(savedInstanceState);
+//        setContentView(R.layout.activity_profile);
+
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_profile);
+        LayoutInflater inflater = (LayoutInflater) this.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        View contentView = inflater.inflate(R.layout.activity_profile, null, false);
+        super.mDrawerlayout.addView(contentView, 0);
 
         //get user object
         Intent i = getIntent();

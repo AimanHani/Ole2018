@@ -1,10 +1,12 @@
 package com.example.ole.oleandroid.controller;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ListView;
@@ -30,7 +32,7 @@ import org.json.JSONObject;
 import java.io.IOException;
 import java.util.ArrayList;
 
-public class PublicLeagueList extends AppCompatActivity {
+public class PublicLeagueList extends SideMenuBar {
 
     PublicLeagueListAdapter publicLeagueListAdapter;
     ArrayList<PublicLeague> leaguelist;
@@ -39,8 +41,14 @@ public class PublicLeagueList extends AppCompatActivity {
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
+//        super.onCreate(savedInstanceState);
+//        setContentView(R.layout.publicleaguelist); //contain item list view e.g. item1, item2
+
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.publicleaguelist); //contain item list view e.g. item1, item2
+        LayoutInflater inflater = (LayoutInflater) this.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        View contentView = inflater.inflate(R.layout.publicleaguelist, null, false);
+        super.mDrawerlayout.addView(contentView, 0);
+
         leaguelist = new ArrayList<>();
         publicLeagueListView = findViewById(R.id.publicLeagueListView);
 
