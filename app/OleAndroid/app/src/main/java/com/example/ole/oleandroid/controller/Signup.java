@@ -205,7 +205,7 @@ public class Signup extends AppCompatActivity {
     }
 
     public Dialog loadingDialog() {
-        System.out.println("laoding pop");
+        System.out.println("loading pop");
         Dialog dialog2 = new Dialog(Signup.this);
         dialog2.requestWindowFeature(Window.FEATURE_NO_TITLE);
         dialog2.setContentView(R.layout.signup_loading_popup);

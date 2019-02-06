@@ -1,10 +1,12 @@
 package com.example.ole.oleandroid.controller;
 
+import android.app.Dialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.StrictMode;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+import android.view.Window;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -52,7 +54,7 @@ public class Login extends AppCompatActivity {
         signin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                final Dialog load = loadingDialog();
         // comments starts here if want to bypass login webservice
                 if (username.getText().toString().equals("") || password.getText().toString().equals("")) {
                     //loadSamePage();
@@ -70,6 +72,7 @@ public class Login extends AppCompatActivity {
 //                        bundle.putString("username", username.getText().toString());
 //                        intent.putExtras(bundle);
                         startActivity(intent);
+                        load.dismiss();
                     } else {
 
                     }
@@ -97,6 +100,16 @@ public class Login extends AppCompatActivity {
             }
         });
 
+    }
+
+    public Dialog loadingDialog() {
+        System.out.println("laoding pop");
+        Dialog dialog2 = new Dialog(Login.this);
+        dialog2.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        dialog2.setContentView(R.layout.signup_loading_popup);
+
+        dialog2.show();
+        return dialog2;
     }
 
 

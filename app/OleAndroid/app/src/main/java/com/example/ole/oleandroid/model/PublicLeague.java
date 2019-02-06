@@ -8,6 +8,7 @@ public class PublicLeague {
     private String leagueName;
     private String tournamentName;
     private int logId;
+    private Boolean userJoin;
 
     public PublicLeague(int leagueId, int tournamentId, String prize, int pointsAllocated, String leagueName, String tournamentName, int logId) {
         this.leagueId = leagueId;
@@ -17,6 +18,17 @@ public class PublicLeague {
         this.leagueName = leagueName;
         this.tournamentName = tournamentName;
         this.logId = logId;
+    }
+
+    public PublicLeague(int leagueId, int tournamentId, String prize, int pointsAllocated, String leagueName, String tournamentName, int logId,  Boolean userJoin) {
+        this.leagueId = leagueId;
+        this.tournamentId = tournamentId;
+        this.prize = prize;
+        this.pointsAllocated = pointsAllocated;
+        this.leagueName = leagueName;
+        this.tournamentName = tournamentName;
+        this.logId = logId;
+        this.userJoin = userJoin;
     }
 
     public int getLogId() {
@@ -73,5 +85,13 @@ public class PublicLeague {
 
     public String getLeagueName() {
         return leagueName;
+    }
+
+    public Boolean getUserJoin() {
+        return userJoin;
+    }
+
+    public void setUserJoin(Boolean userJoin) {
+        this.userJoin = userJoin;
     }
 }

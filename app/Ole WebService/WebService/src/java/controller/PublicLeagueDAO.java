@@ -62,14 +62,14 @@ public class PublicLeagueDAO {
             ResultSet rs = stmt.executeQuery();
 
             while (rs.next()) {
-                int legaueID = rs.getInt(1);
+                int leagueId = rs.getInt(1);
                 String prize = rs.getString(2);
                 int tournamentID = rs.getInt(3);
                 int pointsAllocated = rs.getInt(4);
                 String leagueName = rs.getString(5);
                 String tournamentName = rs.getString(6);
 
-                dbAllPublicLeague.put(legaueID, new AllPublicLeague(legaueID, prize, tournamentID, pointsAllocated, leagueName, tournamentName));
+                dbAllPublicLeague.put(leagueId, new AllPublicLeague(leagueId, prize, tournamentID, pointsAllocated, leagueName, tournamentName));
             }
             rs.close();
 
@@ -98,6 +98,39 @@ public class PublicLeagueDAO {
             ex.printStackTrace();
         }
         return totalNumberOfParticipants;
+    }
+    
+    public static ArrayList<Integer> getUserPublicLeaguesID(String username) {
+        ArrayList<PublicLeague> publicLeagueList = new ArrayList<>();
+        ArrayList<Integer> leaguesEntered = new ArrayList<>();
+
+        try (Connection conn = DBConnection.getConnection();
+                PreparedStatement stmt = conn.prepareStatement(
+                        "select l.leagueId\n"
+                        + "from publicleague pl, league l, tournament t, log\n"
+                        + "where pl.leagueId = l.leagueId\n"
+                        + "and t.tournamentId = l.tournamentId\n"
+                        + "and log.leagueId = l.leagueId\n"
+                        + "and log.username = ?;");) {
+            stmt.setString(1, username);
+            
+            ResultSet rs = stmt.executeQuery();
+
+            while (rs.next()) {
+                int leagueID = rs.getInt(1);
+                
+                leaguesEntered.add(leagueID);
+
+                //publicLeagueList.add(new PublicLeague(leagueID, prize, tournamentID, pointsAllocated, tournamentName, leagueName, logid));
+            }
+            rs.close();
+
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        } catch (ClassNotFoundException ex) {
+            ex.printStackTrace();
+        }
+        return leaguesEntered;
     }
 
 }

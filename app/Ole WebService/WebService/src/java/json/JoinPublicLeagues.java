@@ -85,18 +85,18 @@ public class JoinPublicLeagues extends HttpServlet {
         PrintWriter out = response.getWriter();
 
         String username = request.getParameter("username");
-        int legaueID = Integer.parseInt(request.getParameter("leagueId"));
+        int leagueID = Integer.parseInt(request.getParameter("leagueId"));
         String status = "";
         int logID = 0;
         try {
 
-            status = JoinPublicLeaguesDAO.insertToLog(username, legaueID);
+            status = JoinPublicLeaguesDAO.insertToLog(username, leagueID);
             if (status.equals("successful")) {
-                logID = JoinPublicLeaguesDAO.selectLog(username, legaueID);
+                logID = JoinPublicLeaguesDAO.selectLog(username, leagueID);
                 status = JoinPublicLeaguesDAO.insertSpecialsLog(logID);
                 if (status.equals("successful")) {
 
-                    json.put("Status", "Public league join successful");
+                    json.put("Status", "successful");
 
                 } else {
                     json.put("status", "error");
