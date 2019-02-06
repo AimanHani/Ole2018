@@ -21,7 +21,7 @@ public class PrivateLeagueFinaltempActivity extends AppCompatActivity{
 
         PrivateLeagueText.setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {
-                Intent intent = new Intent(PrivateLeagueFinaltempActivity.this, Home.class);
+                Intent intent = new Intent(PrivateLeagueFinaltempActivity.this, HomeTile.class);
                 Bundle b = getIntent().getExtras();
                 if (b != null) {
 

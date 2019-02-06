@@ -11,10 +11,8 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.CardView;
 import android.view.MenuItem;
-import android.view.View;
 
 import com.example.ole.oleandroid.R;
-import com.example.ole.oleandroid.controller.PrivateLeagueController.PrivateLeagueMain;
 import com.example.ole.oleandroid.pageController.FAQ;
 
 public class SideMenuBar extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
@@ -28,8 +26,6 @@ public class SideMenuBar extends AppCompatActivity implements NavigationView.OnN
         super.onCreate(savedInstanceState);
         setContentView(R.layout.sidemenubar);
 
-//        pubLeague = findViewById(R.id.publicCard);
-//        privLeague = findViewById(R.id.privateCard);
         mDrawerlayout = (DrawerLayout) findViewById(R.id.drawer);
         mToggle = new ActionBarDrawerToggle(this, mDrawerlayout, R.string.open, R.string.close);
         mDrawerlayout.addDrawerListener(mToggle);
@@ -37,6 +33,8 @@ public class SideMenuBar extends AppCompatActivity implements NavigationView.OnN
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         setNavigationViewListener();
 
+//        pubLeague = findViewById(R.id.publicCard);
+//        privLeague = findViewById(R.id.privateCard);
 //        pubLeague.setOnClickListener(new View.OnClickListener() {
 //            public void onClick(View view) {
 ////                pubLeague.setVisibility(View.GONE);
@@ -67,7 +65,7 @@ public class SideMenuBar extends AppCompatActivity implements NavigationView.OnN
                 startActivity(intent1);
                 break;
             case R.id.menu_list_leagues:
-                Intent intent2 = new Intent(SideMenuBar.this, Home.class);
+                Intent intent2 = new Intent(SideMenuBar.this, HomeLeague.class);
                 startActivity(intent2);
                 break;
             case R.id.menu_list_leaderboard:

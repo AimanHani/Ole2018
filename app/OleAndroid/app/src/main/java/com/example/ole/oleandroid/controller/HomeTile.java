@@ -2,7 +2,6 @@ package com.example.ole.oleandroid.controller;
 
 import android.content.Context;
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,7 +12,7 @@ import com.example.ole.oleandroid.controller.PrivateLeagueController.PrivateLeag
 import com.example.ole.oleandroid.R;
 import com.example.ole.oleandroid.pageController.FAQ;
 
-public class Home extends SideMenuBar{
+public class HomeTile extends SideMenuBar{
 
     TextView publicLeagues;
     TextView privateLeagues;
@@ -25,11 +24,11 @@ public class Home extends SideMenuBar{
     @Override
     protected void onCreate(final Bundle savedInstanceState) {
 //        super.onCreate(savedInstanceState);
-//        setContentView(R.layout.activity_home);
+//        setContentView(R.layout.activity_home_tile);
 
         super.onCreate(savedInstanceState);
         LayoutInflater inflater = (LayoutInflater) this.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        View contentView = inflater.inflate(R.layout.activity_home, null, false);
+        View contentView = inflater.inflate(R.layout.activity_home_tile, null, false);
         super.mDrawerlayout.addView(contentView, 0);
 
         //get user object
@@ -48,7 +47,7 @@ public class Home extends SideMenuBar{
         publicLeagues.setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {
                 //link to epl page, currently with only English Premier League
-                Intent intent = new Intent(Home.this, PublicLeagueList.class);
+                Intent intent = new Intent(HomeTile.this, PublicLeagueList.class);
 //                Bundle b = getIntent().getExtras();
 //                intent.putExtras(b);
                 startActivity(intent);
@@ -57,7 +56,7 @@ public class Home extends SideMenuBar{
 
         privateLeagues.setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {
-                Intent intent = new Intent(Home.this, PrivateLeagueHome.class);
+                Intent intent = new Intent(HomeTile.this, PrivateLeagueHome.class);
 //                Bundle b = getIntent().getExtras();
 //                intent.putExtras(b);
                 //intent.putExtra("User", u);
@@ -70,7 +69,7 @@ public class Home extends SideMenuBar{
         faq.setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {
 
-                Intent intent = new Intent(Home.this, FAQ.class);
+                Intent intent = new Intent(HomeTile.this, FAQ.class);
 //                Bundle b = getIntent().getExtras();
 //                intent.putExtras(b);
                 startActivity(intent);
@@ -80,7 +79,7 @@ public class Home extends SideMenuBar{
         profile.setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {
 
-                Intent intent = new Intent(Home.this, Profile.class);
+                Intent intent = new Intent(HomeTile.this, Profile.class);
 //                Bundle b = getIntent().getExtras();
 //                intent.putExtras(b);
                 //intent.putExtra("User", u);
@@ -91,7 +90,7 @@ public class Home extends SideMenuBar{
         leaderboard.setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {
 
-                Intent intent = new Intent(Home.this, Leaderboard.class);
+                Intent intent = new Intent(HomeTile.this, Leaderboard.class);
 //                Bundle b = getIntent().getExtras();
 //                intent.putExtras(b);
                 //intent.putExtra("User", u);

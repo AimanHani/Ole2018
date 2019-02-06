@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:maxHeight="665dp"
-    tools:context=".controller.Home">
+    tools:context=".controller.HomeTile">
 
     <ImageView
         android:id="@+id/profileFaqImage"

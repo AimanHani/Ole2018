@@ -65,7 +65,7 @@ public class Login extends AppCompatActivity {
                     Boolean valid = LoginDAO.validate(send);
 
                     if (valid){
-                        Intent intent = new Intent(Login.this, SideMenuBar.class);
+                        Intent intent = new Intent(Login.this, HomeLeague.class);
 //                        Bundle bundle = new Bundle();
 //                        bundle.putString("username", username.getText().toString());
 //                        intent.putExtras(bundle);
@@ -77,7 +77,7 @@ public class Login extends AppCompatActivity {
 //comments stop here
 
                     // codes to bypass login with webservice
-//                    Intent intent = new Intent(Login.this, Home.class);
+//                    Intent intent = new Intent(Login.this, HomeTile.class);
 //                    Bundle bundle = new Bundle();
 //                    bundle.putString("username", username.getText().toString());
 //                    intent.putExtras(bundle);

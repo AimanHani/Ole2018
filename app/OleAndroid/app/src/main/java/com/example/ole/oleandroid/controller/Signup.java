@@ -2,12 +2,9 @@ package com.example.ole.oleandroid.controller;
 
 import android.app.DatePickerDialog;
 import android.app.Dialog;
-import android.app.ProgressDialog;
 import android.content.Intent;
 import android.graphics.Color;
-import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
-import android.nfc.Tag;
 import android.os.Bundle;
 import android.os.StrictMode;
 import android.support.v7.app.AppCompatActivity;
@@ -24,43 +21,20 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.android.volley.Request;
 import com.android.volley.RequestQueue;
-import com.android.volley.Response;
-import com.android.volley.VolleyError;
-import com.android.volley.toolbox.StringRequest;
-import com.android.volley.toolbox.Volley;
 import com.example.ole.oleandroid.R;
-import com.example.ole.oleandroid.dbConnection.DBConnection;
-import com.example.ole.oleandroid.dbConnection.PostHttp;
 import com.example.ole.oleandroid.model.CountryItem;
 import com.example.ole.oleandroid.model.TeamItems;
-import com.example.ole.oleandroid.model.User;
-
-import java.io.UnsupportedEncodingException;
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
-
-import android.app.ProgressDialog;
-import android.os.Bundle;
-
-import org.json.JSONException;
-import org.json.JSONObject;
 
 import java.text.DateFormat;
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
-import java.time.Period;
 import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.HashMap;
-import java.util.Map;
 import java.util.Timer;
 import java.util.TimerTask;
-import java.util.regex.Pattern;
 
 public class Signup extends AppCompatActivity {
     private static final String TAG = "Signup";
@@ -252,7 +226,7 @@ public class Signup extends AppCompatActivity {
         close.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(Signup.this, Home.class);
+                Intent intent = new Intent(Signup.this, HomeTile.class);
                 Bundle bundle = new Bundle();
                 bundle.putString("username", username.getText().toString());
                 intent.putExtras(bundle);

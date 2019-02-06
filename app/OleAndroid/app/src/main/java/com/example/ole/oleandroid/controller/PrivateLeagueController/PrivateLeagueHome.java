@@ -117,7 +117,7 @@ public class PrivateLeagueHome extends AppCompatActivity {
 //comments stop here
 /*
                     // codes to bypass login with webservice
-                    Intent intent = new Intent(Login.this, Home.class);
+                    Intent intent = new Intent(Login.this, HomeTile.class);
                     Bundle bundle = new Bundle();
                     bundle.putString("username", username.getText().toString());
                     intent.putExtras(bundle);

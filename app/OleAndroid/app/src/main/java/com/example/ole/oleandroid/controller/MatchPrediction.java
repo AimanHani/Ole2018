@@ -2,15 +2,11 @@ package com.example.ole.oleandroid.controller;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
-import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.android.volley.Request;
@@ -22,7 +18,6 @@ import com.android.volley.toolbox.Volley;
 import com.example.ole.oleandroid.R;
 import com.example.ole.oleandroid.dbConnection.DBConnection;
 
-import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -105,7 +100,7 @@ public class MatchPrediction extends AppCompatActivity {
                             @Override
                             public void onResponse(String serverResponse) {
                                 System.out.print(serverResponse);
-                                Intent intent = new Intent(MatchPrediction.this, Home.class);
+                                Intent intent = new Intent(MatchPrediction.this, HomeTile.class);
                                 Bundle b = getIntent().getExtras();
                                 intent.putExtras(b);
                                 startActivity(intent);
