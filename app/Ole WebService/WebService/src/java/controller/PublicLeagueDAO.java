@@ -31,7 +31,8 @@ public class PublicLeagueDAO {
                         + "from publicleague pl, league l, tournament t, log\n"
                         + "where pl.leagueId = l.leagueId\n"
                         + "and t.tournamentId = l.tournamentId\n"
-                        + "and log.leagueId = l.leagueId;");) {
+                        + "and log.leagueId = l.leagueId\n"
+                        + "and log.username = 'admin'");) {
             ResultSet rs = stmt.executeQuery();
 
             while (rs.next()) {
@@ -99,7 +100,7 @@ public class PublicLeagueDAO {
         }
         return totalNumberOfParticipants;
     }
-    
+
     public static ArrayList<Integer> getUserPublicLeaguesID(String username) {
         ArrayList<PublicLeague> publicLeagueList = new ArrayList<>();
         ArrayList<Integer> leaguesEntered = new ArrayList<>();
@@ -113,12 +114,12 @@ public class PublicLeagueDAO {
                         + "and log.leagueId = l.leagueId\n"
                         + "and log.username = ?;");) {
             stmt.setString(1, username);
-            
+
             ResultSet rs = stmt.executeQuery();
 
             while (rs.next()) {
                 int leagueID = rs.getInt(1);
-                
+
                 leaguesEntered.add(leagueID);
 
                 //publicLeagueList.add(new PublicLeague(leagueID, prize, tournamentID, pointsAllocated, tournamentName, leagueName, logid));

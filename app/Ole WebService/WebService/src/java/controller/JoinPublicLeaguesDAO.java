@@ -1,4 +1,4 @@
-/*
+    /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
@@ -65,7 +65,7 @@ public class JoinPublicLeaguesDAO {
     public static String insertToMatchLog(int logID) {
         int points = 0;
         int rs = 0;
-        try (Connection c = DBConnection.getConnection(); PreparedStatement ps = c.prepareStatement("INSERT INTO matchlog (logId, points) VALUES (?,?)");) {
+        try (Connection c = DBConnection.getConnection(); PreparedStatement ps = c.prepareStatement("INSERT INTO matcheslog (logId, points) VALUES (?,?)");) {
             ps.setInt(1, logID);
             ps.setInt(2, points);
             rs = ps.executeUpdate();
@@ -79,11 +79,12 @@ public class JoinPublicLeaguesDAO {
 
     }
 
-    public static ArrayList<Integer> getSpecialsIDs() {
+    public static ArrayList<Integer> getSpecialsIDs(int logId) {
         int points = 0;
 
         ArrayList<Integer> specialsIDs = new ArrayList();
-        try (Connection c = DBConnection.getConnection(); PreparedStatement ps = c.prepareStatement("SELECT specialsId from specialslog where prediction = -1");) {
+        try (Connection c = DBConnection.getConnection(); PreparedStatement ps = c.prepareStatement("SELECT specialsId from specialslog where prediction = -1 and logid = ?");) {
+            ps.setInt(1, logId);
             ResultSet rs = ps.executeQuery();
 
             while (rs.next()) {
@@ -97,12 +98,13 @@ public class JoinPublicLeaguesDAO {
         return specialsIDs;
     }
 
-    public static String insertSpecialsLog(int logID) {
+    public static String insertSpecialsLog(int logID, int leagueId) {
         int points = 0;
         int rs = 0;
-        ArrayList<Integer> specialsIDs = getSpecialsIDs();
+        int adminLogId = selectLog("admin", leagueId);
+        ArrayList<Integer> specialsIDs = getSpecialsIDs(adminLogId);
         for (int i = 0; i < specialsIDs.size(); i++) {
-            try (Connection c = DBConnection.getConnection(); PreparedStatement ps = c.prepareStatement("INSERT INTO specialsLog (logid, specialsId) VALUES(?,?)");) {
+            try (Connection c = DBConnection.getConnection(); PreparedStatement ps = c.prepareStatement("INSERT INTO specialslog (logid, specialsId) VALUES(?,?)");) {
                 ps.setInt(1, logID);
                 ps.setInt(2, specialsIDs.get(i));
                 rs = ps.executeUpdate();

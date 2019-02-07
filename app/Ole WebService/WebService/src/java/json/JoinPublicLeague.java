@@ -24,8 +24,8 @@ import org.json.JSONObject;
  *
  * @author user
  */
-@WebServlet(name = "JoinPublicLeaguesJson", urlPatterns = {"/json/joinPublicLeagues"})
-public class JoinPublicLeagues extends HttpServlet {
+@WebServlet(name = "JoinPublicLeagueJson", urlPatterns = {"/json/joinPublicLeague"})
+public class JoinPublicLeague extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -93,21 +93,22 @@ public class JoinPublicLeagues extends HttpServlet {
             status = JoinPublicLeaguesDAO.insertToLog(username, leagueID);
             if (status.equals("successful")) {
                 logID = JoinPublicLeaguesDAO.selectLog(username, leagueID);
-                status = JoinPublicLeaguesDAO.insertSpecialsLog(logID);
+                System.out.println("log id "+logID);
+                status = JoinPublicLeaguesDAO.insertSpecialsLog(logID, leagueID);
                 if (status.equals("successful")) {
 
-                    json.put("Status", "successful");
+                    json.put("status", "successful");
 
                 } else {
                     json.put("status", "error");
-                    String invalidMsg = "Something is wrong check checkS" + "/" + "";
+                    String invalidMsg = "Something is wrong check check" + "/" + "";
                     String[] invalidString = {invalidMsg};
                     json.put("messages", invalidString);
                 }
             } else {
 
                 json.put("status", "error");
-                String invalidMsg = "Something is wrong check checkS" + "/" + "";
+                String invalidMsg = "Something is wrong check check" + "/" + "";
                 String[] invalidString = {invalidMsg};
                 json.put("messages", invalidString);
             }

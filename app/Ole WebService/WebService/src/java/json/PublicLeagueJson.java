@@ -70,15 +70,17 @@ public class PublicLeagueJson extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        
+
         JSONArray list = new JSONArray();
         JSONObject parentJson = new JSONObject();
         response.setContentType("\"Content-Type\", \"application/x-www-form-urlencoded\"");
         response.setCharacterEncoding("utf-8");
         PrintWriter out = response.getWriter();
-
-        ArrayList<PublicLeague> publicLeagueList = PublicLeagueDAO.getPublicLeagues();
+        String username = request.getParameter("username");
         
+        ArrayList<PublicLeague> publicLeagueList = PublicLeagueDAO.getPublicLeagues();
+        ArrayList<Integer> userPublicLeaguesID = PublicLeagueDAO.getUserPublicLeaguesID(username);
+
         System.out.println(publicLeagueList.size());
         try {
             for (int i = 0; i < publicLeagueList.size(); i++) {
@@ -92,15 +94,19 @@ public class PublicLeagueJson extends HttpServlet {
                 json.put("pointsAllocated", publicLeague.getPointsAllocated());
                 json.put("leagueName", publicLeague.getLeagueName());
                 json.put("tournamentName", publicLeague.getTournamentName());
-                json.put("logId", publicLeague.getLogId()
-                );
+                json.put("logId", publicLeague.getLogId());
+                if (userPublicLeaguesID.contains(publicLeague.getLeagueID())){
+                    json.put("userJoin", "true");
+                } else {
+                     json.put("userJoin", "false");
+                }
                 list.put(json);
             }
 
             parentJson.put("results", list);
             out.print(parentJson);
             out.flush();
-            
+
         } catch (JSONException ex) {
             Logger.getLogger(PublicLeagueJson.class.getName()).log(Level.SEVERE, null, ex);
         }
