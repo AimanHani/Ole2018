@@ -29,7 +29,7 @@ public class DBConnection {
     }
 
     public static String insertUserPublicLeagueUrl(){
-        String url = mainUrl+"/json/joinPublicLeagues";
+        String url = mainUrl+"/json/joinPublicLeague";
         return url;
     }
 

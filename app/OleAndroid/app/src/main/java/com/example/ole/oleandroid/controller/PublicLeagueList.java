@@ -53,7 +53,7 @@ public class PublicLeagueList extends SideMenuBar {
         publicLeagueListView = findViewById(R.id.publicLeagueListView);
 
         PublicLeagueDAO.clearAllPublicLeague();
-        String url = DBConnection.getPublicLeagueUrl();
+        String url = DBConnection.getPublicLeagueUrl()+"?username="+UserDAO.getLoginUser().getUsername();
         System.out.println("Getting public league list");
 
         GetHttp getConnection = new GetHttp();
@@ -67,6 +67,12 @@ public class PublicLeagueList extends SideMenuBar {
             if (publicLeagues.length() > 0) {
                 for (int i = 0; i < publicLeagues.length(); i++) {
                     JSONObject publicLeagueObject = publicLeagues.getJSONObject(i);
+
+                    Boolean userJoin = false;
+                    if (publicLeagueObject.getString("userJoin").equals("true")){
+                        userJoin = true;
+                    }
+
                     PublicLeague publicLeague = new PublicLeague(
                             publicLeagueObject.getInt("leagueID"),
                             publicLeagueObject.getInt("tournamentID"),
@@ -74,14 +80,15 @@ public class PublicLeagueList extends SideMenuBar {
                             publicLeagueObject.getInt("pointsAllocated"),
                             publicLeagueObject.getString("leagueName"),
                             publicLeagueObject.getString("tournamentName"),
-                            publicLeagueObject.getInt("logId")
+                            publicLeagueObject.getInt("logId"),
+                            userJoin
                     );
                     PublicLeagueDAO.addPublicleague(publicLeague);
                 }
 
                 //i put 5,2 to test whether thing works, in the future pass in from database
                 //leaguelist.add("English Premier League");
-                PublicLeagueDAO.addPublicleague(new PublicLeague(1009,2,"Arsenal Jersey", 3, "Public League","Premier League", 5));
+                PublicLeagueDAO.addPublicleague(new PublicLeague(1009,2,"Arsenal Jersey", 3, "Public League","Premier League", 5, false));
 
                 publicLeagueListAdapter = new PublicLeagueListAdapter(PublicLeagueList.this, PublicLeagueDAO.getAllPublicLeague());
                 publicLeagueListView.setAdapter(publicLeagueListAdapter);

@@ -56,7 +56,7 @@ public class Profile extends SideMenuBar {
         accQty = findViewById(R.id.accQty);
 
 
-        userName.setText(loginUser.getUserName());
+        userName.setText(loginUser.getUsername());
         userCountry.setText(loginUser.getCountry());
         userFavTeam.setText(loginUser.getFavoriteTeam());
 

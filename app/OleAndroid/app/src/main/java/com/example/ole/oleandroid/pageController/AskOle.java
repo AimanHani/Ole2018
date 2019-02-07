@@ -40,7 +40,7 @@ public class AskOle extends AppCompatActivity {
         //final User u = (User)i.getSerializableExtra("User");
         User loginUser = UserDAO.getLoginUser();
         userName = findViewById(R.id.userName);
-        userName.setText(loginUser.getUserName());
+        userName.setText(loginUser.getUsername());
         email=findViewById(R.id.email);
         email.setText(loginUser.getEmail());
     }
