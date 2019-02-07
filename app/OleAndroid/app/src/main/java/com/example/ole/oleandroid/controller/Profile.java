@@ -6,7 +6,9 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
+import android.support.v7.widget.CardView;
 import android.widget.TextView;
+import android.widget.LinearLayout;
 
 import com.example.ole.oleandroid.R;
 import com.example.ole.oleandroid.model.User;
@@ -56,7 +58,7 @@ public class Profile extends SideMenuBar {
         accQty = findViewById(R.id.accQty);
 
 
-        userName.setText(loginUser.getUserName());
+        userName.setText(loginUser.getUsername());
         userCountry.setText(loginUser.getCountry());
         userFavTeam.setText(loginUser.getFavoriteTeam());
 
@@ -110,7 +112,7 @@ public class Profile extends SideMenuBar {
         home.setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {
 
-                Intent intent = new Intent(Profile.this, HomeTile.class);
+                Intent intent = new Intent(Profile.this, HomeLeague.class);
 //                Bundle b = getIntent().getExtras();
 //                intent.putExtras(b);
                 startActivity(intent);
