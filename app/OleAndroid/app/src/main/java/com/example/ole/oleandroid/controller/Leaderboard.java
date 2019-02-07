@@ -1,6 +1,7 @@
 package com.example.ole.oleandroid.controller;
 
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -10,6 +11,7 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
+import android.view.LayoutInflater;
 import android.view.View;
 
 import com.example.ole.oleandroid.R;
@@ -18,7 +20,7 @@ import com.example.ole.oleandroid.R;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Leaderboard extends AppCompatActivity {
+public class Leaderboard extends SideMenuBar {
 
     TabLayout leaderboardFrame;
     ViewPager viewPager;
@@ -27,7 +29,9 @@ public class Leaderboard extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_leaderboard);
+        LayoutInflater inflater = (LayoutInflater) this.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        View contentView = inflater.inflate(R.layout.activity_leaderboard, null, false);
+        super.mDrawerlayout.addView(contentView, 0);
 
         viewPager = findViewById(R.id.viewPagerId);
         setupViewPager(viewPager);

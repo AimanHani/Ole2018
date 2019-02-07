@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".pageController.FAQPrivate">
+    tools:context=".pageController.FAQLeaderboard">
 
     <TextView
         android:id="@+id/faqLabel"
@@ -44,7 +44,7 @@
         android:paddingTop="8dp"
         android:paddingRight="8dp"
         android:paddingBottom="8dp"
-        android:text="P R I V A T E  L E A G U E"
+        android:text="L E A D E R B O A R D"
         android:textAllCaps="true"
         android:textColor="@color/white"
         android:textSize="20sp"
