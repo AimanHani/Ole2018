@@ -7,6 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ExpandableListView;
 
+import com.example.ole.oleandroid.R;
 import com.example.ole.oleandroid.controller.FAQExpandableListAdapter;
 
 import java.util.ArrayList;
@@ -20,17 +21,17 @@ public class LeaderboardPrivate extends Fragment {
     private HashMap<String, List<String>> listHash;
     View view;
 
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_leaderboard_private);
-
-        listView = (ExpandableListView) findViewById(R.id.output);
-        initData();
-        listAdapter = new FAQExpandableListAdapter(this,listDataHeader,listHash);
-        listView.setAdapter(listAdapter);
-
-    }
+//    @Override
+//    public void onCreate(Bundle savedInstanceState) {
+//        super.onCreate(savedInstanceState);
+//        setContentView(R.layout.activity_leaderboard_private);
+//
+//        listView = (ExpandableListView) findViewById(R.id.output);
+//        initData();
+//        listAdapter = new FAQExpandableListAdapter(this,listDataHeader,listHash);
+//        listView.setAdapter(listAdapter);
+//
+//    }
 
     private void initData() {
         listDataHeader = new ArrayList<>();

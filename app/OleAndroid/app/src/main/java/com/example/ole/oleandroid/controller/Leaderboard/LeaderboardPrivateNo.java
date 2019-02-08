@@ -22,7 +22,7 @@ public class LeaderboardPrivateNo extends Fragment implements View.OnClickListen
          *  Remember to put the no connection
          */
 
-        view = inflater.inflate(R.layout.activity_leaderboard_private_no, container, false);
+        view = inflater.inflate(R.layout.activity_leaderboard_no_private, container, false);
         createPrivateLeague = (Button) view.findViewById(R.id.createPrivateLeague);
         createPrivateLeague.setOnClickListener(this);
         return view;
