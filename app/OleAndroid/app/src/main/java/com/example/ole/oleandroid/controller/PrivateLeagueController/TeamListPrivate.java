@@ -1,12 +1,15 @@
 package com.example.ole.oleandroid.controller.PrivateLeagueController;
 
+import android.content.Context;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ListView;
 
+import com.example.ole.oleandroid.controller.SideMenuBar;
 import com.example.ole.oleandroid.controller.UserDAO;
 import com.example.ole.oleandroid.dbConnection.DBConnection;
 import com.example.ole.oleandroid.dbConnection.GetHttp;
@@ -20,15 +23,20 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 
-public class TeamListPrivate extends AppCompatActivity {
+public class TeamListPrivate extends SideMenuBar {
     TeamListPrivateAdapter teamListPrivateAdapter;
     ListView teamListView;
     Button confirmteambtn;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.teamlistprivate);
+        LayoutInflater inflater = (LayoutInflater) this.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        View contentView = inflater.inflate(R.layout.teamlistprivate, null, false);
+        super.mDrawerlayout.addView(contentView, 0);
+
+
         teamListView = findViewById(R.id.teamListView);
         confirmteambtn = findViewById(R.id.confirmteambtn);
         ArrayList<Teams> teamsList = new ArrayList<>();

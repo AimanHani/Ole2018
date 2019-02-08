@@ -1,5 +1,6 @@
 package com.example.ole.oleandroid.controller.PrivateLeagueController;
 
+        import android.content.Context;
         import android.os.Bundle;
         import android.support.annotation.Nullable;
         import android.support.design.widget.FloatingActionButton;
@@ -9,13 +10,16 @@ package com.example.ole.oleandroid.controller.PrivateLeagueController;
         import android.support.v4.app.FragmentPagerAdapter;
         import android.support.v4.view.ViewPager;
         import android.support.v7.app.AppCompatActivity;
+        import android.view.LayoutInflater;
+        import android.view.View;
+        import com.example.ole.oleandroid.controller.SideMenuBar;
 
         import com.example.ole.oleandroid.R;
 
         import java.util.ArrayList;
         import java.util.List;
 
-public class PrivateLeagueMain extends AppCompatActivity {
+public class PrivateLeagueMain extends SideMenuBar {
 
     TabLayout privateLeagueTabLayout;
     ViewPager viewPager;
@@ -26,8 +30,11 @@ public class PrivateLeagueMain extends AppCompatActivity {
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_private_league_main);
+        LayoutInflater inflater = (LayoutInflater) this.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        View contentView = inflater.inflate(R.layout.activity_private_league_main, null, false);
+        super.mDrawerlayout.addView(contentView, 0);
 
         //Bundle bundle = getIntent().getExtras();
         //logId = bundle.getInt("logId");
