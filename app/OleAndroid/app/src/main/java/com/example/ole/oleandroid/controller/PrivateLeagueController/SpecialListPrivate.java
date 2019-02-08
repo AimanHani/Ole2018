@@ -1,12 +1,15 @@
 package com.example.ole.oleandroid.controller.PrivateLeagueController;
 
+import android.content.Context;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ListView;
 
+import com.example.ole.oleandroid.controller.SideMenuBar;
 import com.example.ole.oleandroid.dbConnection.DBConnection;
 import com.example.ole.oleandroid.dbConnection.GetHttp;
 import com.example.ole.oleandroid.model.Specials;
@@ -17,15 +20,18 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import com.example.ole.oleandroid.R;
 
-public class SpecialListPrivate extends AppCompatActivity {
+public class SpecialListPrivate extends SideMenuBar {
     SpecialListPrivateAdapter specialListPrivateAdapter;
     ListView specialListView;
     Button confirmspecialsbtn;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.speciallistprivate);
+        LayoutInflater inflater = (LayoutInflater) this.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        View contentView = inflater.inflate(R.layout.speciallistprivate, null, false);
+        super.mDrawerlayout.addView(contentView, 0);
 
         specialListView = findViewById(R.id.specialListView);
         confirmspecialsbtn = findViewById(R.id.confirmspecialsbtn);

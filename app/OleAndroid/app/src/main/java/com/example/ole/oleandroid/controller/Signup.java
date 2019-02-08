@@ -545,7 +545,7 @@ public class Signup extends AppCompatActivity {
 
             }
         });
-        //Calender Code (TBC)
+        //Calendar code
         birthdateButton = findViewById(R.id.birthdateButton);
         birthdateButton.setOnClickListener(new View.OnClickListener() {
             @Override

@@ -25,7 +25,7 @@
         android:layout_width="320dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="24dp"
         android:layout_marginEnd="8dp"
         android:orientation="vertical"
         app:layout_constraintEnd_toEndOf="parent"
@@ -84,34 +84,60 @@
     </LinearLayout>
 
     <LinearLayout
-        android:id="@+id/passwordLayout"
+    android:id="@+id/passwordLayout"
+    android:layout_width="320dp"
+    android:layout_height="60dp"
+    android:layout_marginTop="16dp"
+    android:orientation="vertical"
+    app:layout_constraintEnd_toEndOf="@+id/PrizeLayout"
+    app:layout_constraintStart_toStartOf="@+id/PrizeLayout"
+    app:layout_constraintTop_toBottomOf="@+id/PrizeLayout">
+
+    <TextView
+        android:id="@+id/passwordText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text=" Choose a Password: "
+        tools:layout_editor_absoluteX="16dp"
+        tools:layout_editor_absoluteY="155dp" />
+
+    <EditText
+        android:id="@+id/password"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:hint="Password"
+        android:inputType="textPersonName"
+        app:layout_constraintEnd_toEndOf="parent" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/pointsLayout"
         android:layout_width="320dp"
         android:layout_height="60dp"
         android:layout_marginTop="16dp"
         android:orientation="vertical"
-        app:layout_constraintEnd_toEndOf="@+id/PrizeLayout"
-        app:layout_constraintStart_toStartOf="@+id/PrizeLayout"
-        app:layout_constraintTop_toBottomOf="@+id/PrizeLayout">
+        app:layout_constraintEnd_toEndOf="@+id/passwordLayout"
+        app:layout_constraintStart_toStartOf="@+id/passwordLayout"
+        app:layout_constraintTop_toBottomOf="@+id/passwordLayout">
 
         <TextView
-            android:id="@+id/passwordText"
+            android:id="@+id/pointsText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text=" Choose a Password: "
+            android:text=" Point for each win: "
             tools:layout_editor_absoluteX="16dp"
             tools:layout_editor_absoluteY="155dp" />
 
         <EditText
-            android:id="@+id/password"
+            android:id="@+id/points"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:ems="10"
-            android:hint="Password"
-            android:inputType="textPersonName"
+            android:hint="Points"
+            android:inputType="textPersonName|number"
             app:layout_constraintEnd_toEndOf="parent" />
-
     </LinearLayout>
-
 
 
 

@@ -1,9 +1,11 @@
 package com.example.ole.oleandroid.controller.PrivateLeagueController;
 
+import android.content.Context;
 import android.content.Intent;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.EditText;
 
@@ -12,11 +14,12 @@ import com.example.ole.oleandroid.R;
 import com.example.ole.oleandroid.dbConnection.DBConnection;
 import com.example.ole.oleandroid.dbConnection.PostHttp;
 import com.example.ole.oleandroid.model.PrivateLeague;
+import com.example.ole.oleandroid.controller.SideMenuBar;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
-public class PrivateLeagueHome extends AppCompatActivity {
+public class PrivateLeagueHome extends SideMenuBar {
 
     FloatingActionButton addPrivateLeague;
     FloatingActionButton searchLeagueName;
@@ -25,6 +28,7 @@ public class PrivateLeagueHome extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_private_league_home);
 
