@@ -13,6 +13,7 @@ import android.support.v7.widget.CardView;
 import android.view.MenuItem;
 
 import com.example.ole.oleandroid.R;
+import com.example.ole.oleandroid.controller.Leaderboard.Leaderboard;
 import com.example.ole.oleandroid.pageController.FAQ;
 
 public class SideMenuBar extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {

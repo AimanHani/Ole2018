@@ -46,11 +46,11 @@
 
     </head>
 
-    <body style="text-align:center; background-image: url(WebDesignResources/images/wallpaper.jpg);">
+    <body style="text-align:center; background-color: #CCDAFF;">
         <div class="container">
             <div class="row">
                 <div class="col-md-4 col-md-offset-4">
-                    <div class="login-panel panel panel-default">
+                    <div class="login-panel panel panel-default" style="padding: 10px; box-shadow: 10px 10px 20px grey">
                         <div class="panel-body">
                             <form action="LoginServlet" method="post" role="form">
                                 <fieldset>

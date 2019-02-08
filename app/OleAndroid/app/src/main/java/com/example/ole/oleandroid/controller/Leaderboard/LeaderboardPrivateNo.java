@@ -1,4 +1,4 @@
-package com.example.ole.oleandroid.controller;
+package com.example.ole.oleandroid.controller.Leaderboard;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -11,7 +11,7 @@ import android.widget.Button;
 import com.example.ole.oleandroid.R;
 import com.example.ole.oleandroid.controller.PrivateLeagueController.PrivateLeagueCreate;
 
-public class PrivateLeaderboard extends Fragment implements View.OnClickListener {
+public class LeaderboardPrivateNo extends Fragment implements View.OnClickListener {
 
     View view;
     Button createPrivateLeague;
@@ -22,7 +22,7 @@ public class PrivateLeaderboard extends Fragment implements View.OnClickListener
          *  Remember to put the no connection
          */
 
-        view = inflater.inflate(R.layout.activity_private_leaderboard, container, false);
+        view = inflater.inflate(R.layout.activity_leaderboard_private_no, container, false);
         createPrivateLeague = (Button) view.findViewById(R.id.createPrivateLeague);
         createPrivateLeague.setOnClickListener(this);
         return view;
