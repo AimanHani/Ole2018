@@ -17,7 +17,7 @@ import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Arrays;
 
-public class PublicLeagueListAdapter extends BaseAdapter implements View.OnClickListener{
+public class PublicLeagueListAdapter extends BaseAdapter implements View.OnClickListener {
     private Context context; //context
     private ArrayList<PublicLeague> leaguelist;//data source of the list adapter
     private ViewHolder viewHolder;
@@ -65,9 +65,9 @@ public class PublicLeagueListAdapter extends BaseAdapter implements View.OnClick
         viewHolder.joinleaguebtn = convertView.findViewById(R.id.joinleaguebtn);
         //this will get each point from the arraylist
         viewHolder.league.setText(leaguelist.get(position).getLeagueName());
-        viewHolder.joinleaguebtn.setTag(new ArrayList<>(Arrays.asList(position+"", leaguelist.get(position).getUserJoin().toString()))); //label the first item on the list
+        viewHolder.joinleaguebtn.setTag(new ArrayList<>(Arrays.asList(position + "", leaguelist.get(position).getUserJoin().toString()))); //label the first item on the list
         //viewHolder.joinleaguebtn.setTag(2, leaguelist.get(position).getLogId());
-        if (leaguelist.get(position).getUserJoin()){
+        if (leaguelist.get(position).getUserJoin()) {
             viewHolder.joinleaguebtn.setText("View");
         }
         //viewHolder.joinleaguebtn.setTag(2, leaguelist.get(position).getUserJoin().toString());
@@ -89,34 +89,33 @@ public class PublicLeagueListAdapter extends BaseAdapter implements View.OnClick
         return convertView;// returns the view for the current row
     }
 
-    public void onClick(View view){
+    public void onClick(View view) {
         ArrayList<String> tags = (ArrayList<String>) view.getTag();
         int position = Integer.parseInt(tags.get(0));
         Boolean userJoin = Boolean.parseBoolean(tags.get(1));
 
-        if (view.getId() == R.id.joinleaguebtn && !userJoin){
-            Intent intent = new Intent(context, Leagues.class);
-            Bundle bundle = new Bundle();
-            bundle.putInt("logId", leaguelist.get(position).getLogId());
-
+        if (!userJoin) {
 //            int leagueId = leaguelist.get(position).getLeagueId();
 //            String username = UserDAO.getLoginUser().getUsername();
             PublicLeagueDAO.joinPublicLeague(leaguelist.get(position).getLeagueId(), UserDAO.getLoginUser().getUsername());
+        }
 
-            intent.putExtras(bundle);
-            context.startActivity(intent);
-        } else if (view.getId() == R.id.joinleaguebtn && userJoin){
+//        if (view.getId() == R.id.joinleaguebtn) {
+//            Intent intent = new Intent(context, Leagues.class);
+//            Bundle bundle = new Bundle();
+//            bundle.putInt("logId", leaguelist.get(position).getLogId());
+//            intent.putExtras(bundle);
+//            context.startActivity(intent);
+//        }
 
+        switch(view.getId()){
+            case R.id.joinleaguebtn:
+                Intent intent = new Intent(context, Leagues.class);
+                Bundle bundle = new Bundle();
+                bundle.putInt("logId", leaguelist.get(position).getLogId());
+                intent.putExtras(bundle);
+                context.startActivity(intent);
 
         }
-//        switch(view.getId()){
-//            case R.id.joinleaguebtn && userJoin:
-//                Intent intent = new Intent(context, Leagues.class);
-//                Bundle bundle = new Bundle();
-//                bundle.putInt("logId", (Integer) leaguelist.get(position).getLogId());
-//                intent.putExtras(bundle);
-//                context.startActivity(intent);
-//
-//        }
     }
 }
