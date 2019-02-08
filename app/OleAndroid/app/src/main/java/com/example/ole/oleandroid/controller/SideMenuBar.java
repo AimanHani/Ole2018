@@ -16,7 +16,7 @@ import com.example.ole.oleandroid.R;
 import com.example.ole.oleandroid.pageController.FAQ;
 
 public class SideMenuBar extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
-    DrawerLayout mDrawerlayout;
+    protected DrawerLayout mDrawerlayout;
     ActionBarDrawerToggle mToggle;
     CardView pubLeague;
     CardView privLeague;

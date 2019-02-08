@@ -100,7 +100,7 @@ public class MatchPrediction extends AppCompatActivity {
                             @Override
                             public void onResponse(String serverResponse) {
                                 System.out.print(serverResponse);
-                                Intent intent = new Intent(MatchPrediction.this, HomeTile.class);
+                                Intent intent = new Intent(MatchPrediction.this, HomeLeague.class);
                                 Bundle b = getIntent().getExtras();
                                 intent.putExtras(b);
                                 startActivity(intent);

@@ -226,7 +226,7 @@ public class Signup extends AppCompatActivity {
         close.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(Signup.this, HomeTile.class);
+                Intent intent = new Intent(Signup.this, HomeLeague.class);
                 Bundle bundle = new Bundle();
                 bundle.putString("username", username.getText().toString());
                 intent.putExtras(bundle);
