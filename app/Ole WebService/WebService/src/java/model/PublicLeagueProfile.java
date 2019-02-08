@@ -12,7 +12,7 @@ import java.sql.Time;
  *
  * @author user
  */
-public class PublicLeagueProfile {
+public class PublicLeagueProfile implements Comparable {
     private int logID;
     private String username;
     private int leagueID;
@@ -23,6 +23,21 @@ public class PublicLeagueProfile {
     private Time matchTime;
     private String team1;
     private String team2;
+    private int totalPoints;
+
+    public PublicLeagueProfile(String username, int leagueID, int totalPoints) {
+        this.username = username;
+        this.leagueID = leagueID;
+        this.totalPoints = totalPoints;
+    }
+
+    public int getTotalPoints() {
+        return totalPoints;
+    }
+
+    public void setTotalPoints(int totalPoints) {
+        this.totalPoints = totalPoints;
+    }
 
     public PublicLeagueProfile() {
         // default constructor
@@ -119,6 +134,14 @@ public class PublicLeagueProfile {
         this.matchTime = matchTime;
         this.team1 = team1;
         this.team2 = team2;
+    }
+
+
+    @Override
+    public int compareTo(Object o) {
+        int compareTotalScore=((PublicLeagueProfile)o).getTotalPoints();
+        /* For Ascending order*/
+        return compareTotalScore-this.totalPoints;
     }
     
 }
