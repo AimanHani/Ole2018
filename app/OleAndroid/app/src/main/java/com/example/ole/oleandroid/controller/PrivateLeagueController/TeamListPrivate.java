@@ -13,6 +13,7 @@ import com.example.ole.oleandroid.controller.SideMenuBar;
 import com.example.ole.oleandroid.controller.UserDAO;
 import com.example.ole.oleandroid.dbConnection.DBConnection;
 import com.example.ole.oleandroid.dbConnection.GetHttp;
+import com.example.ole.oleandroid.dbConnection.PostHttp;
 import com.example.ole.oleandroid.model.Teams;
 
 import com.example.ole.oleandroid.R;
@@ -86,7 +87,7 @@ public class TeamListPrivate extends SideMenuBar {
                 Intent intent = getIntent();
                 User loginUser = UserDAO.getLoginUser();
 
-/*
+
                     System.out.println("Creating Private League");
                     final String[] status = {"error"};
                     JSONObject json = new JSONObject();
@@ -94,7 +95,7 @@ public class TeamListPrivate extends SideMenuBar {
                         Bundle extras = getIntent().getExtras();
                         if (extras != null) {
                             json.put("method", "insertNew");
-                            json.put("username", loginUser.getUserName());
+                            json.put("username", loginUser.getUsername());
                             json.put("password", extras.getString("password"));
                             json.put("prize", extras.getString("prize"));
                             json.put("leagueName", extras.getString("leaguename"));
@@ -128,7 +129,7 @@ public class TeamListPrivate extends SideMenuBar {
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
-*/intent = new Intent(TeamListPrivate.this, PrivateLeagueMain.class);
+intent = new Intent(TeamListPrivate.this, PrivateLeagueMain.class);
                 startActivity(intent);
             }
         });

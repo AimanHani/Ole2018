@@ -34,13 +34,14 @@ public class PrivateLeagueDAO {
         int rs = 0;
         // I follow the php script to set the point as 0 here
 
+        System.out.println("hey" + leagueName + tournamentId + pointsAllocated);
         if (isDateValid(startDate) && isDateValid(endDate)) {
             try (Connection c1 = DBConnection.getConnection(); PreparedStatement ps1 = c1.prepareStatement("INSERT INTO league (tournamentId, pointsAllocated, leagueName) VALUES (?, ?, ?)");) {
-                System.out.println(ps1);
+
                 ps1.setString(1, tournamentId);
                 ps1.setInt(2, Integer.parseInt(pointsAllocated));
                 ps1.setString(3, leagueName);
-
+                System.out.println(ps1);
                 rs = ps1.executeUpdate();
 
                 try (Connection c2 = DBConnection.getConnection(); PreparedStatement ps2 = c2.prepareStatement("SELECT * FROM `league` where leagueName='" + leagueName + "'");) {
@@ -59,14 +60,16 @@ public class PrivateLeagueDAO {
                             try (Connection c4 = DBConnection.getConnection(); PreparedStatement ps4 = c4.prepareStatement("insert into log(username, leagueId, points) values ('admin', " + leagueID + ", -1)");) {
                                 rs = ps4.executeUpdate();
                                 if (rs > 0) {
-                                    return "successful";
-                                }
-                                try (Connection c5 = DBConnection.getConnection(); PreparedStatement ps5 = c5.prepareStatement("insert into log(username, leagueId, points) values ('"+username+"', " + leagueID + ", -1)");) {
-                                    rs = ps5.executeUpdate();
-                                    if (rs > 0) {
-                                        return "successful";
+                                    //return "successful";
+                                    try (Connection c5 = DBConnection.getConnection(); PreparedStatement ps5 = c5.prepareStatement("insert into log(username, leagueId, points) values ('" + username + "', " + leagueID + ", -1)");) {
+                                        System.out.println(ps5);
+                                        rs = ps5.executeUpdate();
+                                        if (rs > 0) {
+                                            return "successful";
+                                        }
+                                    } catch (Exception e) {
+
                                     }
-                                } catch (Exception e) {
 
                                 }
                             } catch (Exception e) {

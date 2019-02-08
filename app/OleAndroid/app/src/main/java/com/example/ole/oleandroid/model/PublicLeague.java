@@ -82,7 +82,6 @@ public class PublicLeague {
     public int getPointsAllocated() {
         return pointsAllocated;
     }
-
     public String getLeagueName() {
         return leagueName;
     }

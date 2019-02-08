@@ -2,17 +2,14 @@ package com.example.ole.oleandroid.pageController;
 
 import android.content.Context;
 import android.content.Intent;
-import android.database.DataSetObserver;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ExpandableListView;
-import android.widget.TextView;
+
 import com.example.ole.oleandroid.R;
-import com.example.ole.oleandroid.controller.ExpandableListAdapter;
+import com.example.ole.oleandroid.controller.FAQExpandableListAdapter;
 import com.example.ole.oleandroid.controller.SideMenuBar;
 
 import java.util.ArrayList;
@@ -21,7 +18,7 @@ import java.util.List;
 
 public class FAQLeaderboard extends SideMenuBar {
     private ExpandableListView listView;
-    ExpandableListAdapter listAdapter;
+    FAQExpandableListAdapter listAdapter;
     private List<String> listDataHeader;
     private HashMap<String, List<String>> listHash;
     Button askOle;
@@ -35,7 +32,7 @@ public class FAQLeaderboard extends SideMenuBar {
 
         listView = (ExpandableListView) findViewById(R.id.output);
         initData();
-        listAdapter = new ExpandableListAdapter(this,listDataHeader,listHash);
+        listAdapter = new FAQExpandableListAdapter(this,listDataHeader,listHash);
         listView.setAdapter(listAdapter);
 
         askOle = findViewById(R.id.askOleButton);
@@ -44,8 +41,6 @@ public class FAQLeaderboard extends SideMenuBar {
             public void onClick(View view) {
 
                 Intent intent = new Intent(FAQLeaderboard.this, AskOle.class);
-                Bundle b = getIntent().getExtras();
-                intent.putExtras(b);
                 startActivity(intent);
             }
         });

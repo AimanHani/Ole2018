@@ -1,20 +1,18 @@
-package com.example.ole.oleandroid.controller;
+package com.example.ole.oleandroid.controller.Leaderboard;
 
 
 import android.content.Context;
-import android.content.Intent;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
-import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
 import android.view.View;
 
 import com.example.ole.oleandroid.R;
+import com.example.ole.oleandroid.controller.SideMenuBar;
 
 
 import java.util.ArrayList;
@@ -66,8 +64,10 @@ public class Leaderboard extends SideMenuBar {
 
     private void setupViewPager(ViewPager viewPager){
         adapter = new Adapter(getSupportFragmentManager());
-        adapter.addFragment(new PublicLeaderboard(),"Public League");
-        adapter.addFragment(new PrivateLeaderboard(), "Private League");
+        adapter.addFragment(new LeaderboardPublic(),"Public League");
+        adapter.addFragment(new LeaderboardPrivate(), "Private League");
+        // if else statement, if there is no private league
+        //onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
         viewPager.setAdapter(adapter);
     }
 
