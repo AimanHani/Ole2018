@@ -17,10 +17,12 @@ import java.sql.Time;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.HashMap;
 import model.AllPublicLeague;
 import model.PrivateLeague;
 import model.Match;
+import model.PublicLeague;
 import org.eclipse.persistence.jpa.jpql.parser.DateTime;
 
 /**
@@ -28,6 +30,38 @@ import org.eclipse.persistence.jpa.jpql.parser.DateTime;
  * @author user
  */
 public class PrivateLeagueDAO {
+    
+    public static ArrayList<PrivateLeague> getPrivateLeagues(String username) {
+        ArrayList<PrivateLeague> privateLeagueList = new ArrayList<>();
+
+        try (Connection conn = DBConnection.getConnection();
+                PreparedStatement stmt = conn.prepareStatement(
+                        "select l.leagueId, l.tournamentId, l.pointsAllocated, l.leagueName, pl.prize, pl.password, pl.startDate, pl.endDate, pl.username from league l inner join privateleague pl on l.leagueId = pl.leagueKeyId where pl.username='"+username+"'");) {
+            ResultSet rs = stmt.executeQuery();
+
+            while (rs.next()) {
+                int leagueID = rs.getInt(1);
+                int tournamentID = rs.getInt(2);
+                int pointsAllocated = rs.getInt(3);
+                String leagueName = rs.getString(4);
+                String prize = rs.getString(5);
+                String password = rs.getString(6);
+                Date startDate = rs.getDate(7);
+                Date endDate = rs.getDate(8);
+                String userName = rs.getString(9);
+
+                privateLeagueList.add(new PrivateLeague(leagueID, leagueName, prize, password, startDate,endDate,leagueID, userName, pointsAllocated, tournamentID));
+            }
+            rs.close();
+
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        } catch (ClassNotFoundException ex) {
+            ex.printStackTrace();
+        }
+        return privateLeagueList;
+    }
+    
 
     public static String createPrivateLeague(String leagueName, String prize, String password, String startDate, String endDate, String username, String pointsAllocated, String tournamentId) {
 
@@ -65,7 +99,7 @@ public class PrivateLeagueDAO {
                                         System.out.println(ps5);
                                         rs = ps5.executeUpdate();
                                         if (rs > 0) {
-                                            return "successful";
+                                            return "success";
                                         }
                                     } catch (Exception e) {
 

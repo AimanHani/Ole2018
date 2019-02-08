@@ -120,7 +120,7 @@ public class TeamListPrivate extends SideMenuBar {
 
                     if (status[0].equals("success")) {
                         System.out.println(response);
-                        intent = new Intent(TeamListPrivate.this, PrivateLeagueMain.class);
+                        intent = new Intent(TeamListPrivate.this, PrivateLeagueList.class);
                         startActivity(intent);
                     } else {
                         //loadSamePage();
@@ -129,7 +129,7 @@ public class TeamListPrivate extends SideMenuBar {
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
-intent = new Intent(TeamListPrivate.this, PrivateLeagueMain.class);
+intent = new Intent(TeamListPrivate.this, PrivateLeagueList.class);
                 startActivity(intent);
             }
         });

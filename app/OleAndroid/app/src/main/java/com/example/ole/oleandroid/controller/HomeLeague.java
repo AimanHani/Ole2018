@@ -7,7 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 
 import com.example.ole.oleandroid.R;
-import com.example.ole.oleandroid.controller.PrivateLeagueController.PrivateLeagueMain;
+import com.example.ole.oleandroid.controller.PrivateLeagueController.PrivateLeagueList;
 
 public class HomeLeague extends SideMenuBar {
 
@@ -32,7 +32,8 @@ public class HomeLeague extends SideMenuBar {
 
         privLeague.setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {
-                Intent intent = new Intent(HomeLeague.this, PrivateLeagueMain.class);
+                //Intent intent = new Intent(HomeLeague.this, PrivateLeagueMain.class);
+                Intent intent = new Intent(HomeLeague.this, PrivateLeagueList.class);
                 startActivity(intent);
             }
         });
