@@ -19,6 +19,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import model.Match;
+import model.PrivateLeagueProfile;
 import model.PublicLeagueProfile;
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -90,8 +91,7 @@ public class ScoreBoard extends HttpServlet {
         PrintWriter out = response.getWriter();
 
         String league = request.getParameter("league");
-        String username = request.getParameter("username");
-        int leagueID = Integer.parseInt(request.getParameter("leagueId"));
+
         if (league.equals("public")) {
 
             PublicLeagueProfile plf;
@@ -99,8 +99,8 @@ public class ScoreBoard extends HttpServlet {
 
             try {
 
-                pList = ScoreBoardDAO.getUsersAndTheirTotalPoints(leagueID);
-                if (pList != null) {
+                pList = ScoreBoardDAO.getUsersAndTheirTotalPoints(2);
+                if (pList.size()!=0) {
                     Collections.sort(pList);
                     JSONObject json = new JSONObject();
                     for (int i = 0; i < pList.size(); i++) {
@@ -133,9 +133,41 @@ public class ScoreBoard extends HttpServlet {
             } catch (JSONException ex) {
                 Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, ex);
             }
-        }
-        else{
-            
+        } else {
+            PrivateLeagueProfile plf;
+            ArrayList<PrivateLeagueProfile> pList;
+            ArrayList<Integer> privateLeagueIDs = new ArrayList();
+            try {
+                privateLeagueIDs = ScoreBoardDAO.getAllPrivateLeagueIDs();
+                if (privateLeagueIDs.size() !=0) {
+                    for (int i = 0; i < privateLeagueIDs.size(); i++) {
+                        pList = new ArrayList();
+                        pList = ScoreBoardDAO.getUsersAndTheirTotalPointsPrivate(privateLeagueIDs.get(i));
+                        if (pList.size()!=0) {
+                            Collections.sort(pList);
+                            JSONObject json = new JSONObject();
+                            for (int j = 0; j < pList.size(); j++) {
+
+                                json = new JSONObject();
+                                plf = new PrivateLeagueProfile();
+                                plf = pList.get(j);
+                                json.put("leauge ID", plf.getLeagueID());
+                                json.put("league", "public league");
+                                json.put("username", plf.getUsername());
+                                json.put("total points", plf.getTotalPoints());
+                                list.put(json);
+                            }
+
+                        }
+                    }
+                    parentJson.put("results", list);
+                    out.print(parentJson);
+                    out.flush();
+                }
+            } catch (JSONException ex) {
+                Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, ex);
+            }
+
         }
     }
 

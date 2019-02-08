@@ -14,6 +14,7 @@ import java.sql.SQLException;
 import java.sql.Time;
 import java.util.ArrayList;
 import model.Match;
+import model.PrivateLeagueProfile;
 import model.PublicLeagueProfile;
 
 /**
@@ -97,5 +98,52 @@ public class ScoreBoardDAO {
 
         return usernames;
     }
+    public static ArrayList<Integer>getAllPrivateLeagueIDs(){
+        ArrayList<Integer>privateLeagueIDsList = new ArrayList();
+        try (Connection conn = DBConnection.getConnection(); PreparedStatement stmt = conn.prepareStatement("select distinct leagueKeyId from privateleague");) {
 
+           
+            ResultSet rs = stmt.executeQuery();
+
+            while (rs.next()) {
+                privateLeagueIDsList.add(rs.getInt(1));
+            }
+            
+            rs.close();
+
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        } catch (ClassNotFoundException ex) {
+            ex.printStackTrace();
+        }
+        return privateLeagueIDsList;
+    }
+    public static ArrayList<PrivateLeagueProfile> getUsersAndTheirTotalPointsPrivate(int leagueID) {
+        ArrayList<PrivateLeagueProfile> plfList = new ArrayList();
+        ArrayList<String>usernames = getAllUsers(leagueID);
+        for(int i=0; i<usernames.size(); i++){
+            PrivateLeagueProfile plf = new PrivateLeagueProfile();
+            try (Connection conn = DBConnection.getConnection(); PreparedStatement stmt = conn.prepareStatement("select points from log where username = ? and leagueId = ?");) {
+            stmt.setString(1, usernames.get(i));
+            stmt.setInt(2, leagueID);
+            ResultSet rs = stmt.executeQuery();
+            int totalPoints = 0;
+
+            while (rs.next()) {
+                totalPoints += rs.getInt(1);
+
+            }
+            plf = new PrivateLeagueProfile(usernames.get(i), leagueID, totalPoints);
+            rs.close();
+
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        } catch (ClassNotFoundException ex) {
+            ex.printStackTrace();
+        }
+            plfList.add(plf);
+        }
+
+        return plfList;
+    }
 }
