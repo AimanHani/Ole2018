@@ -8,7 +8,7 @@ import android.view.ViewGroup;
 import android.widget.ExpandableListView;
 
 import com.example.ole.oleandroid.R;
-import com.example.ole.oleandroid.controller.FAQExpandableListAdapter;
+import com.example.ole.oleandroid.controller.FAQ.FAQExpandableListAdapter;
 
 import java.util.ArrayList;
 import java.util.HashMap;

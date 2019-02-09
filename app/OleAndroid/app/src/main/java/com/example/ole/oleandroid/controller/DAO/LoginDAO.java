@@ -1,26 +1,10 @@
-package com.example.ole.oleandroid.controller;
+package com.example.ole.oleandroid.controller.DAO;
 
-import android.content.Context;
-import android.content.Intent;
-import android.os.Bundle;
-
-import com.android.volley.Request;
-import com.android.volley.RequestQueue;
-import com.android.volley.Response;
-import com.android.volley.VolleyError;
-import com.android.volley.toolbox.RequestFuture;
-import com.android.volley.toolbox.StringRequest;
-import com.android.volley.toolbox.Volley;
 import com.example.ole.oleandroid.dbConnection.DBConnection;
 import com.example.ole.oleandroid.dbConnection.PostHttp;
 import com.example.ole.oleandroid.model.User;
 
-import org.json.JSONException;
 import org.json.JSONObject;
-
-import java.util.Date;
-import java.util.HashMap;
-import java.util.Map;
 
 public class LoginDAO {
 

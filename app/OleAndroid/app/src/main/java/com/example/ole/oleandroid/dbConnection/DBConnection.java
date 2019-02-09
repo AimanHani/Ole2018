@@ -82,5 +82,10 @@ public class DBConnection {
         String url = mainUrl+"/json/getMatches?matchStatus=past";
         return url;
     }
+
+    public static String getScoreBoardUrl(){
+        String url = mainUrl+"/json/ScoreBoard";
+        return url;
+    }
 }
 

@@ -1,4 +1,4 @@
-package com.example.ole.oleandroid.pageController;
+package com.example.ole.oleandroid.controller.FAQ;
 
 import android.app.Dialog;
 import android.content.Context;
@@ -11,7 +11,7 @@ import android.widget.TextView;
 
 import com.example.ole.oleandroid.R;
 import com.example.ole.oleandroid.controller.SideMenuBar;
-import com.example.ole.oleandroid.controller.UserDAO;
+import com.example.ole.oleandroid.controller.DAO.UserDAO;
 import com.example.ole.oleandroid.model.User;
 
 public class AskOle extends SideMenuBar {

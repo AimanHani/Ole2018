@@ -1,4 +1,4 @@
-package com.example.ole.oleandroid.pageController;
+package com.example.ole.oleandroid.controller.FAQ;
 
 import android.content.Context;
 import android.content.Intent;
@@ -9,14 +9,13 @@ import android.widget.Button;
 import android.widget.ExpandableListView;
 
 import com.example.ole.oleandroid.R;
-import com.example.ole.oleandroid.controller.FAQExpandableListAdapter;
 import com.example.ole.oleandroid.controller.SideMenuBar;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-public class FAQLeague extends SideMenuBar {
+public class FAQLeaderboard extends SideMenuBar {
     private ExpandableListView listView;
     FAQExpandableListAdapter listAdapter;
     private List<String> listDataHeader;
@@ -27,7 +26,7 @@ public class FAQLeague extends SideMenuBar {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         LayoutInflater inflater = (LayoutInflater) this.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        View contentView = inflater.inflate(R.layout.activity_faqleague, null, false);
+        View contentView = inflater.inflate(R.layout.activity_faqleaderboard, null, false);
         super.mDrawerlayout.addView(contentView, 0);
 
         listView = (ExpandableListView) findViewById(R.id.output);
@@ -40,7 +39,7 @@ public class FAQLeague extends SideMenuBar {
         askOle.setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {
 
-                Intent intent = new Intent(FAQLeague.this, AskOle.class);
+                Intent intent = new Intent(FAQLeaderboard.this, AskOle.class);
                 startActivity(intent);
             }
         });
@@ -53,8 +52,8 @@ public class FAQLeague extends SideMenuBar {
         listDataHeader = new ArrayList<>();
         listHash = new HashMap<>();
 
-        listDataHeader.add("What is the difference between Private and Public League?");
-        listDataHeader.add("Can I only join Public League?");
+        listDataHeader.add("How do I earn more points?");
+        listDataHeader.add("Can I not be on the Leaderboard?");
 
         List<String> questOne = new ArrayList<>();
         questOne.add("Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.");

@@ -1,4 +1,4 @@
-package com.example.ole.oleandroid.controller;
+package com.example.ole.oleandroid.controller.FAQ;
 
 import android.content.Context;
 import android.graphics.Typeface;

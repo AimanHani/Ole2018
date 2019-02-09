@@ -5,19 +5,17 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.widget.Button;
-import android.support.v7.widget.CardView;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.LinearLayout;
 
 import com.example.ole.oleandroid.R;
+import com.example.ole.oleandroid.controller.DAO.TeamItemDAO;
+import com.example.ole.oleandroid.controller.DAO.UserDAO;
 import com.example.ole.oleandroid.model.User;
 
 public class Profile extends SideMenuBar {
 //    TextView details;
 
-    Button home;
     TextView pointsGotten;
     TextView userName;
     TextView userCountry;
@@ -49,7 +47,6 @@ public class Profile extends SideMenuBar {
         User loginUser = UserDAO.getLoginUser();
 
 //        details = findViewById(R.id.details);
-        home = findViewById(R.id.home);
         pointsGotten = findViewById(R.id.pointsGotten);
         userName = findViewById(R.id.userName);
         userCountry = findViewById(R.id.userCountry);
@@ -66,15 +63,6 @@ public class Profile extends SideMenuBar {
         userFavTeam.setText(loginUser.getFavoriteTeam());
         teamImage.setImageResource(TeamItemDAO.teamItemsList.get(loginUser.getFavoriteTeam()).getmTeamImage());
 
-        home.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View view) {
-
-                Intent intent = new Intent(Profile.this, HomeLeague.class);
-//                Bundle b = getIntent().getExtras();
-//                intent.putExtras(b);
-                startActivity(intent);
-            }
-        });
 
     }
 }
