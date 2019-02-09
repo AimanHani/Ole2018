@@ -30,13 +30,13 @@ import org.eclipse.persistence.jpa.jpql.parser.DateTime;
  * @author user
  */
 public class PrivateLeagueDAO {
-    
+
     public static ArrayList<PrivateLeague> getPrivateLeagues(String username) {
         ArrayList<PrivateLeague> privateLeagueList = new ArrayList<>();
 
         try (Connection conn = DBConnection.getConnection();
                 PreparedStatement stmt = conn.prepareStatement(
-                        "select l.leagueId, l.tournamentId, l.pointsAllocated, l.leagueName, pl.prize, pl.password, pl.startDate, pl.endDate, pl.username from league l inner join privateleague pl on l.leagueId = pl.leagueKeyId where pl.username='"+username+"'");) {
+                        "select l.leagueId, l.tournamentId, l.pointsAllocated, l.leagueName, pl.prize, pl.password, pl.startDate, pl.endDate, pl.username from league l inner join privateleague pl on l.leagueId = pl.leagueKeyId where pl.username='" + username + "'");) {
             ResultSet rs = stmt.executeQuery();
 
             while (rs.next()) {
@@ -50,7 +50,7 @@ public class PrivateLeagueDAO {
                 Date endDate = rs.getDate(8);
                 String userName = rs.getString(9);
 
-                privateLeagueList.add(new PrivateLeague(leagueID, leagueName, prize, password, startDate,endDate,leagueID, userName, pointsAllocated, tournamentID));
+                privateLeagueList.add(new PrivateLeague(leagueID, leagueName, prize, password, startDate, endDate, leagueID, userName, pointsAllocated, tournamentID));
             }
             rs.close();
 
@@ -61,9 +61,8 @@ public class PrivateLeagueDAO {
         }
         return privateLeagueList;
     }
-    
 
-    public static String createPrivateLeague(String leagueName, String prize, String password, String startDate, String endDate, String username, String pointsAllocated, String tournamentId) {
+    public static String createPrivateLeague(String leagueName, String prize, String password, String startDate, String endDate, String username, String pointsAllocated, String tournamentId, String specials, String teams) {
 
         int rs = 0;
         // I follow the php script to set the point as 0 here
@@ -99,7 +98,37 @@ public class PrivateLeagueDAO {
                                         System.out.println(ps5);
                                         rs = ps5.executeUpdate();
                                         if (rs > 0) {
-                                            return "success";
+                                            String[] teamsList = teams.split(",");
+                                            for (String teamid : teamsList) {
+                                                try (Connection c6 = DBConnection.getConnection(); PreparedStatement ps6 = c6.prepareStatement("insert into PrivateLeagueTeams(teamId, leagueId) values ('" + teamid + "', " + leagueID+")");) {
+                                                    System.out.println(ps6);
+                                                    rs = ps6.executeUpdate();
+
+                                                } catch (Exception e) {
+
+                                                }
+                                            }
+                                            int logId=0;
+                                            try (Connection c8 = DBConnection.getConnection(); PreparedStatement ps8 = c8.prepareStatement("select logId from log where leagueId = '"+ leagueID +"' AND username = 'admin'");) {
+                                                resultSet = ps8.executeQuery();
+                                                if (resultSet.next()) {
+                                                    logId = resultSet.getInt(1);
+                                                }
+                                            } catch (Exception e) {
+
+                                            }
+
+                                            //select logId from log where leagueId = '42' AND username = 'admin'
+                                            String[] specialsList = specials.split(",");
+                                            for (String specialid : specialsList) {
+                                                try (Connection c7 = DBConnection.getConnection(); PreparedStatement ps7 = c7.prepareStatement("insert into specialslog(logid, specialsId, prediction) values("+ logId +"," + specialid + ", -1)");) {
+                                                    System.out.println(ps7);
+                                                    rs = ps7.executeUpdate();
+
+                                                } catch (Exception e) {
+
+                                                }
+                                            }
                                         }
                                     } catch (Exception e) {
 

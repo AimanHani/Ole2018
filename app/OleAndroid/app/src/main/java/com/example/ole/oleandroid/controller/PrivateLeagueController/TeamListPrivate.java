@@ -28,7 +28,8 @@ public class TeamListPrivate extends SideMenuBar {
     TeamListPrivateAdapter teamListPrivateAdapter;
     ListView teamListView;
     Button confirmteambtn;
-
+    String teams="";
+    ArrayList<Teams> teamsList = new ArrayList<>();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
@@ -40,7 +41,7 @@ public class TeamListPrivate extends SideMenuBar {
 
         teamListView = findViewById(R.id.teamListView);
         confirmteambtn = findViewById(R.id.confirmteambtn);
-        ArrayList<Teams> teamsList = new ArrayList<>();
+
 
 
         Bundle bundle = getIntent().getExtras();
@@ -80,9 +81,19 @@ public class TeamListPrivate extends SideMenuBar {
         teamListPrivateAdapter = new TeamListPrivateAdapter(TeamListPrivate.this, teamsList);
         teamListView.setAdapter(teamListPrivateAdapter);
 
+
         confirmteambtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
+                teams="";
+                for(Teams t: teamsList){
+                    if(t.getChecked()){
+                        teams+=t.getTeamId()+",";
+                    }
+                }
+                //System.out.println("HI"+teams.substring(0, teams.length() - 1));
+                teams = teams.substring(0, teams.length() - 1);
 
                 Intent intent = getIntent();
                 User loginUser = UserDAO.getLoginUser();
@@ -103,6 +114,8 @@ public class TeamListPrivate extends SideMenuBar {
                             json.put("pointsAllocated", extras.getString("pointsAllocated"));
                             json.put("startDate", extras.getString("startdate"));
                             json.put("endDate", extras.getString("enddate"));
+                            json.put("specials", extras.getString("specials"));
+                            json.put("teams", teams);
                         }
                     } catch (Exception e) {
                         e.printStackTrace();
@@ -131,7 +144,7 @@ public class TeamListPrivate extends SideMenuBar {
                 }
 intent = new Intent(TeamListPrivate.this, PrivateLeagueList.class);
                 startActivity(intent);
-            }
+           }
         });
 
     }

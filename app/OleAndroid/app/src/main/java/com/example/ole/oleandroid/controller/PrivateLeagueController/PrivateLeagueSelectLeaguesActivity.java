@@ -28,10 +28,12 @@ public class PrivateLeagueSelectLeaguesActivity extends SideMenuBar {
         super.mDrawerlayout.addView(contentView, 0);
 
 
-        radioGroup = (RadioGroup) findViewById(R.id.radio);
-        //joinleaguebtn = findViewById(R.id.joinleaguebtn);
+        //radioGroup = (RadioGroup) findViewById(R.id.radio);
+        joinleaguebtn = findViewById(R.id.joinleaguebtn);
 
-        System.out.println(radioGroup.getCheckedRadioButtonId());
+        //System.out.println(radioGroup.getCheckedRadioButtonId());
+
+
 
         selectDateButton = findViewById(R.id.selectDateButton);
         selectDateButton.setOnClickListener(new View.OnClickListener( ) {

@@ -88,7 +88,7 @@ public class PrivateLeague extends HttpServlet {
 
         switch (head) {
         case "retrievePrivateLeague":
-                System.out.println("OLALALA");
+                //System.out.println("OLALALA");
                 list = new JSONArray();
                 parentJson = new JSONObject();
                 
@@ -238,11 +238,13 @@ public class PrivateLeague extends HttpServlet {
                     String endDate = headers.getString("endDate");
                     String pointsAllocated = headers.getString("pointsAllocated");
                     String tournamentId = headers.getString("tournamentId");
+                    String specials = headers.getString("specials");
+                    String teams = headers.getString("teams");
                     String status = "";
 
                     //System.out.println(username + password);
                     //System.out.println(tournamentId + leagueName);
-                    status = PrivateLeagueDAO.createPrivateLeague(leagueName, prize, password, startDate, endDate, username, pointsAllocated, tournamentId);
+                    status = PrivateLeagueDAO.createPrivateLeague(leagueName, prize, password, startDate, endDate, username, pointsAllocated, tournamentId, specials, teams);
                     if (status.equals("successful")) {
 
                         json.put("status", "successful");

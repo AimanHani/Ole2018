@@ -11,6 +11,7 @@ import android.widget.TextView;
 import com.example.ole.oleandroid.R;
 
 import com.example.ole.oleandroid.model.Specials;
+import com.example.ole.oleandroid.model.Teams;
 
 import java.util.ArrayList;
 
@@ -25,6 +26,7 @@ public class SpecialListPrivateAdapter extends BaseAdapter{
 
 
     private static class ViewHolder {
+        CheckBox checkPrivateSpecials;
         TextView points;
         TextView itemname;
     }
@@ -65,18 +67,41 @@ public class SpecialListPrivateAdapter extends BaseAdapter{
             viewHolder = new SpecialListPrivateAdapter.ViewHolder();
             convertView = LayoutInflater.from(context).
                     inflate(R.layout.activity_special_list_private_adapter, parent, false);
-        }
 
         /**
          * This will tell initialize the textview element in speciallistlayout
          */
         viewHolder.points = convertView.findViewById(R.id.points);
         viewHolder.itemname = convertView.findViewById(R.id.itemname);
+        viewHolder.checkPrivateSpecials = convertView.findViewById(R.id.checkPrivateSpecials);
 
         //this will get each point from the arraylist
         viewHolder.points.setText(specialsList.get(position).getPoints()+"");
         viewHolder.itemname.setText(specialsList.get(position).getDescription());
 
+
+        convertView.setTag(viewHolder);
+        viewHolder.checkPrivateSpecials.setOnClickListener( new View.OnClickListener() {
+            public void onClick(View v) {
+                CheckBox cb = (CheckBox) v ;
+                Specials s = (Specials) cb.getTag();
+                    /*Toast.makeText(context.getApplicationContext(),
+                            "Clicked on Checkbox: " + cb.getText() +
+                                    " is " + cb.isChecked(),
+                            Toast.LENGTH_LONG).show();*/
+                s.setChecked(cb.isChecked());
+                System.out.println(s.getSpecialsID());
+            }
+        });
+    }else    {
+        // the getTag returns the viewHolder object set as a tag to the view
+        viewHolder = (SpecialListPrivateAdapter.ViewHolder)convertView.getTag();
+    }
+    Specials s = specialsList.get(position);
+        viewHolder.itemname.setText("" +  s.getDescription() + "");
+//        viewHolder.checkPrivateTeam.setText(t.getTeamId());
+        viewHolder.checkPrivateSpecials.setChecked(s.getChecked());
+        viewHolder.checkPrivateSpecials.setTag(s);
         /*
         // get current item to be displayed
         Item currentItem = (Item) getItem(position);

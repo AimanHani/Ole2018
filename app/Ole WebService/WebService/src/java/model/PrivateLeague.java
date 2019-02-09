@@ -22,10 +22,29 @@ public class PrivateLeague {
     private Date endDate;
     private int leagueId;
     private String username;
-    
-
     private int pointsAllocated;
     private int tournamentId;
+    private String specials;
+    private String teams;
+
+    public PrivateLeague(int privateLeaugeId, String leagueName, String prize, String password, Date startDate, Date endDate, int leagueId, String username, int pointsAllocated, int tournamentId, String specials, String teams) {
+        this.privateLeaugeId = privateLeaugeId;
+        this.leagueName = leagueName;
+        this.prize = prize;
+        this.password = password;
+        this.startDate = startDate;
+        this.endDate = endDate;
+        this.leagueId = leagueId;
+        this.username = username;
+        this.pointsAllocated = pointsAllocated;
+        this.tournamentId = tournamentId;
+        this.specials = specials;
+        this.teams = teams;
+    }
+
+
+
+    
 
     public PrivateLeague(int privateLeaugeId, String leagueName, String prize, String password, Date startDate, Date endDate, int leagueId, String username, int pointsAllocated, int tournamentId) {
         this.privateLeaugeId = privateLeaugeId;
@@ -124,4 +143,20 @@ public class PrivateLeague {
     public void setEndDate(Date endDate) {
         this.endDate = endDate;
     }
+        public String getSpecials() {
+        return specials;
+    }
+
+    public void setSpecials(String specials) {
+        this.specials = specials;
+    }
+
+    public String getTeams() {
+        return teams;
+    }
+
+    public void setTeams(String teams) {
+        this.teams = teams;
+    }
+    
 }

@@ -19,11 +19,14 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 import com.example.ole.oleandroid.R;
+import com.example.ole.oleandroid.model.Teams;
 
 public class SpecialListPrivate extends SideMenuBar {
     SpecialListPrivateAdapter specialListPrivateAdapter;
     ListView specialListView;
     Button confirmspecialsbtn;
+    ArrayList<Specials> specialsList = new ArrayList<>();
+    String specials = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,7 +38,7 @@ public class SpecialListPrivate extends SideMenuBar {
 
         specialListView = findViewById(R.id.specialListView);
         confirmspecialsbtn = findViewById(R.id.confirmspecialsbtn);
-        ArrayList<Specials> specialsList = new ArrayList<>();
+
 
         int logId = 2;
 
@@ -81,6 +84,16 @@ public class SpecialListPrivate extends SideMenuBar {
         confirmspecialsbtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
+                specials="";
+                for(Specials s: specialsList){
+                    if(s.getChecked()){
+                        specials+=s.getSpecialsID()+",";
+                    }
+                }
+                System.out.println("HI"+specials.substring(0, specials.length() - 1));
+                specials = specials.substring(0, specials.length() - 1);
+
                 Bundle extras = getIntent().getExtras();
                 if (extras != null) {
                     Intent intent = new Intent(SpecialListPrivate.this, TeamListPrivate.class);
@@ -91,6 +104,7 @@ public class SpecialListPrivate extends SideMenuBar {
                     intent.putExtra("leagueid", extras.getString("leagueid"));
                     intent.putExtra("startdate", extras.getString("startdate"));
                     intent.putExtra("enddate", extras.getString("enddate"));
+                    intent.putExtra("specials", specials);
                     startActivity(intent);
                 }
             }
