@@ -1,6 +1,5 @@
 package com.example.ole.oleandroid.controller.PrivateLeagueController;
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -10,20 +9,16 @@ import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 
-import com.example.ole.oleandroid.controller.HomeLeague;
+import com.example.ole.oleandroid.R;
 import com.example.ole.oleandroid.controller.PrivateLeagueDAO;
-import com.example.ole.oleandroid.controller.PublicLeagueDAO;
-import com.example.ole.oleandroid.controller.PublicLeagueList;
 import com.example.ole.oleandroid.controller.SideMenuBar;
 import com.example.ole.oleandroid.controller.UserDAO;
 import com.example.ole.oleandroid.dbConnection.DBConnection;
 import com.example.ole.oleandroid.dbConnection.GetHttp;
 import com.example.ole.oleandroid.model.PrivateLeague;
-import com.example.ole.oleandroid.model.PublicLeague;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
-import com.example.ole.oleandroid.R;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;

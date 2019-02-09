@@ -8,6 +8,7 @@ import android.view.View;
 
 import com.example.ole.oleandroid.R;
 import com.example.ole.oleandroid.controller.PrivateLeagueController.PrivateLeagueList;
+import com.example.ole.oleandroid.controller.PublicLeague.PublicLeagueList;
 
 public class HomeLeague extends SideMenuBar {
 

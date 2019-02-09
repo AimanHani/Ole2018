@@ -1,11 +1,10 @@
-package com.example.ole.oleandroid.controller;
+package com.example.ole.oleandroid.controller.PublicLeague;
 
 import android.app.Dialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.ButtonBarLayout;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -15,7 +14,6 @@ import android.widget.TextView;
 import com.example.ole.oleandroid.R;
 import com.example.ole.oleandroid.dbConnection.DBConnection;
 import com.example.ole.oleandroid.dbConnection.GetHttp;
-import com.example.ole.oleandroid.model.PublicLeague;
 import com.example.ole.oleandroid.model.Specials;
 
 import org.json.JSONArray;
@@ -115,7 +113,7 @@ public class SpecialList extends AppCompatActivity{
                 end.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        Intent i = new Intent(SpecialList.this, Leagues.class);
+                        Intent i = new Intent(SpecialList.this, MatchesTabs.class);
                         startActivity(i);
                         finish();
                     }

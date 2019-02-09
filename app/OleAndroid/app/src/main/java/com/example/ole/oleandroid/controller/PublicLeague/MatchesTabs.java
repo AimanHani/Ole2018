@@ -1,7 +1,6 @@
-package com.example.ole.oleandroid.controller;
+package com.example.ole.oleandroid.controller.PublicLeague;
 
 import android.content.Context;
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.TabLayout;
@@ -9,17 +8,16 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
-import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
 import android.view.View;
 
 import com.example.ole.oleandroid.R;
-import com.example.ole.oleandroid.model.PublicLeague;
+import com.example.ole.oleandroid.controller.SideMenuBar;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class Leagues extends SideMenuBar {
+public class MatchesTabs extends SideMenuBar {
 
     TabLayout leagueTabLayout;
     ViewPager viewPager;
@@ -73,9 +71,9 @@ public class Leagues extends SideMenuBar {
     //add the child fragments
     private void setupViewPager(ViewPager viewPager){
         adapter = new Adapter(getSupportFragmentManager());
-        adapter.addFragment(new PastMatches(),"Past");
+        adapter.addFragment(new PastMatchesFragment(),"Past");
         // upcomingMatches now has a logId which u can set (so i can pass this logId on. logid is needed for specials list
-        UpcomingMatches upcomingMatches = new UpcomingMatches();
+        UpcomingMatchesFragment upcomingMatches = new UpcomingMatchesFragment();
         upcomingMatches.setLogId(logId);
         adapter.addFragment(upcomingMatches, "Upcoming");
 

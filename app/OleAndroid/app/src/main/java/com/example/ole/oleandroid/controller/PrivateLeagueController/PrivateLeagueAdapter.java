@@ -2,28 +2,18 @@ package com.example.ole.oleandroid.controller.PrivateLeagueController;
 
 import android.app.Activity;
 import android.content.Context;
-import android.content.Intent;
-import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.Button;
-import android.widget.LinearLayout;
 import android.widget.TextView;
+
 import com.example.ole.oleandroid.R;
-
-
-import com.example.ole.oleandroid.controller.Leagues;
-import com.example.ole.oleandroid.controller.PrivateLeagueDAO;
-import com.example.ole.oleandroid.controller.PublicLeagueListAdapter;
-import com.example.ole.oleandroid.controller.UserDAO;
 import com.example.ole.oleandroid.model.PrivateLeague;
-import com.example.ole.oleandroid.model.PublicLeague;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 
 public class PrivateLeagueAdapter extends BaseAdapter implements View.OnClickListener{
 

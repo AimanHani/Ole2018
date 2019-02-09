@@ -1,4 +1,4 @@
-package com.example.ole.oleandroid.controller;
+package com.example.ole.oleandroid.controller.PublicLeague;
 
 import android.content.Context;
 import android.content.Intent;
@@ -11,9 +11,9 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.example.ole.oleandroid.R;
+import com.example.ole.oleandroid.controller.UserDAO;
 import com.example.ole.oleandroid.model.PublicLeague;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Arrays;
 
@@ -101,7 +101,7 @@ public class PublicLeagueListAdapter extends BaseAdapter implements View.OnClick
         }
 
 //        if (view.getId() == R.id.joinleaguebtn) {
-//            Intent intent = new Intent(context, Leagues.class);
+//            Intent intent = new Intent(context, MatchesTabs.class);
 //            Bundle bundle = new Bundle();
 //            bundle.putInt("logId", leaguelist.get(position).getLogId());
 //            intent.putExtras(bundle);
@@ -110,7 +110,7 @@ public class PublicLeagueListAdapter extends BaseAdapter implements View.OnClick
 
         switch(view.getId()){
             case R.id.joinleaguebtn:
-                Intent intent = new Intent(context, Leagues.class);
+                Intent intent = new Intent(context, MatchesTabs.class);
                 Bundle bundle = new Bundle();
                 bundle.putInt("logId", leaguelist.get(position).getLogId());
                 intent.putExtras(bundle);
