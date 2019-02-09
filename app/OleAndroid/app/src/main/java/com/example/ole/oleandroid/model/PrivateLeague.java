@@ -7,6 +7,9 @@ import java.util.ArrayList;
 public class PrivateLeague {
     private static PrivateLeague privateLeague;
 
+    public PrivateLeague(int leagueID, String leagueName, String prize, String password, java.util.Date startDate, java.util.Date endDate, String username, int pointsAllocated, int tournamentId, int leagueKeyId) {
+    }
+
     public static PrivateLeague getPrivateLeague() {
         return privateLeague;
     }
@@ -25,6 +28,18 @@ public class PrivateLeague {
     private int tournamentId;
     private int leagueKeyId;
 
+    public PrivateLeague(int leagueId, String leagueName, String prize, String password, String username, int pointsAllocated, int tournamentId, int leagueKeyId) {
+        this.leagueId = leagueId;
+        this.leagueName = leagueName;
+        this.prize = prize;
+        this.password = password;
+
+        this.username = username;
+        this.pointsAllocated = pointsAllocated;
+        this.tournamentId = tournamentId;
+        this.leagueKeyId = leagueKeyId;
+    }
+
     public PrivateLeague(int leagueId, String leagueName, String prize, String password, Date startDate, Date endDate, String username, int pointsAllocated, int tournamentId, int leagueKeyId) {
         this.leagueId = leagueId;
         this.leagueName = leagueName;
@@ -42,13 +57,7 @@ public class PrivateLeague {
         return leagueId;
     }
 
-    public void setLeagueId(int leagueId) {
-        this.leagueId = leagueId;
-    }
-
-    public String getLeagueName() {
-        return leagueName;
-    }
+    public String getLeagueName() {return leagueName; }
 
     public void setLeagueName(String leagueName) {
         this.leagueName = leagueName;

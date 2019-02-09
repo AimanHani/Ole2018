@@ -20,7 +20,10 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import controller.PrivateLeagueDAO;
+import controller.PublicLeagueDAO;
+import java.util.ArrayList;
 import model.AllPublicLeague;
+import model.PublicLeague;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -64,11 +67,69 @@ public class PrivateLeague extends HttpServlet {
         response.setContentType("\"Content-Type\", \"application/x-www-form-urlencoded\"");
         response.setCharacterEncoding("utf-8");
         PrintWriter out = response.getWriter();
-        String leagueName = request.getParameter("leagueName");
-        model.PrivateLeague pl;
-        AllPublicLeague apl;
+        //String leagueName = request.getParameter("leagueName");
+        //model.PrivateLeague pl;
+        //AllPublicLeague apl;
         JSONObject json = new JSONObject();
-        HashMap<Integer, model.PrivateLeague> privateLeaguesByname;
+        //HashMap<Integer, model.PrivateLeague> privateLeaguesByname;
+        //System.out.println(request.getHeader("params"));
+        JSONObject headers = null;
+        String head = "";
+        String username="";
+        try {
+            //headers = new JSONObject(request.getHeader("params"));
+            
+            head = request.getParameter("method");
+            username = request.getParameter("username");
+            //head = headers.getString("method");
+            //username = headers.getString("username");
+        } catch (Exception e) {
+        }
+
+        switch (head) {
+        case "retrievePrivateLeague":
+                System.out.println("OLALALA");
+                list = new JSONArray();
+                parentJson = new JSONObject();
+                
+                ArrayList<model.PrivateLeague> privateLeagueList = PrivateLeagueDAO.getPrivateLeagues(username);
+                //ArrayList<Integer> userPublicLeaguesID = PrivateLeagueDAO.getUserPublicLeaguesID(username);
+
+                System.out.println(privateLeagueList.size());
+                try {
+                    for (int i = 0; i < privateLeagueList.size(); i++) {
+//(leagueID, leagueName, prize, password, startDate,endDate,leagueID, userName, pointsAllocated, tournamentID));
+
+                        json = new JSONObject();
+                        model.PrivateLeague privateLeague = privateLeagueList.get(i);
+                        json.put("leagueID", privateLeague.getPrivateLeaugeId());
+                        json.put("leagueName", privateLeague.getLeagueName());
+                        json.put("prize", privateLeague.getPrize());
+                        json.put("password", privateLeague.getPassword());
+                        json.put("startDate", privateLeague.getStartDate());
+                        json.put("endDate", privateLeague.getEndDate());
+                        json.put("userName", privateLeague.getUsername());
+                        json.put("tournamentID", privateLeague.getTournamentId());
+                        json.put("pointsAllocated", privateLeague.getPointsAllocated());
+                        list.put(json);
+                    }
+                    parentJson.put("results", list);
+                    out.print(parentJson);
+                    out.flush();
+
+                } catch (JSONException ex) {
+                    Logger.getLogger(PublicLeagueJson.class.getName()).log(Level.SEVERE, null, ex);
+                }
+
+                break;
+            //select l.leagueId, l.tournamentId, l.pointsAllocated, l.leagueName, pl.prize, pl.password, pl.startDate, pl.endDate, pl.username from league l inner join privateleague pl on l.leagueId = pl.leagueKeyId where pl.username='billy'
+            //select l.leagueId, l.tournamentId, l.pointsAllocated, l.leagueName, pl.prize, pl.password, pl.startDate, pl.endDate, pl.username from league l inner join privateleague pl on l.leagueId = pl.leagueKeyId where pl.username='billy'
+
+            default:
+                break;
+        }
+        
+        /*
         try {
             if (leagueName != null) {
                 apl = PrivateLeagueDAO.retrieveLeague(leagueName);
@@ -136,7 +197,7 @@ public class PrivateLeague extends HttpServlet {
         } catch (JSONException e) {
             e.printStackTrace();
         }
-
+*/
     }
 
     /**
@@ -178,12 +239,12 @@ public class PrivateLeague extends HttpServlet {
                     String pointsAllocated = headers.getString("pointsAllocated");
                     String tournamentId = headers.getString("tournamentId");
                     String status = "";
-                    
+
                     //System.out.println(username + password);
                     //System.out.println(tournamentId + leagueName);
                     status = PrivateLeagueDAO.createPrivateLeague(leagueName, prize, password, startDate, endDate, username, pointsAllocated, tournamentId);
                     if (status.equals("successful")) {
-                        
+
                         json.put("status", "successful");
                     } else if (status.equals("start date and end date is not in valid format")) {
                         json.put("status", "start date or end date is not in valid format");
@@ -191,7 +252,7 @@ public class PrivateLeague extends HttpServlet {
                         String[] invalidString = {invalidMsg};
                         json.put("messages", invalidString);
                     } else {
-                        
+
                         json.put("status", "error");
                         String invalidMsg = "Something is wrong check checkS" + "/" + "";
                         String[] invalidString = {invalidMsg};
@@ -199,10 +260,11 @@ public class PrivateLeague extends HttpServlet {
                     }
                     out.print(json);
                     out.flush();
-                    
+
                 } catch (JSONException ex) {
                     Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, ex);
-                }   break;
+                }
+                break;
             case "retrieveLeagueName":
                 System.out.println(request.getHeader("params"));
                 headers = null;
@@ -218,21 +280,20 @@ public class PrivateLeague extends HttpServlet {
                     String leagueName = headers.getString("leagueName");
                     if (leagueName != null) {
                         apl = PrivateLeagueDAO.retrieveLeague(leagueName);
-                        
+
                         if (apl != null) {
                             league.put("LeagueId", apl.getLeagueID());
                             league.put("tournamentId", apl.getTournamentID());
                             league.put("pointsAllocated", apl.getPointsAllocated());
                             league.put("leagueName", apl.getLeagueName());
                             privateLeaguesByname = PrivateLeagueDAO.retrievePrivateLeagueByName(apl.getLeagueID());
-                            
-                            
+
                             if (privateLeaguesByname != null) {
                                 if (!privateLeaguesByname.isEmpty()) {
-                                    
+
                                     Iterator it = privateLeaguesByname.entrySet().iterator();
                                     while (it.hasNext()) {
-                                        
+
                                         Map.Entry pair = (Map.Entry) it.next();
                                         //System.out.println(pair.getKey() + " = " + pair.getValue());
                                         pl = (model.PrivateLeague) pair.getValue();
@@ -243,10 +304,10 @@ public class PrivateLeague extends HttpServlet {
                                         league.put("leagueKeyId", pl.getLeagueId());
                                         league.put("userName", pl.getUsername());
                                         league.put("password", pl.getPassword());
-                                        
+
                                         it.remove(); // avoids a ConcurrentModificationException
                                         //list.put(json);
-                                        
+
                                     }
                                     System.out.println("im here" + json);
                                     json.put("status", "success");
@@ -261,7 +322,7 @@ public class PrivateLeague extends HttpServlet {
                                     out.flush();
                                 }
                             } else {
-                                
+
                                 json.put("status", "error");
                                 String invalidMsg = "No private league exists under this league" + "/" + "";
                                 String[] invalidString = {invalidMsg};
@@ -270,7 +331,7 @@ public class PrivateLeague extends HttpServlet {
                                 out.print(parentJson);
                                 out.flush();
                             }
-                            
+
                         } else {
                             json.put("status", "error");
                             String invalidMsg = "Cannot retrieve league" + "/" + "";
@@ -279,12 +340,51 @@ public class PrivateLeague extends HttpServlet {
                             parentJson.put("results", list);
                             out.print(parentJson);
                             out.flush();
-                            
+
                         }
                     }
                 } catch (JSONException e) {
                     e.printStackTrace();
-                }   break;
+                }
+                break;
+            case "retrievePrivateLeague":
+                System.out.println("OLALALA");
+                list = new JSONArray();
+                parentJson = new JSONObject();
+                String username = request.getParameter("username");
+                ArrayList<model.PrivateLeague> privateLeagueList = PrivateLeagueDAO.getPrivateLeagues(username);
+                //ArrayList<Integer> userPublicLeaguesID = PrivateLeagueDAO.getUserPublicLeaguesID(username);
+
+                System.out.println(privateLeagueList.size());
+                try {
+                    for (int i = 0; i < privateLeagueList.size(); i++) {
+//(leagueID, leagueName, prize, password, startDate,endDate,leagueID, userName, pointsAllocated, tournamentID));
+
+                        json = new JSONObject();
+                        model.PrivateLeague privateLeague = privateLeagueList.get(i);
+                        json.put("leagueID", privateLeague.getPrivateLeaugeId());
+                        json.put("leagueName", privateLeague.getLeagueName());
+                        json.put("prize", privateLeague.getPrize());
+                        json.put("password", privateLeague.getPassword());
+                        json.put("startDate", privateLeague.getStartDate());
+                        json.put("endDate", privateLeague.getEndDate());
+                        json.put("userName", privateLeague.getUsername());
+                        json.put("tournamentID", privateLeague.getTournamentId());
+                        json.put("pointsAllocated", privateLeague.getPointsAllocated());
+                        list.put(json);
+                    }
+                    parentJson.put("results", list);
+                    out.print(parentJson);
+                    out.flush();
+
+                } catch (JSONException ex) {
+                    Logger.getLogger(PublicLeagueJson.class.getName()).log(Level.SEVERE, null, ex);
+                }
+
+                break;
+            //select l.leagueId, l.tournamentId, l.pointsAllocated, l.leagueName, pl.prize, pl.password, pl.startDate, pl.endDate, pl.username from league l inner join privateleague pl on l.leagueId = pl.leagueKeyId where pl.username='billy'
+            //select l.leagueId, l.tournamentId, l.pointsAllocated, l.leagueName, pl.prize, pl.password, pl.startDate, pl.endDate, pl.username from league l inner join privateleague pl on l.leagueId = pl.leagueKeyId where pl.username='billy'
+
             default:
                 break;
         }
