@@ -7,11 +7,15 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.CheckBox;
+import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.example.ole.oleandroid.controller.TeamItemDAO;
+import com.example.ole.oleandroid.model.TeamItems;
 import com.example.ole.oleandroid.model.Teams;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import com.example.ole.oleandroid.R;
 
@@ -23,8 +27,11 @@ public class TeamListPrivateAdapter extends BaseAdapter {
     private TeamListPrivateAdapter.ViewHolder viewHolder;
     private Button confirmspecialsbtn;
     private CheckBox checkPrivateTeam;
+    private ImageView profile_image;
+    HashMap<String, TeamItems> teamItemsList = TeamItemDAO.teamItemsList;
 
     private static class ViewHolder {
+        ImageView profile_image;
         TextView teamid;
         TextView itemname;
     }
@@ -33,6 +40,7 @@ public class TeamListPrivateAdapter extends BaseAdapter {
     public TeamListPrivateAdapter(Context context, ArrayList<Teams> teamList) {
         this.context = context;
         this.teamList = teamList;
+
     }
 
     //public constructor
@@ -67,16 +75,23 @@ public class TeamListPrivateAdapter extends BaseAdapter {
                     inflate(R.layout.activity_team_list_private_adapter, parent, false);
         }
 
+        /*
+        * HashMap<String, TeamItems> teamItemsList = TeamItemDAO.teamItemsList;
+
+(ImageView).setImageResource(teamItemsList.get(team_name).getmTeamImage());
+        * */
+
         /**
          * This will tell initialize the textview element in speciallistlayout
          */
         viewHolder.teamid = convertView.findViewById(R.id.teamid);
         viewHolder.itemname = convertView.findViewById(R.id.itemname);
+        viewHolder.profile_image = convertView.findViewById(R.id.profile_image);
 
         //this will get each point from the arraylist
-        viewHolder.teamid.setText(teamList.get(position).getTeamId()+"");
+        //viewHolder.teamid.setText(teamList.get(position).getTeamId()+"");
         viewHolder.itemname.setText(teamList.get(position).getTeamName());
-
+        viewHolder.profile_image.setImageResource(teamItemsList.get(teamList.get(position).getTeamName()).getmTeamImage());
 
 
 
