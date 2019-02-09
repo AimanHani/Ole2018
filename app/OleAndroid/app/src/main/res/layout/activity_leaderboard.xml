@@ -9,7 +9,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
-
+<!--
         <TextView
             android:id="@+id/leaderboardHeader"
             android:layout_width="match_parent"
@@ -22,7 +22,7 @@
             android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent" />-->
 
         <android.support.design.widget.TabLayout
             android:id="@+id/leaderboardFrame"

@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     tools:context=".controller.PrivateLeagueController.PrivateLeagueCreate">
 
-    <Button
+<!--    <Button
         android:id="@+id/selectLeagueText"
         android:layout_width="match_parent"
         android:layout_height="68dp"
@@ -17,7 +17,7 @@
         android:textColor="@color/white"
         android:textSize="18sp"
         android:textStyle="bold"
-        android:visibility="visible" />
+        android:visibility="visible" />-->
 
 
     <LinearLayout
@@ -25,7 +25,7 @@
         android:layout_width="320dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="24dp"
+        android:layout_marginTop="35dp"
         android:layout_marginEnd="8dp"
         android:orientation="vertical"
         app:layout_constraintEnd_toEndOf="parent"
@@ -160,11 +160,11 @@
         android:id="@+id/imageView2"
         android:layout_width="120dp"
         android:layout_height="120dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="24dp"
         android:adjustViewBounds="false"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/selectLeagueText"
+        app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/trophy_profile_private_league" />
 
 

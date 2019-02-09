@@ -32,13 +32,8 @@ public class PrivateLeagueList extends SideMenuBar implements View.OnClickListen
     LinearLayout football;
     FloatingActionButton createPrivateLeagueBtn;
 
-
     @Override
     public void onClick(View v) {
-
-
-
-
         switch (v.getId()){
             case R.id.createPrivateLeagueBtn:
                 Intent intent = new Intent(PrivateLeagueList.this, PrivateLeagueCreate.class);
@@ -46,11 +41,8 @@ public class PrivateLeagueList extends SideMenuBar implements View.OnClickListen
         }
     }
 
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-
 
         super.onCreate(savedInstanceState);
         LayoutInflater inflater = (LayoutInflater) this.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
@@ -62,8 +54,6 @@ public class PrivateLeagueList extends SideMenuBar implements View.OnClickListen
 
         leaguelist = new ArrayList<>();
         privateLeagueListView = findViewById(R.id.privateLeagueListView);
-
-
         PrivateLeagueDAO.clearAllPrivateLeague();
         String url = DBConnection.insertPrivateLeagueUrl()+"?method=retrievePrivateLeague&username="+UserDAO.getLoginUser().getUsername();
         //String url = DBConnection.insertPrivateLeagueUrl()+"?method=retrievePrivateLeague&username="+UserDAO.getLoginUser().getUsername();
@@ -109,16 +99,10 @@ public class PrivateLeagueList extends SideMenuBar implements View.OnClickListen
 
             } else {
 
-
             }
         } catch (Exception e) {
             System.out.println("error");
             e.printStackTrace();
         }
-
-
-
     }
-
-
 }

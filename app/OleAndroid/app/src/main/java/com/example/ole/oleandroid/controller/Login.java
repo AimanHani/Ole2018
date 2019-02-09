@@ -4,6 +4,7 @@ import android.app.Dialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.StrictMode;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.view.Window;
@@ -23,11 +24,15 @@ public class Login extends AppCompatActivity {
     TextView result;
     Button facebookButton;
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+
+        //to hide the action bar
+        ActionBar actionBar = getSupportActionBar();
+        actionBar.hide();
+
         username = (EditText) findViewById(R.id.username);
         password = (EditText) findViewById(R.id.password);
         signin = (Button) findViewById(R.id.signin);
@@ -40,9 +45,6 @@ public class Login extends AppCompatActivity {
         //result = (TextView) findViewById(R.id.result);
         //setContentView(R.layout.activity_loading_page);
 
-        /**
-         * YT: for now i link it to check leagues (public and private)
-         */
         facebookButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

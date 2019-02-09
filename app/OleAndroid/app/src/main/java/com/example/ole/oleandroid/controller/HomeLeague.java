@@ -21,7 +21,6 @@ public class HomeLeague extends SideMenuBar {
         View contentView = inflater.inflate(R.layout.home_league, null, false);
         super.mDrawerlayout.addView(contentView, 0);
 
-
         pubLeague = findViewById(R.id.publicCard);
         privLeague = findViewById(R.id.privateCard);
         pubLeague.setOnClickListener(new View.OnClickListener() {

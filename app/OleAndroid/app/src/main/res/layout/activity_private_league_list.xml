@@ -6,18 +6,7 @@
     android:layout_height="match_parent"
     tools:context=".controller.PrivateLeagueController.PrivateLeagueList">
 
-    <Button
-        android:id="@+id/privateLeagueTab"
-        android:layout_width="match_parent"
-        android:layout_height="68dp"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentBottom="true"
-        android:background="@color/themeColor"
-        android:text="PRIVATE LEAGUES"
-        android:textColor="@color/white"
-        android:textSize="18sp"
-        android:textStyle="bold"
-        android:visibility="visible" />
+
 
     <ListView
         android:id="@+id/privateLeagueListView"
@@ -33,17 +22,10 @@
         app:layout_constraintTop_toBottomOf="@+id/privateLeagueTab"
         tools:layout_editor_absoluteX="30dp" />
 
-    <LinearLayout
+    <android.support.constraint.ConstraintLayout
         android:id="@+id/football"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:layout_marginBottom="196dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/linearLayout2">
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
         <ImageView
             android:id="@+id/footballplayer"
@@ -51,7 +33,7 @@
             android:layout_height="100dp"
             android:layout_gravity="center"
             android:layout_marginStart="8dp"
-            android:layout_marginTop="8dp"
+            android:layout_marginTop="150dp"
             android:layout_marginEnd="8dp"
             android:layout_marginBottom="8dp"
             android:background="@drawable/footballplayer"
@@ -79,9 +61,10 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.625"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/footballplayer" />
+            app:layout_constraintTop_toBottomOf="@+id/footballplayer"/>
 
-    </LinearLayout>
+    </android.support.constraint.ConstraintLayout>
+
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/createPrivateLeagueBtn"
         android:layout_width="wrap_content"
@@ -102,7 +85,7 @@
         android:layout_marginEnd="8dp"
         android:text="Create New League"
         android:textColor="@color/black"
-        android:textSize="24sp"
+        android:textSize="18sp"
         app:layout_constraintBottom_toBottomOf="@+id/createPrivateLeagueBtn"
         app:layout_constraintEnd_toStartOf="@+id/createPrivateLeagueBtn"
         app:layout_constraintTop_toTopOf="@+id/createPrivateLeagueBtn" />
