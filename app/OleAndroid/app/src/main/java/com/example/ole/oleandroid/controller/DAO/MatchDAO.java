@@ -1,4 +1,4 @@
-package com.example.ole.oleandroid.controller;
+package com.example.ole.oleandroid.controller.DAO;
 
 import com.example.ole.oleandroid.dbConnection.DBConnection;
 import com.example.ole.oleandroid.dbConnection.GetHttp;

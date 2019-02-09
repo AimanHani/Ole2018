@@ -1,9 +1,8 @@
-package com.example.ole.oleandroid.controller;
+package com.example.ole.oleandroid.controller.DAO;
 
 import com.example.ole.oleandroid.dbConnection.DBConnection;
 import com.example.ole.oleandroid.dbConnection.PostHttp;
 import com.example.ole.oleandroid.model.PrivateLeague;
-import com.example.ole.oleandroid.model.PublicLeague;
 
 import org.json.JSONObject;
 

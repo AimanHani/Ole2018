@@ -1,4 +1,4 @@
-package com.example.ole.oleandroid.pageController;
+package com.example.ole.oleandroid.controller.FAQ;
 
 import android.content.Context;
 import android.content.Intent;

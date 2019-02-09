@@ -1,4 +1,4 @@
-package com.example.ole.oleandroid.pageController;
+package com.example.ole.oleandroid.controller.FAQ;
 
 import android.content.Context;
 import android.content.Intent;
@@ -9,7 +9,6 @@ import android.widget.Button;
 import android.widget.ExpandableListView;
 
 import com.example.ole.oleandroid.R;
-import com.example.ole.oleandroid.controller.FAQExpandableListAdapter;
 import com.example.ole.oleandroid.controller.SideMenuBar;
 
 import java.util.ArrayList;
