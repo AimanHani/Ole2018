@@ -1,4 +1,4 @@
-package com.example.ole.oleandroid.controller;
+package com.example.ole.oleandroid.controller.PublicLeague;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -10,7 +10,7 @@ import android.widget.Button;
 
 import com.example.ole.oleandroid.R;
 
-public class UpcomingMatches extends Fragment implements View.OnClickListener {
+public class UpcomingMatchesFragment extends Fragment implements View.OnClickListener {
     View view;
     Button predictspecials;
     private static int logId;

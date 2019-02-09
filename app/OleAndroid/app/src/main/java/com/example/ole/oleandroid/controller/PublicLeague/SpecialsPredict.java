@@ -1,4 +1,4 @@
-package com.example.ole.oleandroid.controller;
+package com.example.ole.oleandroid.controller.PublicLeague;
 
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
@@ -16,6 +16,7 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.ole.oleandroid.R;
+import com.example.ole.oleandroid.controller.Matches;
 import com.example.ole.oleandroid.dbConnection.DBConnection;
 
 import org.json.JSONArray;

@@ -1,4 +1,4 @@
-package com.example.ole.oleandroid.controller;
+package com.example.ole.oleandroid.controller.PublicLeague;
 
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;

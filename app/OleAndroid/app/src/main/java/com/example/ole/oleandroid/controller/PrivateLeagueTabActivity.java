@@ -1,6 +1,5 @@
 package com.example.ole.oleandroid.controller;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.TabLayout;
@@ -9,10 +8,9 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
-import android.view.View;
 
 import com.example.ole.oleandroid.R;
-import com.example.ole.oleandroid.model.PublicLeague;
+import com.example.ole.oleandroid.controller.PublicLeague.PastMatchesFragment;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -63,7 +61,7 @@ public class PrivateLeagueTabActivity extends AppCompatActivity {
     private void setupViewPager(ViewPager viewPager){
         adapter = new Adapter(getSupportFragmentManager());
         adapter.addFragment(new PrivateLeaguePredictscoreActivity(), "Upcoming");
-        adapter.addFragment(new PastMatches(),"Past");
+        adapter.addFragment(new PastMatchesFragment(),"Past");
         viewPager.setAdapter(adapter);
     }
 
