@@ -1,4 +1,4 @@
-package com.example.ole.oleandroid.controller;
+package com.example.ole.oleandroid.controller.Leaderboard;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -9,7 +9,7 @@ import android.view.ViewGroup;
 
 import com.example.ole.oleandroid.R;
 
-public class PublicLeaderboard extends Fragment {
+public class LeaderboardPublic extends Fragment {
 
     View view;
 
@@ -24,7 +24,7 @@ public class PublicLeaderboard extends Fragment {
             PublicLeagueTab.this.getActivity().finish();
         }*/
 
-        view = inflater.inflate(R.layout.activity_public_leaderboard, container, false);
+        view = inflater.inflate(R.layout.activity_leaderboard_public, container, false);
         return view;
     }
 }

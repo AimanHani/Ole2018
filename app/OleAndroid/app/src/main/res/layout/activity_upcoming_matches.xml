@@ -44,7 +44,7 @@
                     android:layout_height="match_parent">
 
                     <ImageView
-                        android:id="@+id/imageView13"
+                        android:id="@+id/team1_photo"
                         android:layout_width="50dp"
                         android:layout_height="50dp"
                         android:layout_marginStart="8dp"
@@ -76,7 +76,7 @@
                         android:textStyle="bold"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/imageView13" />
+                        app:layout_constraintTop_toBottomOf="@+id/team1_photo" />
 
 
                 </android.support.constraint.ConstraintLayout>
@@ -177,7 +177,7 @@
                     android:layout_height="match_parent">
 
                     <ImageView
-                        android:id="@+id/imageView113"
+                        android:id="@+id/team2_photo"
                         android:layout_width="50dp"
                         android:layout_height="50dp"
                         android:layout_marginStart="8dp"
@@ -209,7 +209,7 @@
                         android:textStyle="bold"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/imageView113" />
+                        app:layout_constraintTop_toBottomOf="@+id/team2_photo" />
                 </android.support.constraint.ConstraintLayout>
 
             </LinearLayout>
@@ -236,7 +236,7 @@
                     android:layout_height="match_parent">
 
                     <ImageView
-                        android:id="@+id/imageView13"
+                        android:id="@+id/team1_photo"
                         android:layout_width="50dp"
                         android:layout_height="50dp"
                         android:layout_marginStart="8dp"
@@ -268,7 +268,7 @@
                         android:textStyle="bold"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/imageView13" />
+                        app:layout_constraintTop_toBottomOf="@+id/team1_photo" />
 
 
                 </android.support.constraint.ConstraintLayout>
@@ -369,7 +369,7 @@
                     android:layout_height="match_parent">
 
                     <ImageView
-                        android:id="@+id/imageView113"
+                        android:id="@+id/team2_photo"
                         android:layout_width="50dp"
                         android:layout_height="50dp"
                         android:layout_marginStart="8dp"
@@ -401,7 +401,7 @@
                         android:textStyle="bold"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/imageView113" />
+                        app:layout_constraintTop_toBottomOf="@+id/team2_photo" />
 
                 </android.support.constraint.ConstraintLayout>
 

@@ -5,34 +5,6 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <ScrollView
-            android:id="@+id/scrollView"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
-
-            <TextView
-                android:id="@+id/noPrivLeag"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="244dp"
-                android:paddingLeft="4dp"
-                android:paddingTop="4dp"
-                android:paddingEnd="4dp"
-                android:paddingRight="4dp"
-                android:text="Opps. Looks like you are not in any Private League"
-                android:textAlignment="center"
-                android:textColor="@color/black"
-                android:textSize="18sp"
-                android:textStyle="italic"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="1.0"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="@+id/scrollView" />
-        </ScrollView>
-
     <ImageView
         android:id="@+id/imageView"
         android:layout_width="125dp"
@@ -41,6 +13,25 @@
         android:layout_centerHorizontal="true"
         android:layout_marginTop="115dp"
         app:srcCompat="@drawable/footballplayer" />
+
+    <TextView
+        android:id="@+id/noPrivLeag"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="244dp"
+        android:paddingLeft="4dp"
+        android:paddingTop="4dp"
+        android:paddingEnd="4dp"
+        android:paddingRight="4dp"
+        android:text="Opps. Looks like you are not in any Private League"
+        android:textAlignment="center"
+        android:textColor="@color/black"
+        android:textSize="18sp"
+        android:textStyle="italic"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/imageView" />
 
     <Button
         android:id="@+id/createPrivateLeague"
@@ -55,7 +46,7 @@
         android:textSize="18sp"
         android:textStyle="bold"
         android:visibility="visible"
-        app:layout_constraintBottom_toBottomOf="@+id/scrollView"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"

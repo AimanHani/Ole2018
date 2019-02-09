@@ -2,19 +2,19 @@ package com.example.ole.oleandroid.pageController;
 
 import android.content.Context;
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.CardView;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.widget.LinearLayout;
 
 import com.example.ole.oleandroid.R;
+import com.example.ole.oleandroid.controller.Leaderboard.Leaderboard;
 import com.example.ole.oleandroid.controller.SideMenuBar;
 
 public class FAQ extends SideMenuBar {
     CardView profile;
     CardView pubLeague;
+    CardView leaderboard;
     CardView privLeague;
     CardView league;
     CardView askOle;
@@ -31,14 +31,13 @@ public class FAQ extends SideMenuBar {
         pubLeague = findViewById(R.id.publicCard);
         privLeague = findViewById(R.id.privateCard);
         league = findViewById(R.id.generalCard);
+        leaderboard = findViewById(R.id.leaderboardCard);
         askOle = findViewById(R.id.askCard);
 
         profile.setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {
 
                 Intent intent = new Intent(FAQ.this, FAQProfile.class);
-                Bundle b = getIntent().getExtras();
-                intent.putExtras(b);
                 startActivity(intent);
             }
         });
@@ -47,8 +46,6 @@ public class FAQ extends SideMenuBar {
             public void onClick(View view) {
 
                 Intent intent = new Intent(FAQ.this, FAQPublic.class);
-                Bundle b = getIntent().getExtras();
-                intent.putExtras(b);
                 startActivity(intent);
             }
         });
@@ -57,8 +54,6 @@ public class FAQ extends SideMenuBar {
             public void onClick(View view) {
 
                 Intent intent = new Intent(FAQ.this, FAQPrivate.class);
-                Bundle b = getIntent().getExtras();
-                intent.putExtras(b);
                 startActivity(intent);
             }
         });
@@ -67,8 +62,6 @@ public class FAQ extends SideMenuBar {
             public void onClick(View view) {
 
                 Intent intent = new Intent(FAQ.this, FAQLeague.class);
-                Bundle b = getIntent().getExtras();
-                intent.putExtras(b);
                 startActivity(intent);
             }
         });
@@ -77,8 +70,14 @@ public class FAQ extends SideMenuBar {
             public void onClick(View view) {
 
                 Intent intent = new Intent(FAQ.this, AskOle.class);
-                Bundle b = getIntent().getExtras();
-                intent.putExtras(b);
+                startActivity(intent);
+            }
+        });
+
+        leaderboard.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View view) {
+
+                Intent intent = new Intent(FAQ.this, Leaderboard.class);
                 startActivity(intent);
             }
         });

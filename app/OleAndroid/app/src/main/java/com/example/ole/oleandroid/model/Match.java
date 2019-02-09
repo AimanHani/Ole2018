@@ -29,8 +29,6 @@ public class Match {
         this.team2Score = team2Score;
     }
 
-    public Match() {
-    }
 
     public int getMatchID() {
         return matchID;

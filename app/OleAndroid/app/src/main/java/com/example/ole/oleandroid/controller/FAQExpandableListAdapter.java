@@ -13,12 +13,12 @@ import com.example.ole.oleandroid.R;
 import java.util.HashMap;
 import java.util.List;
 
-public class ExpandableListAdapter extends BaseExpandableListAdapter {
+public class FAQExpandableListAdapter extends BaseExpandableListAdapter {
     private Context context;
     private List<String> listDataHeader;
     private HashMap<String,List<String>> listHashMap;
 
-    public ExpandableListAdapter(Context context, List<String> listDataHeader, HashMap<String, List<String>> listHashMap) {
+    public FAQExpandableListAdapter(Context context, List<String> listDataHeader, HashMap<String, List<String>> listHashMap) {
         this.context = context;
         this.listDataHeader = listDataHeader;
         this.listHashMap = listHashMap;
