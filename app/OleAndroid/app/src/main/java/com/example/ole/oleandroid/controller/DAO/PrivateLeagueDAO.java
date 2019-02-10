@@ -36,7 +36,7 @@ public class PrivateLeagueDAO {
         Boolean resultFinal = false;
 
         try {
-            response = PostHttp.postForm(url, params);
+            response = connection.postForm(url, params);
             System.out.println(response);
 
             JSONObject result = new JSONObject(response);

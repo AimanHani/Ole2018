@@ -58,38 +58,44 @@ public class Login extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 final Dialog load = loadingDialog();
-        // comments starts here if want to bypass login webservice
-                if (username.getText().toString().equals("") || password.getText().toString().equals("")) {
-                    //loadSamePage();
-                } else {
-                    System.out.println("Signing In " + username.getText().toString());
-                    String status = "error";
+                new android.os.Handler().postDelayed(
+                        new Runnable() {
+                            public void run() {
+                                // comments starts here if want to bypass login webservice
+                                if (username.getText().toString().equals("") || password.getText().toString().equals("")) {
+                                    //loadSamePage();
+                                } else {
+                                    System.out.println("Signing In " + username.getText().toString());
+                                    String status = "error";
 
-                    String send = concatUsernamePwd(username.getText().toString(), password.getText().toString());
+                                    String send = concatUsernamePwd(username.getText().toString(), password.getText().toString());
 
-                    Boolean valid = LoginDAO.validate(send);
+                                    Boolean valid = LoginDAO.validate(send);
 
-                    if (valid){
-                        Intent intent = new Intent(Login.this, HomeLeague.class);
+                                    if (valid) {
+                                        Intent intent = new Intent(Login.this, HomeLeague.class);
 //                        Bundle bundle = new Bundle();
 //                        bundle.putString("username", username.getText().toString());
 //                        intent.putExtras(bundle);
-                        startActivity(intent);
-                        load.dismiss();
-                    } else {
+                                        startActivity(intent);
 
-                    }
+                                    } else {
 
+                                    }
+
+                                    load.dismiss();
 //comments stop here
 
-                    // codes to bypass login with webservice
+                                    // codes to bypass login with webservice
 //                    Intent intent = new Intent(Login.this, HomeTile.class);
 //                    Bundle bundle = new Bundle();
 //                    bundle.putString("username", username.getText().toString());
 //                    intent.putExtras(bundle);
 //                    startActivity(intent);
 //
-                }
+                                }
+                            }
+                        }, 3000);
             }
 
         });

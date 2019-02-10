@@ -14,9 +14,9 @@ public class PostHttp {
     public static final MediaType mediaType = MediaType.parse("application/x-www-form-urlencoded");
     public static final MediaType JSON = MediaType.get("application/json; charset=utf-8");
 
-    public static OkHttpClient client = new OkHttpClient();
+    OkHttpClient client = new OkHttpClient();
 
-    public static String post(String url, String json) throws IOException {
+    public String post(String url, String json) throws IOException {
         RequestBody body = RequestBody.create(JSON, json);
         Request request = new Request.Builder()
                 .url(url)
@@ -28,7 +28,7 @@ public class PostHttp {
         }
     }
 
-    public static String postForm(String url, String params) throws IOException {
+    public String postForm(String url, String params) throws IOException {
         RequestBody body = RequestBody.create(mediaType, params);
 
         Request request = new Request.Builder()

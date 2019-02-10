@@ -15,7 +15,7 @@ public class LoginDAO {
         Boolean valid = false;
 
         try {
-            response = PostHttp.postForm(url, send);
+            response = connection.postForm(url, send);
             System.out.println(response);
 
             JSONObject result = new JSONObject(response);

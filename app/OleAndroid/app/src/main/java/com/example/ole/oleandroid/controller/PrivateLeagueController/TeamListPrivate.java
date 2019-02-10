@@ -56,7 +56,7 @@ public class TeamListPrivate extends SideMenuBar {
         GetHttp getConnection = new GetHttp();
         String response = null;
         try {
-            response = GetHttp.run(url);
+            response = getConnection.run(url);
             System.out.println(response);
             if (response != null) {
                 JSONObject result = new JSONObject(response);
@@ -137,7 +137,7 @@ try {
         //System.out.println("HAHAHAHHA" + json.toString());
 
         try {
-            response = PostHttp.post(url, json.toString());
+            response = connection.post(url, json.toString());
             JSONObject result = new JSONObject(response);
             status[0] = result.getString("status");
             while (!status[0].equals("successful")) {

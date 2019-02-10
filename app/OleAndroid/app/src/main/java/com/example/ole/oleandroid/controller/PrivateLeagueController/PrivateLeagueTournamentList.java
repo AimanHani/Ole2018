@@ -48,7 +48,7 @@ public class PrivateLeagueTournamentList extends SideMenuBar implements View.OnC
         GetHttp getConnection = new GetHttp();
         String response = null;
         try {
-            response = GetHttp.run(url);
+            response = getConnection.run(url);
             System.out.println(response);
             JSONObject result = new JSONObject(response);
             JSONArray privateLeagues = result.getJSONArray("results");

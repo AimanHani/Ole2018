@@ -41,7 +41,7 @@ public class PublicLeagueDAO {
         int resultFinal = 0;
 
         try {
-            response = PostHttp.postForm(url, params);
+            response = connection.postForm(url, params);
             System.out.println(response);
 
             JSONObject result = new JSONObject(response);
@@ -70,7 +70,7 @@ public class PublicLeagueDAO {
         int logId = 0;
 
         try {
-            response = GetHttp.run(url);
+            response = connection.run(url);
             //System.out.println(response);
 
             JSONObject result = new JSONObject(response);

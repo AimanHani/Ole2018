@@ -28,7 +28,7 @@ public class Mine extends Fragment implements View.OnClickListener{
 
         view = inflater.inflate(R.layout.activity_mine, container, false);
 
-        createPrivateLeagueBtn = (FloatingActionButton) view.findViewById(R.id.createPrivateLeagueBtn);
+        createPrivateLeagueBtn = view.findViewById(R.id.createPrivateLeagueBtn);
         createPrivateLeagueBtn.setOnClickListener(this);
 
         return view;
