@@ -61,6 +61,37 @@ public class PrivateLeagueDAO {
         }
         return privateLeagueList;
     }
+    
+    public static ArrayList<PrivateLeague> getAllPrivateLeagues() {
+        ArrayList<PrivateLeague> privateLeagueList = new ArrayList<>();
+
+        try (Connection conn = DBConnection.getConnection();
+                PreparedStatement stmt = conn.prepareStatement(
+                        "select l.leagueId, l.tournamentId, l.pointsAllocated, l.leagueName, pl.prize, pl.password, pl.startDate, pl.endDate, pl.username from league l inner join privateleague pl on l.leagueId = pl.leagueKeyId");) {
+            ResultSet rs = stmt.executeQuery();
+
+            while (rs.next()) {
+                int leagueID = rs.getInt(1);
+                int tournamentID = rs.getInt(2);
+                int pointsAllocated = rs.getInt(3);
+                String leagueName = rs.getString(4);
+                String prize = rs.getString(5);
+                String password = rs.getString(6);
+                Date startDate = rs.getDate(7);
+                Date endDate = rs.getDate(8);
+                String userName = rs.getString(9);
+
+                privateLeagueList.add(new PrivateLeague(leagueID, leagueName, prize, password, startDate, endDate, leagueID, userName, pointsAllocated, tournamentID));
+            }
+            rs.close();
+
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        } catch (ClassNotFoundException ex) {
+            ex.printStackTrace();
+        }
+        return privateLeagueList;
+    }
 
     public static String createPrivateLeague(String leagueName, String prize, String password, String startDate, String endDate, String username, String pointsAllocated, String tournamentId, String specials, String teams) {
 
@@ -214,6 +245,27 @@ public class PrivateLeagueDAO {
         }
 
         return null;
+    }
+    
+    public static ArrayList<model.Tournament> getTournament() {
+        ArrayList<model.Tournament> list = new ArrayList<model.Tournament>();
+        try (Connection conn = DBConnection.getConnection(); PreparedStatement stmt = conn.prepareStatement("select * from tournament");) {
+            ResultSet rs = stmt.executeQuery();
+            while (rs.next()) {
+                String tournamentId = rs.getString(1);
+                String name = rs.getString(2);
+                list.add(new model.Tournament(tournamentId, name));
+            }
+            rs.close();
+            return list;
+
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        } catch (ClassNotFoundException ex) {
+            ex.printStackTrace();
+        }
+
+        return list;
     }
 
     final static String DATE_FORMAT = "yyyy-MM-dd";
