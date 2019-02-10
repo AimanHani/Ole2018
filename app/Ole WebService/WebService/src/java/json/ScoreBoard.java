@@ -70,21 +70,8 @@ public class ScoreBoard extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
-    }
-
-    /**
-     * Handles the HTTP <code>POST</code> method.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
-    @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        JSONArray list = new JSONArray();
+        
+         JSONArray list = new JSONArray();
         JSONObject parentJson = new JSONObject();
         response.setContentType("\"Content-Type\", \"application/x-www-form-urlencoded\"");
         response.setCharacterEncoding("utf-8");
@@ -92,7 +79,7 @@ public class ScoreBoard extends HttpServlet {
 
         String league = request.getParameter("league");
 
-        if (league.equals("public")) {
+        if (league != null && league.equals("public")) {
 
             PublicLeagueProfile plf;
             ArrayList<PublicLeagueProfile> pList = new ArrayList();
@@ -110,7 +97,7 @@ public class ScoreBoard extends HttpServlet {
                         json.put("leagueId", plf.getLeagueID());
                         json.put("league", "public league");
                         json.put("username", plf.getUsername());
-                        json.put("total points", plf.getTotalPoints());
+                        json.put("totalPoints", plf.getTotalPoints());
                         list.put(json);
                     }
 
@@ -152,9 +139,9 @@ public class ScoreBoard extends HttpServlet {
                                 plf = new PrivateLeagueProfile();
                                 plf = pList.get(j);
                                 json.put("leagueId", plf.getLeagueID());
-                                json.put("league", "public league");
+                                json.put("league", "private league");
                                 json.put("username", plf.getUsername());
-                                json.put("total points", plf.getTotalPoints());
+                                json.put("totalPoints", plf.getTotalPoints());
                                 list.put(json);
                             }
 
@@ -169,6 +156,20 @@ public class ScoreBoard extends HttpServlet {
             }
 
         }
+    }
+
+    /**
+     * Handles the HTTP <code>POST</code> method.
+     *
+     * @param request servlet request
+     * @param response servlet response
+     * @throws ServletException if a servlet-specific error occurs
+     * @throws IOException if an I/O error occurs
+     */
+    @Override
+    protected void doPost(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+       processRequest(request, response);
     }
 
     /**
