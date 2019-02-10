@@ -107,7 +107,7 @@ public class ScoreBoard extends HttpServlet {
                         json = new JSONObject();
                         plf = new PublicLeagueProfile();
                         plf = pList.get(i);
-                        json.put("leauge ID", plf.getLeagueID());
+                        json.put("leagueId", plf.getLeagueID());
                         json.put("league", "public league");
                         json.put("username", plf.getUsername());
                         json.put("total points", plf.getTotalPoints());
@@ -151,7 +151,7 @@ public class ScoreBoard extends HttpServlet {
                                 json = new JSONObject();
                                 plf = new PrivateLeagueProfile();
                                 plf = pList.get(j);
-                                json.put("leauge ID", plf.getLeagueID());
+                                json.put("leagueId", plf.getLeagueID());
                                 json.put("league", "public league");
                                 json.put("username", plf.getUsername());
                                 json.put("total points", plf.getTotalPoints());
