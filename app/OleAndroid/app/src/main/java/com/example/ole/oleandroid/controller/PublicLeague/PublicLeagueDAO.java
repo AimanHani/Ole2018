@@ -1,6 +1,6 @@
 package com.example.ole.oleandroid.controller.PublicLeague;
 
-import com.example.ole.oleandroid.controller.UserDAO;
+import com.example.ole.oleandroid.controller.DAO.UserDAO;
 import com.example.ole.oleandroid.dbConnection.DBConnection;
 import com.example.ole.oleandroid.dbConnection.GetHttp;
 import com.example.ole.oleandroid.dbConnection.PostHttp;

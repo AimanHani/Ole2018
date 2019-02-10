@@ -11,7 +11,7 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.example.ole.oleandroid.R;
-import com.example.ole.oleandroid.controller.UserDAO;
+import com.example.ole.oleandroid.controller.DAO.UserDAO;
 import com.example.ole.oleandroid.model.PublicLeague;
 
 import java.util.ArrayList;

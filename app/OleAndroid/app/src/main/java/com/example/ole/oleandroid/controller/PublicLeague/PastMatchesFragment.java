@@ -8,7 +8,7 @@ import android.view.ViewGroup;
 import android.widget.ListView;
 
 import com.example.ole.oleandroid.R;
-import com.example.ole.oleandroid.controller.MatchDAO;
+import com.example.ole.oleandroid.controller.DAO.MatchDAO;
 import com.example.ole.oleandroid.model.Match;
 
 import java.util.ArrayList;

@@ -10,9 +10,9 @@ import android.widget.LinearLayout;
 import android.widget.ListView;
 
 import com.example.ole.oleandroid.R;
-import com.example.ole.oleandroid.controller.PrivateLeagueDAO;
+import com.example.ole.oleandroid.controller.DAO.PrivateLeagueDAO;
 import com.example.ole.oleandroid.controller.SideMenuBar;
-import com.example.ole.oleandroid.controller.UserDAO;
+import com.example.ole.oleandroid.controller.DAO.UserDAO;
 import com.example.ole.oleandroid.dbConnection.DBConnection;
 import com.example.ole.oleandroid.dbConnection.GetHttp;
 import com.example.ole.oleandroid.model.PrivateLeague;

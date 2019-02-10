@@ -11,7 +11,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.ole.oleandroid.controller.TeamItemDAO;
+import com.example.ole.oleandroid.controller.DAO.TeamItemDAO;
 import com.example.ole.oleandroid.model.TeamItems;
 import com.example.ole.oleandroid.model.Teams;
 
