@@ -65,8 +65,8 @@ public class UpcomingMatchListAdapter extends BaseAdapter{
         //ImageView team1_photo, team2_photo;
         viewHolder.team1_name = convertView.findViewById(R.id.team1_name);
         viewHolder.team2_name = convertView.findViewById(R.id.team2_name);
-        viewHolder.team1_scoreinput = convertView.findViewById(R.id.team1_score);
-        viewHolder.team2_scoreinput = convertView.findViewById(R.id.team2_score);
+        viewHolder.team1_scoreinput = convertView.findViewById(R.id.team1_scoreinput);
+        viewHolder.team2_scoreinput = convertView.findViewById(R.id.team2_scoreinput);
         viewHolder.match_date = convertView.findViewById(R.id.match_date);
         viewHolder.team1_photo = convertView.findViewById(R.id.team1_photo);
         viewHolder.team2_photo = convertView.findViewById(R.id.team2_photo);
@@ -78,7 +78,7 @@ public class UpcomingMatchListAdapter extends BaseAdapter{
         viewHolder.team1_photo.setImageResource(teamItemsList.get(matchList.get(position).getTeam1()).getmTeamImage());
 
         viewHolder.team2_name.setText(matchList.get(position).getTeam2());
-        viewHolder.team1_scoreinput.setText("__");
+        viewHolder.team2_scoreinput.setText("__");
         viewHolder.team2_photo.setImageResource(teamItemsList.get(matchList.get(position).getTeam2()).getmTeamImage());
 
         viewHolder.match_date.setText(matchList.get(position).getMatchDate()+" "+matchList.get(position).getMatchTime());
