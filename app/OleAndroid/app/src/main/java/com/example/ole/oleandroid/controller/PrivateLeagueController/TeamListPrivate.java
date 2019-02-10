@@ -1,16 +1,20 @@
 package com.example.ole.oleandroid.controller.PrivateLeagueController;
 
+import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.Window;
 import android.widget.Button;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import com.example.ole.oleandroid.controller.SideMenuBar;
 import com.example.ole.oleandroid.controller.DAO.UserDAO;
+import com.example.ole.oleandroid.controller.Signup;
 import com.example.ole.oleandroid.dbConnection.DBConnection;
 import com.example.ole.oleandroid.dbConnection.GetHttp;
 import com.example.ole.oleandroid.dbConnection.PostHttp;
@@ -86,66 +90,85 @@ public class TeamListPrivate extends SideMenuBar {
             @Override
             public void onClick(View v) {
 
-                teams="";
-                for(Teams t: teamsList){
-                    if(t.getChecked()){
-                        teams+=t.getTeamId()+",";
-                    }
-                }
-                //System.out.println("HI"+teams.substring(0, teams.length() - 1));
-                teams = teams.substring(0, teams.length() - 1);
+try {
+    teams = "";
+    for (Teams t : teamsList) {
+        if (t.getChecked()) {
+            teams += t.getTeamId() + ",";
+        }
+    }
+    //System.out.println("HI"+teams.substring(0, teams.length() - 1));
+    teams = teams.substring(0, teams.length() - 1);
 
-                Intent intent = getIntent();
-                User loginUser = UserDAO.getLoginUser();
+    if (!teams.equals("")) {
+
+        Intent intent = getIntent();
+        User loginUser = UserDAO.getLoginUser();
 
 
-                    System.out.println("Creating Private League");
-                    final String[] status = {"error"};
-                    JSONObject json = new JSONObject();
-                    try {
-                        Bundle extras = getIntent().getExtras();
-                        if (extras != null) {
-                            json.put("method", "insertNew");
-                            json.put("username", loginUser.getUsername());
-                            json.put("password", extras.getString("password"));
-                            json.put("prize", extras.getString("prize"));
-                            json.put("leagueName", extras.getString("leaguename"));
-                            json.put("tournamentId", extras.getString("leagueid"));
-                            json.put("pointsAllocated", extras.getString("pointsAllocated"));
-                            json.put("startDate", extras.getString("startdate"));
-                            json.put("endDate", extras.getString("enddate"));
-                            json.put("specials", extras.getString("specials"));
-                            json.put("teams", teams);
-                        }
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                    }
-                    String url = DBConnection.insertPrivateLeagueUrl();
+        System.out.println("Creating Private League");
+        Toast.makeText(TeamListPrivate.this,
+                "Creating private league", Toast.LENGTH_LONG).show();
 
-                    PostHttp connection = new PostHttp();
-                    String response = null;
-                    //System.out.println("HAHAHAHHA" + json.toString());
+        final String[] status = {"error"};
+        JSONObject json = new JSONObject();
+        try {
+            Bundle extras = getIntent().getExtras();
+            if (extras != null) {
+                json.put("method", "insertNew");
+                json.put("username", loginUser.getUsername());
+                json.put("password", extras.getString("password"));
+                json.put("prize", extras.getString("prize"));
+                json.put("leagueName", extras.getString("leaguename"));
+                json.put("tournamentId", extras.getString("leagueid"));
+                json.put("pointsAllocated", extras.getString("pointsAllocated"));
+                json.put("startDate", extras.getString("startdate"));
+                json.put("endDate", extras.getString("enddate"));
+                json.put("specials", extras.getString("specials"));
+                json.put("teams", teams);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        String url = DBConnection.insertPrivateLeagueUrl();
 
-                try {
-                    response = connection.post(url, json.toString());
-                    JSONObject result = new JSONObject(response);
-                    status[0] = result.getString("status");
+        PostHttp connection = new PostHttp();
+        String response = null;
+        //System.out.println("HAHAHAHHA" + json.toString());
 
-                    if (status[0].equals("success")) {
-                        System.out.println(response);
-                        intent = new Intent(TeamListPrivate.this, PrivateLeagueList.class);
-                        startActivity(intent);
-                    } else {
-                        //loadSamePage();
-                    }
+        try {
+            response = connection.post(url, json.toString());
+            JSONObject result = new JSONObject(response);
+            status[0] = result.getString("status");
+            while (!status[0].equals("successful")) {
+                Toast.makeText(TeamListPrivate.this,
+                        "Creating private league", Toast.LENGTH_LONG).show();
 
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-intent = new Intent(TeamListPrivate.this, PrivateLeagueList.class);
-                startActivity(intent);
+            }
+
+            System.out.println(response);
+
+
+        } catch (Exception e) {
+            intent = new Intent(TeamListPrivate.this, PrivateLeagueList.class);
+            startActivity(intent);
+        }
+        intent = new Intent(TeamListPrivate.this, PrivateLeagueList.class);
+        startActivity(intent);
+
+    } else {
+        Toast.makeText(TeamListPrivate.this,
+                "Please select at least 1", Toast.LENGTH_LONG).show();
+
+    }
+}catch(Exception e){
+    Toast.makeText(TeamListPrivate.this,
+            "Please select at least 1", Toast.LENGTH_LONG).show();
+}
+
            }
         });
 
     }
+
 }

@@ -75,10 +75,10 @@ public class PrivateLeague extends HttpServlet {
         //System.out.println(request.getHeader("params"));
         JSONObject headers = null;
         String head = "";
-        String username="";
+        String username = "";
         try {
             //headers = new JSONObject(request.getHeader("params"));
-            
+
             head = request.getParameter("method");
             username = request.getParameter("username");
             //head = headers.getString("method");
@@ -87,12 +87,48 @@ public class PrivateLeague extends HttpServlet {
         }
 
         switch (head) {
-        case "retrievePrivateLeague":
+            case "retrievePrivateLeague":
                 //System.out.println("OLALALA");
                 list = new JSONArray();
                 parentJson = new JSONObject();
-                
+
                 ArrayList<model.PrivateLeague> privateLeagueList = PrivateLeagueDAO.getPrivateLeagues(username);
+                //ArrayList<Integer> userPublicLeaguesID = PrivateLeagueDAO.getUserPublicLeaguesID(username);
+
+                System.out.println(privateLeagueList.size());
+                try {
+                    for (int i = 0; i < privateLeagueList.size(); i++) {
+//(leagueID, leagueName, prize, password, startDate,endDate,leagueID, userName, pointsAllocated, tournamentID));
+
+                        json = new JSONObject();
+                        model.PrivateLeague privateLeague = privateLeagueList.get(i);
+                        json.put("leagueID", privateLeague.getPrivateLeaugeId());
+                        json.put("leagueName", privateLeague.getLeagueName());
+                        json.put("prize", privateLeague.getPrize());
+                        json.put("password", privateLeague.getPassword());
+                        json.put("startDate", privateLeague.getStartDate());
+                        json.put("endDate", privateLeague.getEndDate());
+                        json.put("userName", privateLeague.getUsername());
+                        json.put("tournamentID", privateLeague.getTournamentId());
+                        json.put("pointsAllocated", privateLeague.getPointsAllocated());
+                        list.put(json);
+                    }
+                    parentJson.put("results", list);
+                    out.print(parentJson);
+                    out.flush();
+
+                } catch (JSONException ex) {
+                    Logger.getLogger(PublicLeagueJson.class.getName()).log(Level.SEVERE, null, ex);
+                }
+
+                break;
+                
+                case "retrieveAllPrivateLeague":
+                //System.out.println("OLALALA");
+                list = new JSONArray();
+                parentJson = new JSONObject();
+
+                privateLeagueList = PrivateLeagueDAO.getAllPrivateLeagues();
                 //ArrayList<Integer> userPublicLeaguesID = PrivateLeagueDAO.getUserPublicLeaguesID(username);
 
                 System.out.println(privateLeagueList.size());
@@ -124,11 +160,33 @@ public class PrivateLeague extends HttpServlet {
                 break;
             //select l.leagueId, l.tournamentId, l.pointsAllocated, l.leagueName, pl.prize, pl.password, pl.startDate, pl.endDate, pl.username from league l inner join privateleague pl on l.leagueId = pl.leagueKeyId where pl.username='billy'
             //select l.leagueId, l.tournamentId, l.pointsAllocated, l.leagueName, pl.prize, pl.password, pl.startDate, pl.endDate, pl.username from league l inner join privateleague pl on l.leagueId = pl.leagueKeyId where pl.username='billy'
+case "retrieveTournament":
+                System.out.println("HAY");
+                list = new JSONArray();
+                parentJson = new JSONObject();
 
+                ArrayList<model.Tournament> tournamentList = PrivateLeagueDAO.getTournament();
+                System.out.println("tournament: " + tournamentList.size());
+                try {
+                    for (int i = 0; i < tournamentList.size(); i++) {
+                        json = new JSONObject();
+                        model.Tournament tournament = tournamentList.get(i);
+                        json.put("tournamentId", tournament.getTournamentId());
+                        json.put("name", tournament.getName());
+                        list.put(json);
+                    }
+                    parentJson.put("results", list);
+                    out.print(parentJson);
+                    out.flush();
+
+                } catch (JSONException ex) {
+                    Logger.getLogger(PublicLeagueJson.class.getName()).log(Level.SEVERE, null, ex);
+                }
+                break;
             default:
                 break;
         }
-        
+
         /*
         try {
             if (leagueName != null) {
@@ -197,7 +255,7 @@ public class PrivateLeague extends HttpServlet {
         } catch (JSONException e) {
             e.printStackTrace();
         }
-*/
+         */
     }
 
     /**
@@ -350,7 +408,7 @@ public class PrivateLeague extends HttpServlet {
                 }
                 break;
             case "retrievePrivateLeague":
-                System.out.println("OLALALA");
+                //System.out.println("OLALALA");
                 list = new JSONArray();
                 parentJson = new JSONObject();
                 String username = request.getParameter("username");
@@ -386,7 +444,29 @@ public class PrivateLeague extends HttpServlet {
                 break;
             //select l.leagueId, l.tournamentId, l.pointsAllocated, l.leagueName, pl.prize, pl.password, pl.startDate, pl.endDate, pl.username from league l inner join privateleague pl on l.leagueId = pl.leagueKeyId where pl.username='billy'
             //select l.leagueId, l.tournamentId, l.pointsAllocated, l.leagueName, pl.prize, pl.password, pl.startDate, pl.endDate, pl.username from league l inner join privateleague pl on l.leagueId = pl.leagueKeyId where pl.username='billy'
+            case "retrieveTournament":
+                System.out.println("HAY");
+                list = new JSONArray();
+                parentJson = new JSONObject();
 
+                ArrayList<model.Tournament> tournamentList = PrivateLeagueDAO.getTournament();
+                System.out.println("tournament: " + tournamentList.size());
+                try {
+                    for (int i = 0; i < tournamentList.size(); i++) {
+                        json = new JSONObject();
+                        model.Tournament tournament = tournamentList.get(i);
+                        json.put("tournamentId", tournament.getTournamentId());
+                        json.put("name", tournament.getName());
+                        list.put(json);
+                    }
+                    parentJson.put("results", list);
+                    out.print(parentJson);
+                    out.flush();
+
+                } catch (JSONException ex) {
+                    Logger.getLogger(PublicLeagueJson.class.getName()).log(Level.SEVERE, null, ex);
+                }
+                break;
             default:
                 break;
         }
