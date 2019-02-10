@@ -65,7 +65,30 @@ public class JoinPublicLeague extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        JSONObject json = new JSONObject();
+        response.setContentType("\"Content-Type\", \"application/x-www-form-urlencoded\"");
+        response.setCharacterEncoding("utf-8");
+        PrintWriter out = response.getWriter();
+        
+        //used to check if user have joined successfully by getting the 
+        String username = request.getParameter("username");
+        int leagueID = Integer.parseInt(request.getParameter("leagueId"));
+        
+        try {
+            int logId = JoinPublicLeaguesDAO.selectLog(username, leagueID);
+            
+            if(logId != 0){
+                json.put("status", "successful");
+                json.put("logId", logId);
+            } else {
+                json.put("status", "error");
+            }
+            
+            out.print(json);
+            out.flush();
+        } catch (Exception e){
+            e.getStackTrace();
+        }
     }
 
     /**
@@ -86,6 +109,7 @@ public class JoinPublicLeague extends HttpServlet {
 
         String username = request.getParameter("username");
         int leagueID = Integer.parseInt(request.getParameter("leagueId"));
+        System.out.println(username +" "+leagueID);
         String status = "";
         int logID = 0;
         try {
@@ -98,6 +122,7 @@ public class JoinPublicLeague extends HttpServlet {
                 if (status.equals("successful")) {
 
                     json.put("status", "successful");
+                    json.put("logId", logID);
 
                 } else {
                     json.put("status", "error");

@@ -19,7 +19,7 @@ public class SignupDAO {
         Boolean valid = false;
 
         try {
-            response = connection.postForm(url, send);
+            response = PostHttp.postForm(url, send);
             System.out.println(response);
 
             JSONObject result = new JSONObject(response);

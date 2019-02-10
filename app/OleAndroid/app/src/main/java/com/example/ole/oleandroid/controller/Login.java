@@ -34,10 +34,10 @@ public class Login extends AppCompatActivity {
         ActionBar actionBar = getSupportActionBar();
         actionBar.hide();
 
-        username = (EditText) findViewById(R.id.username);
-        password = (EditText) findViewById(R.id.password);
-        signin = (Button) findViewById(R.id.signin);
-        signup = (Button) findViewById(R.id.signup);
+        username = findViewById(R.id.username);
+        password = findViewById(R.id.password);
+        signin = findViewById(R.id.signin);
+        signup = findViewById(R.id.signup);
 
         facebookButton = findViewById(R.id.facebookButton);
 

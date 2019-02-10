@@ -50,7 +50,7 @@ public class SpecialList extends AppCompatActivity{
         GetHttp getConnection = new GetHttp();
         String response = null;
         try {
-            response = getConnection.run(url);
+            response = GetHttp.run(url);
             System.out.println(response);
             if (response != null) {
                 JSONObject result = new JSONObject(response);
@@ -92,7 +92,7 @@ public class SpecialList extends AppCompatActivity{
             public void onClick(View v) {
                 final Dialog dialog = new Dialog(SpecialList.this);
                 dialog.setContentView(R.layout.confirmspecialspopout);
-                TextView cancel = (TextView) dialog.findViewById(R.id.cancel);
+                TextView cancel = dialog.findViewById(R.id.cancel);
                 cancel.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
@@ -100,7 +100,7 @@ public class SpecialList extends AppCompatActivity{
                     }
                 });
 
-                ImageView closeWindow = (ImageView) dialog.findViewById(R.id.closeWindow);
+                ImageView closeWindow = dialog.findViewById(R.id.closeWindow);
                 closeWindow.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
@@ -109,7 +109,7 @@ public class SpecialList extends AppCompatActivity{
                     }
                 });
 
-                TextView end = (TextView) dialog.findViewById(R.id.end);
+                TextView end = dialog.findViewById(R.id.end);
                 end.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {

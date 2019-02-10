@@ -9,7 +9,7 @@ public class UserDAO {
     private static User loginUser;
 
     public void setAllUsers(ArrayList<User> allUsers) {
-        this.allUsers = allUsers;
+        UserDAO.allUsers = allUsers;
     }
 
     public static void addUsers(User user){

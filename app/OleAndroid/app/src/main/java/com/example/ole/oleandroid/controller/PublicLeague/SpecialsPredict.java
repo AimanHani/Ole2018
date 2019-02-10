@@ -55,18 +55,18 @@ public class SpecialsPredict extends AppCompatActivity {
         //specialsListContainer = (LinearLayout) findViewById(R.id.specialsListContainer);
         //specialsDisplay = (TextView) findViewById(R.id.specialsDisplay);
 
-        specials1 = (TextView) findViewById(R.id.specials1);
-        specials2 = (TextView) findViewById(R.id.specials2);
-        specials3 = (TextView) findViewById(R.id.specials3);
+        specials1 = findViewById(R.id.specials1);
+        specials2 = findViewById(R.id.specials2);
+        specials3 = findViewById(R.id.specials3);
 
-        input1 = (EditText) findViewById(R.id.input1);
-        input2 = (EditText) findViewById(R.id.input2);
-        input3 = (EditText) findViewById(R.id.input3);
+        input1 = findViewById(R.id.input1);
+        input2 = findViewById(R.id.input2);
+        input3 = findViewById(R.id.input3);
         predictionsList.add(input1);
         predictionsList.add(input2);
         predictionsList.add(input3);
 
-        confirm = (Button) findViewById(R.id.confirm);
+        confirm = findViewById(R.id.confirm);
 
         final Bundle b = getIntent().getExtras();
         logId = b.getString("logId");

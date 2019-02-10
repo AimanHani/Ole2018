@@ -15,7 +15,7 @@ public class PastMatchesTab extends AppCompatActivity {
 
 
     PastMatchListAdapter pmListAdapter;
-    ArrayList<Match> matches = new ArrayList<>();;
+    ArrayList<Match> matches = new ArrayList<>();
     ListView matchListView;
 
     @Override

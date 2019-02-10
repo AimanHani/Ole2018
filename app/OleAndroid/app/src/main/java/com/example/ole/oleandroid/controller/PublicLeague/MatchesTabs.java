@@ -74,7 +74,7 @@ public class MatchesTabs extends SideMenuBar {
         adapter.addFragment(new PastMatchesFragment(),"Past");
         // upcomingMatches now has a logId which u can set (so i can pass this logId on. logid is needed for specials list
         UpcomingMatchesFragment upcomingMatches = new UpcomingMatchesFragment();
-        upcomingMatches.setLogId(logId);
+        UpcomingMatchesFragment.setLogId(logId);
         adapter.addFragment(upcomingMatches, "Upcoming");
 
         viewPager.setAdapter(adapter);

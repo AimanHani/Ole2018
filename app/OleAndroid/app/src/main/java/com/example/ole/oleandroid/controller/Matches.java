@@ -38,14 +38,14 @@ public class Matches extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_matches);
 
-        match1 = (TextView) findViewById(R.id.match1);
-        match2 = (TextView) findViewById(R.id.match2);
+        match1 = findViewById(R.id.match1);
+        match2 = findViewById(R.id.match2);
 
         matchTextView.add(match1);
         matchTextView.add(match2);
 
-        join1 = (Button) findViewById(R.id.join1);
-        join2 = (Button) findViewById(R.id.join2);
+        join1 = findViewById(R.id.join1);
+        join2 = findViewById(R.id.join2);
 
         final JSONObject[] serverResponse = {new JSONObject()};
 

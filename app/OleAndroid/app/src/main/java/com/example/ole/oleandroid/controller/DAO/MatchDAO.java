@@ -22,7 +22,7 @@ public class MatchDAO {
         GetHttp getConnection = new GetHttp();
         String response = null;
         try {
-            response = getConnection.run(url);
+            response = GetHttp.run(url);
             System.out.println(response);
             JSONObject result = new JSONObject(response);
             JSONArray publicLeagues = result.getJSONArray("results");
@@ -66,7 +66,7 @@ public class MatchDAO {
         GetHttp getConnection = new GetHttp();
         String response = null;
         try {
-            response = getConnection.run(url);
+            response = GetHttp.run(url);
             System.out.println(response);
             JSONObject result = new JSONObject(response);
             JSONArray publicLeagues = result.getJSONArray("results");

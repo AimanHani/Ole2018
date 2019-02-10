@@ -32,7 +32,7 @@ public class SideMenuBar extends AppCompatActivity implements NavigationView.OnN
         //ActionBar actionBar = getSupportActionBar();
         //actionBar.setTitle("Hi");
 
-        mDrawerlayout = (DrawerLayout) findViewById(R.id.drawer);
+        mDrawerlayout = findViewById(R.id.drawer);
         mToggle = new ActionBarDrawerToggle(this, mDrawerlayout, R.string.open, R.string.close);
         mDrawerlayout.addDrawerListener(mToggle);
         mToggle.syncState();
@@ -95,7 +95,7 @@ public class SideMenuBar extends AppCompatActivity implements NavigationView.OnN
     }
 
     private void setNavigationViewListener() {
-        NavigationView navigationView = (NavigationView) findViewById(R.id.sidemenu);
+        NavigationView navigationView = findViewById(R.id.sidemenu);
         navigationView.setNavigationItemSelectedListener(this);
     }
 
