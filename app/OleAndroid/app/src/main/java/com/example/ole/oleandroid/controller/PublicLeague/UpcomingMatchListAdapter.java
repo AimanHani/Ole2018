@@ -74,11 +74,11 @@ public class UpcomingMatchListAdapter extends BaseAdapter{
         HashMap<String, TeamItems> teamItemsList = TeamItemDAO.teamItemsList;
         //System.out.println(viewHolder.team1_name.getText().toString());
         viewHolder.team1_name.setText(matchList.get(position).getTeam1());
-        viewHolder.team1_scoreinput.setText("__");
+//        viewHolder.team1_scoreinput.setText("__");
         viewHolder.team1_photo.setImageResource(teamItemsList.get(matchList.get(position).getTeam1()).getmTeamImage());
 
         viewHolder.team2_name.setText(matchList.get(position).getTeam2());
-        viewHolder.team2_scoreinput.setText("__");
+//        viewHolder.team2_scoreinput.setText("__");
         viewHolder.team2_photo.setImageResource(teamItemsList.get(matchList.get(position).getTeam2()).getmTeamImage());
 
         viewHolder.match_date.setText(matchList.get(position).getMatchDate()+" "+matchList.get(position).getMatchTime());
