@@ -13,6 +13,9 @@ import android.view.View;
 
 import com.example.ole.oleandroid.R;
 import com.example.ole.oleandroid.controller.SideMenuBar;
+import com.example.ole.oleandroid.controller.DAO.ScoreBoardDAO;
+import com.example.ole.oleandroid.model.PrivateLeagueProfile;
+import com.example.ole.oleandroid.model.PublicLeagueProfile;
 
 
 import java.util.ArrayList;
@@ -20,6 +23,7 @@ import java.util.List;
 
 public class Leaderboard extends SideMenuBar {
 
+    ArrayList<PrivateLeagueProfile> privateLeagueProfiles = new ArrayList<>();
     TabLayout leaderboardFrame;
     ViewPager viewPager;
     Adapter adapter;
@@ -41,11 +45,6 @@ public class Leaderboard extends SideMenuBar {
     @Override
     protected void onResume() {
         super.onResume();
-        /*if(!Util.isNetworkAvailable(getApplicationContext())) {
-            Intent toNoConnectionActivity = new Intent(CurrentEvents.this, NoConnection.class);
-            startActivity(toNoConnectionActivity);
-            return;
-        }*/
 
         // reload the fragments, in case of the deletion of event by user
         if(viewPager != null) {
@@ -63,11 +62,15 @@ public class Leaderboard extends SideMenuBar {
     }
 
     private void setupViewPager(ViewPager viewPager){
+        privateLeagueProfiles = ScoreBoardDAO.getPrivateLeagueProfiles();
+
         adapter = new Adapter(getSupportFragmentManager());
         adapter.addFragment(new LeaderboardPublic(),"Public League");
-        adapter.addFragment(new LeaderboardPrivate(), "Private League");
-        // if else statement, if there is no private league
-        //onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
+        if (privateLeagueProfiles == null) {
+            adapter.addFragment(new LeaderboardPrivateNo(), "Private League");
+        } else {
+            adapter.addFragment(new LeaderboardPrivate(), "Private League");
+        }
         viewPager.setAdapter(adapter);
     }
 

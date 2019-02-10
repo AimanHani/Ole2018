@@ -191,7 +191,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal"
                     android:layout_weight="10"
-                    android:src="@drawable/soccerteam" />
+                    android:src="@drawable/bluefootballplayer" />
 
                 <TextView
                     android:layout_width="match_parent"
