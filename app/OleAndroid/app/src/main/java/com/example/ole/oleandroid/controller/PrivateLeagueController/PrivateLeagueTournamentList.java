@@ -48,7 +48,7 @@ public class PrivateLeagueTournamentList extends SideMenuBar implements View.OnC
         GetHttp getConnection = new GetHttp();
         String response = null;
         try {
-            response = getConnection.run(url);
+            response = GetHttp.run(url);
             System.out.println(response);
             JSONObject result = new JSONObject(response);
             JSONArray privateLeagues = result.getJSONArray("results");
@@ -79,7 +79,7 @@ public class PrivateLeagueTournamentList extends SideMenuBar implements View.OnC
                             intent.putExtra("prize", extras.getString("prize"));
                             intent.putExtra("password", extras.getString("password"));
                             intent.putExtra("pointsAllocated", extras.getString("pointsAllocated"));
-                            intent.putExtra("leagueid", TournamentDAO.getId().toString());
+                            intent.putExtra("leagueid", TournamentDAO.getId());
                             startActivity(intent);
                         }
                     }
