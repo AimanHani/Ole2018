@@ -1,5 +1,6 @@
 package com.example.ole.oleandroid.controller;
 
+import android.app.Dialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -12,6 +13,10 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.CardView;
 import android.view.MenuItem;
+import android.view.View;
+import android.view.Window;
+import android.widget.Button;
+import android.widget.TextView;
 
 import com.example.ole.oleandroid.R;
 import com.example.ole.oleandroid.controller.DAO.UserDAO;
@@ -87,6 +92,7 @@ public class SideMenuBar extends AppCompatActivity implements NavigationView.OnN
                 UserDAO.setLoginUser(null);
                 Intent intent5 = new Intent(SideMenuBar.this, Login.class);
                 startActivity(intent5);
+                successfulAlertDialog();
                 break;
         }
 
@@ -115,5 +121,25 @@ public class SideMenuBar extends AppCompatActivity implements NavigationView.OnN
         } else {
             super.onBackPressed();
         }
+    }
+
+    public void successfulAlertDialog() {
+        final Dialog dialog = new Dialog(SideMenuBar.this);
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        dialog.setContentView(R.layout.successful_pop_up);
+
+        Button close = dialog.findViewById(R.id.close);
+        close.setEnabled(true);
+
+        TextView text = dialog.findViewById(R.id.textStatus);
+        text.setText("Successfully Logged Out!");
+
+        close.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.cancel();
+            }
+        });
+        dialog.show();
     }
 }

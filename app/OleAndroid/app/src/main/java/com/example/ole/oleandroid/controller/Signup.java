@@ -7,7 +7,6 @@ import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.os.StrictMode;
-import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -214,7 +213,7 @@ public class Signup extends AppCompatActivity {
         System.out.println("loading pop");
         Dialog dialog2 = new Dialog(Signup.this);
         dialog2.requestWindowFeature(Window.FEATURE_NO_TITLE);
-        dialog2.setContentView(R.layout.signup_loading_popup);
+        dialog2.setContentView(R.layout.loading_popup);
 
         dialog2.show();
         return dialog2;

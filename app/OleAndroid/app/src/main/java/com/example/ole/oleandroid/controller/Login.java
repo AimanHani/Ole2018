@@ -112,11 +112,12 @@ public class Login extends AppCompatActivity {
     }
 
     public Dialog loadingDialog() {
-        System.out.println("laoding pop");
+        System.out.println("loading pop");
         Dialog dialog2 = new Dialog(Login.this);
         dialog2.requestWindowFeature(Window.FEATURE_NO_TITLE);
-        dialog2.setContentView(R.layout.signup_loading_popup);
-
+        dialog2.setContentView(R.layout.loading_popup);
+        TextView text = dialog2.findViewById(R.id.textStatus);
+        text.setText("Logging in");
         dialog2.show();
         return dialog2;
     }

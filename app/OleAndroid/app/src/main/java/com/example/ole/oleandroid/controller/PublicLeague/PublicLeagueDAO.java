@@ -100,7 +100,7 @@ public class PublicLeagueDAO {
         GetHttp getConnection = new GetHttp();
         String response = null;
         try {
-            response = GetHttp.run(url);
+            response = getConnection.run(url);
             System.out.println(response);
             JSONObject result = new JSONObject(response);
             JSONArray publicLeagues = result.getJSONArray("results");
