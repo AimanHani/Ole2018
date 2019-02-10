@@ -29,14 +29,17 @@ public class UpcomingMatchesFragment extends Fragment implements View.OnClickLis
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.upcoming_matches_main, container, false);
 
-        predictspecials = (Button) view.findViewById(R.id.predictspecials);
+        predictspecials = view.findViewById(R.id.predictspecials);
+        predictspecials.bringToFront();
         predictspecials.setOnClickListener(this);
 
         matches = MatchDAO.getFutureMatches();
         matchListView = view.findViewById(R.id.matchListView);
 
-        pmListAdapter = new UpcomingMatchListAdapter(getContext(), matches);
+        pmListAdapter = new UpcomingMatchListAdapter(getActivity(), matches);
         matchListView.setAdapter(pmListAdapter);
+
+
         return view;
     }
 

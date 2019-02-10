@@ -49,9 +49,9 @@ public class OnBoardingActivity extends AppCompatActivity {
 
 
 
-        btn_get_started = (Button) findViewById(R.id.btn_get_started);
-        onboard_pager = (ViewPager) findViewById(R.id.pager_introduction);
-        pager_indicator = (LinearLayout) findViewById(R.id.viewPagerCountDots);
+        btn_get_started = findViewById(R.id.btn_get_started);
+        onboard_pager = findViewById(R.id.pager_introduction);
+        pager_indicator = findViewById(R.id.viewPagerCountDots);
 
         loadData();
 

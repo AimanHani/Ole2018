@@ -34,10 +34,10 @@ public class Login extends AppCompatActivity {
         ActionBar actionBar = getSupportActionBar();
         actionBar.hide();
 
-        username = (EditText) findViewById(R.id.username);
-        password = (EditText) findViewById(R.id.password);
-        signin = (Button) findViewById(R.id.signin);
-        signup = (Button) findViewById(R.id.signup);
+        username = findViewById(R.id.username);
+        password = findViewById(R.id.password);
+        signin = findViewById(R.id.signin);
+        signup = findViewById(R.id.signup);
 
         facebookButton = findViewById(R.id.facebookButton);
 
@@ -58,38 +58,44 @@ public class Login extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 final Dialog load = loadingDialog();
-        // comments starts here if want to bypass login webservice
-                if (username.getText().toString().equals("") || password.getText().toString().equals("")) {
-                    //loadSamePage();
-                } else {
-                    System.out.println("Signing In " + username.getText().toString());
-                    String status = "error";
+                new android.os.Handler().postDelayed(
+                        new Runnable() {
+                            public void run() {
+                                // comments starts here if want to bypass login webservice
+                                if (username.getText().toString().equals("") || password.getText().toString().equals("")) {
+                                    //loadSamePage();
+                                } else {
+                                    System.out.println("Signing In " + username.getText().toString());
+                                    String status = "error";
 
-                    String send = concatUsernamePwd(username.getText().toString(), password.getText().toString());
+                                    String send = concatUsernamePwd(username.getText().toString(), password.getText().toString());
 
-                    Boolean valid = LoginDAO.validate(send);
+                                    Boolean valid = LoginDAO.validate(send);
 
-                    if (valid){
-                        Intent intent = new Intent(Login.this, HomeLeague.class);
+                                    if (valid) {
+                                        Intent intent = new Intent(Login.this, HomeLeague.class);
 //                        Bundle bundle = new Bundle();
 //                        bundle.putString("username", username.getText().toString());
 //                        intent.putExtras(bundle);
-                        startActivity(intent);
-                        load.dismiss();
-                    } else {
+                                        startActivity(intent);
 
-                    }
+                                    } else {
 
+                                    }
+
+                                    load.dismiss();
 //comments stop here
 
-                    // codes to bypass login with webservice
+                                    // codes to bypass login with webservice
 //                    Intent intent = new Intent(Login.this, HomeTile.class);
 //                    Bundle bundle = new Bundle();
 //                    bundle.putString("username", username.getText().toString());
 //                    intent.putExtras(bundle);
 //                    startActivity(intent);
 //
-                }
+                                }
+                            }
+                        }, 3000);
             }
 
         });
@@ -106,11 +112,12 @@ public class Login extends AppCompatActivity {
     }
 
     public Dialog loadingDialog() {
-        System.out.println("laoding pop");
+        System.out.println("loading pop");
         Dialog dialog2 = new Dialog(Login.this);
         dialog2.requestWindowFeature(Window.FEATURE_NO_TITLE);
-        dialog2.setContentView(R.layout.signup_loading_popup);
-
+        dialog2.setContentView(R.layout.loading_popup);
+        TextView text = dialog2.findViewById(R.id.textStatus);
+        text.setText("Logging in");
         dialog2.show();
         return dialog2;
     }

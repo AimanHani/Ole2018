@@ -91,9 +91,12 @@ public class SpecialListPrivate extends SideMenuBar {
                         specials+=s.getSpecialsID()+",";
                     }
                 }
-                System.out.println("HI"+specials.substring(0, specials.length() - 1));
-                specials = specials.substring(0, specials.length() - 1);
+                //System.out.println("HI"+specials.substring(0, specials.length() - 1));
+                try {
+                    specials = specials.substring(0, specials.length() - 1);
+                }catch(Exception e){
 
+                }
                 Bundle extras = getIntent().getExtras();
                 if (extras != null) {
                     Intent intent = new Intent(SpecialListPrivate.this, TeamListPrivate.class);

@@ -24,7 +24,7 @@ public class PrivateLeaguePredictscoreActivity extends Fragment implements View.
      */
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState){
         view = inflater.inflate(R.layout.activity_private_league_predictscore, container, false);
-        confirmPrediction = (Button) view.findViewById(R.id.confirmPrediction);
+        confirmPrediction = view.findViewById(R.id.confirmPrediction);
         confirmPrediction.setOnClickListener(this);
         return view;
     }

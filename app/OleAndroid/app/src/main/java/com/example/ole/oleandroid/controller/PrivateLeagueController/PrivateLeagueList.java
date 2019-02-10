@@ -28,8 +28,9 @@ public class PrivateLeagueList extends SideMenuBar implements View.OnClickListen
     PrivateLeagueAdapter privateLeagueAdapter;
     ArrayList<PrivateLeague> leaguelist;
     ListView privateLeagueListView;
+    ArrayList<String> allLeagues = new ArrayList<>();
     //int leagueID;
-    LinearLayout football;
+    android.support.constraint.ConstraintLayout football;
     FloatingActionButton createPrivateLeagueBtn;
 
     @Override
@@ -37,6 +38,7 @@ public class PrivateLeagueList extends SideMenuBar implements View.OnClickListen
         switch (v.getId()){
             case R.id.createPrivateLeagueBtn:
                 Intent intent = new Intent(PrivateLeagueList.this, PrivateLeagueCreate.class);
+                intent.putExtra("allLeague", allLeagues);
                 this.startActivity(intent);
         }
     }
@@ -56,6 +58,16 @@ public class PrivateLeagueList extends SideMenuBar implements View.OnClickListen
         privateLeagueListView = findViewById(R.id.privateLeagueListView);
         PrivateLeagueDAO.clearAllPrivateLeague();
         String url = DBConnection.insertPrivateLeagueUrl()+"?method=retrievePrivateLeague&username="+UserDAO.getLoginUser().getUsername();
+
+
+        Thread thread = new Thread(){
+            public void run(){
+                retrieveAll();
+            }
+        };
+        thread.start();
+
+
         //String url = DBConnection.insertPrivateLeagueUrl()+"?method=retrievePrivateLeague&username="+UserDAO.getLoginUser().getUsername();
         //json.put("method", "insertNew");
         System.out.println("Getting private league list");
@@ -83,8 +95,8 @@ public class PrivateLeagueList extends SideMenuBar implements View.OnClickListen
                             privateLeagueObject.getString("leagueName"),
                             privateLeagueObject.getString("prize"),
                             privateLeagueObject.getString("password"),
-                            //formatter.parse(privateLeagueObject.getString("startDate")),
-                            //formatter.parse(privateLeagueObject.getString("endDate")),
+                            privateLeagueObject.getString("startDate"),
+                            privateLeagueObject.getString("endDate"),
                             privateLeagueObject.getString("userName"),
                             privateLeagueObject.getInt("pointsAllocated"),
                             privateLeagueObject.getInt("tournamentID"),
@@ -105,4 +117,38 @@ public class PrivateLeagueList extends SideMenuBar implements View.OnClickListen
             e.printStackTrace();
         }
     }
+
+    public void retrieveAll(){
+        String url2 = DBConnection.insertPrivateLeagueUrl()+"?method=retrieveAllPrivateLeague";
+        System.out.println("Getting private league list");
+
+        GetHttp getConnection = new GetHttp();
+        String response = null;
+        try {
+            response = getConnection.run(url2);
+            System.out.println(response);
+            JSONObject result = new JSONObject(response);
+            JSONArray privateLeagues = result.getJSONArray("results");
+
+            if (privateLeagues.length() > 0) {
+                for (int i = 0; i < privateLeagues.length(); i++) {
+                    JSONObject privateLeagueObject = privateLeagues.getJSONObject(i);
+
+//public PrivateLeague(int leagueId, String leagueName, String prize, String password, Date startDate, Date endDate, String username, int pointsAllocated, int tournamentId, int leagueKeyId)
+
+                    allLeagues.add(privateLeagueObject.getString("leagueName"));
+
+                }
+
+
+            } else {
+
+            }
+        } catch (Exception e) {
+            System.out.println("error");
+            e.printStackTrace();
+        }
+        System.out.println("Total Size  = " + allLeagues.size());
+    }
+
 }

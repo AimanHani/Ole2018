@@ -97,7 +97,14 @@ public class PublicLeagueListAdapter extends BaseAdapter implements View.OnClick
         if (!userJoin) {
 //            int leagueId = leaguelist.get(position).getLeagueId();
 //            String username = UserDAO.getLoginUser().getUsername();
-            PublicLeagueDAO.joinPublicLeague(leaguelist.get(position).getLeagueId(), UserDAO.getLoginUser().getUsername());
+            int joinLogId = PublicLeagueDAO.joinPublicLeague(leaguelist.get(position).getLeagueId(), UserDAO.getLoginUser().getUsername());
+            System.out.println("Join Public League: " + joinLogId);
+
+            if (joinLogId != 0) {
+                loadNextPage(view, context, joinLogId);
+            }
+        } else {
+            loadNextPage(view, context, leaguelist.get(position).getLogId());
         }
 
 //        if (view.getId() == R.id.joinleaguebtn) {
@@ -108,11 +115,16 @@ public class PublicLeagueListAdapter extends BaseAdapter implements View.OnClick
 //            context.startActivity(intent);
 //        }
 
-        switch(view.getId()){
+
+    }
+
+
+    private void loadNextPage(View view, Context ctx, int logId) {
+        switch (view.getId()) {
             case R.id.joinleaguebtn:
-                Intent intent = new Intent(context, MatchesTabs.class);
+                Intent intent = new Intent(ctx, MatchesTabs.class);
                 Bundle bundle = new Bundle();
-                bundle.putInt("logId", leaguelist.get(position).getLogId());
+                bundle.putInt("logId", logId);
                 intent.putExtras(bundle);
                 context.startActivity(intent);
 
