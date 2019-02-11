@@ -93,6 +93,7 @@ public class UpdateMatchTableByTimer implements Runnable {
                 }
                 System.out.println("executing");
                 ps.executeBatch();
+                
 
             } catch (SQLException ex) {
                 Logger.getLogger(APIDAO.class.getName()).log(Level.SEVERE, null, ex);
