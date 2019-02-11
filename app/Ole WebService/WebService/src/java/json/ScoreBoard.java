@@ -90,6 +90,8 @@ public class ScoreBoard extends HttpServlet {
                 if (pList.size()!=0) {
                     Collections.sort(pList);
                     JSONObject json = new JSONObject();
+                    int rank = 0;
+                    int previousPoints = 0;
                     for (int i = 0; i < pList.size(); i++) {
                         json = new JSONObject();
                         plf = new PublicLeagueProfile();
@@ -98,6 +100,16 @@ public class ScoreBoard extends HttpServlet {
                         json.put("league", "public league");
                         json.put("username", plf.getUsername());
                         json.put("totalPoints", plf.getTotalPoints());
+                        if(previousPoints == plf.getTotalPoints()){
+                            
+                        }
+                        else{
+                            rank++;
+                        }
+                        json.put("rank", rank);
+                        
+                        previousPoints = plf.getTotalPoints();
+                        
                         list.put(json);
                     }
 
