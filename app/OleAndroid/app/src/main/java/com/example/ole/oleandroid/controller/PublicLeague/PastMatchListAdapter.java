@@ -52,6 +52,7 @@ public class PastMatchListAdapter extends BaseAdapter{
 
         @Override
         public View getView(int position, View convertView, ViewGroup parent) {
+
             // inflate the layout for each list row
             if (convertView == null) {
                 viewHolder = new ViewHolder();

@@ -40,7 +40,7 @@ public class LeaderboardPublic extends Fragment {
         view = inflater.inflate(R.layout.activity_leaderboard_public, container, false);
 
         //matches = ScoreBoardDAO.getPublicLeagueProfiles();
-        //lbPubList = view.findViewById(R.id.matchListView);
+        //lbPubList = view.findViewById(R.id.lbPubList);
 
         //lbPubAdapter = new LeaderboardPublicAdapter(getContext(), matches);
         //lbPubList.setAdapter(lbPubAdapter);

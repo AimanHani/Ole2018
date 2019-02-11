@@ -19,6 +19,7 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.example.ole.oleandroid.R;
+import com.example.ole.oleandroid.controller.DAO.LoginDAO;
 import com.example.ole.oleandroid.controller.DAO.UserDAO;
 import com.example.ole.oleandroid.controller.Leaderboard.Leaderboard;
 import com.example.ole.oleandroid.controller.FAQ.FAQ;
@@ -28,6 +29,7 @@ public class SideMenuBar extends AppCompatActivity implements NavigationView.OnN
     ActionBarDrawerToggle mToggle;
     CardView pubLeague;
     CardView privLeague;
+    TextView sidebarusername;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,6 +43,8 @@ public class SideMenuBar extends AppCompatActivity implements NavigationView.OnN
         mToggle = new ActionBarDrawerToggle(this, mDrawerlayout, R.string.open, R.string.close);
         mDrawerlayout.addDrawerListener(mToggle);
         mToggle.syncState();
+        sidebarusername = findViewById(R.id.sidebarusername);
+        sidebarusername.setText(UserDAO.getLoginUser().getName());
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         setNavigationViewListener();
 

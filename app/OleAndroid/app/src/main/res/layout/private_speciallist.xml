@@ -4,7 +4,7 @@
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
-
+<!--
     <Button
         android:id="@+id/specialTab"
         android:layout_width="match_parent"
@@ -16,7 +16,7 @@
         android:textColor="@color/white"
         android:textSize="18sp"
         android:textStyle="bold"
-        android:visibility="visible" />
+        android:visibility="visible" />-->
 
     <ListView
         android:id="@+id/specialListView"
