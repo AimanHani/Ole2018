@@ -10,8 +10,10 @@ import android.view.View;
 import android.view.Window;
 import android.widget.Button;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.ole.oleandroid.controller.Login;
 import com.example.ole.oleandroid.controller.SideMenuBar;
 import com.example.ole.oleandroid.controller.DAO.UserDAO;
 import com.example.ole.oleandroid.controller.Signup;
@@ -107,8 +109,9 @@ try {
 
 
         System.out.println("Creating Private League");
-        Toast.makeText(TeamListPrivate.this,
-                "Creating private league", Toast.LENGTH_LONG).show();
+        final Dialog load = loadingDialog();
+//        Toast.makeText(TeamListPrivate.this,
+//                "Creating private league", Toast.LENGTH_LONG).show();
 
         final String[] status = {"error"};
         JSONObject json = new JSONObject();
@@ -136,23 +139,18 @@ try {
         String response = null;
         //System.out.println("HAHAHAHHA" + json.toString());
 
-        try {
             response = connection.post(url, json.toString());
             JSONObject result = new JSONObject(response);
             status[0] = result.getString("status");
-            while (!status[0].equals("successful")) {
-                Toast.makeText(TeamListPrivate.this,
-                        "Creating private league", Toast.LENGTH_LONG).show();
 
-            }
+//                Toast.makeText(TeamListPrivate.this,
+//                        "Creating private league", Toast.LENGTH_LONG).show();
+
+
 
             System.out.println(response);
 
-
-        } catch (Exception e) {
-            intent = new Intent(TeamListPrivate.this, PrivateLeagueList.class);
-            startActivity(intent);
-        }
+        load.dismiss();
         intent = new Intent(TeamListPrivate.this, PrivateLeagueList.class);
         startActivity(intent);
 
@@ -162,13 +160,23 @@ try {
 
     }
 }catch(Exception e){
-    Toast.makeText(TeamListPrivate.this,
-            "Please select at least 1", Toast.LENGTH_LONG).show();
+    //Toast.makeText(TeamListPrivate.this,
+      //      "Please select at least 1", Toast.LENGTH_LONG).show();
 }
 
            }
         });
 
+    }
+    public Dialog loadingDialog() {
+        System.out.println("loading pop");
+        Dialog dialog2 = new Dialog(TeamListPrivate.this);
+        dialog2.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        dialog2.setContentView(R.layout.loading_popup);
+        TextView text = dialog2.findViewById(R.id.textStatus);
+        text.setText("Creating new Private League");
+        dialog2.show();
+        return dialog2;
     }
 
 }
