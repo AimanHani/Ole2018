@@ -2,6 +2,7 @@ package com.example.ole.oleandroid.dbConnection;
 
 
 import java.io.IOException;
+import java.util.concurrent.TimeUnit;
 
 import okhttp3.MediaType;
 import okhttp3.OkHttpClient;
@@ -14,7 +15,11 @@ public class PostHttp {
     public static final MediaType mediaType = MediaType.parse("application/x-www-form-urlencoded");
     public static final MediaType JSON = MediaType.get("application/json; charset=utf-8");
 
-    OkHttpClient client = new OkHttpClient();
+    OkHttpClient client = new OkHttpClient.Builder()
+            .connectTimeout(60, TimeUnit.SECONDS)
+            .writeTimeout(60, TimeUnit.SECONDS)
+            .readTimeout(60, TimeUnit.SECONDS)
+            .build();
 
     public String post(String url, String json) throws IOException {
         RequestBody body = RequestBody.create(JSON, json);

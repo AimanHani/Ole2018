@@ -33,9 +33,12 @@
         <item>Wolves VS Watford</item>
     </string-array>
 
-    //for sidemenubar
+    <!-- Sidemenu Bar -->
     <string name="open">Open</string>
     <string name="close">Close</string>
     <string name="predict_specials">Predict Specials</string>
+
+    <!-- Login page -->
+    <string name="sign_up">Don\'t have an account? <i><u>Sign up Now!</u></i></string>
 
 </resources>

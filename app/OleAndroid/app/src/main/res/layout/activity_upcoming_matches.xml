@@ -126,7 +126,8 @@
                             android:layout_width="30dp"
                             android:layout_height="wrap_content"
                             android:ems="10"
-                            android:inputType="textPersonName"
+                            android:inputType="number"
+                            android:textAlignment="center"
                             tools:layout_editor_absoluteX="0dp"
                             tools:layout_editor_absoluteY="20dp" />
 
@@ -160,12 +161,14 @@
                         android:layout_height="match_parent"
                         android:layout_weight="1"
                         android:gravity="center">
+
                         <EditText
                             android:id="@+id/team2_scoreinput"
                             android:layout_width="30dp"
                             android:layout_height="wrap_content"
                             android:ems="10"
-                            android:inputType="textPersonName"
+                            android:inputType="number"
+                            android:textAlignment="center"
                             tools:layout_editor_absoluteX="0dp"
                             tools:layout_editor_absoluteY="20dp" />
                         <!--<TextView-->

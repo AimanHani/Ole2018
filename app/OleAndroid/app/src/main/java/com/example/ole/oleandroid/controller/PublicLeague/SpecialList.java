@@ -1,10 +1,12 @@
 package com.example.ole.oleandroid.controller.PublicLeague;
 
 import android.app.Dialog;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -12,6 +14,8 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.example.ole.oleandroid.R;
+import com.example.ole.oleandroid.controller.MatchesTabs;
+import com.example.ole.oleandroid.controller.SideMenuBar;
 import com.example.ole.oleandroid.dbConnection.DBConnection;
 import com.example.ole.oleandroid.dbConnection.GetHttp;
 import com.example.ole.oleandroid.model.Specials;
@@ -21,7 +25,7 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 
-public class SpecialList extends AppCompatActivity{
+public class SpecialList extends SideMenuBar {
 
     SpecialListAdapter specialListAdapter;
 //    ArrayList<Integer> pointsList;
@@ -31,10 +35,18 @@ public class SpecialList extends AppCompatActivity{
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState){
+//        super.onCreate(savedInstanceState);
+//        setContentView(R.layout.speciallist); //contain item list view e.g. item1, item2
+
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.speciallist); //contain item list view e.g. item1, item2
+        LayoutInflater inflater = (LayoutInflater) this.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        View contentView = inflater.inflate(R.layout.speciallist, null, false);
+        super.mDrawerlayout.addView(contentView, 0);
+
 //        pointsList = new ArrayList<>();
 //        specialNameList = new ArrayList<>();
+
+
         specialListView = findViewById(R.id.specialListView);
         confirmspecialsbtn = findViewById(R.id.confirmspecialsbtn);
         ArrayList<Specials> specialsList = new ArrayList<>();
