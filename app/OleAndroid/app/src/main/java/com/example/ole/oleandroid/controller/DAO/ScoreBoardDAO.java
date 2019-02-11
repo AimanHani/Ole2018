@@ -33,7 +33,8 @@ public class ScoreBoardDAO {
                     int leagueID = matchObject.getInt("leagueId");
                     int totalPoints = matchObject.getInt("totalPoints");
                     String username = matchObject.getString("username");
-                    PublicLeagueProfile plp = new PublicLeagueProfile(username,leagueID,totalPoints);
+                    int rank = matchObject.getInt("rank");
+                    PublicLeagueProfile plp = new PublicLeagueProfile(username,leagueID,totalPoints, rank);
                     publicLeagueProfileList.add(plp);
                 }
 

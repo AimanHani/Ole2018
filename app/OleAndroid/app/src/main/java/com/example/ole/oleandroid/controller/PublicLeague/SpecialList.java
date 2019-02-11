@@ -14,6 +14,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.example.ole.oleandroid.R;
+import com.example.ole.oleandroid.controller.HomeLeague;
 import com.example.ole.oleandroid.controller.MatchesTabs;
 import com.example.ole.oleandroid.controller.SideMenuBar;
 import com.example.ole.oleandroid.dbConnection.DBConnection;
@@ -125,9 +126,8 @@ public class SpecialList extends SideMenuBar {
                 end.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        Intent i = new Intent(SpecialList.this, MatchesTabs.class);
+                        Intent i = new Intent(SpecialList.this, HomeLeague.class);
                         startActivity(i);
-                        finish();
                     }
                 });
 
@@ -138,6 +138,31 @@ public class SpecialList extends SideMenuBar {
             }
         });
 
+    }
+
+    public static ArrayList<String> players (){
+        ArrayList<String> players = new ArrayList<>();
+
+        players.add("Lionel Messi");
+        players.add("Sergio Ramos");
+        players.add("Marco Reus");
+        players.add("Zlatan Ibrahimovic");
+        players.add("Andrea Pirlo");
+        players.add("Lionel Messi");
+        players.add("Lionel Messi");
+        players.add("Lionel Messi");
+        players.add("Lionel Messi");
+        players.add("Lionel Messi");
+        players.add("Lionel Messi");
+        players.add("Lionel Messi");
+        players.add("Lionel Messi");
+        players.add("Lionel Messi");
+        players.add("Lionel Messi");
+        players.add("Lionel Messi");
+        players.add("Lionel Messi");
+        players.add("Lionel Messi");
+
+        return players;
     }
 
     //image of the prediction item e.g. best player

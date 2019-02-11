@@ -15,11 +15,13 @@ public class PublicLeagueProfile implements Comparable {
     private String team1;
     private String team2;
     private int totalPoints;
+    private int rank;
 
-    public PublicLeagueProfile(String username, int leagueID, int totalPoints) {
+    public PublicLeagueProfile(String username, int leagueID, int totalPoints, int rank) {
         this.username = username;
         this.leagueID = leagueID;
         this.totalPoints = totalPoints;
+        this.rank = rank;
     }
 
     public int getTotalPoints() {
@@ -112,6 +114,14 @@ public class PublicLeagueProfile implements Comparable {
 
     public void setTeam2(String team2) {
         this.team2 = team2;
+    }
+
+    public int getRank() {
+        return rank;
+    }
+
+    public void setRank(int rank) {
+        this.rank = rank;
     }
 
     public PublicLeagueProfile(int logID, String username, int leagueID, String leagueName, int team1Prediction, int team2Prediction, Date matchDate, Time matchTime, String team1, String team2) {

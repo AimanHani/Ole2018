@@ -63,7 +63,7 @@ public class LeaderboardPublicAdapter extends BaseAdapter{
         viewHolder.username = convertView.findViewById(R.id.username);
         viewHolder.score = convertView.findViewById(R.id.score);
 
-        viewHolder.userposition.setText("1");
+        viewHolder.userposition.setText(pubLeagList.get(position).getRank()+"");
         viewHolder.username.setText(pubLeagList.get(position).getUsername());
         viewHolder.score.setText(pubLeagList.get(position).getTotalPoints()+"");
 

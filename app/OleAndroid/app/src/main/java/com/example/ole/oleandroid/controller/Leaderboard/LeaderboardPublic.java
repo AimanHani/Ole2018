@@ -31,7 +31,7 @@ public class LeaderboardPublic extends Fragment {
     ArrayList<PublicLeagueProfile> publicLeagueProfileList = new ArrayList<>();
     ListView lbPubList;
 
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState){
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
         //userCard = view.findViewById(R.id.userCard);
         //userPosition = view.findViewById(R.id.userPosition);

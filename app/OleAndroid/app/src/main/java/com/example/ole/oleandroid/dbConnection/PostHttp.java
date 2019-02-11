@@ -15,7 +15,8 @@ public class PostHttp {
     public static final MediaType mediaType = MediaType.parse("application/x-www-form-urlencoded");
     public static final MediaType JSON = MediaType.get("application/json; charset=utf-8");
 
-    OkHttpClient client = new OkHttpClient.Builder()
+    OkHttpClient client = new OkHttpClient
+            .Builder()
             .connectTimeout(60, TimeUnit.SECONDS)
             .writeTimeout(60, TimeUnit.SECONDS)
             .readTimeout(60, TimeUnit.SECONDS)

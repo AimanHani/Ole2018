@@ -283,17 +283,17 @@ public class Signup extends AppCompatActivity {
             email.setError("Good", tickDone);
         }
 
-        if (isStrong(validatePassword)) {
-            password.setError("Good", tickDone);
-
-        } else {
-            password.setError("8 characters length\n" +
-                    "2 letters in Upper Case\n" +
-                    "1 Special Character (!@#$&*)\n" +
-                    "2 numerals (0-9)\n" +
-                    "3 letters in Lower Case");
-            valid = false;
-        }
+//        if (isStrong(validatePassword)) {
+//            password.setError("Good", tickDone);
+//
+//        } else {
+//            password.setError("8 characters length\n" +
+//                    "2 letters in Upper Case\n" +
+//                    "1 Special Character (!@#$&*)\n" +
+//                    "2 numerals (0-9)\n" +
+//                    "3 letters in Lower Case");
+//            valid = false;
+//        }
         if (validateCountries.equals(null)) {
             setSpinnerError(spinnerCountries, "Please select your country");
             valid = false;
@@ -309,13 +309,13 @@ public class Signup extends AppCompatActivity {
         }
         if (!validateBirthdate.isEmpty() && validateBirthdate.length() == 10) {
             if (isDateValid(validateBirthdate)) {
-                int age = calculateAge(validateBirthdate);
-                if (age < 16) {
-                    birthdate.setError("Your age must be at least 16");
-                    valid = false;
-                } else {
-                    birthdate.setError("Good", tickDone);
-                }
+//                int age = calculateAge(validateBirthdate);
+//                if (age < 16) {
+//                    birthdate.setError("Your age must be at least 16");
+//                    valid = false;
+//                } else {
+//                    birthdate.setError("Good", tickDone);
+//                }
             }
         }
         if (!checkPhoneNumber(validatePhoneNo) || validatePhoneNo.isEmpty()) {
@@ -499,19 +499,19 @@ public class Signup extends AppCompatActivity {
 
             @Override
             public void afterTextChanged(final Editable s) {
-                if (isStrong(s.toString())) {
-
-                    password.setError("Good", tickDone);
-
-
-                } else {
-                    password.setError("8 characters length\n" +
-                            "2 letters in Upper Case\n" +
-                            "1 Special Character (!@#$&*)\n" +
-                            "2 numerals (0-9)\n" +
-                            "3 letters in Lower Case");
-
-                }
+//                if (isStrong(s.toString())) {
+//
+//                    password.setError("Good", tickDone);
+//
+//
+//                } else {
+//                    password.setError("8 characters length\n" +
+//                            "2 letters in Upper Case\n" +
+//                            "1 Special Character (!@#$&*)\n" +
+//                            "2 numerals (0-9)\n" +
+//                            "3 letters in Lower Case");
+//
+//                }
 
             }
         });
@@ -609,12 +609,12 @@ public class Signup extends AppCompatActivity {
                                     birthdate.setError("Please enter the date as dd-MM-yyyy format");
                                 }
                                 if (isDateValid(s.toString())) {
-                                    int age = calculateAge(s.toString());
-                                    if (age < 16) {
-                                        birthdate.setError("You are under the age of 16");
-                                    } else {
-                                        birthdate.setError("Good", tickDone);
-                                    }
+//                                    int age = calculateAge(s.toString());
+//                                    if (age < 16) {
+//                                        birthdate.setError("You are under the age of 16");
+//                                    } else {
+//                                        birthdate.setError("Good", tickDone);
+//                                    }
 
                                 }
                             }

@@ -23,6 +23,7 @@ public class SpecialListAdapter extends BaseAdapter{
     private static class ViewHolder {
         TextView points;
         TextView itemname;
+
     }
 
     //uses list of specials Object so can get both points and name
