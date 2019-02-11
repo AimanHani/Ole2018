@@ -1,4 +1,4 @@
-package com.example.ole.oleandroid.controller.PublicLeague;
+package com.example.ole.oleandroid.controller.Leaderboard;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -65,7 +65,7 @@ public class LeaderboardPublicAdapter extends BaseAdapter{
 
         viewHolder.userposition.setText("1");
         viewHolder.username.setText(pubLeagList.get(position).getUsername());
-        viewHolder.score.setText(pubLeagList.get(position).getTotalPoints());
+        viewHolder.score.setText(pubLeagList.get(position).getTotalPoints()+"");
 
         return convertView;// returns the view for the current row
     }

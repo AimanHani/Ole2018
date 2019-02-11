@@ -24,27 +24,33 @@ import com.example.ole.oleandroid.controller.DAO.UserDAO;
 import com.example.ole.oleandroid.controller.Leaderboard.Leaderboard;
 import com.example.ole.oleandroid.controller.FAQ.FAQ;
 
+import static com.example.ole.oleandroid.R.layout.sidemenuheader;
+
 public class SideMenuBar extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
     protected DrawerLayout mDrawerlayout;
     ActionBarDrawerToggle mToggle;
     CardView pubLeague;
     CardView privLeague;
     TextView sidebarusername;
+    NavigationView sidemenu;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.sidemenubar);
-
         //ActionBar actionBar = getSupportActionBar();
         //actionBar.setTitle("Hi");
-
+        sidemenu = findViewById(R.id.sidemenu);
         mDrawerlayout = findViewById(R.id.drawer);
         mToggle = new ActionBarDrawerToggle(this, mDrawerlayout, R.string.open, R.string.close);
         mDrawerlayout.addDrawerListener(mToggle);
         mToggle.syncState();
-        sidebarusername = findViewById(R.id.sidebarusername);
+
+        //set sidebar name
+        View headerLayout = sidemenu.getHeaderView(0);
+        sidebarusername = headerLayout.findViewById(R.id.sidebarusername);
         sidebarusername.setText(UserDAO.getLoginUser().getName());
+
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         setNavigationViewListener();
 
@@ -94,8 +100,6 @@ public class SideMenuBar extends AppCompatActivity implements NavigationView.OnN
                 break;
             case R.id.menu_list_logout:
                 UserDAO.setLoginUser(null);
-                Intent intent5 = new Intent(SideMenuBar.this, Login.class);
-                startActivity(intent5);
                 successfulAlertDialog();
                 break;
         }
@@ -133,6 +137,7 @@ public class SideMenuBar extends AppCompatActivity implements NavigationView.OnN
         dialog.setContentView(R.layout.successful_pop_up);
 
         Button close = dialog.findViewById(R.id.close);
+        close.setText("Ok");
         close.setEnabled(true);
 
         TextView text = dialog.findViewById(R.id.textStatus);
@@ -142,6 +147,8 @@ public class SideMenuBar extends AppCompatActivity implements NavigationView.OnN
             @Override
             public void onClick(View v) {
                 dialog.cancel();
+                Intent intent5 = new Intent(SideMenuBar.this, Login.class);
+                startActivity(intent5);
             }
         });
         dialog.show();

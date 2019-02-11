@@ -1,4 +1,4 @@
-package com.example.ole.oleandroid.controller.PublicLeague;
+package com.example.ole.oleandroid.controller;
 
 import android.content.Context;
 import android.os.Bundle;
@@ -12,6 +12,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 
 import com.example.ole.oleandroid.R;
+import com.example.ole.oleandroid.controller.PublicLeague.PastMatchesFragment;
+import com.example.ole.oleandroid.controller.PublicLeague.UpcomingMatchesFragment;
 import com.example.ole.oleandroid.controller.SideMenuBar;
 
 import java.util.ArrayList;

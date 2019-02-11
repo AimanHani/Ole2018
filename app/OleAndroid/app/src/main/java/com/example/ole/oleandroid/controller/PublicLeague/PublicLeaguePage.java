@@ -236,14 +236,14 @@ public class PublicLeaguePage extends AppCompatActivity {
                                         System.out.println("ServerResponse " + ServerResponse);
                                         if (!ServerResponse.equals("error")) {
                                             //result[0] = ServerResponse;
-                                            Intent intent = new Intent(PublicLeaguePage.this, SpecialsPredict.class);
-                                            //Intent intent = new Intent(PublicLeaguePage.this, Matches.class);
-                                            //Bundle b = getIntent().getExtras();
-                                            b.putString("logId", ServerResponse);
-                                            b.putString("leagueId", leagueID + "");
-                                            System.out.println(b.getString("logId") + " " + b.getString("userID"));
-                                            intent.putExtras(b);
-                                            startActivity(intent);
+//                                            Intent intent = new Intent(PublicLeaguePage.this, SpecialsPredict.class);
+//                                            //Intent intent = new Intent(PublicLeaguePage.this, Matches.class);
+//                                            //Bundle b = getIntent().getExtras();
+//                                            b.putString("logId", ServerResponse);
+//                                            b.putString("leagueId", leagueID + "");
+//                                            System.out.println(b.getString("logId") + " " + b.getString("userID"));
+//                                            intent.putExtras(b);
+//                                            startActivity(intent);
                                         }
                                     }
                                 },
