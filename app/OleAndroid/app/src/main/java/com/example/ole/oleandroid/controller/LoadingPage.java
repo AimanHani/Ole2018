@@ -17,10 +17,14 @@ public class LoadingPage extends AppCompatActivity {
         Thread background = new Thread() {
             public void run() {
                 try {
-                    // Thread will sleep for 3 seconds
+                    // Thread will sleep for 3 seconds to show the loading page, After 3 seconds redirect to another intent
                     sleep(3*1000);
 
-                    // After 3 seconds redirect to another intent
+            //For testing purposes, for onboarding to happen all the time with the following two lines
+                    //Intent i=new Intent(getBaseContext(),OnBoardingActivity.class);
+                    //startActivity(i);
+
+                    //Uncomment the if loop (line 28-35) for onboarding to work when its only first time.
                     if (isFirstTime()) {
                         // What you do when the Application is Opened First time Goes here
                         Intent i=new Intent(getBaseContext(),OnBoardingActivity.class);
@@ -29,8 +33,6 @@ public class LoadingPage extends AppCompatActivity {
                         Intent j = new Intent(getBaseContext(),Login.class );
                         startActivity(j);
                     }
-
-
                     //Remove activity
                     finish();
                 } catch (Exception e) {
@@ -39,18 +41,6 @@ public class LoadingPage extends AppCompatActivity {
         };
         // start thread
         background.start();
-
-        //login = (Button) findViewById(R.id.login);
-
-        //login.setOnClickListener(new View.OnClickListener() {
-
-        //    @Override
-       //     public void onClick(View view)
-
-        //       Intent intent = new Intent(LoadingPage.this,Login.class);
-         //       startActivity(intent);
-        //    }
-        //});
 
     }
 
