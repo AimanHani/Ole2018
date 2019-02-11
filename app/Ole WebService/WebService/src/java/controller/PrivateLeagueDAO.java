@@ -36,7 +36,7 @@ public class PrivateLeagueDAO {
 
         try (Connection conn = DBConnection.getConnection();
                 PreparedStatement stmt = conn.prepareStatement(
-                        "select l.leagueId, l.tournamentId, l.pointsAllocated, l.leagueName, pl.prize, pl.password, pl.startDate, pl.endDate, pl.username from league l inner join privateleague pl on l.leagueId = pl.leagueKeyId where pl.username='" + username + "'");) {
+                        "select l.leagueId, l.tournamentId, l.pointsAllocated, l.leagueName, pl.prize, pl.password, pl.startDate, pl.endDate, pl.username from league l inner join privateleague pl inner join log lg on l.leagueId = pl.leagueKeyId AND pl.leagueKeyId = lg.leagueId where lg.username='" + username + "'");) {
             ResultSet rs = stmt.executeQuery();
 
             while (rs.next()) {

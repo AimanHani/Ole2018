@@ -20,7 +20,8 @@ import com.example.ole.oleandroid.controller.PublicLeague.PastMatchesTab;
 
 public class Login extends AppCompatActivity {
     EditText username, password;
-    Button signin, signup;
+    Button signin;
+    TextView signup;
     RequestQueue requestQueue;
     TextView result;
     Button facebookButton;

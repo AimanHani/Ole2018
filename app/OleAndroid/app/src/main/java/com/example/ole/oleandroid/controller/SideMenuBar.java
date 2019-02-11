@@ -45,6 +45,8 @@ public class SideMenuBar extends AppCompatActivity implements NavigationView.OnN
         mToggle = new ActionBarDrawerToggle(this, mDrawerlayout, R.string.open, R.string.close);
         mDrawerlayout.addDrawerListener(mToggle);
         mToggle.syncState();
+        sidebarusername = findViewById(R.id.sidebarusername);
+        //sidebarusername.setText(UserDAO.getLoginUser().getName());
 
         //set sidebar name
         View headerLayout = sidemenu.getHeaderView(0);
