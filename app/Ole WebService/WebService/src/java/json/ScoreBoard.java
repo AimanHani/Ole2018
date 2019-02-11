@@ -70,14 +70,15 @@ public class ScoreBoard extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        
-         JSONArray list = new JSONArray();
+
+        JSONArray list = new JSONArray();
         JSONObject parentJson = new JSONObject();
         response.setContentType("\"Content-Type\", \"application/x-www-form-urlencoded\"");
         response.setCharacterEncoding("utf-8");
         PrintWriter out = response.getWriter();
 
         String league = request.getParameter("league");
+        String username = request.getParameter("username");
 
         if (league != null && league.equals("public")) {
 
@@ -87,7 +88,7 @@ public class ScoreBoard extends HttpServlet {
             try {
 
                 pList = ScoreBoardDAO.getUsersAndTheirTotalPoints(2);
-                if (pList.size()!=0) {
+                if (pList.size() != 0) {
                     Collections.sort(pList);
                     JSONObject json = new JSONObject();
                     int rank = 0;
@@ -100,16 +101,15 @@ public class ScoreBoard extends HttpServlet {
                         json.put("league", "public league");
                         json.put("username", plf.getUsername());
                         json.put("totalPoints", plf.getTotalPoints());
-                        if(previousPoints == plf.getTotalPoints()){
-                            
-                        }
-                        else{
+                        if (previousPoints == plf.getTotalPoints()) {
+
+                        } else {
                             rank++;
                         }
                         json.put("rank", rank);
-                        
+
                         previousPoints = plf.getTotalPoints();
-                        
+
                         list.put(json);
                     }
 
@@ -137,13 +137,15 @@ public class ScoreBoard extends HttpServlet {
             ArrayList<PrivateLeagueProfile> pList;
             ArrayList<Integer> privateLeagueIDs = new ArrayList();
             try {
-                privateLeagueIDs = ScoreBoardDAO.getAllPrivateLeagueIDs();
-                if (privateLeagueIDs.size() !=0) {
+                privateLeagueIDs = ScoreBoardDAO.privateLeagueIDsOfTheSpecificUserJoined(username);
+                if (privateLeagueIDs.size() != 0) {
                     for (int i = 0; i < privateLeagueIDs.size(); i++) {
                         pList = new ArrayList();
                         pList = ScoreBoardDAO.getUsersAndTheirTotalPointsPrivate(privateLeagueIDs.get(i));
-                        if (pList.size()!=0) {
+                        if (pList.size() != 0) {
                             Collections.sort(pList);
+                            int rank = 0;
+                            int previousPoints = 0;
                             JSONObject json = new JSONObject();
                             for (int j = 0; j < pList.size(); j++) {
 
@@ -154,6 +156,13 @@ public class ScoreBoard extends HttpServlet {
                                 json.put("league", "private league");
                                 json.put("username", plf.getUsername());
                                 json.put("totalPoints", plf.getTotalPoints());
+                                if (previousPoints == plf.getTotalPoints()) {
+
+                                } else {
+                                    rank++;
+                                }
+                                json.put("rank", rank);
+                                previousPoints = plf.getTotalPoints();
                                 list.put(json);
                             }
 
@@ -181,7 +190,7 @@ public class ScoreBoard extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-       processRequest(request, response);
+        processRequest(request, response);
     }
 
     /**
