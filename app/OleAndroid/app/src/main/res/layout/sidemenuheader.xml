@@ -14,12 +14,13 @@
         android:layout_height="75dp" />
 
     <TextView
+        android:id="@+id/sidebarusername"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Yi-Ting"
+        android:paddingLeft="10dp"
+        android:text="Name"
         android:textColor="@color/white"
-        android:textStyle="bold"
-        android:paddingLeft="10dp"/>
+        android:textStyle="bold" />
 
     <TextView
         android:layout_width="wrap_content"

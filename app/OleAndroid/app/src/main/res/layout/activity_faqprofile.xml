@@ -8,56 +8,11 @@
     android:orientation="vertical"
     tools:context=".controller.FAQ.FAQProfile">
 
-    <TextView
-        android:id="@+id/faqLabel"
-        android:layout_width="match_parent"
-        android:layout_height="68dp"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"
-        android:background="@color/themeColor"
-        android:fontFamily="sans-serif"
-        android:gravity="center"
-        android:text="FAQ"
-        android:textAlignment="center"
-        android:textAllCaps="true"
-        android:textColor="@color/white"
-        android:textSize="30sp"
-        android:textStyle="bold"
-        android:typeface="sans"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-
-    <TextView
-        android:id="@+id/faqProfileHeader"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/faqLabel"
-        android:layout_alignParentStart="true"
-        android:layout_marginStart="0dp"
-        android:layout_marginTop="0dp"
-        android:background="@color/black"
-        android:fontFamily="sans-serif-condensed"
-        android:gravity="center"
-        android:paddingLeft="8dp"
-        android:paddingTop="8dp"
-        android:paddingRight="8dp"
-        android:paddingBottom="8dp"
-        android:text="P R O F I L E"
-        android:textAllCaps="true"
-        android:textColor="@color/white"
-        android:textSize="20sp"
-        android:textStyle="bold"
-        android:typeface="sans"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/faqLabel" />
 
     <ExpandableListView
         android:id="@+id/output"
         android:layout_width="match_parent"
-        android:layout_height="335dp"
+        android:layout_height="match_parent"
         android:layout_above="@+id/faqAskMore"
         android:layout_below="@+id/faqProfileHeader"
         android:layout_marginTop="0dp"

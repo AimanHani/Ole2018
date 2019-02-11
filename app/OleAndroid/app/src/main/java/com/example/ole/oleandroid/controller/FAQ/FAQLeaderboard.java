@@ -43,9 +43,6 @@ public class FAQLeaderboard extends SideMenuBar {
                 startActivity(intent);
             }
         });
-
-
-
     }
 
     private void initData() {

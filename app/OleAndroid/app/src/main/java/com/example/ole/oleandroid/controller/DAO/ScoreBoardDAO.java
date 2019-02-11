@@ -1,145 +1,91 @@
-//package com.example.ole.oleandroid.controller.DAO;
-//import com.example.ole.oleandroid.dbConnection.DBConnection;
-//import com.example.ole.oleandroid.dbConnection.GetHttp;
-//import com.example.ole.oleandroid.dbConnection.PostHttp;
-//import java.sql.Connection;
-//import java.sql.Date;
-//import java.sql.PreparedStatement;
-//import java.sql.ResultSet;
-//import java.sql.SQLException;
-//import java.sql.Time;
-//import java.util.ArrayList;
-//import com.example.ole.oleandroid.model.Match;
-//import com.example.ole.oleandroid.model.PrivateLeagueProfile;
-//import com.example.ole.oleandroid.model.PublicLeagueProfile;
-//
-//public class ScoreBoardDAO {
-//
-//    public static PublicLeagueProfile getUserTotalScoreBasedOnLeague(int leagueID, String username) {
-//        PublicLeagueProfile plf = new PublicLeagueProfile();
-//        try (Connection conn = DBConnection.getConnection();
-//             PreparedStatement stmt = conn.prepareStatement(
-//                     "select points from log where username = ? and leagueId = ?");) {
-//            stmt.setString(1, username);
-//            stmt.setInt(2, leagueID);
-//            ResultSet rs = stmt.executeQuery();
-//            int totalPoints = 0;
-//
-//            while (rs.next()) {
-//                totalPoints += rs.getInt(1);
-//
-//            }
-//            plf = new PublicLeagueProfile(username, leagueID, totalPoints);
-//            rs.close();
-//
-//        } catch (SQLException ex) {
-//            ex.printStackTrace();
-//        } catch (ClassNotFoundException ex) {
-//            ex.printStackTrace();
-//        }
-//
-//        return plf;
-//    }
-//
-//    public static ArrayList<PublicLeagueProfile> getUsersAndTheirTotalPoints(int leagueID) {
-//        ArrayList<PublicLeagueProfile> plfList = new ArrayList();
-//        ArrayList<String>usernames = getAllUsers(leagueID);
-//        for(int i=0; i<usernames.size(); i++){
-//            PublicLeagueProfile plf = new PublicLeagueProfile();
-//            try (Connection conn = DBConnection.getConnection(); PreparedStatement stmt = conn.prepareStatement("select points from log where username = ? and leagueId = ?");) {
-//                stmt.setString(1, usernames.get(i));
-//                stmt.setInt(2, leagueID);
-//                ResultSet rs = stmt.executeQuery();
-//                int totalPoints = 0;
-//
-//                while (rs.next()) {
-//                    totalPoints += rs.getInt(1);
-//
-//                }
-//                plf = new PublicLeagueProfile(usernames.get(i), leagueID, totalPoints);
-//                rs.close();
-//
-//            } catch (SQLException ex) {
-//                ex.printStackTrace();
-//            } catch (ClassNotFoundException ex) {
-//                ex.printStackTrace();
-//            }
-//            plfList.add(plf);
-//        }
-//
-//        return plfList;
-//    }
-//
-//    public static ArrayList<String> getAllUsers(int leagueID) {
-//        ArrayList<String> usernames = new ArrayList();
-//        try (Connection conn = DBConnection.getConnection(); PreparedStatement stmt = conn.prepareStatement("select distinct username from log where leagueId = ?");) {
-//
-//            stmt.setInt(1, leagueID);
-//            ResultSet rs = stmt.executeQuery();
-//
-//            while (rs.next()) {
-//                usernames.add(rs.getString(1));
-//
-//            }
-//
-//            rs.close();
-//
-//        } catch (SQLException ex) {
-//            ex.printStackTrace();
-//        } catch (ClassNotFoundException ex) {
-//            ex.printStackTrace();
-//        }
-//
-//        return usernames;
-//    }
-//    public static ArrayList<Integer>getAllPrivateLeagueIDs(){
-//        ArrayList<Integer>privateLeagueIDsList = new ArrayList();
-//        try (Connection conn = DBConnection.getConnection(); PreparedStatement stmt = conn.prepareStatement("select distinct leagueKeyId from privateleague");) {
-//
-//
-//            ResultSet rs = stmt.executeQuery();
-//
-//            while (rs.next()) {
-//                privateLeagueIDsList.add(rs.getInt(1));
-//            }
-//
-//            rs.close();
-//
-//        } catch (SQLException ex) {
-//            ex.printStackTrace();
-//        } catch (ClassNotFoundException ex) {
-//            ex.printStackTrace();
-//        }
-//        return privateLeagueIDsList;
-//    }
-//    public static ArrayList<PrivateLeagueProfile> getUsersAndTheirTotalPointsPrivate(int leagueID) {
-//        ArrayList<PrivateLeagueProfile> plfList = new ArrayList();
-//        ArrayList<String>usernames = getAllUsers(leagueID);
-//        for(int i=0; i<usernames.size(); i++){
-//            PrivateLeagueProfile plf = new PrivateLeagueProfile();
-//            try (Connection conn = DBConnection.getConnection(); PreparedStatement stmt = conn.prepareStatement("select points from log where username = ? and leagueId = ?");) {
-//                stmt.setString(1, usernames.get(i));
-//                stmt.setInt(2, leagueID);
-//                ResultSet rs = stmt.executeQuery();
-//                int totalPoints = 0;
-//
-//                while (rs.next()) {
-//                    totalPoints += rs.getInt(1);
-//
-//                }
-//                plf = new PrivateLeagueProfile(usernames.get(i), leagueID, totalPoints);
-//                rs.close();
-//
-//            } catch (SQLException ex) {
-//                ex.printStackTrace();
-//            } catch (ClassNotFoundException ex) {
-//                ex.printStackTrace();
-//            }
-//            plfList.add(plf);
-//        }
-//
-//        return plfList;
-//    }
-//}
-//
-//}
+package com.example.ole.oleandroid.controller.DAO;
+import com.example.ole.oleandroid.dbConnection.DBConnection;
+import com.example.ole.oleandroid.dbConnection.GetHttp;
+import java.util.ArrayList;
+import com.example.ole.oleandroid.model.PrivateLeagueProfile;
+import com.example.ole.oleandroid.model.PublicLeagueProfile;
+
+import org.json.JSONArray;
+import org.json.JSONObject;
+
+public class ScoreBoardDAO {
+
+    public static ArrayList<PublicLeagueProfile> publicLeagueProfiles = new ArrayList<>();
+    public static ArrayList<PrivateLeagueProfile> privateLeagueProfiles = new ArrayList<>();
+
+    public static ArrayList<PublicLeagueProfile> getPublicLeagueProfiles(){
+        ArrayList<PublicLeagueProfile> publicLeagueProfileList = new ArrayList<>();
+        String url = DBConnection.getScoreBoardUrl()+"?league=public";
+        System.out.println("Getting pub league scoreboard");
+
+        GetHttp getConnection = new GetHttp();
+        String response = null;
+        try {
+            response = getConnection.run(url);
+            System.out.println(response);
+            JSONObject result = new JSONObject(response);
+            JSONArray publicLeagueProfile = result.getJSONArray("results");
+
+            if (publicLeagueProfile.length() > 0) {
+                for (int i = 0; i < publicLeagueProfile.length(); i++) {
+                    JSONObject matchObject = publicLeagueProfile.getJSONObject(i);
+
+                    int leagueID = matchObject.getInt("leagueId");
+                    int totalPoints = matchObject.getInt("totalPoints");
+                    String username = matchObject.getString("username");
+                    PublicLeagueProfile plp = new PublicLeagueProfile(username,leagueID,totalPoints);
+                    publicLeagueProfileList.add(plp);
+                }
+
+            } else {
+                //loadSamePage();
+                publicLeagueProfileList = null;
+
+            }
+        } catch (Exception e) {
+            System.out.println("error");
+            e.printStackTrace();
+            publicLeagueProfileList = null;
+        }
+        publicLeagueProfiles = publicLeagueProfileList;
+        return publicLeagueProfileList;
+    }
+
+    public static ArrayList<PrivateLeagueProfile> getPrivateLeagueProfiles(){
+        ArrayList<PrivateLeagueProfile> privateLeagueProfileList = new ArrayList<>();
+        String url = DBConnection.getScoreBoardUrl()+"?league=private";
+        System.out.println("Getting private league scoreboard");
+
+        GetHttp getConnection = new GetHttp();
+        String response = null;
+        try {
+            response = getConnection.run(url);
+            System.out.println(response);
+            JSONObject result = new JSONObject(response);
+            JSONArray privateLeagueProfile = result.getJSONArray("results");
+
+            if (privateLeagueProfile.length() > 0) {
+                for (int i = 0; i < privateLeagueProfile.length(); i++) {
+                    JSONObject matchObject = privateLeagueProfile.getJSONObject(i);
+
+                    int leagueID = matchObject.getInt("leagueId");
+                    int totalPoints = matchObject.getInt("totalPoints");
+                    String username = matchObject.getString("username");
+                    PrivateLeagueProfile plp = new PrivateLeagueProfile(username,leagueID,totalPoints);
+                    privateLeagueProfileList.add(plp);
+                }
+
+            } else {
+                //loadSamePage();
+                privateLeagueProfileList = null;
+
+            }
+        } catch (Exception e) {
+            System.out.println("error");
+            e.printStackTrace();
+            privateLeagueProfileList = null;
+        }
+        privateLeagueProfiles = privateLeagueProfileList;
+        return privateLeagueProfileList;
+    }
+}

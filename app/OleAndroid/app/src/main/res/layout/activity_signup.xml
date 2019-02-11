@@ -8,17 +8,17 @@
     android:orientation="vertical"
     tools:context=".controller.Signup">
 
-    <ImageView
-        android:id="@+id/logo_id"
-        android:layout_width="170dp"
-        android:layout_height="170dp"
-        android:layout_gravity="center"
-        android:layout_marginTop="20dp"
-        android:contentDescription="TODO"
-        android:src="@drawable/ole_logo"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+    <!--<ImageView-->
+        <!--android:id="@+id/logo_id"-->
+        <!--android:layout_width="170dp"-->
+        <!--android:layout_height="170dp"-->
+        <!--android:layout_gravity="center"-->
+        <!--android:layout_marginTop="20dp"-->
+        <!--android:contentDescription="TODO"-->
+        <!--android:src="@drawable/ole_logo"-->
+        <!--app:layout_constraintEnd_toEndOf="parent"-->
+        <!--app:layout_constraintStart_toStartOf="parent"-->
+        <!--app:layout_constraintTop_toTopOf="parent" />-->
 
     <ScrollView
         android:layout_width="match_parent"
