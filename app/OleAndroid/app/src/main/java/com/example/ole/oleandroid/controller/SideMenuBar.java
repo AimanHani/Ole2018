@@ -44,7 +44,7 @@ public class SideMenuBar extends AppCompatActivity implements NavigationView.OnN
         mDrawerlayout.addDrawerListener(mToggle);
         mToggle.syncState();
         sidebarusername = findViewById(R.id.sidebarusername);
-        sidebarusername.setText(UserDAO.getLoginUser().getName());
+        //sidebarusername.setText(UserDAO.getLoginUser().getName());
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         setNavigationViewListener();
 
