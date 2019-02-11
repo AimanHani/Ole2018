@@ -49,27 +49,27 @@ public class ScoreBoardDAO {
 
     public static ArrayList<PublicLeagueProfile> getUsersAndTheirTotalPoints(int leagueID) {
         ArrayList<PublicLeagueProfile> plfList = new ArrayList();
-        ArrayList<String>usernames = getAllUsers(leagueID);
-        for(int i=0; i<usernames.size(); i++){
+        ArrayList<String> usernames = getAllUsers(leagueID);
+        for (int i = 0; i < usernames.size(); i++) {
             PublicLeagueProfile plf = new PublicLeagueProfile();
             try (Connection conn = DBConnection.getConnection(); PreparedStatement stmt = conn.prepareStatement("select points from log where username = ? and leagueId = ?");) {
-            stmt.setString(1, usernames.get(i));
-            stmt.setInt(2, leagueID);
-            ResultSet rs = stmt.executeQuery();
-            int totalPoints = 0;
+                stmt.setString(1, usernames.get(i));
+                stmt.setInt(2, leagueID);
+                ResultSet rs = stmt.executeQuery();
+                int totalPoints = 0;
 
-            while (rs.next()) {
-                totalPoints += rs.getInt(1);
+                while (rs.next()) {
+                    totalPoints += rs.getInt(1);
 
+                }
+                plf = new PublicLeagueProfile(usernames.get(i), leagueID, totalPoints);
+                rs.close();
+
+            } catch (SQLException ex) {
+                ex.printStackTrace();
+            } catch (ClassNotFoundException ex) {
+                ex.printStackTrace();
             }
-            plf = new PublicLeagueProfile(usernames.get(i), leagueID, totalPoints);
-            rs.close();
-
-        } catch (SQLException ex) {
-            ex.printStackTrace();
-        } catch (ClassNotFoundException ex) {
-            ex.printStackTrace();
-        }
             plfList.add(plf);
         }
 
@@ -87,7 +87,7 @@ public class ScoreBoardDAO {
                 usernames.add(rs.getString(1));
 
             }
-            
+
             rs.close();
 
         } catch (SQLException ex) {
@@ -98,17 +98,17 @@ public class ScoreBoardDAO {
 
         return usernames;
     }
-    public static ArrayList<Integer>getAllPrivateLeagueIDs(){
-        ArrayList<Integer>privateLeagueIDsList = new ArrayList();
+
+    public static ArrayList<Integer> getAllPrivateLeagueIDs() {
+        ArrayList<Integer> privateLeagueIDsList = new ArrayList();
         try (Connection conn = DBConnection.getConnection(); PreparedStatement stmt = conn.prepareStatement("select distinct leagueKeyId from privateleague");) {
 
-           
             ResultSet rs = stmt.executeQuery();
 
             while (rs.next()) {
                 privateLeagueIDsList.add(rs.getInt(1));
             }
-            
+
             rs.close();
 
         } catch (SQLException ex) {
@@ -118,32 +118,59 @@ public class ScoreBoardDAO {
         }
         return privateLeagueIDsList;
     }
+
     public static ArrayList<PrivateLeagueProfile> getUsersAndTheirTotalPointsPrivate(int leagueID) {
         ArrayList<PrivateLeagueProfile> plfList = new ArrayList();
-        ArrayList<String>usernames = getAllUsers(leagueID);
-        for(int i=0; i<usernames.size(); i++){
+        ArrayList<String> usernames = getAllUsers(leagueID);
+        for (int i = 0; i < usernames.size(); i++) {
             PrivateLeagueProfile plf = new PrivateLeagueProfile();
             try (Connection conn = DBConnection.getConnection(); PreparedStatement stmt = conn.prepareStatement("select points from log where username = ? and leagueId = ?");) {
-            stmt.setString(1, usernames.get(i));
-            stmt.setInt(2, leagueID);
-            ResultSet rs = stmt.executeQuery();
-            int totalPoints = 0;
+                stmt.setString(1, usernames.get(i));
+                stmt.setInt(2, leagueID);
+                ResultSet rs = stmt.executeQuery();
+                int totalPoints = 0;
 
-            while (rs.next()) {
-                totalPoints += rs.getInt(1);
+                while (rs.next()) {
+                    totalPoints += rs.getInt(1);
 
+                }
+                plf = new PrivateLeagueProfile(usernames.get(i), leagueID, totalPoints);
+                rs.close();
+
+            } catch (SQLException ex) {
+                ex.printStackTrace();
+            } catch (ClassNotFoundException ex) {
+                ex.printStackTrace();
             }
-            plf = new PrivateLeagueProfile(usernames.get(i), leagueID, totalPoints);
-            rs.close();
-
-        } catch (SQLException ex) {
-            ex.printStackTrace();
-        } catch (ClassNotFoundException ex) {
-            ex.printStackTrace();
-        }
             plfList.add(plf);
         }
 
         return plfList;
     }
+
+    public static ArrayList<Integer> privateLeagueIDsOfTheSpecificUserJoined(String username) {
+        ArrayList<Integer> privateLeaguesIDsOfTheUserJoined = new ArrayList();
+        ArrayList<Integer> privateLeagueIDsList = getAllPrivateLeagueIDs();
+
+        for (int i = 0; i < privateLeagueIDsList.size(); i++) {
+            try (Connection conn = DBConnection.getConnection(); PreparedStatement stmt = conn.prepareStatement("select distinct leagueId from log where username = ? and leagueId = ? ");) {
+                stmt.setString(1, username);
+                stmt.setInt(2, privateLeagueIDsList.get(i));
+                ResultSet rs = stmt.executeQuery();
+                while (rs.next()) {
+                    privateLeaguesIDsOfTheUserJoined.add(rs.getInt(1));
+                }
+
+                rs.close();
+                conn.close();
+
+            } catch (SQLException ex) {
+                ex.printStackTrace();
+            } catch (ClassNotFoundException ex) {
+                ex.printStackTrace();
+            }
+        }
+        return privateLeaguesIDsOfTheUserJoined;
+    }
+
 }
