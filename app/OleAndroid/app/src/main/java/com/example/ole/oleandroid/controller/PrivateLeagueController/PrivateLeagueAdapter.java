@@ -14,7 +14,7 @@ import android.widget.CheckBox;
 import android.widget.TextView;
 
 import com.example.ole.oleandroid.R;
-import com.example.ole.oleandroid.controller.PublicLeague.MatchesTabs;
+//import com.example.ole.oleandroid.controller.PublicLeague.MatchesTabs;
 import com.example.ole.oleandroid.model.PrivateLeague;
 import com.example.ole.oleandroid.model.Specials;
 
