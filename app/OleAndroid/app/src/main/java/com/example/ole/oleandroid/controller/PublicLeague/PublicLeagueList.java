@@ -34,7 +34,7 @@ public class PublicLeagueList extends SideMenuBar {
         publicLeagueListView = findViewById(R.id.publicLeagueListView);
 
         PublicLeagueDAO.getPublicLeague();
-        PublicLeagueDAO.addPublicleague(new PublicLeague(1009,2,"Arsenal Jersey", 3, "Public League","Premier League", 5, false));
+        //PublicLeagueDAO.addPublicleague(new PublicLeague(1009,2,"Arsenal Jersey", 3, "Public League","Premier League", 5, false));
 
         publicLeagueListAdapter = new PublicLeagueListAdapter(PublicLeagueList.this, PublicLeagueDAO.getAllPublicLeagueList());
         publicLeagueListView.setAdapter(publicLeagueListAdapter);

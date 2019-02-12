@@ -4,7 +4,10 @@
         <servlet-name>ScoreBoardJson</servlet-name>
         <url-pattern>/json/scoreBoard</url-pattern>
     </servlet-mapping>
-    
+    <servlet-mapping>
+        <servlet-name>GetUsers</servlet-name>
+        <url-pattern>/json/GetUsers</url-pattern>
+    </servlet-mapping>
     <servlet-mapping>
         <servlet-name>PrivateLeagueJson</servlet-name>
         <url-pattern>/json/privateLeague</url-pattern>

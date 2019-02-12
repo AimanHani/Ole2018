@@ -89,12 +89,6 @@ public class SpecialList extends SideMenuBar {
             e.printStackTrace();
         }
 
-        //i put 5,2 to test whether thing works, in the future pass in from database
-//        pointsList.add(5);
-//        pointsList.add(2);
-//        specialNameList.add("sMVP");
-//        specialNameList.add("Best Player");
-
         specialListAdapter = new SpecialListAdapter(SpecialList.this, specialsList);
         specialListView.setAdapter(specialListAdapter);
 

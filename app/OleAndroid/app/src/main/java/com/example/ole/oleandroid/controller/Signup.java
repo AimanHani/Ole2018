@@ -30,10 +30,12 @@ import com.example.ole.oleandroid.model.TeamItems;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
+import java.time.Period;
 import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.HashMap;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -55,6 +57,7 @@ public class Signup extends AppCompatActivity {
     String clickedTeamName;
     String clickedCountryName;
     RequestQueue requestQueue;
+    HashMap<String, String> countryCodes;
 
 
     @Override
@@ -119,6 +122,7 @@ public class Signup extends AppCompatActivity {
             }
 
         });
+
         signupBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -166,24 +170,6 @@ public class Signup extends AppCompatActivity {
                                 }
                             }, 3000);
                 }
-                //loadingDialog();
-
-
-                // TODO: Implement your own signup logic here.
-
-//                new android.os.Handler().postDelayed(
-////                        new Runnable() {
-////                            public void run() {
-////                                // On complete call either onSignupSuccess or onSignupFailed
-////                                // depending on success
-////                                onSignupSuccess();
-////                                // onSignupFailed();
-////                                progressDialog.dismiss();
-////                            }
-////                        }, 3000);
-////                //onSignupSuccess();
-
-
             }
         });
     }
@@ -283,17 +269,16 @@ public class Signup extends AppCompatActivity {
             email.setError("Good", tickDone);
         }
 
-//        if (isStrong(validatePassword)) {
-//            password.setError("Good", tickDone);
-//
-//        } else {
-//            password.setError("8 characters length\n" +
-//                    "2 letters in Upper Case\n" +
-//                    "1 Special Character (!@#$&*)\n" +
-//                    "2 numerals (0-9)\n" +
-//                    "3 letters in Lower Case");
-//            valid = false;
-//        }
+        if (isStrong(validatePassword)) {
+            password.setError("Good", tickDone);
+
+        } else {
+            password.setError("8 or more characters length\n" +
+                    "Min 1 letters in Upper Case\n" +
+                    "Min 1 numerals (0-9)\n" +
+                    "Min 1 letters in Lower Case");
+            valid = false;
+        }
         if (validateCountries.equals(null)) {
             setSpinnerError(spinnerCountries, "Please select your country");
             valid = false;
@@ -309,16 +294,17 @@ public class Signup extends AppCompatActivity {
         }
         if (!validateBirthdate.isEmpty() && validateBirthdate.length() == 10) {
             if (isDateValid(validateBirthdate)) {
-//                int age = calculateAge(validateBirthdate);
-//                if (age < 16) {
-//                    birthdate.setError("Your age must be at least 16");
+//                int age = getAge(validateBirthdate);
+//                System.out.println("age "+ age);
+//                if (age < 13) {
+//                    birthdate.setError("Your age must be at least 13");
 //                    valid = false;
 //                } else {
 //                    birthdate.setError("Good", tickDone);
 //                }
             }
         }
-        if (!checkPhoneNumber(validatePhoneNo) || validatePhoneNo.isEmpty()) {
+        if (!checkPhoneNumber(validatePhoneNo, validateCountries) || validatePhoneNo.isEmpty()) {
             contactNo.setError("Please enter a valid phone number with your country code");
             valid = false;
         } else {
@@ -356,6 +342,9 @@ public class Signup extends AppCompatActivity {
         mTeamList.add(new TeamItems("West Ham United", R.drawable.west_ham));
         mTeamList.add(new TeamItems("Wolverhampton Wanderes", R.drawable.wolverhampton));
 
+        countryCodes = new HashMap<>();
+        countryCodes.put("Singapore", "+65");
+        countryCodes.put("Malaysia", "+60");
 
     }
 
@@ -387,27 +376,53 @@ public class Signup extends AppCompatActivity {
     }
 
     private boolean isStrong(String password) {
-        return password.matches("^(?=.*[A-Z].*[A-Z])(?=.*[!@#$&*])(?=.*[0-9].*[0-9])(?=.*[a-z].*[a-z].*[a-z]).{8}$");
+        return password.matches("^(?=.*[A-Z])(?=.*[0-9])(?=.*[a-z]).{8,20}$");
+        //return password.matches("^(?=.*[A-Z].*[A-Z])(?=.*[!@#$&*])(?=.*[0-9].*[0-9])(?=.*[a-z].*[a-z].*[a-z]).{8,20}$");
     }
 
-    public static int calculateAge(String birthDay) {
-        if (birthDay != null) {
-            DateTimeFormatter formatter_1 = DateTimeFormatter.ofPattern(DATE_FORMAT);
-            LocalDate birthDate = null;
-            try {
-                birthDate = LocalDate.parse(birthDay, formatter_1);
-            } catch (Exception e) {
-                return 0;
-            }
-            LocalDate today = LocalDate.now();
-            int intervalYears = (int) ChronoUnit.YEARS.between(birthDate, today);
-            return intervalYears;
-        } else {
-            return 0;
+//    public static int calculateAge(String birthDay) {
+//        if (birthDay != null) {
+//            DateTimeFormatter formatter_1 = DateTimeFormatter.ofPattern(DATE_FORMAT);
+//            LocalDate birthDate = null;
+//            try {
+//                birthDate = LocalDate.parse(birthDay, formatter_1);
+//            } catch (Exception e) {
+//                return 0;
+//            }
+//            LocalDate today = LocalDate.now();
+//            int intervalYears = (int) ChronoUnit.YEARS.between(birthDate, today);
+//            return intervalYears;
+//        } else {
+//            return 0;
+//        }
+//    }
+    //dd-mm-yyyy
+    private int getAge(String birthday){
+        System.out.println("getage");
+        String[] parts = birthday.split("-");
+        int day = Integer.parseInt(parts[0]);
+        int month = Integer.parseInt(parts[1]);
+        int year = Integer.parseInt(parts[2]);
+        System.out.println("mth: " + month);
+        Calendar dob = Calendar.getInstance();
+        Calendar today = Calendar.getInstance();
+
+        dob.set(year, month, day);
+
+        int age = today.get(Calendar.YEAR) - dob.get(Calendar.YEAR);
+
+        if (today.get(Calendar.DAY_OF_YEAR) < dob.get(Calendar.DAY_OF_YEAR)){
+            age--;
         }
+
+//        Integer ageInt = new Integer(age);
+//        String ageS = ageInt.toString();
+        System.out.println(age+"");
+        return age;
     }
 
-    private boolean checkPhoneNumber(String phoneNumber) {
+    private boolean checkPhoneNumber(String phoneNumber, String validateCountries) {
+        phoneNumber = countryCodes.get(validateCountries)+phoneNumber;
         String regex = "^\\+(?:[0-9] ?){6,14}[0-9]$";
         return phoneNumber.matches(regex);
     }
@@ -499,19 +514,18 @@ public class Signup extends AppCompatActivity {
 
             @Override
             public void afterTextChanged(final Editable s) {
-//                if (isStrong(s.toString())) {
-//
-//                    password.setError("Good", tickDone);
-//
-//
-//                } else {
-//                    password.setError("8 characters length\n" +
-//                            "2 letters in Upper Case\n" +
-//                            "1 Special Character (!@#$&*)\n" +
-//                            "2 numerals (0-9)\n" +
-//                            "3 letters in Lower Case");
-//
-//                }
+                if (isStrong(s.toString())) {
+
+                    password.setError("Good", tickDone);
+
+
+                } else {
+                    password.setError("8 or more characters \n" +
+                            "Min 1 Upper Case\n" +
+                            "Min 1 numerals (0-9)\n" +
+                            "Min 1 letters in Lower Case");
+
+                }
 
             }
         });
@@ -608,15 +622,15 @@ public class Signup extends AppCompatActivity {
                                 if (!isDateValid(s.toString())) {
                                     birthdate.setError("Please enter the date as dd-MM-yyyy format");
                                 }
-                                if (isDateValid(s.toString())) {
-//                                    int age = calculateAge(s.toString());
-//                                    if (age < 16) {
-//                                        birthdate.setError("You are under the age of 16");
+//                                if (isDateValid(s.toString())) {
+//                                    int age = getAge(s.toString());
+//                                    if (age < 13) {
+//                                        birthdate.setError("You are under the age of 13");
 //                                    } else {
 //                                        birthdate.setError("Good", tickDone);
 //                                    }
-
-                                }
+//
+//                                }
                             }
                         });
                     }
@@ -647,7 +661,7 @@ public class Signup extends AppCompatActivity {
                         Signup.this.runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
-                                if (!checkPhoneNumber(s.toString())) {
+                                if (!checkPhoneNumber(s.toString(), clickedCountryName)) {
                                     contactNo.setError("Please enter a valid phone number with your country code");
 
                                 } else {

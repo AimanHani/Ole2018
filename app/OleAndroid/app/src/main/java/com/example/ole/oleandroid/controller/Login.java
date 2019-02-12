@@ -11,6 +11,7 @@ import android.view.Window;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.android.volley.RequestQueue;
 import com.example.ole.oleandroid.R;
@@ -58,47 +59,31 @@ public class Login extends AppCompatActivity {
         signin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                final Dialog load = loadingDialog();
-                new android.os.Handler().postDelayed(
-                        new Runnable() {
-                            public void run() {
-                                // comments starts here if want to bypass login webservice
-                                if (username.getText().toString().equals("") || password.getText().toString().equals("")) {
-                                    //loadSamePage();
-                                } else {
+                if (username.getText().toString().equals("") || password.getText().toString().equals("")) {
+                    Toast.makeText(getBaseContext(), "Login failed", Toast.LENGTH_LONG).show();
+                } else {
+                    final Dialog load = loadingDialog();
+                    new android.os.Handler().postDelayed(
+                            new Runnable() {
+                                public void run() {
                                     System.out.println("Signing In " + username.getText().toString());
                                     String status = "error";
 
                                     String send = concatUsernamePwd(username.getText().toString(), password.getText().toString());
 
                                     Boolean valid = LoginDAO.validate(send);
+                                    load.dismiss();
 
                                     if (valid) {
                                         Intent intent = new Intent(Login.this, HomeLeague.class);
-//                        Bundle bundle = new Bundle();
-//                        bundle.putString("username", username.getText().toString());
-//                        intent.putExtras(bundle);
                                         startActivity(intent);
-
                                     } else {
-
+                                        Toast.makeText(getBaseContext(), "Login failed", Toast.LENGTH_LONG).show();
                                     }
-
-                                    load.dismiss();
-//comments stop here
-
-                                    // codes to bypass login with webservice
-//                    Intent intent = new Intent(Login.this, HomeTile.class);
-//                    Bundle bundle = new Bundle();
-//                    bundle.putString("username", username.getText().toString());
-//                    intent.putExtras(bundle);
-//                    startActivity(intent);
-//
                                 }
-                            }
-                        }, 3000);
+                            }, 3000);
+                }
             }
-
         });
 
         signup.setOnClickListener(new View.OnClickListener() {
@@ -118,7 +103,7 @@ public class Login extends AppCompatActivity {
         dialog2.requestWindowFeature(Window.FEATURE_NO_TITLE);
         dialog2.setContentView(R.layout.loading_popup);
         TextView text = dialog2.findViewById(R.id.textStatus);
-        text.setText("Logging in");
+        text.setText("Signing in");
         dialog2.show();
         return dialog2;
     }

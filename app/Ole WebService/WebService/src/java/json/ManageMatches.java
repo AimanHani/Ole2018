@@ -49,7 +49,7 @@ public class ManageMatches extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet ManageMatches</title>");            
+            out.println("<title>Servlet ManageMatches</title>");
             out.println("</head>");
             out.println("<body>");
             out.println("<h1>Servlet ManageMatches at " + request.getContextPath() + "</h1>");
@@ -70,7 +70,7 @@ public class ManageMatches extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-                JSONArray list = new JSONArray();
+        JSONArray list = new JSONArray();
         JSONObject parentJson = new JSONObject();
         response.setContentType("\"Content-Type\", \"application/x-www-form-urlencoded\"");
         response.setCharacterEncoding("utf-8");
@@ -127,29 +127,22 @@ public class ManageMatches extends HttpServlet {
         int team1Prediction = Integer.parseInt(request.getParameter("team1Prediction"));
         int team2Prediction = Integer.parseInt(request.getParameter("team2Prediction"));
         boolean doubleIt = Boolean.parseBoolean(request.getParameter("doubleIt"));
-        String status = "";
-        
-        try {
 
+        String status = "";
+
+        try {
             status = ManageMatchesDAO.insertMLog(logID, matchID, team1Prediction, team2Prediction, doubleIt);
             if (!status.equals("error")) {
-                
-
-                    json.put("Status", "Insert match log successful");
-
+                json.put("status", "successful");
             } else {
                 status = ManageMatchesDAO.updateMatchesLog(logID, matchID, team1Prediction, team2Prediction, doubleIt);
                 if (!status.equals("error")) {
-                
-
-                    json.put("Status", "Insert match log successful");
-                }
-                else{
-
-                json.put("status", "error");
-                String invalidMsg = "Something is wrong check checkS" + "/" + "";
-                String[] invalidString = {invalidMsg};
-                json.put("messages", invalidString);
+                    json.put("status", "successful");
+                } else {
+                    json.put("status", "error");
+                    String invalidMsg = "Something is wrong check checkS" + "/" + "";
+                    String[] invalidString = {invalidMsg};
+                    json.put("messages", invalidString);
                 }
             }
             out.print(json);
@@ -158,8 +151,7 @@ public class ManageMatches extends HttpServlet {
         } catch (JSONException ex) {
             Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
-        
+
     }
 
     /**
