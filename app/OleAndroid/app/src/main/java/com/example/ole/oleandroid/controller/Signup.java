@@ -261,6 +261,8 @@ public class Signup extends AppCompatActivity {
         if (validateName.isEmpty() || validateName.length() < 3) {
             name.setError("at least 3 characters for your name");
 
+        } else if (UserDAO.checkUsernameExist(validateName)) {
+            username.setError("Username Exist");
         } else {
             name.setError("Good", tickDone);
         }
@@ -493,11 +495,7 @@ public class Signup extends AppCompatActivity {
                                 if (s.toString().isEmpty() || s.toString().length() < 5) {
                                     username.setError("at least 5 characters");
 
-                                } else {
-                                    username.setError("Good", tickDone);
-                                }
-
-                                if (UserDAO.checkUsernameExist(s.toString())) {
+                                } else if (UserDAO.checkUsernameExist(s.toString())) {
                                     username.setError("Username Exist");
                                 } else {
                                     username.setError("Good", tickDone);
