@@ -26,7 +26,7 @@ import org.json.JSONObject;
  *
  * @author Hazirah
  */
-@WebServlet(name = "GetUsers", urlPatterns = {"json//GetUsers"})
+@WebServlet(name = "GetUsers", urlPatterns = {"json/getUsers"})
 public class GetUsers extends HttpServlet {
 
     /**
@@ -82,7 +82,7 @@ public class GetUsers extends HttpServlet {
                     usernames.put(user.getUsername());
                 }
                 parentJson.put("results", usernames);
-                parentJson.put("status", "error");
+                parentJson.put("status", "success");
                 
             } else {
                 parentJson.put("status", "error");

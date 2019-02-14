@@ -24,6 +24,7 @@ import android.widget.Toast;
 import com.android.volley.RequestQueue;
 import com.example.ole.oleandroid.R;
 import com.example.ole.oleandroid.controller.DAO.SignupDAO;
+import com.example.ole.oleandroid.controller.DAO.UserDAO;
 import com.example.ole.oleandroid.model.CountryItem;
 import com.example.ole.oleandroid.model.TeamItems;
 
@@ -58,6 +59,7 @@ public class Signup extends AppCompatActivity {
     String clickedCountryName;
     RequestQueue requestQueue;
     HashMap<String, String> countryCodes;
+    ArrayList<String> usernames;
 
 
     @Override
@@ -93,6 +95,7 @@ public class Signup extends AppCompatActivity {
         mAdapter2 = new TeamAdapter(this, mTeamList);
         spinnerTeams.setAdapter(mAdapter2);
 
+        UserDAO.getUsernames();
 
         spinnerCountries.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
@@ -493,6 +496,12 @@ public class Signup extends AppCompatActivity {
                                 } else {
                                     username.setError("Good", tickDone);
                                 }
+
+                                if (UserDAO.checkUsernameExist(s.toString())) {
+                                    username.setError("Username Exist");
+                                } else {
+                                    username.setError("Good", tickDone);
+                                }
                             }
                         });
                     }
@@ -522,8 +531,8 @@ public class Signup extends AppCompatActivity {
                 } else {
                     password.setError("8 or more characters \n" +
                             "Min 1 Upper Case\n" +
-                            "Min 1 numerals (0-9)\n" +
-                            "Min 1 letters in Lower Case");
+                            "Min 1 numeral (0-9)\n" +
+                            "Min 1 letter in Lower Case");
 
                 }
 
@@ -582,6 +591,7 @@ public class Signup extends AppCompatActivity {
                 dialog.show();
             }
         });
+
         dateSetListener = new DatePickerDialog.OnDateSetListener() {
             @Override
             public void onDateSet(DatePicker datePicker, int year, int month, int day) {

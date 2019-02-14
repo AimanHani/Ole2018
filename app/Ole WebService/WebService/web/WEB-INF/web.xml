@@ -6,7 +6,7 @@
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>GetUsers</servlet-name>
-        <url-pattern>/json/GetUsers</url-pattern>
+        <url-pattern>/json/getUsers</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>PrivateLeagueJson</servlet-name>

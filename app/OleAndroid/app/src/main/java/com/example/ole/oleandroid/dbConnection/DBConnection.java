@@ -86,5 +86,10 @@ public class DBConnection {
         String url = mainUrl+"/json/scoreBoard";
         return url;
     }
+
+    public static String getUsers(){
+        String url = mainUrl+"/json/getUsers";
+        return url;
+    }
 }
 
