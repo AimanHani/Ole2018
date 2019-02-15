@@ -17,17 +17,16 @@ import java.util.ArrayList;
 
 public class SpecialListPrivateAdapter extends BaseAdapter{
     private Context context; //context
-    private ArrayList<Integer> pointsList; //data source of the list adapter
+    //private ArrayList<Integer> pointsList; //data source of the list adapter
     private ArrayList<String> specialNameList;
     private ArrayList<Specials> specialsList;
     private SpecialListPrivateAdapter.ViewHolder viewHolder;
     private Button confirmspecialsbtn;
     CheckBox checkPrivateSpecials;
 
-
     private static class ViewHolder {
         CheckBox checkPrivateSpecials;
-        TextView points;
+        //TextView points;
         TextView itemname;
     }
 
@@ -40,7 +39,7 @@ public class SpecialListPrivateAdapter extends BaseAdapter{
     //public constructor
     public SpecialListPrivateAdapter(Context context, ArrayList<Integer> pointsList, ArrayList<String> specialNameList, ArrayList<Specials> specialsList) {
         this.context = context;
-        this.pointsList = pointsList;
+        //this.pointsList = pointsList;
         this.specialNameList = specialNameList;
         this.specialsList = specialsList;
     }
@@ -71,12 +70,12 @@ public class SpecialListPrivateAdapter extends BaseAdapter{
         /**
          * This will tell initialize the textview element in speciallistlayout
          */
-        viewHolder.points = convertView.findViewById(R.id.points);
+        //viewHolder.points = convertView.findViewById(R.id.points);
         viewHolder.itemname = convertView.findViewById(R.id.itemname);
         viewHolder.checkPrivateSpecials = convertView.findViewById(R.id.checkPrivateSpecials);
 
         //this will get each point from the arraylist
-        viewHolder.points.setText(specialsList.get(position).getPoints()+"");
+        //viewHolder.points.setText(specialsList.get(position).getPoints() + " pts");
         viewHolder.itemname.setText(specialsList.get(position).getDescription());
 
 
@@ -120,8 +119,6 @@ public class SpecialListPrivateAdapter extends BaseAdapter{
         // returns the view for the current row
         return convertView;
     }
-
-
 }
 
 

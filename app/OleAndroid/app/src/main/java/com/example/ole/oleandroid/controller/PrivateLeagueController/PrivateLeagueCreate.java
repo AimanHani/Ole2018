@@ -28,7 +28,7 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 public class PrivateLeagueCreate extends SideMenuBar {
-    EditText leaguename, prize, password, pointsAllocated;
+    EditText leaguename, prize, password;
     Button selectleague;
     private Timer timer;
     Drawable tickDone;
@@ -63,7 +63,7 @@ public class PrivateLeagueCreate extends SideMenuBar {
         leaguename = (EditText) findViewById(R.id.leaguename);
         prize = (EditText) findViewById(R.id.prize);
         password = (EditText) findViewById(R.id.password);
-        pointsAllocated = (EditText) findViewById(R.id.points);
+        //pointsAllocated = (EditText) findViewById(R.id.points);
 
         validationOnTextView();
 
@@ -79,13 +79,13 @@ public class PrivateLeagueCreate extends SideMenuBar {
 
                 }else{
 
-                if (!leaguename.getEditableText().toString().isEmpty() && !prize.getEditableText().toString().isEmpty() && !password.getEditableText().toString().isEmpty() && !pointsAllocated.getEditableText().toString().isEmpty() && nameOk && prizeOk && passwordOk && pointsAllocatedOk) {
+                if (!leaguename.getEditableText().toString().isEmpty() && !prize.getEditableText().toString().isEmpty() && !password.getEditableText().toString().isEmpty() && nameOk && prizeOk && passwordOk ) {
             //if (leaguename!=null && prize!=null && password!=null) {
                 Intent intent = new Intent(PrivateLeagueCreate.this, PrivateLeagueTournamentList.class);
                 intent.putExtra("leaguename", leaguename.getText().toString());
                 intent.putExtra("prize", prize.getText().toString());
                 intent.putExtra("password", password.getText().toString());
-                intent.putExtra("pointsAllocated", pointsAllocated.getText().toString());
+                intent.putExtra("pointsAllocated", "1");
                 startActivity(intent);
             } else {
                     Toast.makeText(PrivateLeagueCreate.this,
@@ -224,7 +224,7 @@ public void validationOnTextView() {
         }
     });
 
-    pointsAllocated.addTextChangedListener(new TextWatcher() {
+/*    pointsAllocated.addTextChangedListener(new TextWatcher() {
         @Override
         public void beforeTextChanged(CharSequence s, int start, int count, int after) {        }
 
@@ -235,7 +235,7 @@ public void validationOnTextView() {
             }
         }
 
-        @Override
+*//*        @Override
         public void afterTextChanged(final Editable s) {
             timer = new Timer();
             timer.schedule(new TimerTask() {
@@ -256,8 +256,8 @@ public void validationOnTextView() {
                     });
                 }
             }, 100); // 600ms delay before the timer executes the „run“ method from TimerTask
-        }
-    });
+        }*//*
+    });*/
 
     prize.addTextChangedListener(new TextWatcher() {
         @Override
@@ -280,7 +280,7 @@ public void validationOnTextView() {
                     PrivateLeagueCreate.this.runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
-                            if (s.toString().isEmpty() || s.toString().length() < 3 || s.toString().contains("$")|| s.toString().contains("money")) {
+                            if (s.toString().isEmpty() || s.toString().length() < 3 || s.toString().contains("$")|| s.toString().contains("money")|| s.toString().contains("dollars") || s.toString().contains("bucks")) {
                                 prize.setError("invalid input");
                                 prizeOk = false;
                             } else {
