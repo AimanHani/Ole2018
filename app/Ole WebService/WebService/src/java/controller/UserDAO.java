@@ -72,7 +72,23 @@ public class UserDAO {
         allUsers = usersList;
         return usersList;
     }
-    
-    
+    public static int leaguesJoinedByUser(String username){
+        int totalNumberOfLeagues = 0;
+        try (Connection conn = DBConnection.getConnection(); PreparedStatement stmt = conn.prepareStatement("SELECT COUNT(DISTINCT leagueId)from log where username = ?");) {
+            stmt.setString(1,username);
+            ResultSet rs = stmt.executeQuery();
+            while (rs.next()) {
+                totalNumberOfLeagues = rs.getInt(1);
+            }
+            rs.close();
+        
+        
+    }   catch (SQLException ex) {
+            Logger.getLogger(UserDAO.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(UserDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    return totalNumberOfLeagues;
+    }
 
 }
