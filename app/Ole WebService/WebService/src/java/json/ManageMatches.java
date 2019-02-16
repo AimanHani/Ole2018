@@ -122,25 +122,27 @@ public class ManageMatches extends HttpServlet {
         response.setCharacterEncoding("utf-8");
         PrintWriter out = response.getWriter();
 
+        System.out.println("logId " + request.getParameter("logId") + " " + request.getParameter("params"));
+
         int logID = Integer.parseInt(request.getParameter("logId"));
         JSONArray paramsValue = null;
         String results = "error";
 
         try {
-            JSONObject params = new JSONObject(request.getParameter("params"));
+            JSONObject params = new JSONObject("{" + request.getParameter("params") + "}");
             paramsValue = params.getJSONArray("params");
 
-            if (paramsValue != null) {
-                if (ManageMatchesDAO.insertMultipleMatchLogs(paramsValue).equals("success")) {
-                    json.put("status", results);
-                }
+            if (paramsValue != null && ManageMatchesDAO.insertMultipleMatchLogs(paramsValue).equals("successful")) {
+                results = "successful";
+                json.put("status", results);
+
             } else {
                 json.put("status", results);
             }
         } catch (JSONException ex) {
             Logger.getLogger(ManageMatches.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
+
         out.print(json);
         out.flush();
 

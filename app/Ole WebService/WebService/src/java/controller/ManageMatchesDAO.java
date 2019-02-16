@@ -11,6 +11,7 @@ import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.sql.Time;
 import java.util.HashMap;
 import model.Match;
@@ -36,6 +37,7 @@ public class ManageMatchesDAO {
 
     public static String insertMLog(int logID, int matchID, int team1Prediction, int team2Prediction, boolean doubleIt) {
         int rs = 0;
+        String results = "error";
         // I follow the php script to set the point as 0 here
         int doubleValue = 0;
         if (doubleIt) {
@@ -44,51 +46,57 @@ public class ManageMatchesDAO {
         try (Connection c = DBConnection.getConnection(); PreparedStatement ps = c.prepareStatement("insert into matcheslog (logId, matchId, doubleIt, team1_prediction, team2_prediction) VALUES (?,?,?,?,?)");) {
 
             ps.setInt(1, logID);
-            ps.setInt(2, matchID);
-            ps.setInt(3, team1Prediction);
-            ps.setInt(4, team2Prediction);
-            ps.setInt(5, doubleValue);
+            ps.setString(2, matchID + "");
+            ps.setInt(3, doubleValue);
+            ps.setInt(4, team1Prediction);
+            ps.setInt(5, team2Prediction);
 
             rs = ps.executeUpdate();
             if (rs > 0) {
-                return "successful";
+                results = "successful";
             }
+            c.close();
         } catch (Exception e) {
-            System.out.println("check db connection class");
+            System.out.println("insertMLog: check db connection class");
+            e.printStackTrace();
+            return "error";
         }
-        return "error";
+        return results;
     }
 
     public static String insertMultipleMatchLogs(JSONArray matchList) throws JSONException {
         int[] rs;
         // I follow the php script to set the point as 0 here
         int doubleValue = 0;
-
+        String results = "error";
+        System.out.println("matchList " + matchList.length());
         JSONObject match = matchList.getJSONObject(0);
 
-        String stmt = setInsertMatchStatement(match.getInt("logId"), match.getInt("matchId"), match.getInt("team1Score"), match.getInt("team2Score"), doubleValue);
+        if (matchList.length() == 1) {
+            results = insertMLog(match.getInt("logId"), match.getInt("matchId"), match.getInt("team1Score"), match.getInt("team2Score"), false);
+        } else {
+            String stmt = setInsertMatchStatement(match.getInt("logId"), match.getInt("matchId"), match.getInt("team1Score"), match.getInt("team2Score"), doubleValue);
 
-        try (Connection c = DBConnection.getConnection(); PreparedStatement ps = c.prepareStatement(stmt);) {
+            try (Connection c = DBConnection.getConnection(); Statement cs = c.createStatement();) {
 
-            for (int i = 1; i < matchList.length(); i++) {
-                match = matchList.getJSONObject(i);
-                String statement = setInsertMatchStatement(match.getInt("logId"), match.getInt("matchId"), match.getInt("team1Score"), match.getInt("team2Score"), doubleValue);
-                ps.addBatch(statement);
-            }
-
-            rs = ps.executeBatch();
-            String results = "success";
-            for (int r : rs) {
-                if (r < 0) {
-                    results =  "error";
+                for (int i = 0; i < matchList.length(); i++) {
+                    match = matchList.getJSONObject(i);
+                    String statement = setInsertMatchStatement(match.getInt("logId"), match.getInt("matchId"), match.getInt("team1Score"), match.getInt("team2Score"), doubleValue);
+                    cs.addBatch(statement);
                 }
+
+                rs = cs.executeBatch();
+                System.out.println("The number of rows inserted: " + rs.length);
+                if (rs.length == matchList.length()) {
+                    results = "successful";
+                }
+                c.close();
+            } catch (Exception e) {
+                System.out.println("check db connection class"+ e.getMessage());
             }
-            
-            return results;
-        } catch (Exception e) {
-            System.out.println("check db connection class");
         }
-        return "error";
+        
+        return results;
     }
 
     public static String updateMatchesLog(int logID, int matchID, int team1Prediction, int team2Prediction, boolean doubleIt) {
@@ -119,6 +127,7 @@ public class ManageMatchesDAO {
             }
         } catch (Exception e) {
             System.out.println("check db connection class");
+            e.printStackTrace();
         }
         return "error";
     }

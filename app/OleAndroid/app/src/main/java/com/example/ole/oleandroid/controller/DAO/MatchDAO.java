@@ -133,13 +133,15 @@ public class MatchDAO {
 
         parentJSON.put("params", matchParams);
 
-        response = connection.post(url, parentJSON.toString());
+        String send = "params="+parentJSON.toString().substring(1, parentJSON.toString().length()-1)+"&logId="+logId;
+        System.out.println(send);
+        response = connection.postForm(url, send);
         System.out.println(response);
 
         JSONObject result = new JSONObject(response);
         String status = result.getString("status");
 
-        if (status.equals("success")){
+        if (status.equals("successful")){
             return true;
         }
 
