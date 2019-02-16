@@ -3,6 +3,7 @@ package com.example.ole.oleandroid.controller;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 
 import com.example.ole.oleandroid.R;
@@ -12,6 +13,11 @@ public class LoadingPage extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
+        //to hide the action bar
+        ActionBar actionBar = getSupportActionBar();
+        actionBar.hide();
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_loading_page);
         Thread background = new Thread() {

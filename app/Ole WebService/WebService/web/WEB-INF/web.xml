@@ -65,4 +65,8 @@
         <servlet-name>PublicLeagueJson</servlet-name>
         <url-pattern>/json/PublicLeagueJson</url-pattern>
     </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>LeaguesJoined</servlet-name>
+        <url-pattern>/json/leaguesJoined</url-pattern>
+    </servlet-mapping>
 </web-app>

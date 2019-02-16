@@ -5,30 +5,16 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
-<!--    <Button
-        android:id="@+id/privateLeagueTab"
-        android:layout_width="match_parent"
-        android:layout_height="68dp"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentBottom="true"
-        android:background="@color/themeColor"
-        android:text="PUBLIC LEAGUES"
-        android:textColor="@color/white"
-        android:textSize="18sp"
-        android:textStyle="bold"
-        android:visibility="visible" />-->
-
     <ListView
         android:id="@+id/privateLeagueListView"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="450dp"
         android:layout_alignParentTop="true"
         android:cacheColorHint="#00000000"
         android:dividerHeight="1dp"
         android:footerDividersEnabled="true"
         android:headerDividersEnabled="true"
         android:visibility="visible"
-        app:layout_constraintTop_toBottomOf="@+id/privateLeagueTab"
         tools:layout_editor_absoluteX="30dp" />
 
 </android.support.constraint.ConstraintLayout>
