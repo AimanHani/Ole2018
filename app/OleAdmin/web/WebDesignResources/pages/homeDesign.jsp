@@ -189,7 +189,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <a href="#">
+                            <a href="./PrivateLeagueServlet?param=loadAll">
                                 <div class="panel-footer">
                                     <span class="pull-left">View all Private Leagues</span>
                                     <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
