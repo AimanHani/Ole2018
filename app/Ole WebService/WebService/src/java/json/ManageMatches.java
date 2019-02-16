@@ -123,35 +123,56 @@ public class ManageMatches extends HttpServlet {
         PrintWriter out = response.getWriter();
 
         int logID = Integer.parseInt(request.getParameter("logId"));
-        int matchID = Integer.parseInt(request.getParameter("matchId"));
-        int team1Prediction = Integer.parseInt(request.getParameter("team1Prediction"));
-        int team2Prediction = Integer.parseInt(request.getParameter("team2Prediction"));
-        boolean doubleIt = Boolean.parseBoolean(request.getParameter("doubleIt"));
-
-        String status = "";
+        JSONArray paramsValue = null;
+        String results = "error";
 
         try {
-            status = ManageMatchesDAO.insertMLog(logID, matchID, team1Prediction, team2Prediction, doubleIt);
-            if (!status.equals("error")) {
-                json.put("status", "successful");
-            } else {
-                status = ManageMatchesDAO.updateMatchesLog(logID, matchID, team1Prediction, team2Prediction, doubleIt);
-                if (!status.equals("error")) {
-                    json.put("status", "successful");
-                } else {
-                    json.put("status", "error");
-                    String invalidMsg = "Something is wrong check checkS" + "/" + "";
-                    String[] invalidString = {invalidMsg};
-                    json.put("messages", invalidString);
+            JSONObject params = new JSONObject(request.getParameter("params"));
+            paramsValue = params.getJSONArray("params");
+
+            if (paramsValue != null) {
+                if (ManageMatchesDAO.insertMultipleMatchLogs(paramsValue).equals("success")) {
+                    json.put("status", results);
                 }
+            } else {
+                json.put("status", results);
             }
-            out.print(json);
-            out.flush();
-
         } catch (JSONException ex) {
-            Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(ManageMatches.class.getName()).log(Level.SEVERE, null, ex);
         }
+        
+        out.print(json);
+        out.flush();
 
+//        int logID = Integer.parseInt(request.getParameter("logId"));
+//        int matchID = Integer.parseInt(request.getParameter("matchId"));
+//        int team1Prediction = Integer.parseInt(request.getParameter("team1Prediction"));
+//        int team2Prediction = Integer.parseInt(request.getParameter("team2Prediction"));
+//        boolean doubleIt = Boolean.parseBoolean(request.getParameter("doubleIt"));
+//
+//        String status = "";
+//
+//        try {
+//            status = ManageMatchesDAO.insertMLog(logID, matchID, team1Prediction, team2Prediction, doubleIt);
+//            if (!status.equals("error")) {
+//                json.put("status", "successful");
+//            } else {
+//                status = ManageMatchesDAO.updateMatchesLog(logID, matchID, team1Prediction, team2Prediction, doubleIt);
+//                if (!status.equals("error")) {
+//                    json.put("status", "successful");
+//                } else {
+//                    json.put("status", "error");
+//                    String invalidMsg = "Something is wrong check checkS" + "/" + "";
+//                    String[] invalidString = {invalidMsg};
+//                    json.put("messages", invalidString);
+//                }
+//            }
+//            out.print(json);
+//            out.flush();
+//
+//        } catch (JSONException ex) {
+//            Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, ex);
+//        }
     }
 
     /**
