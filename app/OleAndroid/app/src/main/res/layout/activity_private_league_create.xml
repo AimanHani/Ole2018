@@ -6,20 +6,6 @@
     android:layout_height="match_parent"
     tools:context=".controller.PrivateLeagueController.PrivateLeagueCreate">
 
-<!--    <Button
-        android:id="@+id/selectLeagueText"
-        android:layout_width="match_parent"
-        android:layout_height="68dp"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentBottom="true"
-        android:background="@color/themeColor"
-        android:text="CREATE NEW LEAGUE"
-        android:textColor="@color/white"
-        android:textSize="18sp"
-        android:textStyle="bold"
-        android:visibility="visible" />-->
-
-
     <LinearLayout
         android:id="@+id/leagueNameLayout"
         android:layout_width="320dp"
@@ -121,22 +107,22 @@
         app:layout_constraintStart_toStartOf="@+id/passwordLayout"
         app:layout_constraintTop_toBottomOf="@+id/passwordLayout">
 
-        <TextView
+        <!--<TextView
             android:id="@+id/pointsText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text=" Point for each win: "
             tools:layout_editor_absoluteX="16dp"
-            tools:layout_editor_absoluteY="155dp" />
+            tools:layout_editor_absoluteY="155dp" />-->
 
-        <EditText
+        <!--<EditText
             android:id="@+id/points"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:ems="10"
             android:hint="Points"
             android:inputType="textPersonName|number"
-            app:layout_constraintEnd_toEndOf="parent" />
+            app:layout_constraintEnd_toEndOf="parent" />-->
     </LinearLayout>
 
 

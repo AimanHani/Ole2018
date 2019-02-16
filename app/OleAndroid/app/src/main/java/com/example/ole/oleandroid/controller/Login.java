@@ -25,7 +25,7 @@ public class Login extends AppCompatActivity {
     TextView signup;
     RequestQueue requestQueue;
     TextView result;
-    Button facebookButton;
+   // Button facebookButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,20 +41,20 @@ public class Login extends AppCompatActivity {
         signin = findViewById(R.id.signin);
         signup = findViewById(R.id.signup);
 
-        facebookButton = findViewById(R.id.facebookButton);
+        //facebookButton = findViewById(R.id.facebookButton);
 
         StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
         StrictMode.setThreadPolicy(policy);
         //result = (TextView) findViewById(R.id.result);
         //setContentView(R.layout.activity_loading_page);
 
-        facebookButton.setOnClickListener(new View.OnClickListener() {
+/*        facebookButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(Login.this, PastMatchesTab.class);
                 startActivity(intent);
             }
-        });
+        });*/
 
         signin.setOnClickListener(new View.OnClickListener() {
             @Override

@@ -3,6 +3,7 @@ package com.example.ole.oleandroid.controller.PrivateLeagueController;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.InputType;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -23,7 +24,7 @@ import java.sql.Date;
 public class PrivateLeagueDetails extends AppCompatActivity {
     //TextView leagueNameInput;
     Button predictButton;
-    EditText privatePrizeInput, leagueNameInput;
+    EditText privatePrizeInput, leagueNameInput, pldusername;
     TextView creator;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -86,11 +87,18 @@ public class PrivateLeagueDetails extends AppCompatActivity {
 
                     predictButton = findViewById(R.id.predictButton);
                     privatePrizeInput = findViewById(R.id.privatePrizeInput);
+                    pldusername = findViewById(R.id.pldusername);
                     leagueNameInput = findViewById(R.id.leagueNameInput);
                     creator = findViewById(R.id.creator);
                     //System.out.println("hehhehee" + privateLeague.getPrize());
 
                     if(privateleague!=null){
+                        privatePrizeInput.setInputType(InputType.TYPE_NULL);
+                        leagueNameInput.setInputType(InputType.TYPE_NULL);
+                        creator.setInputType(InputType.TYPE_NULL);
+                        pldusername.setInputType(InputType.TYPE_NULL);
+
+
                         privatePrizeInput.setText(privateleague.getPrize());
                         leagueNameInput.setText(privateleague.getLeagueName());
                         creator.setText(privateleague.getUsername());
