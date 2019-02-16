@@ -6,12 +6,14 @@ public class Specials {
     private String description;
     private int points;
     private boolean checked;
+    private boolean doubleIt;
 
     public Specials(int specialsID, String description, int points) {
         this.specialsID = specialsID;
         this.description = description;
         this.points = points;
         checked = false;
+        doubleIt = false;
     }
 
     public int getPoints() {
@@ -44,5 +46,13 @@ public class Specials {
 
     public boolean getChecked() {
         return checked;
+    }
+
+    public void setDoubleIt(boolean b) {
+        doubleIt = b;
+    }
+
+    public boolean getDoubleIt(){
+        return doubleIt;
     }
 }

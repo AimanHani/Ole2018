@@ -29,13 +29,13 @@ import java.util.ArrayList;
 public class SpecialList extends SideMenuBar {
 
     SpecialListAdapter specialListAdapter;
-//    ArrayList<Integer> pointsList;
+    //    ArrayList<Integer> pointsList;
 //    ArrayList<String> specialNameList;
     ListView specialListView;
     Button confirmspecialsbtn;
 
     @Override
-    protected void onCreate(@Nullable Bundle savedInstanceState){
+    protected void onCreate(@Nullable Bundle savedInstanceState) {
 //        super.onCreate(savedInstanceState);
 //        setContentView(R.layout.speciallist); //contain item list view e.g. item1, item2
 
@@ -50,15 +50,15 @@ public class SpecialList extends SideMenuBar {
 
         specialListView = findViewById(R.id.specialListView);
         confirmspecialsbtn = findViewById(R.id.confirmspecialsbtn);
-        ArrayList<Specials> specialsList = new ArrayList<>();
+        final ArrayList<Specials> specialsList = new ArrayList<>();
 
         //int logid = 2;
 
         Bundle bundle = getIntent().getExtras();
         int logId = bundle.getInt("logId");
 
-        String url = DBConnection.manageSpecials()+"?logId="+logId;
-        System.out.println("Getting specials list, logID:" +logId );
+        String url = DBConnection.manageSpecials() + "?logId=" + logId;
+        System.out.println("Getting specials list, logID:" + logId);
 
         GetHttp getConnection = new GetHttp();
         String response = null;
@@ -93,12 +93,26 @@ public class SpecialList extends SideMenuBar {
         specialListView.setAdapter(specialListAdapter);
 
 
+
+
         //hani refer to this part for the pop up box
         confirmspecialsbtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                ArrayList<Specials> newList = specialListAdapter.getSpecialList();
+                int totalPoints = 0;
+
+                for (Specials s : newList) {
+                    if (s.getDoubleIt()) {
+                        System.out.println(s.getPoints());
+                        totalPoints += s.getPoints() * 2;
+                    }
+                }
+
                 final Dialog dialog = new Dialog(SpecialList.this);
                 dialog.setContentView(R.layout.confirmspecialspopout);
+                TextView msg = dialog.findViewById(R.id.confirmMessage);
+                msg.setText("Confirm Specials? You could earn up to " + totalPoints + " Ole points");
                 TextView cancel = dialog.findViewById(R.id.cancel);
                 cancel.setOnClickListener(new View.OnClickListener() {
                     @Override
@@ -134,7 +148,7 @@ public class SpecialList extends SideMenuBar {
 
     }
 
-    public static ArrayList<String> players (){
+    public static ArrayList<String> players() {
         ArrayList<String> players = new ArrayList<>();
 
         players.add("Lionel Messi");

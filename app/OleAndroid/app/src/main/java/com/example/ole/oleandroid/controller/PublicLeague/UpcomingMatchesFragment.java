@@ -4,6 +4,7 @@ import android.app.Dialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,6 +19,9 @@ import com.example.ole.oleandroid.controller.Login;
 import com.example.ole.oleandroid.controller.SideMenuBar;
 import com.example.ole.oleandroid.model.Match;
 
+import org.json.JSONException;
+
+import java.io.IOException;
 import java.util.ArrayList;
 
 public class UpcomingMatchesFragment extends Fragment implements View.OnClickListener {
@@ -61,7 +65,13 @@ public class UpcomingMatchesFragment extends Fragment implements View.OnClickLis
                 this.startActivity(intent);
 
             case R.id.saveMatchPrediction:
-                matchPredictionPopup();
+                try {
+                    matchPredictionPopup();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
                 //call api to save prediction
                 // show a pop up prediction saved successfully
         }
@@ -73,7 +83,8 @@ public class UpcomingMatchesFragment extends Fragment implements View.OnClickLis
     //for backend:
     //use bundle to pass the data (list of specials)
 
-    public void matchPredictionPopup() {
+    public void matchPredictionPopup() throws IOException, JSONException {
+        getAllPrediction();
         final Dialog dialog = new Dialog(getActivity());
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
         dialog.setContentView(R.layout.successful_pop_up);
@@ -92,5 +103,16 @@ public class UpcomingMatchesFragment extends Fragment implements View.OnClickLis
             }
         });
         dialog.show();
+    }
+
+
+    public void getAllPrediction() throws IOException, JSONException {
+        ArrayList<Match> newMatchList = pmListAdapter.getEditMatches();
+
+//        for (Match m: newMatchList){
+//            System.out.println(m.getMatchID()+ " space "+ m.getTeam1Score() + " space " + m.getTeam2Score());
+//        }
+       boolean insert = MatchDAO.updateMatchPredictions(newMatchList, logId);
+        System.out.println("insert status "+insert);
     }
 }

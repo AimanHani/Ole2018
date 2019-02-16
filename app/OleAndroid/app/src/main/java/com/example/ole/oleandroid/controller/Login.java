@@ -103,7 +103,7 @@ public class Login extends AppCompatActivity {
         dialog2.requestWindowFeature(Window.FEATURE_NO_TITLE);
         dialog2.setContentView(R.layout.loading_popup);
         TextView text = dialog2.findViewById(R.id.textStatus);
-        text.setText("Signing in");
+        text.setText("Logging in");
         dialog2.show();
         return dialog2;
     }
