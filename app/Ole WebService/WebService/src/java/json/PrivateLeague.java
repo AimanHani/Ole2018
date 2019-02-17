@@ -76,11 +76,13 @@ public class PrivateLeague extends HttpServlet {
         JSONObject headers = null;
         String head = "";
         String username = "";
+        String leagueid = "";
         try {
             //headers = new JSONObject(request.getHeader("params"));
 
             head = request.getParameter("method");
             username = request.getParameter("username");
+            leagueid = request.getParameter("leagueid");
             //head = headers.getString("method");
             //username = headers.getString("username");
         } catch (Exception e) {
@@ -160,7 +162,7 @@ public class PrivateLeague extends HttpServlet {
                 break;
             //select l.leagueId, l.tournamentId, l.pointsAllocated, l.leagueName, pl.prize, pl.password, pl.startDate, pl.endDate, pl.username from league l inner join privateleague pl on l.leagueId = pl.leagueKeyId where pl.username='billy'
             //select l.leagueId, l.tournamentId, l.pointsAllocated, l.leagueName, pl.prize, pl.password, pl.startDate, pl.endDate, pl.username from league l inner join privateleague pl on l.leagueId = pl.leagueKeyId where pl.username='billy'
-case "retrieveTournament":
+            case "retrieveTournament":
                 System.out.println("HAY");
                 list = new JSONArray();
                 parentJson = new JSONObject();
@@ -173,6 +175,32 @@ case "retrieveTournament":
                         model.Tournament tournament = tournamentList.get(i);
                         json.put("tournamentId", tournament.getTournamentId());
                         json.put("name", tournament.getName());
+                        list.put(json);
+                    }
+                    parentJson.put("results", list);
+                    out.print(parentJson);
+                    out.flush();
+
+                } catch (JSONException ex) {
+                    Logger.getLogger(PublicLeagueJson.class.getName()).log(Level.SEVERE, null, ex);
+                }
+                break;
+                
+                case "retrieveMembers":
+                System.out.println("retrieving Members");
+                list = new JSONArray();
+                parentJson = new JSONObject();
+
+                ArrayList<model.PrivateMembers> membersList = PrivateLeagueDAO.getMembers(Integer.parseInt(leagueid));
+                System.out.println("members: " + membersList.size());
+                try {
+                    for (int i = 0; i < membersList.size(); i++) {
+                        json = new JSONObject();
+                        model.PrivateMembers members = membersList.get(i);
+                        json.put("logid", members.getLogid());
+                        json.put("username", members.getUsername());
+                        json.put("leagueid", members.getLeagueId());
+                        json.put("points", members.getPoints());
                         list.put(json);
                     }
                     parentJson.put("results", list);
@@ -337,9 +365,9 @@ case "retrieveTournament":
                 HashMap<Integer, model.PrivateLeague> privateLeaguesByname;
                 try {
                     headers = new JSONObject(request.getHeader("params"));
-                    String leagueName = headers.getString("leagueName");
-                    if (leagueName != null) {
-                        apl = PrivateLeagueDAO.retrieveLeague(leagueName);
+                    String leagueId = headers.getString("leagueId");
+                    if (leagueId != null) {
+                        apl = PrivateLeagueDAO.retrieveLeague(Integer.parseInt(leagueId));
 
                         if (apl != null) {
                             league.put("LeagueId", apl.getLeagueID());

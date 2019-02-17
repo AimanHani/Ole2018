@@ -88,7 +88,7 @@ public class PrivateLeagueAdapter extends BaseAdapter implements View.OnClickLis
                             "Clicked on Checkbox: " + cb.getText() +
                                     " is " + cb.isChecked(),
                             Toast.LENGTH_LONG).show();*/
-                    loadNextPage(v, context, s.getLeagueName());
+                    loadNextPage(v, context, s.getLeagueId()+"");
 
                 }
             });
@@ -110,10 +110,10 @@ public class PrivateLeagueAdapter extends BaseAdapter implements View.OnClickLis
 
     }
 
-    private void loadNextPage(View view, Context ctx, String leaguename) {
-                Intent intent = new Intent(ctx, PrivateLeagueDetails.class);
+    private void loadNextPage(View view, Context ctx, String leagueid) {
+                Intent intent = new Intent(ctx, PrivateMemberList.class);
                 Bundle bundle = new Bundle();
-                bundle.putString("leaguename", leaguename);
+                bundle.putString("leagueid", leagueid);
                 intent.putExtras(bundle);
                 context.startActivity(intent);
 

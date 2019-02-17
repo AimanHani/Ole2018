@@ -85,11 +85,42 @@ public class AskOle extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        JSONObject json = new JSONObject();
+       JSONObject json = new JSONObject();
         response.setContentType("\"Content-Type\", \"application/x-www-form-urlencoded\"");
         response.setCharacterEncoding("utf-8");
         PrintWriter out = response.getWriter();
+        System.out.println(request.getHeader("params"));
+        JSONObject headers = null;
+        String head = "";
+        try {
+            headers = new JSONObject(request.getHeader("params"));
+            head = headers.getString("method");
+        } catch (Exception e) {
+        }
 
+        switch (head) {
+            case "insertNew":
+                try {
+        headers = new JSONObject(request.getHeader("params"));
+                    String username = headers.getString("username");
+                    String question = headers.getString("question");
+                    String category = headers.getString("category");
+                    String status = "";
+                status = AskOleDAO.insertQuestion(username, question, category);
+                    if (status.equals("successful")) {
+
+                        json.put("status", "successful");    
+                    }out.print(json);
+                    out.flush();
+
+                } catch (JSONException ex) {
+                    Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, ex);
+                }
+                break;
+                default:
+                break;
+        }
+        /*
         String username = request.getParameter("username");
         String question = request.getParameter("question");
         String category = request.getParameter("category");
@@ -142,7 +173,7 @@ public class AskOle extends HttpServlet {
 
         } catch (JSONException ex) {
             Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        }*/
 
     }
 

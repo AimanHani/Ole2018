@@ -89,5 +89,9 @@ public class DBConnection {
         String url = mainUrl+"/json/getUsers";
         return url;
     }
+    public static String askOle(){
+        String url = mainUrl+"/json/askOle";
+        return url;
+    }
 }
 
