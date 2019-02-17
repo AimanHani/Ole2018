@@ -89,4 +89,13 @@ public class ScoreBoardDAO {
         privateLeagueProfiles = privateLeagueProfileList;
         return privateLeagueProfileList;
     }
+
+    public static int getUserPosition (String username, ArrayList<PublicLeagueProfile> list){
+        for (PublicLeagueProfile p: list){
+            if (p.getUsername().equals(username)){
+                return p.getRank();
+            }
+        }
+        return 0;
+    }
 }

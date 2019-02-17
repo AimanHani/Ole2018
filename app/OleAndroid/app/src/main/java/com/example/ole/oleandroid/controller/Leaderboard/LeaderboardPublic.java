@@ -12,6 +12,7 @@ import android.widget.TextView;
 
 import com.example.ole.oleandroid.R;
 import com.example.ole.oleandroid.controller.DAO.ScoreBoardDAO;
+import com.example.ole.oleandroid.controller.DAO.UserDAO;
 import com.example.ole.oleandroid.controller.Leaderboard.LeaderboardPublicAdapter;
 import com.example.ole.oleandroid.model.PublicLeagueProfile;
 
@@ -30,6 +31,7 @@ public class LeaderboardPublic extends Fragment {
     LeaderboardPublicAdapter lbPubAdapter;
     ArrayList<PublicLeagueProfile> publicLeagueProfileList = new ArrayList<>();
     ListView lbPubList;
+    TextView userPosition, userScore;
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
@@ -41,6 +43,16 @@ public class LeaderboardPublic extends Fragment {
 
         publicLeagueProfileList = ScoreBoardDAO.getPublicLeagueProfiles();
         lbPubList = view.findViewById(R.id.lbPubList);
+        userPosition = view.findViewById(R.id.userPosition);
+        userScore = view.findViewById(R.id.userScore);
+        int userPos = ScoreBoardDAO.getUserPosition(UserDAO.getLoginUser().getUsername(), publicLeagueProfileList);
+
+        if (userPos == 0) {
+            userPosition.setText("-");
+        } else {
+            userPosition.setText("#" + userPos);
+        }
+        userScore.setText("");
 
         lbPubAdapter = new LeaderboardPublicAdapter(getContext(), publicLeagueProfileList);
         lbPubList.setAdapter(lbPubAdapter);
