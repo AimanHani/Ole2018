@@ -7,6 +7,7 @@ public class Specials {
     private int points;
     private boolean checked;
     private boolean doubleIt;
+    private String prediction;
 
     public Specials(int specialsID, String description, int points) {
         this.specialsID = specialsID;
@@ -14,6 +15,7 @@ public class Specials {
         this.points = points;
         checked = false;
         doubleIt = false;
+        prediction = null;
     }
 
     public int getPoints() {
@@ -52,7 +54,15 @@ public class Specials {
         doubleIt = b;
     }
 
-    public boolean getDoubleIt(){
+    public boolean getDoubleIt() {
         return doubleIt;
+    }
+
+    public String getPrediction() {
+        return prediction;
+    }
+
+    public void setPrediction(String prediction) {
+        this.prediction = prediction;
     }
 }

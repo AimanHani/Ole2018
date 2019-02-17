@@ -62,7 +62,7 @@ public class SpecialListAdapter extends BaseAdapter {
     }
 
     @Override
-    public Object getItem(int position) {
+    public Specials getItem(int position) {
         return specialsList.get(position); //returns list item at the specified position
     }
 
@@ -79,7 +79,6 @@ public class SpecialListAdapter extends BaseAdapter {
             convertView = LayoutInflater.from(context).
                     inflate(R.layout.activity_speciallist, parent, false);
 
-
             /**
              * This will tell initialize the textview element in speciallistlayout
              */
@@ -90,12 +89,12 @@ public class SpecialListAdapter extends BaseAdapter {
             viewHolder.undoubleIt = convertView.findViewById(R.id.unDoubleIt);
             viewHolder.spinner = convertView.findViewById(R.id.spinner);
 
-            //this will get each point from the arraylist
-            viewHolder.points.setText(specialsList.get(position).getPoints() + "");
-            viewHolder.itemname.setText(specialsList.get(position).getDescription());
-            Specials s = specialsList.get(position);
+            final Specials s = getItem(position);
+            viewHolder.points.setText(s.getPoints() + "");
+            viewHolder.itemname.setText(s.getDescription());
             viewHolder.doubleitbtn.setTag(s);
             viewHolder.undoubleIt.setTag(s);
+            viewHolder.spinner.setTag(s);
 
             ArrayList<String> players = players();
             SpecialSpinnerAdapter adapter2 = new SpecialSpinnerAdapter(context, players);
@@ -121,9 +120,6 @@ public class SpecialListAdapter extends BaseAdapter {
                     newViewholder.doubleitbtn.setVisibility(View.GONE);
                     //s.setDoubleIt(true);
                     setSpecialsListDoubleIt(s, true);
-
-                    ;
-//                viewHolder.itemname.setText(sPoints*2+"");
 
                 }
             });
@@ -153,14 +149,12 @@ public class SpecialListAdapter extends BaseAdapter {
                 @Override
                 public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                     String clickedItem = (String) parent.getItemAtPosition(position);
-
-                    Toast.makeText(context, clickedItem + " selected", Toast.LENGTH_SHORT).show();
-
+                    setSpecialsListPrediction(s, clickedItem);
                 }
 
                 @Override
                 public void onNothingSelected(AdapterView<?> parent) {
-
+                    setSpecialsListPrediction(s, "");
                 }
             });
         }
@@ -170,7 +164,7 @@ public class SpecialListAdapter extends BaseAdapter {
         return convertView;
     }
 
-    public ArrayList<Specials> getSpecialList() {
+    public ArrayList<Specials> getUpdatedSpecialList() {
         return this.specialsList;
     }
 
@@ -196,6 +190,16 @@ public class SpecialListAdapter extends BaseAdapter {
         }
     }
 
+    public void setSpecialsListPrediction(Specials s, String prediction) {
+        int id = s.getSpecialsID();
+
+        for (int i = 0; i < specialsList.size(); i++) {
+            if (specialsList.get(i).getSpecialsID() == id) {
+                specialsList.get(i).setPrediction(prediction);
+            }
+        }
+    }
+
     public static ArrayList<String> players() {
         ArrayList<String> players = new ArrayList<>();
 
@@ -204,17 +208,6 @@ public class SpecialListAdapter extends BaseAdapter {
         players.add("Marco Reus");
         players.add("Zlatan Ibrahimovic");
         players.add("Andrea Pirlo");
-        players.add("Lionel Messi");
-        players.add("Lionel Messi");
-        players.add("Lionel Messi");
-        players.add("Lionel Messi");
-        players.add("Lionel Messi");
-        players.add("Lionel Messi");
-        players.add("Lionel Messi");
-        players.add("Lionel Messi");
-        players.add("Lionel Messi");
-        players.add("Lionel Messi");
-        players.add("Lionel Messi");
         players.add("Lionel Messi");
         players.add("Lionel Messi");
 

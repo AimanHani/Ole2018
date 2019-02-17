@@ -21,7 +21,7 @@ public class UpcomingMatchesTab extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.upcoming_matches_main); //contain item list view e.g. item1, item2
 
-        matches = MatchDAO.getFutureMatches();
+        //matches = MatchDAO.getFutureMatches();
         matchListView = findViewById(R.id.matchListView);
 
         pmListAdapter = new UpcomingMatchListAdapter(UpcomingMatchesTab.this, matches);

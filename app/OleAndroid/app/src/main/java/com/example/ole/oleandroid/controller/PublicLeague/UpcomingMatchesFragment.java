@@ -29,6 +29,7 @@ public class UpcomingMatchesFragment extends Fragment implements View.OnClickLis
     Button predictspecials;
     Button saveMatchPrediction;
     private static int logId;
+    private static int leagueId;
     UpcomingMatchListAdapter pmListAdapter;
     ArrayList<Match> matches = new ArrayList<>();
     ListView matchListView;
@@ -40,12 +41,14 @@ public class UpcomingMatchesFragment extends Fragment implements View.OnClickLis
         view = inflater.inflate(R.layout.upcoming_matches_main, container, false);
 
         predictspecials = view.findViewById(R.id.predictspecials);
+        predictspecials.setTag("predict");
         predictspecials.setOnClickListener(this);
 
         saveMatchPrediction = view.findViewById(R.id.saveMatchPrediction);
+        saveMatchPrediction.setTag("save");
         saveMatchPrediction.setOnClickListener(this);
 
-        matches = MatchDAO.getFutureMatches();
+        matches = MatchDAO.getFutureMatches(leagueId);
         matchListView = view.findViewById(R.id.matchListView);
 
         pmListAdapter = new UpcomingMatchListAdapter(getActivity(), matches);
@@ -56,29 +59,36 @@ public class UpcomingMatchesFragment extends Fragment implements View.OnClickLis
 
     @Override
     public void onClick(View v) {
-        switch (v.getId()) {
-            case R.id.predictspecials:
-                Intent intent = new Intent(getActivity(), SpecialList.class);
-                Bundle bundle = new Bundle();
-                bundle.putInt("logId", logId);
-                intent.putExtras(bundle);
-                this.startActivity(intent);
+        String status = v.getTag().toString();
+        System.out.println("click " + status);
 
-            case R.id.saveMatchPrediction:
-                try {
-                    matchPredictionPopup();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
-                //call api to save prediction
-                // show a pop up prediction saved successfully
+        if (status.equals("predict")) {
+            Intent intent = new Intent(getActivity(), SpecialList.class);
+            Bundle bundle = new Bundle();
+            bundle.putInt("logId", logId);
+            bundle.putInt("leagueId", leagueId);
+            intent.putExtras(bundle);
+            this.startActivity(intent);
+
+        } else {
+            try {
+                matchPredictionPopup();
+            } catch (IOException e) {
+                e.printStackTrace();
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+            //call api to save prediction
+            // show a pop up prediction saved successfully
         }
     }
 
+
     public static void setLogId(int id) {
         logId = id;
+    }
+    public static void setLeagueId(int id) {
+        leagueId = id;
     }
     //for backend:
     //use bundle to pass the data (list of specials)
@@ -112,7 +122,11 @@ public class UpcomingMatchesFragment extends Fragment implements View.OnClickLis
 //        for (Match m: newMatchList){
 //            System.out.println(m.getMatchID()+ " space "+ m.getTeam1Score() + " space " + m.getTeam2Score());
 //        }
-       boolean insert = MatchDAO.updateMatchPredictions(newMatchList, logId);
-        System.out.println("insert status "+insert);
+
+        if (newMatchList.size() > 0) {
+            boolean insert = MatchDAO.updateMatchPredictions(newMatchList, leagueId);
+            System.out.println("insert status " + insert);
+        }
+
     }
 }

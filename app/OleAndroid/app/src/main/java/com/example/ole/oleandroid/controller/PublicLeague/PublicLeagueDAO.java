@@ -133,4 +133,19 @@ public class PublicLeagueDAO {
             e.printStackTrace();
         }
     }
+
+    public static void getPublicLeagueStats(){
+        String url = DBConnection.getPublicLeagueStatsUrl();
+        System.out.println("Getting public league stats list");
+
+        GetHttp getConnection = new GetHttp();
+        String response = null;
+        try {
+            response = getConnection.run(url);
+            System.out.println(response);
+        } catch (Exception e) {
+            System.out.println("error");
+            e.printStackTrace();
+        }
+    }
 }

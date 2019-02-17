@@ -25,6 +25,7 @@ public class MatchesTabs extends SideMenuBar {
     ViewPager viewPager;
     Adapter adapter;
     int logId;
+    int leagueId;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -38,6 +39,7 @@ public class MatchesTabs extends SideMenuBar {
 
         Bundle bundle = getIntent().getExtras();
         logId = bundle.getInt("logId");
+        leagueId = bundle.getInt("leagueId");
 
         viewPager = findViewById(R.id.viewpagerId);
         setupViewPager(viewPager);
@@ -76,6 +78,7 @@ public class MatchesTabs extends SideMenuBar {
         // upcomingMatches now has a logId which u can set (so i can pass this logId on. logid is needed for specials list
         UpcomingMatchesFragment upcomingMatches = new UpcomingMatchesFragment();
         UpcomingMatchesFragment.setLogId(logId);
+        UpcomingMatchesFragment.setLeagueId(leagueId);
         adapter.addFragment(upcomingMatches, "Upcoming");
         adapter.addFragment(new PastMatchesFragment(),"Past");
         viewPager.setAdapter(adapter);

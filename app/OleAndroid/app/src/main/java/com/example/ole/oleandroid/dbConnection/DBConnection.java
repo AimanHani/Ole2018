@@ -27,16 +27,14 @@ public class DBConnection {
         return url;
     }
 
+    public static String getPublicLeagueStatsUrl(){
+        return mainUrl + "/json/allPublicLeagues";
+    }
+
     public static String insertUserPublicLeagueUrl(){
         String url = mainUrl+"/json/joinPublicLeague";
         return url;
     }
-
-    public static String manageSpecialsUrl(){
-        String url = mainUrl+"/manageSpecials.php";
-        return url;
-    }
-
     public static String getMatchesUrl(){
         String url = mainUrl+"/json/getMatches";
         return url;

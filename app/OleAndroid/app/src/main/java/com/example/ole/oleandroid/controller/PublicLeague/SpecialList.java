@@ -14,7 +14,9 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.example.ole.oleandroid.R;
+import com.example.ole.oleandroid.controller.DAO.SpecialDAO;
 import com.example.ole.oleandroid.controller.HomeLeague;
+import com.example.ole.oleandroid.controller.Matches;
 import com.example.ole.oleandroid.controller.MatchesTabs;
 import com.example.ole.oleandroid.controller.SideMenuBar;
 import com.example.ole.oleandroid.dbConnection.DBConnection;
@@ -22,6 +24,7 @@ import com.example.ole.oleandroid.dbConnection.GetHttp;
 import com.example.ole.oleandroid.model.Specials;
 
 import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
@@ -50,62 +53,33 @@ public class SpecialList extends SideMenuBar {
 
         specialListView = findViewById(R.id.specialListView);
         confirmspecialsbtn = findViewById(R.id.confirmspecialsbtn);
-        final ArrayList<Specials> specialsList = new ArrayList<>();
+
 
         //int logid = 2;
 
         Bundle bundle = getIntent().getExtras();
-        int logId = bundle.getInt("logId");
+        final int logId = bundle.getInt("logId");
+        final int leagueId = bundle.getInt("leagueId");
 
-        String url = DBConnection.manageSpecials() + "?logId=" + logId;
-        System.out.println("Getting specials list, logID:" + logId);
-
-        GetHttp getConnection = new GetHttp();
-        String response = null;
-        try {
-            response = getConnection.run(url);
-            System.out.println(response);
-            if (response != null) {
-                JSONObject result = new JSONObject(response);
-                JSONArray publicLeagues = result.getJSONArray("results");
-                System.out.println(publicLeagues.length());
-                if (publicLeagues.length() > 0) {
-                    for (int i = 0; i < publicLeagues.length(); i++) {
-                        JSONObject specialsObject = publicLeagues.getJSONObject(i);
-                        Specials special = new Specials(
-                                specialsObject.getInt("specialsId"),
-                                specialsObject.getString("description"),
-                                specialsObject.getInt("points")
-                        );
-                        specialsList.add(special);
-                    }
-
-                } else {
-                    //loadSamePage();
-                }
-            }
-        } catch (Exception e) {
-            System.out.println("error");
-            e.printStackTrace();
-        }
+        final ArrayList<Specials> specialsList = SpecialDAO.getSpecialsList(logId);
 
         specialListAdapter = new SpecialListAdapter(SpecialList.this, specialsList);
         specialListView.setAdapter(specialListAdapter);
-
-
-
 
         //hani refer to this part for the pop up box
         confirmspecialsbtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ArrayList<Specials> newList = specialListAdapter.getSpecialList();
+                final ArrayList<Specials> newList = specialListAdapter.getUpdatedSpecialList();
+
                 int totalPoints = 0;
 
                 for (Specials s : newList) {
+                    System.out.println("Special: " + s.getSpecialsID() + ", " + s.getPrediction() + ", " + s.getDoubleIt() + ", " + s.getPoints());
                     if (s.getDoubleIt()) {
-                        System.out.println(s.getPoints());
                         totalPoints += s.getPoints() * 2;
+                    } else {
+                        totalPoints += s.getPoints();
                     }
                 }
 
@@ -125,7 +99,6 @@ public class SpecialList extends SideMenuBar {
                 closeWindow.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-
                         dialog.dismiss();
                     }
                 });
@@ -134,7 +107,16 @@ public class SpecialList extends SideMenuBar {
                 end.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        Intent i = new Intent(SpecialList.this, HomeLeague.class);
+                        try {
+                            SpecialDAO.updateSpecialsPrediction(newList, leagueId);
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+                        Intent i = new Intent(SpecialList.this, MatchesTabs.class);
+                        Bundle bundle = new Bundle();
+                        bundle.putInt("logId", logId);
+                        bundle.putInt("leagueId", leagueId);
+                        i.putExtras(bundle);
                         startActivity(i);
                     }
                 });
@@ -156,17 +138,6 @@ public class SpecialList extends SideMenuBar {
         players.add("Marco Reus");
         players.add("Zlatan Ibrahimovic");
         players.add("Andrea Pirlo");
-        players.add("Lionel Messi");
-        players.add("Lionel Messi");
-        players.add("Lionel Messi");
-        players.add("Lionel Messi");
-        players.add("Lionel Messi");
-        players.add("Lionel Messi");
-        players.add("Lionel Messi");
-        players.add("Lionel Messi");
-        players.add("Lionel Messi");
-        players.add("Lionel Messi");
-        players.add("Lionel Messi");
         players.add("Lionel Messi");
         players.add("Lionel Messi");
 

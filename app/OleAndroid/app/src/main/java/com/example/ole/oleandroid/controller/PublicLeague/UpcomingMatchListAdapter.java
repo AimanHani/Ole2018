@@ -81,13 +81,12 @@ public class UpcomingMatchListAdapter extends BaseAdapter {
 
             if (m.getTeam1Score() != -1) {
                 viewHolder.team1_scoreinput.setText(m.getTeam1Score() + "");
-                viewHolder.team1_scoreinput.setEnabled(false);
             }
 
             if (m.getTeam2Score() != -1) {
-                viewHolder.team2_scoreinput.setText(m.getTeam2Score());
-                viewHolder.team2_scoreinput.setEnabled(false);
+                viewHolder.team2_scoreinput.setText(m.getTeam2Score()+"");
             }
+
             System.out.println(m.getTeam1()+" vs "+m.getTeam2());
 
             viewHolder.team2_name.setText(m.getTeam2());
@@ -98,12 +97,10 @@ public class UpcomingMatchListAdapter extends BaseAdapter {
             viewHolder.team1_scoreinput.addTextChangedListener(new TextWatcher() {
                 @Override
                 public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
                 }
 
                 @Override
                 public void onTextChanged(CharSequence s, int start, int before, int count) {
-
                 }
 
                 @Override

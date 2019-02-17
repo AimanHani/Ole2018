@@ -61,9 +61,9 @@ public class MatchDAO {
         return matches;
     }
 
-    public static ArrayList<Match> getFutureMatches() {
+    public static ArrayList<Match> getFutureMatches(int leagueId) {
         ArrayList<Match> matches = new ArrayList<>();
-        String url = DBConnection.getMatchesUrl() + "?matchStatus=future";
+        String url = DBConnection.getMatchesUrl() + "?matchStatus=future"+"&leagueId="+leagueId+"&username="+UserDAO.getLoginUser().getUsername();;
         System.out.println("Getting future matches list");
 
         GetHttp getConnection = new GetHttp();
@@ -115,7 +115,7 @@ public class MatchDAO {
         return null;
     }
 
-    public static boolean updateMatchPredictions(ArrayList<Match> matches, int logId) throws JSONException, IOException {
+    public static boolean updateMatchPredictions(ArrayList<Match> matches, int leagueId) throws JSONException, IOException {
         String url = DBConnection.manageMatchesUrl();
         String response = null;
         PostHttp connection = new PostHttp();
@@ -124,7 +124,6 @@ public class MatchDAO {
 
         for (Match m : matches) {
             JSONObject matchObject = new JSONObject();
-            matchObject.put("logId", logId);
             matchObject.put("team1Score", m.getTeam1Score());
             matchObject.put("team2Score", m.getTeam2Score());
             matchObject.put("matchId", m.getMatchID());
@@ -133,7 +132,7 @@ public class MatchDAO {
 
         parentJSON.put("params", matchParams);
 
-        String send = "params="+parentJSON.toString().substring(1, parentJSON.toString().length()-1)+"&logId="+logId;
+        String send = "params="+parentJSON.toString()+"&leagueId="+leagueId+"&username="+UserDAO.getLoginUser().getUsername();
         System.out.println(send);
         response = connection.postForm(url, send);
         System.out.println(response);
