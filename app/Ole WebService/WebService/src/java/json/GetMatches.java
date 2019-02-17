@@ -8,6 +8,7 @@ package json;
 import controller.GetMatchesDAO;
 import controller.JoinPublicLeaguesDAO;
 import controller.PublicLeagueDAO;
+import controller.UserDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.HashMap;
@@ -78,7 +79,12 @@ public class GetMatches extends HttpServlet {
         PrintWriter out = response.getWriter();
         Match m;
         String parameter = request.getParameter("matchStatus");
+
         if (parameter != null && parameter.equals("future")) {
+            String username = request.getParameter("username");
+            int leagueId = Integer.parseInt(request.getParameter("leagueId"));
+            int logId = UserDAO.getLogId(username, leagueId);
+            HashMap<Integer, JSONObject> existingMatchPrediction = GetMatchesDAO.getExistingMatchPrediction(logId);
             HashMap<Integer, Match> recentMatches = GetMatchesDAO.getRecentMatches();
             try {
                 Iterator it = recentMatches.entrySet().iterator();
@@ -88,14 +94,23 @@ public class GetMatches extends HttpServlet {
                     int numberOfParticipants = 0;
                     //System.out.println(pair.getKey() + " = " + pair.getValue());
                     m = (Match) pair.getValue();
-                    json.put("matchId", m.getMatchID());
+                    int matchId = m.getMatchID();
+                    json.put("matchId", matchId);
                     json.put("tournamentId", m.getTournamentID());
                     json.put("matchDate", m.getMatchDate());
                     json.put("matchTime", m.getMatchTime());
                     json.put("team1", m.getTeam1());
                     json.put("team2", m.getTeam2());
-                    json.put("team1Score", m.getTeam1Score());
-                    json.put("team2Score", m.getTeam2Score());
+
+                    if (existingMatchPrediction.containsKey(matchId)) {
+                        JSONObject obj = existingMatchPrediction.get(matchId);
+                        json.put("team1Score", obj.get("team1_prediction"));
+                        json.put("team2Score", obj.get("team2_prediction"));
+                    } else {
+                        json.put("team1Score", m.getTeam1Score());
+                        json.put("team2Score", m.getTeam2Score());
+                    }
+
                     it.remove(); // avoids a ConcurrentModificationException
                     list.put(json);
 
@@ -109,8 +124,7 @@ public class GetMatches extends HttpServlet {
             } catch (JSONException e) {
                 e.printStackTrace();
             }
-        }
-        else{
+        } else {
             HashMap<Integer, Match> pastMatches = GetMatchesDAO.getPastMatches();
             try {
                 Iterator it = pastMatches.entrySet().iterator();

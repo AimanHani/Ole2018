@@ -8,6 +8,7 @@ package json;
 import controller.GetMatchesDAO;
 import controller.JoinPublicLeaguesDAO;
 import controller.ManageMatchesDAO;
+import controller.UserDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.HashMap;
@@ -122,17 +123,20 @@ public class ManageMatches extends HttpServlet {
         response.setCharacterEncoding("utf-8");
         PrintWriter out = response.getWriter();
 
-        System.out.println("logId " + request.getParameter("logId") + " " + request.getParameter("params"));
-
-        int logID = Integer.parseInt(request.getParameter("logId"));
-        JSONArray paramsValue = null;
+        JSONArray paramsValue;
         String results = "error";
+        
+        String username = request.getParameter("username");
+        int leagueId = Integer.parseInt(request.getParameter("leagueId"));
+
+        
+        int logId = UserDAO.getLogId(username, leagueId);
 
         try {
-            JSONObject params = new JSONObject("{" + request.getParameter("params") + "}");
+            JSONObject params = new JSONObject(request.getParameter("params"));
             paramsValue = params.getJSONArray("params");
 
-            if (paramsValue != null && ManageMatchesDAO.insertMultipleMatchLogs(paramsValue).equals("successful")) {
+            if (paramsValue.length() > 0 && ManageMatchesDAO.insertMultipleMatchLogs(paramsValue, logId).equals("successful")) {
                 results = "successful";
                 json.put("status", results);
 

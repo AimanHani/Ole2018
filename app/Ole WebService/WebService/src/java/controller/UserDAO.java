@@ -12,6 +12,7 @@ import java.util.logging.Logger;
 import model.User;
 
 public class UserDAO {
+
     private static ArrayList<User> allUsers = new ArrayList<User>();
 
     public static User getUserInfo(String username) {
@@ -72,23 +73,45 @@ public class UserDAO {
         allUsers = usersList;
         return usersList;
     }
-    public static int leaguesJoinedByUser(String username){
+
+    public static int leaguesJoinedByUser(String username) {
         int totalNumberOfLeagues = 0;
         try (Connection conn = DBConnection.getConnection(); PreparedStatement stmt = conn.prepareStatement("SELECT COUNT(DISTINCT leagueId)from log where username = ?");) {
-            stmt.setString(1,username);
+            stmt.setString(1, username);
             ResultSet rs = stmt.executeQuery();
             while (rs.next()) {
                 totalNumberOfLeagues = rs.getInt(1);
             }
             rs.close();
-        
-        
-    }   catch (SQLException ex) {
+
+        } catch (SQLException ex) {
             Logger.getLogger(UserDAO.class.getName()).log(Level.SEVERE, null, ex);
         } catch (ClassNotFoundException ex) {
             Logger.getLogger(UserDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
-    return totalNumberOfLeagues;
+        return totalNumberOfLeagues;
+    }
+    
+    
+    public static int getLogId(String username, int leagueId) {
+        int retrievedLeagueId = 0;
+        
+        try (Connection conn = DBConnection.getConnection(); PreparedStatement stmt = conn.prepareStatement("SELECT logId from log where username = ? and leagueId = ?");) {
+            stmt.setString(1, username);
+            stmt.setInt(2, leagueId);
+            ResultSet rs = stmt.executeQuery();
+            while (rs.next()) {
+                retrievedLeagueId = rs.getInt(1);
+            }
+            rs.close();
+
+        } catch (SQLException ex) {
+            Logger.getLogger(UserDAO.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(UserDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        return retrievedLeagueId;
     }
 
 }

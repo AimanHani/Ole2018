@@ -12,9 +12,14 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Time;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import model.AllPublicLeague;
 import model.Match;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 /**
  *
@@ -103,5 +108,39 @@ public class GetMatchesDAO {
             ex.printStackTrace();
         }
         return pastMatcehs;
+    }
+
+    public static HashMap<Integer, JSONObject> getExistingMatchPrediction(int logId) {
+        ArrayList<Integer> matchIdPredictions = new ArrayList<>();
+        HashMap<Integer, JSONObject> existingMatches = new HashMap<>();
+
+        try (Connection conn = DBConnection.getConnection(); PreparedStatement stmt = conn.prepareStatement("select matchId, team1_prediction, team2_prediction from matcheslog where logId = ?");) {
+            stmt.setInt(1, logId);
+            ResultSet rs = stmt.executeQuery();
+            while (rs.next()) {
+                try {
+                    JSONObject json = new JSONObject();
+                    int matchId = rs.getInt(1);
+                    json.put("matchId", matchId);
+                    json.put("team1_prediction", rs.getInt(2));
+                    json.put("team2_prediction", rs.getInt(3));
+                    existingMatches.put(matchId, json);
+                } catch (Exception e){
+                    e.printStackTrace();
+                }
+            }
+            rs.close();
+
+        } catch (SQLException ex) {
+            Logger.getLogger(UserDAO.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(UserDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        return existingMatches;
+    }
+
+    public static HashMap<Integer, JSONObject> getExistingMatchPrediction() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 }

@@ -8,6 +8,7 @@ package json;
 import controller.GetMatchesDAO;
 import controller.ManageMatchesDAO;
 import controller.ManageSpecialsDAO;
+import controller.UserDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.HashMap;
@@ -115,69 +116,38 @@ public class ManageSpecials extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        JSONArray list = new JSONArray();
-        JSONObject parentJson = new JSONObject();
-        JSONObject json = new JSONObject();
         response.setContentType("\"Content-Type\", \"application/x-www-form-urlencoded\"");
         response.setCharacterEncoding("utf-8");
         PrintWriter out = response.getWriter();
+        JSONObject json = new JSONObject();
 
-        int logID = Integer.parseInt(request.getParameter("logid"));
-        String specialsID = request.getParameter("specialsId");
-        String prediction = request.getParameter("prediction");
-        
-        if (prediction!=null&&specialsID!=null) {
-            String status = "";
+//        System.out.println("params "+ request.getParameter("params"));
 
-            try {
-                int sID = Integer.parseInt(specialsID);
+        String username = request.getParameter("username");
+        int leagueId = Integer.parseInt(request.getParameter("leagueId"));
 
-                status = ManageSpecialsDAO.updateSpecialsPrediction(logID, sID, prediction);
-                if (!status.equals("error")) {
+        int logId = UserDAO.getLogId(username, leagueId);
 
-                    json.put("Status", "Update specials successful");
+        JSONArray paramsValue;
+        String results = "error";
 
-                } else {
-
-                    json.put("status", "error");
-                    String invalidMsg = "Something is wrong check checkS" + "/" + "";
-                    String[] invalidString = {invalidMsg};
-                    json.put("messages", invalidString);
-
-                }
-                out.print(json);
-                out.flush();
-
-            } catch (JSONException ex) {
-                Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, ex);
-            }
-        }
-        else{
-            Special s;
-        HashMap<Integer, Special> specialsList = ManageSpecialsDAO.getSpecials(logID);
         try {
-            Iterator it = specialsList.entrySet().iterator();
-            while (it.hasNext()) {
-                json = new JSONObject();
-                Map.Entry pair = (Map.Entry) it.next();
-                int numberOfParticipants = 0;
-                //System.out.println(pair.getKey() + " = " + pair.getValue());
-                s = (Special) pair.getValue();
-                json.put("specialsId", s.getSpecialsID());
-                json.put("description", s.getDescription());
-                json.put("points", s.getPoints());
-                it.remove(); // avoids a ConcurrentModificationException
-                list.put(json);
+            JSONObject params = new JSONObject(request.getParameter("params"));
+            paramsValue = params.getJSONArray("params");
 
+            if (paramsValue.length() > 0 && ManageSpecialsDAO.updateMultipleSpecialsPrediction(paramsValue, logId).equals("successful")) {
+                results = "successful";
+                json.put("status", results);
+
+            } else {
+                json.put("status", results);
             }
-            parentJson.put("results", list);
-            out.print(parentJson);
-            out.flush();
+        } catch (JSONException ex) {
+            Logger.getLogger(ManageMatches.class.getName()).log(Level.SEVERE, null, ex);
+        }
 
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-        }
+        out.print(json);
+        out.flush();
 
     }
 

@@ -76,7 +76,7 @@ public class Specials extends HttpServlet {
         response.setContentType("\"Content-Type\", \"application/x-www-form-urlencoded\"");
         response.setCharacterEncoding("utf-8");
         PrintWriter out = response.getWriter();
-        
+
         Special s;
         HashMap<Integer, Special> specialsList = ManageSpecialsDAO.getAllSpecials();
         try {
@@ -125,8 +125,8 @@ public class Specials extends HttpServlet {
         int logID = Integer.parseInt(request.getParameter("logid"));
         String specialsID = request.getParameter("specialsId");
         String prediction = request.getParameter("prediction");
-        
-        if (prediction!=null&&specialsID!=null) {
+
+        if (prediction != null && specialsID != null) {
             String status = "";
 
             try {
@@ -151,32 +151,31 @@ public class Specials extends HttpServlet {
             } catch (JSONException ex) {
                 Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, ex);
             }
-        }
-        else{
+        } else {
             Special s;
-        HashMap<Integer, Special> specialsList = ManageSpecialsDAO.getSpecials(logID);
-        try {
-            Iterator it = specialsList.entrySet().iterator();
-            while (it.hasNext()) {
-                json = new JSONObject();
-                Map.Entry pair = (Map.Entry) it.next();
-                int numberOfParticipants = 0;
-                //System.out.println(pair.getKey() + " = " + pair.getValue());
-                s = (Special) pair.getValue();
-                json.put("specialsId", s.getSpecialsID());
-                json.put("description", s.getDescription());
-                json.put("points", s.getPoints());
-                it.remove(); // avoids a ConcurrentModificationException
-                list.put(json);
+            HashMap<Integer, Special> specialsList = ManageSpecialsDAO.getSpecials(logID);
+            try {
+                Iterator it = specialsList.entrySet().iterator();
+                while (it.hasNext()) {
+                    json = new JSONObject();
+                    Map.Entry pair = (Map.Entry) it.next();
+                    int numberOfParticipants = 0;
+                    //System.out.println(pair.getKey() + " = " + pair.getValue());
+                    s = (Special) pair.getValue();
+                    json.put("specialsId", s.getSpecialsID());
+                    json.put("description", s.getDescription());
+                    json.put("points", s.getPoints());
+                    it.remove(); // avoids a ConcurrentModificationException
+                    list.put(json);
 
+                }
+                parentJson.put("results", list);
+                out.print(parentJson);
+                out.flush();
+
+            } catch (JSONException e) {
+                e.printStackTrace();
             }
-            parentJson.put("results", list);
-            out.print(parentJson);
-            out.flush();
-
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
         }
 
     }
