@@ -22,6 +22,7 @@ import java.util.HashMap;
 import model.AllPublicLeague;
 import model.PrivateLeague;
 import model.Match;
+import model.PrivateMembers;
 import model.PublicLeague;
 import org.eclipse.persistence.jpa.jpql.parser.DateTime;
 
@@ -190,23 +191,52 @@ public class PrivateLeagueDAO {
         return "error";
     }
 
-    public static AllPublicLeague retrieveLeague(String leagueName) {
+    public static AllPublicLeague retrieveLeague(int leagueId) {
         PrivateLeague pl = null;
         AllPublicLeague apl = null;
-        try (Connection conn = DBConnection.getConnection(); PreparedStatement stmt = conn.prepareStatement("select leagueId,tournamentId,pointsAllocated from league where leagueName = ? ");) {
-            stmt.setString(1, leagueName);
+        try (Connection conn = DBConnection.getConnection(); PreparedStatement stmt = conn.prepareStatement("select leagueId,tournamentId,pointsAllocated,leagueName from league where leagueId = ? ");) {
+            stmt.setInt(1, leagueId);
             ResultSet rs = stmt.executeQuery();
 
             while (rs.next()) {
                 int leagueKeyId = rs.getInt(1);
                 int tournamentId = rs.getInt(2);
                 int pointsAllocated = rs.getInt(3);
+                String leagueName = rs.getString(4);
 
                 apl = new AllPublicLeague(leagueKeyId, tournamentId, pointsAllocated, leagueName);
 
             }
             rs.close();
             return apl;
+
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        } catch (ClassNotFoundException ex) {
+            ex.printStackTrace();
+        }
+
+        return null;
+    }
+    
+    public static ArrayList<model.PrivateMembers> getMembers(int leagueid) {
+        ArrayList<model.PrivateMembers> memlist = new ArrayList<model.PrivateMembers>();
+        PrivateMembers members = null;
+        try (Connection conn = DBConnection.getConnection(); PreparedStatement stmt = conn.prepareStatement("select *  from log where leagueId = ? and username != 'admin';");) {
+            stmt.setInt(1, leagueid);
+            ResultSet rs = stmt.executeQuery();
+
+            while (rs.next()) {
+                int logid = rs.getInt(1);
+                String username = rs.getString(2);
+                int leagueId = rs.getInt(3);
+                int points = rs.getInt(4);
+
+                memlist.add(new PrivateMembers(logid, username, leagueId, points));
+
+            }
+            rs.close();
+            return memlist;
 
         } catch (SQLException ex) {
             ex.printStackTrace();
