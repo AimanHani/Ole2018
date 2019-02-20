@@ -100,8 +100,8 @@ public class FAQ_Json extends HttpServlet {
                 int numberOfParticipants = 0;
                 //System.out.println(pair.getKey() + " = " + pair.getValue());
                 faq = (FAQ) pair.getValue();
-                json.put("faqid", faq.getId());
-                json.put("qeustion", faq.getQuestion());
+                json.put("faqId", faq.getId());
+                json.put("question", faq.getQuestion());
                 json.put("answer", faq.getAnswer());
                 it.remove(); // avoids a ConcurrentModificationException
                 list.put(json);

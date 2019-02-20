@@ -93,5 +93,15 @@ public class DBConnection {
         String url = mainUrl+"/json/askOle";
         return url;
     }
+
+    public static String getProfileStats(){
+        String url = mainUrl+"/json/leaguesJoined";
+        return url;
+    }
+
+    public static String getFaq(){
+        String url = mainUrl+"/json/faq";
+        return url;
+    }
 }
 

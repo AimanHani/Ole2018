@@ -16,9 +16,9 @@ import java.util.List;
 public class FAQExpandableListAdapter extends BaseExpandableListAdapter {
     private Context context;
     private List<String> listDataHeader;
-    private HashMap<String,List<String>> listHashMap;
+    private HashMap<String, String> listHashMap;
 
-    public FAQExpandableListAdapter(Context context, List<String> listDataHeader, HashMap<String, List<String>> listHashMap) {
+    public FAQExpandableListAdapter(Context context, List<String> listDataHeader, HashMap<String, String> listHashMap) {
         this.context = context;
         this.listDataHeader = listDataHeader;
         this.listHashMap = listHashMap;
@@ -31,7 +31,7 @@ public class FAQExpandableListAdapter extends BaseExpandableListAdapter {
 
     @Override
     public int getChildrenCount(int i) {
-        return listHashMap.get(listDataHeader.get(i)).size();
+        return 1;
     }
 
     @Override
@@ -41,7 +41,7 @@ public class FAQExpandableListAdapter extends BaseExpandableListAdapter {
 
     @Override
     public Object getChild(int i, int j) {
-        return listHashMap.get(listDataHeader.get(i)).get(j);
+        return listHashMap.get(listDataHeader.get(i));
     }
 
     @Override

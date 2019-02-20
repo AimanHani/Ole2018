@@ -77,7 +77,7 @@ public class FAQ extends SideMenuBar {
         leaderboard.setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {
 
-                Intent intent = new Intent(FAQ.this, Leaderboard.class);
+                Intent intent = new Intent(FAQ.this, FAQLeaderboard.class);
                 startActivity(intent);
             }
         });

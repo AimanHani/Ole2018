@@ -91,7 +91,7 @@
                                 <a href="#"><i class="fa fa-shield fa-fw"></i> Private League<span class="fa arrow"></span></a>
                                 <ul class="nav nav-second-level">
                                     <li>
-                                        <a href="#">View all Private Leagues</a>
+                                        <a href="./PrivateLeagueServlet?param=loadAll">View all Private Leagues</a>
                                     </li>
                                 </ul>
                             </li>
@@ -116,9 +116,9 @@
                                 <a href="./TeamServlet"><i class="fa fa-a fa-fw"></i>Premier League Teams</a>
                             </li>
 
-                            <li>
+<!--                            <li>
                                 <a href="api.jsp"><i class="fa fa-a fa-fw"></i> API</a>
-                            </li>
+                            </li>-->
                         </ul>
                     </div>
                 </div>

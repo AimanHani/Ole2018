@@ -98,4 +98,13 @@ public class ScoreBoardDAO {
         }
         return 0;
     }
+
+    public static int getUserPoints (String username, ArrayList<PublicLeagueProfile> list){
+        for (PublicLeagueProfile p: list){
+            if (p.getUsername().equals(username)){
+                return p.getTotalPoints();
+            }
+        }
+        return -1;
+    }
 }

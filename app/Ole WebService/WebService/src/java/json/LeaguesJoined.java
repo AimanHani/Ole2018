@@ -93,10 +93,10 @@ public class LeaguesJoined extends HttpServlet {
 
             JSONObject json = new JSONObject();
 
-            json.put("username", username);
-            json.put("totalNumbersOfLeaguesJoined", num);
-            list.put(json);
-            parentJson.put("results", list);
+            parentJson.put("username", username);
+            parentJson.put("totalNumbersOfLeaguesJoined", num);
+            //list.put(json);
+            //parentJson.put("results", list);
             out.print(parentJson);
             out.flush();
 

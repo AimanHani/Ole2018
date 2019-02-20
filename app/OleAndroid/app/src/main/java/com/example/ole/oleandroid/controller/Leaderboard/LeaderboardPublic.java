@@ -46,13 +46,19 @@ public class LeaderboardPublic extends Fragment {
         userPosition = view.findViewById(R.id.userPosition);
         userScore = view.findViewById(R.id.userScore);
         int userPos = ScoreBoardDAO.getUserPosition(UserDAO.getLoginUser().getUsername(), publicLeagueProfileList);
+        int getUserPoints = ScoreBoardDAO.getUserPoints(UserDAO.getLoginUser().getUsername(), publicLeagueProfileList);
 
         if (userPos == 0) {
             userPosition.setText("-");
         } else {
             userPosition.setText("#" + userPos);
         }
-        userScore.setText("");
+
+        if (getUserPoints != -1){
+            userScore.setText(getUserPoints+"");
+        } else {
+            userScore.setText("");
+        }
 
         lbPubAdapter = new LeaderboardPublicAdapter(getContext(), publicLeagueProfileList);
         lbPubList.setAdapter(lbPubAdapter);

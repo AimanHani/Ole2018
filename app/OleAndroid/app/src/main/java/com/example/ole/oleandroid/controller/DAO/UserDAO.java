@@ -2,6 +2,7 @@ package com.example.ole.oleandroid.controller.DAO;
 
 import com.example.ole.oleandroid.dbConnection.DBConnection;
 import com.example.ole.oleandroid.dbConnection.GetHttp;
+import com.example.ole.oleandroid.dbConnection.PostHttp;
 import com.example.ole.oleandroid.model.Match;
 import com.example.ole.oleandroid.model.User;
 
@@ -64,5 +65,30 @@ public class UserDAO {
             return true;
         }
         return false;
+    }
+
+    public static String getProfileStatistics(){
+        PostHttp connection = new PostHttp();
+        String response = null;
+        String url = DBConnection.getProfileStats();
+        String username = "error";
+        Boolean valid = false;
+
+        try {
+            response = connection.postForm(url, "username="+loginUser.getUsername());
+            System.out.println(response);
+
+            JSONObject result = new JSONObject(response);
+            username = result.getString("username");
+
+            if (username.equals(loginUser.getUsername())) {
+                return result.getInt("totalNumbersOfLeaguesJoined")+"";
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return null;
     }
 }

@@ -45,6 +45,7 @@ public class Profile extends SideMenuBar {
         Intent i = getIntent();
         //final User u = (User)i.getSerializableExtra("User");
         User loginUser = UserDAO.getLoginUser();
+        String numLeaguesJoined = UserDAO.getProfileStatistics();
 
 //        details = findViewById(R.id.details);
         pointsGotten = findViewById(R.id.pointsGotten);
@@ -61,6 +62,9 @@ public class Profile extends SideMenuBar {
         userName.setText(loginUser.getUsername());
         userCountry.setText(loginUser.getCountry());
         userFavTeam.setText(loginUser.getFavoriteTeam());
+        if (numLeaguesJoined != null){
+            playQty.setText(numLeaguesJoined);
+        }
         teamImage.setImageResource(TeamItemDAO.teamItemsList.get(loginUser.getFavoriteTeam()).getmTeamImage());
 
 

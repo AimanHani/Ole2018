@@ -10,6 +10,7 @@ import android.widget.ExpandableListView;
 
 import com.example.ole.oleandroid.R;
 import com.example.ole.oleandroid.controller.SideMenuBar;
+import com.example.ole.oleandroid.model.FAQObject;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -19,7 +20,7 @@ public class FAQProfile extends SideMenuBar {
     private ExpandableListView listView;
     FAQExpandableListAdapter listAdapter;
     private List<String> listDataHeader;
-    private HashMap<String, List<String>> listHash;
+    private HashMap<String, String> listHash;
     Button askOle;
 
     @Override
@@ -31,7 +32,7 @@ public class FAQProfile extends SideMenuBar {
 
         listView = (ExpandableListView) findViewById(R.id.output);
         initData();
-        listAdapter = new FAQExpandableListAdapter(this,listDataHeader,listHash);
+        listAdapter = new FAQExpandableListAdapter(this, listDataHeader, listHash);
         listView.setAdapter(listAdapter);
 
         askOle = findViewById(R.id.askOleButton);
@@ -45,24 +46,32 @@ public class FAQProfile extends SideMenuBar {
         });
 
 
-
     }
 
     private void initData() {
         listDataHeader = new ArrayList<>();
         listHash = new HashMap<>();
 
-        listDataHeader.add("What does accuracy measure?");
-        listDataHeader.add("Can I change my username?");
+//        listDataHeader.add("What does accuracy measure?");
+//        listDataHeader.add("Can I change my username?");
+//
+//        List<String> quesOne = new ArrayList<>();
+//        quesOne.add("Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.");
+//
+//        List<String> quesTwo = new ArrayList<>();
+//        quesTwo.add("Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Diam vel quam elementum pulvinar. At tellus at urna condimentum mattis pellentesque id. Enim facilisis gravida neque convallis a. Eget magna fermentum iaculis eu non diam phasellus.");
+//
+//        listHash.put(listDataHeader.get(0), quesOne); // Header, Child data
+//        listHash.put(listDataHeader.get(1), quesTwo);
 
-        List<String> quesOne = new ArrayList<>();
-        quesOne.add("Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.");
+        ArrayList<FAQObject> faqs = FAQDAO.getFaqs("Profile");
 
-        List<String> quesTwo = new ArrayList<>();
-        quesTwo.add("Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Diam vel quam elementum pulvinar. At tellus at urna condimentum mattis pellentesque id. Enim facilisis gravida neque convallis a. Eget magna fermentum iaculis eu non diam phasellus.");
-
-        listHash.put(listDataHeader.get(0), quesOne); // Header, Child data
-        listHash.put(listDataHeader.get(1), quesTwo);
+        if (faqs != null && faqs.size() > 0) {
+            for (FAQObject faq: faqs){
+                listDataHeader.add(faq.getQuestion());
+                listHash.put(faq.getQuestion(), faq.getAnswer());
+            }
+        }
     }
 }
 

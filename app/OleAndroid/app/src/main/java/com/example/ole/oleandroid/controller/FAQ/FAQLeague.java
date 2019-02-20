@@ -10,6 +10,7 @@ import android.widget.ExpandableListView;
 
 import com.example.ole.oleandroid.R;
 import com.example.ole.oleandroid.controller.SideMenuBar;
+import com.example.ole.oleandroid.model.FAQObject;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -19,7 +20,7 @@ public class FAQLeague extends SideMenuBar {
     private ExpandableListView listView;
     FAQExpandableListAdapter listAdapter;
     private List<String> listDataHeader;
-    private HashMap<String, List<String>> listHash;
+    private HashMap<String, String> listHash;
     Button askOle;
 
     @Override
@@ -51,18 +52,27 @@ public class FAQLeague extends SideMenuBar {
     private void initData() {
         listDataHeader = new ArrayList<>();
         listHash = new HashMap<>();
+//
+//        listDataHeader.add("What is the difference between Private and Public League?");
+//        listDataHeader.add("Can I only join Public League?");
+//
+//        List<String> questOne = new ArrayList<>();
+//        questOne.add("Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.");
+//
+//        List<String> questTwo = new ArrayList<>();
+//        questTwo.add("Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Diam vel quam elementum pulvinar. At tellus at urna condimentum mattis pellentesque id. Enim facilisis gravida neque convallis a. Eget magna fermentum iaculis eu non diam phasellus.");
+//
+//        listHash.put(listDataHeader.get(0), questOne); // Header, Child data
+//        listHash.put(listDataHeader.get(1), questOne);
 
-        listDataHeader.add("What is the difference between Private and Public League?");
-        listDataHeader.add("Can I only join Public League?");
+        ArrayList<FAQObject> faqs = FAQDAO.getFaqs("League");
 
-        List<String> questOne = new ArrayList<>();
-        questOne.add("Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.");
-
-        List<String> questTwo = new ArrayList<>();
-        questTwo.add("Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Diam vel quam elementum pulvinar. At tellus at urna condimentum mattis pellentesque id. Enim facilisis gravida neque convallis a. Eget magna fermentum iaculis eu non diam phasellus.");
-
-        listHash.put(listDataHeader.get(0), questOne); // Header, Child data
-        listHash.put(listDataHeader.get(1), questOne);
+        if (faqs != null && faqs.size() > 0) {
+            for (FAQObject faq: faqs){
+                listDataHeader.add(faq.getQuestion());
+                listHash.put(faq.getQuestion(), faq.getAnswer());
+            }
+        }
     }
 }
 
