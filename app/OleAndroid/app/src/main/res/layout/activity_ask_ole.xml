@@ -71,9 +71,8 @@
                 android:paddingBottom="4dp"
                 android:textColor="@color/black" />
 
-
             <TextView
-                android:id="@+id/emailHeader"
+                android:id="@+id/categoryHeader"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dp"
@@ -81,22 +80,44 @@
                 android:paddingTop="4dp"
                 android:paddingRight="4dp"
                 android:paddingBottom="4dp"
-                android:text="E-mail"
+                android:text="Category"
                 android:textColor="@color/black"
                 android:textSize="20sp"
                 android:textStyle="bold" />
 
-            <EditText
-                android:id="@+id/email"
+
+            <Spinner
+                android:id="@+id/spinner1"
                 android:layout_width="match_parent"
-                android:layout_height="30dp"
-                android:layout_gravity="center"
-                android:layout_marginTop="5dp"
-                android:paddingLeft="4dp"
-                android:paddingTop="4dp"
-                android:paddingRight="4dp"
-                android:paddingBottom="4dp"
-                android:textColor="@color/black" />
+                android:layout_height="wrap_content"
+                android:background="@android:drawable/btn_dropdown"
+                android:spinnerMode="dropdown"/>
+
+            <!--<TextView-->
+                <!--android:id="@+id/emailHeader"-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:layout_marginTop="5dp"-->
+                <!--android:paddingLeft="4dp"-->
+                <!--android:paddingTop="4dp"-->
+                <!--android:paddingRight="4dp"-->
+                <!--android:paddingBottom="4dp"-->
+                <!--android:text="E-mail"-->
+                <!--android:textColor="@color/black"-->
+                <!--android:textSize="20sp"-->
+                <!--android:textStyle="bold" />-->
+
+            <!--<EditText-->
+                <!--android:id="@+id/email"-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="30dp"-->
+                <!--android:layout_gravity="center"-->
+                <!--android:layout_marginTop="5dp"-->
+                <!--android:paddingLeft="4dp"-->
+                <!--android:paddingTop="4dp"-->
+                <!--android:paddingRight="4dp"-->
+                <!--android:paddingBottom="4dp"-->
+                <!--android:textColor="@color/black" />-->
 
             <TextView
                 android:id="@+id/question"
