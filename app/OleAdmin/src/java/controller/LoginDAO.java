@@ -15,6 +15,8 @@ public class LoginDAO {
         try (Connection conn = DBConnection.getConnection(); PreparedStatement stmt = conn.prepareStatement(statement);) {
             ResultSet rs = stmt.executeQuery();
             if (rs.next()) {
+                conn.close();
+                rs.close();
                 return true;
             }
         } catch (SQLException ex) {

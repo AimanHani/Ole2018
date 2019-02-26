@@ -26,6 +26,7 @@ public class FaqDAO {
                 faqList.add(faq);
             }
             rs.close();
+            conn.close();
         } catch (SQLException ex) {
             Logger.getLogger(FaqDAO.class.getName()).log(Level.SEVERE, null, ex);
         } catch (ClassNotFoundException ex) {
@@ -48,6 +49,7 @@ public class FaqDAO {
                 faqList.add(faq);
             }
             rs.close();
+            conn.close();
         } catch (SQLException ex) {
             Logger.getLogger(FaqDAO.class.getName()).log(Level.SEVERE, null, ex);
         } catch (ClassNotFoundException ex) {
@@ -70,6 +72,7 @@ public class FaqDAO {
                 faqList.add(faq);
             }
             rs.close();
+            conn.close();
         } catch (SQLException ex) {
             Logger.getLogger(AskDAO.class.getName()).log(Level.SEVERE, null, ex);
         } catch (ClassNotFoundException ex) {
@@ -92,6 +95,7 @@ public class FaqDAO {
                 faqList.add(faq);
             }
             rs.close();
+            conn.close();
         } catch (SQLException ex) {
             Logger.getLogger(FaqDAO.class.getName()).log(Level.SEVERE, null, ex);
         } catch (ClassNotFoundException ex) {
@@ -117,6 +121,7 @@ public class FaqDAO {
                 exist = true;
             }
             rs.close();
+            conn.close();
         } catch (SQLException ex) {
             Logger.getLogger(FaqDAO.class.getName()).log(Level.SEVERE, null, ex);
         } catch (ClassNotFoundException ex) {
@@ -128,6 +133,7 @@ public class FaqDAO {
             System.out.println(statement);
             try (Connection conn = DBConnection.getConnection(); PreparedStatement stmt = conn.prepareStatement(statement);) {
                 stmt.executeUpdate();
+                conn.close();
                 return true;
             } catch (SQLException ex) {
                 Logger.getLogger(FaqDAO.class.getName()).log(Level.SEVERE, null, ex);
@@ -156,6 +162,7 @@ public class FaqDAO {
                 System.out.println(statement);
                 try (Connection conn2 = DBConnection.getConnection(); PreparedStatement stmt2 = conn2.prepareStatement(statement);) {
                     stmt2.executeUpdate();
+                    conn2.close();
                     return true;
                 } catch (SQLException ex) {
                     Logger.getLogger(FaqDAO.class.getName()).log(Level.SEVERE, null, ex);
@@ -164,6 +171,7 @@ public class FaqDAO {
                 }
             }
             rs.close();
+            conn.close();
             return false;
         } catch (SQLException ex) {
             Logger.getLogger(FaqDAO.class.getName()).log(Level.SEVERE, null, ex);
@@ -191,6 +199,7 @@ public class FaqDAO {
 
                 try (Connection conn2 = DBConnection.getConnection(); PreparedStatement stmt1 = conn2.prepareStatement(statement); ) {
                     stmt1.executeUpdate();
+                    conn2.close();
                     return true;
                 } catch (SQLException ex) {
                     Logger.getLogger(FaqDAO.class.getName()).log(Level.SEVERE, null, ex);
@@ -199,6 +208,7 @@ public class FaqDAO {
                 }
             }
             rs.close();
+            conn.close();
             return false;
         } catch (SQLException ex) {
             Logger.getLogger(FaqDAO.class.getName()).log(Level.SEVERE, null, ex);
@@ -214,6 +224,7 @@ public class FaqDAO {
         String statement = "delete from faq where faqId =" + faqId + "";
         try (Connection conn = DBConnection.getConnection(); PreparedStatement stmt = conn.prepareStatement(statement);) {
             stmt.executeUpdate();
+            conn.close();
             return true;
         } catch (SQLException ex) {
             Logger.getLogger(SpecialsDAO.class.getName()).log(Level.SEVERE, null, ex);
@@ -240,6 +251,7 @@ public class FaqDAO {
                 exist = true;
             }
             rs.close();
+            conn.close();
         } catch (SQLException ex) {
             Logger.getLogger(FaqDAO.class.getName()).log(Level.SEVERE, null, ex);
         } catch (ClassNotFoundException ex) {
@@ -251,6 +263,7 @@ public class FaqDAO {
             System.out.println(statement);
             try (Connection conn = DBConnection.getConnection(); PreparedStatement stmt = conn.prepareStatement(statement);) {
                 stmt.executeUpdate();
+                conn.close();
                 return true;
             } catch (SQLException ex) {
                 Logger.getLogger(FaqDAO.class.getName()).log(Level.SEVERE, null, ex);

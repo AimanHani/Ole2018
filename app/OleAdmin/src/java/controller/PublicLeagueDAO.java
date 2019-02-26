@@ -27,6 +27,7 @@ public class PublicLeagueDAO {
 
             }
             rs.close();
+            conn.close();
         } catch (SQLException ex) {
             Logger.getLogger(SpecialsDAO.class.getName()).log(Level.SEVERE, null, ex);
         } catch (ClassNotFoundException ex) {
@@ -40,6 +41,7 @@ public class PublicLeagueDAO {
         System.out.println(statement);
         try (Connection conn = DBConnection.getConnection(); PreparedStatement stmt = conn.prepareStatement(statement);) {
             stmt.executeUpdate();
+            conn.close();
             return true;
         } catch (SQLException ex) {
             Logger.getLogger(SpecialsDAO.class.getName()).log(Level.SEVERE, null, ex);
@@ -54,6 +56,7 @@ public class PublicLeagueDAO {
         System.out.println(statement);
         try (Connection conn = DBConnection.getConnection(); PreparedStatement stmt = conn.prepareStatement(statement);) {
             stmt.executeUpdate();
+            conn.close();
             return true;
         } catch (SQLException ex) {
             Logger.getLogger(SpecialsDAO.class.getName()).log(Level.SEVERE, null, ex);

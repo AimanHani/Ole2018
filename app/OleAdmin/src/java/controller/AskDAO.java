@@ -26,6 +26,7 @@ public class AskDAO {
                 askList.add(ask);
             }
             rs.close();
+            conn.close();
         } catch (SQLException ex) {
             Logger.getLogger(AskDAO.class.getName()).log(Level.SEVERE, null, ex);
         } catch (ClassNotFoundException ex) {
@@ -48,6 +49,7 @@ public class AskDAO {
                 askList.add(ask);
             }
             rs.close();
+            conn.close();
         } catch (SQLException ex) {
             Logger.getLogger(AskDAO.class.getName()).log(Level.SEVERE, null, ex);
         } catch (ClassNotFoundException ex) {
@@ -70,6 +72,7 @@ public class AskDAO {
                 askList.add(ask);
             }
             rs.close();
+            conn.close();
         } catch (SQLException ex) {
             Logger.getLogger(AskDAO.class.getName()).log(Level.SEVERE, null, ex);
         } catch (ClassNotFoundException ex) {
@@ -93,6 +96,7 @@ public class AskDAO {
                 askList.add(ask);
             }
             rs.close();
+            conn.close();
         } catch (SQLException ex) {
             Logger.getLogger(AskDAO.class.getName()).log(Level.SEVERE, null, ex);
         } catch (ClassNotFoundException ex) {
@@ -118,6 +122,7 @@ public class AskDAO {
                 exist = true;
             }
             rs.close();
+            conn.close();
         } catch (SQLException ex) {
             Logger.getLogger(AskDAO.class.getName()).log(Level.SEVERE, null, ex);
         } catch (ClassNotFoundException ex) {
@@ -129,6 +134,7 @@ public class AskDAO {
             System.out.println(statement);
             try (Connection conn = DBConnection.getConnection(); PreparedStatement stmt = conn.prepareStatement(statement);) {
                 stmt.executeUpdate();
+                conn.close();
                 return true;
             } catch (SQLException ex) {
                 Logger.getLogger(AskDAO.class.getName()).log(Level.SEVERE, null, ex);
@@ -156,7 +162,9 @@ public class AskDAO {
                 String statement = "update askole set answer = '" + answer + "' where askId =" + askId + "";
                 System.out.println(statement);
                 try (Connection conn2 = DBConnection.getConnection(); PreparedStatement stmt2 = conn2.prepareStatement(statement);) {
+                    
                     stmt2.executeUpdate();
+                    conn2.close();
                     return true;
                 } catch (SQLException ex) {
                     Logger.getLogger(AskDAO.class.getName()).log(Level.SEVERE, null, ex);
@@ -165,6 +173,7 @@ public class AskDAO {
                 }
             }
             rs.close();
+            conn.close();
             return false;
         } catch (SQLException ex) {
             Logger.getLogger(AskDAO.class.getName()).log(Level.SEVERE, null, ex);
@@ -179,6 +188,7 @@ public class AskDAO {
         String statement = "delete from askole where askId =" + askId + "";
         try (Connection conn = DBConnection.getConnection(); PreparedStatement stmt = conn.prepareStatement(statement);) {
             stmt.executeUpdate();
+            conn.close();
             return true;
         } catch (SQLException ex) {
             Logger.getLogger(SpecialsDAO.class.getName()).log(Level.SEVERE, null, ex);

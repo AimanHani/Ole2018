@@ -26,6 +26,7 @@ public class TeamDAO {
                 teamList.add(team);
             }
             rs.close();
+            conn.close();
         } catch (SQLException ex) {
             Logger.getLogger(UsersDAO.class.getName()).log(Level.SEVERE, null, ex);
         } catch (ClassNotFoundException ex) {

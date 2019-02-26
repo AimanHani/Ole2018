@@ -26,6 +26,7 @@ public class SpecialsDAO {
                 specialsList.add(special);
             }
             rs.close();
+            conn.close();
         } catch (SQLException ex) {
             Logger.getLogger(SpecialsDAO.class.getName()).log(Level.SEVERE, null, ex);
         } catch (ClassNotFoundException ex) {
@@ -51,6 +52,7 @@ public class SpecialsDAO {
                 exist = true;
             }
             rs.close();
+            conn.close();
         } catch (SQLException ex) {
             Logger.getLogger(SpecialsDAO.class.getName()).log(Level.SEVERE, null, ex);
         } catch (ClassNotFoundException ex) {
@@ -62,6 +64,7 @@ public class SpecialsDAO {
             System.out.println(statement);
             try (Connection conn = DBConnection.getConnection(); PreparedStatement stmt = conn.prepareStatement(statement);) {
                 stmt.executeUpdate();
+                conn.close();
                 return true;
             } catch (SQLException ex) {
                 Logger.getLogger(SpecialsDAO.class.getName()).log(Level.SEVERE, null, ex);
@@ -77,6 +80,7 @@ public class SpecialsDAO {
         String statement = "delete from specials where specialsId =" + specialsId + "";
         try (Connection conn = DBConnection.getConnection(); PreparedStatement stmt = conn.prepareStatement(statement);) {
             stmt.executeUpdate();
+            conn.close();
             return true;
         } catch (SQLException ex) {
             Logger.getLogger(SpecialsDAO.class.getName()).log(Level.SEVERE, null, ex);
@@ -106,6 +110,7 @@ public class SpecialsDAO {
             try (Connection conn = DBConnection.getConnection(); PreparedStatement stmt1 = conn.prepareStatement(statement1); PreparedStatement stmt2 = conn.prepareStatement(statement2);) {
                 stmt1.executeUpdate();
                 stmt2.executeUpdate();
+                conn.close();
                 return true;
             } catch (SQLException ex) {
                 Logger.getLogger(SpecialsDAO.class.getName()).log(Level.SEVERE, null, ex);
@@ -116,6 +121,7 @@ public class SpecialsDAO {
             String statement1 = "update specials set status ='N'";
             try (Connection conn = DBConnection.getConnection(); PreparedStatement stmt1 = conn.prepareStatement(statement1);) {
                 stmt1.executeUpdate();
+                conn.close();
                 return true;
             } catch (SQLException ex) {
                 Logger.getLogger(SpecialsDAO.class.getName()).log(Level.SEVERE, null, ex);
@@ -131,6 +137,7 @@ public class SpecialsDAO {
         System.out.println(statement);
         try (Connection conn = DBConnection.getConnection(); PreparedStatement stmt = conn.prepareStatement(statement);) {
             stmt.executeUpdate();
+            conn.close();
             return true;
         } catch (SQLException ex) {
             Logger.getLogger(SpecialsDAO.class.getName()).log(Level.SEVERE, null, ex);

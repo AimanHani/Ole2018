@@ -17,9 +17,12 @@ public class HomeDAO {
             stmt.setString(1, "admin");
             ResultSet rs = stmt.executeQuery();
             while (rs.next()) {
+                
+                conn.close();
                 return rs.getInt(1);
             }
             rs.close();
+            conn.close();
         } catch (SQLException ex) {
             Logger.getLogger(SpecialsDAO.class.getName()).log(Level.SEVERE, null, ex);
         } catch (ClassNotFoundException ex) {
@@ -34,9 +37,12 @@ public class HomeDAO {
         try (Connection conn = DBConnection.getConnection(); PreparedStatement stmt = conn.prepareStatement(statement);) {
             ResultSet rs = stmt.executeQuery();
             while (rs.next()) {
+                
+                conn.close();
                 return rs.getInt(1);
             }
             rs.close();
+            conn.close();
         } catch (SQLException ex) {
             Logger.getLogger(SpecialsDAO.class.getName()).log(Level.SEVERE, null, ex);
         } catch (ClassNotFoundException ex) {
@@ -51,9 +57,11 @@ public class HomeDAO {
         try (Connection conn = DBConnection.getConnection(); PreparedStatement stmt = conn.prepareStatement(statement);) {
             ResultSet rs = stmt.executeQuery();
             while (rs.next()) {
+                 conn.close();
                 return rs.getInt(1);
             }
             rs.close();
+            conn.close();
         } catch (SQLException ex) {
             Logger.getLogger(SpecialsDAO.class.getName()).log(Level.SEVERE, null, ex);
         } catch (ClassNotFoundException ex) {
@@ -68,9 +76,11 @@ public class HomeDAO {
         try (Connection conn = DBConnection.getConnection(); PreparedStatement stmt = conn.prepareStatement(statement);) {
             ResultSet rs = stmt.executeQuery();
             while (rs.next()) {
+                conn.close();
                 return rs.getInt(1);
             }
             rs.close();
+            conn.close();
         } catch (SQLException ex) {
             Logger.getLogger(SpecialsDAO.class.getName()).log(Level.SEVERE, null, ex);
         } catch (ClassNotFoundException ex) {

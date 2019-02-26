@@ -70,6 +70,8 @@ public class APIDAO {
                 //stmt.executeUpdate();
                 return true;
             }
+            rs.close();
+            conn.close();
 
         } catch (SQLException ex) {
             Logger.getLogger(SpecialsDAO.class.getName()).log(Level.SEVERE, null, ex);
@@ -166,6 +168,8 @@ public class APIDAO {
                 }
                 return logId;
             }
+            rs.close();
+            conn.close();
 
         } catch (SQLException ex) {
             Logger.getLogger(SpecialsDAO.class.getName()).log(Level.SEVERE, null, ex);
@@ -271,6 +275,7 @@ public class APIDAO {
                 System.out.println(e);
             }
             //stmt.executeUpdate();
+            conn.close();
         } catch (SQLException ex) {
             Logger.getLogger(SpecialsDAO.class.getName()).log(Level.SEVERE, null, ex);
         } catch (ClassNotFoundException ex) {
@@ -310,7 +315,7 @@ public class APIDAO {
                 PreparedStatement stmt4 = conn.prepareStatement(statement4);
                 stmt4.executeUpdate();
             }
-
+            conn.close();
             return true;
         } catch (SQLException ex) {
             Logger.getLogger(SpecialsDAO.class.getName()).log(Level.SEVERE, null, ex);
@@ -354,6 +359,7 @@ public class APIDAO {
 
             ps.setString(1, matchId);
             ps.executeUpdate();
+            c.close();
             return status;
         } catch (SQLException ex) {
             Logger.getLogger(APIDAO.class.getName()).log(Level.SEVERE, null, ex);
@@ -403,6 +409,7 @@ public class APIDAO {
             ps.setInt(8, Integer.parseInt(team2Score));
             ps.setString(1, matchId);
             ps.executeUpdate();
+            c.close();
             return status;
         } catch (SQLException ex) {
             Logger.getLogger(APIDAO.class.getName()).log(Level.SEVERE, null, ex);

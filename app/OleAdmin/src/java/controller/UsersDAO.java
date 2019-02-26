@@ -27,6 +27,7 @@ public class UsersDAO {
                 usersList.add(user);
             }
             rs.close();
+            conn.close();
         } catch (SQLException ex) {
             Logger.getLogger(UsersDAO.class.getName()).log(Level.SEVERE, null, ex);
         } catch (ClassNotFoundException ex) {
@@ -49,6 +50,7 @@ public class UsersDAO {
                 usersList.add(user);
             }
             rs.close();
+            conn.close();
         } catch (SQLException ex) {
             Logger.getLogger(UsersDAO.class.getName()).log(Level.SEVERE, null, ex);
         } catch (ClassNotFoundException ex) {
@@ -62,6 +64,7 @@ public class UsersDAO {
         String statement = "delete from user where username ='" + username + "'";
         try (Connection conn = DBConnection.getConnection(); PreparedStatement stmt = conn.prepareStatement(statement);) {
             stmt.executeUpdate();
+            conn.close();
             return true;
         } catch (SQLException ex) {
             Logger.getLogger(UsersDAO.class.getName()).log(Level.SEVERE, null, ex);

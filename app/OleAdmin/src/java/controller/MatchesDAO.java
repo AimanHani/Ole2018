@@ -34,6 +34,7 @@ public class MatchesDAO {
                 matchesList.add(match);
             }
             rs.close();
+            conn.close();
         } catch (SQLException ex) {
             Logger.getLogger(MatchesDAO.class.getName()).log(Level.SEVERE, null, ex);
         } catch (ClassNotFoundException ex) {
@@ -61,6 +62,7 @@ public class MatchesDAO {
                 matchesList.add(match);
             }
             rs.close();
+            conn.close();
         } catch (SQLException ex) {
             Logger.getLogger(MatchesDAO.class.getName()).log(Level.SEVERE, null, ex);
         } catch (ClassNotFoundException ex) {
@@ -86,6 +88,7 @@ public class MatchesDAO {
                 matchesList.add(match);
             }
             rs.close();
+            conn.close();
         } catch (SQLException ex) {
             Logger.getLogger(MatchesDAO.class.getName()).log(Level.SEVERE, null, ex);
         } catch (ClassNotFoundException ex) {
