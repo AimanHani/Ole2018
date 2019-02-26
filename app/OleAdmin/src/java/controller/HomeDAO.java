@@ -18,7 +18,7 @@ public class HomeDAO {
             ResultSet rs = stmt.executeQuery();
             while (rs.next()) {
                 
-                conn.close();
+                
                 return rs.getInt(1);
             }
             rs.close();
@@ -38,7 +38,7 @@ public class HomeDAO {
             ResultSet rs = stmt.executeQuery();
             while (rs.next()) {
                 
-                conn.close();
+               
                 return rs.getInt(1);
             }
             rs.close();
@@ -57,7 +57,7 @@ public class HomeDAO {
         try (Connection conn = DBConnection.getConnection(); PreparedStatement stmt = conn.prepareStatement(statement);) {
             ResultSet rs = stmt.executeQuery();
             while (rs.next()) {
-                 conn.close();
+                
                 return rs.getInt(1);
             }
             rs.close();
@@ -76,7 +76,7 @@ public class HomeDAO {
         try (Connection conn = DBConnection.getConnection(); PreparedStatement stmt = conn.prepareStatement(statement);) {
             ResultSet rs = stmt.executeQuery();
             while (rs.next()) {
-                conn.close();
+               
                 return rs.getInt(1);
             }
             rs.close();

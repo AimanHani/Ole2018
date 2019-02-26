@@ -197,4 +197,21 @@ public class AskDAO {
         }
         return false;
     }
+    public static String getUserEmail(String username){
+        String email = "";
+        try (Connection conn = DBConnection.getConnection(); PreparedStatement stmt = conn.prepareStatement("select email from user where username =?");) {
+            stmt.setString(1, username);
+            ResultSet rs = stmt.executeQuery();
+            while(rs.next()){
+                email = rs.getString(1);
+            }
+            conn.close();
+            return email;
+        } catch (SQLException ex) {
+            Logger.getLogger(SpecialsDAO.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(SpecialsDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return email;
+    }
 }

@@ -84,13 +84,15 @@
                                     %>
                                     <tbody>
                                         <tr>
-                                            <td><%=i + 1%></td>
+                                            <td><%=i + 1 +". Asked by User: "+ask.getUsername()%></td>
                                             <td><%=ask.getQuestion()%></td>
                                             <td>
                                                 <form action="AskServlet" method="post" style="display:inline;">
                                                     <textarea name="answer" rows="4" cols="50" ><%=ask.getAnswer()%></textarea>
                                                     <input type="hidden" name="param" value="addAnswer" />
                                                     <input type="hidden" name="askId" value=<%=ask.getAskId()%> />
+                                                    <input type="hidden" name="username" value=<%=ask.getUsername()%> />
+                                                    
                                                     <button type="submit" class="btn btn-outline btn-primary">Answer</button>
                                                 </form>
                                             </td>

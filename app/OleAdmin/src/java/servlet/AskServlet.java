@@ -15,7 +15,10 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import model.Ask;
-
+import java.util.Properties;    
+import javax.mail.*;    
+import javax.mail.internet.*;    
+import backGroudTask.Mailer;
 @WebServlet(name = "AskServlet", urlPatterns = {"/AskServlet"})
 public class AskServlet extends HttpServlet {
     
@@ -100,10 +103,13 @@ public class AskServlet extends HttpServlet {
         if (requests != null && requests.equals("addAnswer")) {
             String answer = request.getParameter("answer");
             String askId = request.getParameter("askId");
+            String username = request.getParameter("username");
             System.out.println("Hello " + askId);
             System.out.println("Hello " + answer);
             Boolean outcome = AskDAO.addAnsAsk(Integer.parseInt(askId),answer);
-            if (outcome) {
+            String userEmail = AskDAO.getUserEmail(username);
+            Boolean emaiSentStatus = Mailer.send("olegroup18@gmail.com","squadxole",userEmail,"Reply to your question ID:"+askId+" from Ole team" ,answer);
+            if (outcome &&emaiSentStatus ) {
                 System.out.println("SUCCESS");
                 rd = request.getRequestDispatcher("./AskServlet?param=loadAll");
                 rd.forward(request, response);
