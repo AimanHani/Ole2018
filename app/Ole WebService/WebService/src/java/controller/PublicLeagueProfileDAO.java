@@ -47,6 +47,7 @@ public class PublicLeagueProfileDAO {
 
             }
             rs.close();
+            conn.close();
             return leagueList;
 
         } catch (SQLException ex) {
@@ -76,6 +77,7 @@ public class PublicLeagueProfileDAO {
 
             }
             rs.close();
+            conn.close();
             return u;
 
         } catch (SQLException ex) {

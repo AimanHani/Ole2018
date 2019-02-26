@@ -37,6 +37,7 @@ public class ScoreBoardDAO {
             }
             plf = new PublicLeagueProfile(username, leagueID, totalPoints);
             rs.close();
+            conn.close();
 
         } catch (SQLException ex) {
             ex.printStackTrace();
@@ -64,6 +65,7 @@ public class ScoreBoardDAO {
                 }
                 plf = new PublicLeagueProfile(usernames.get(i), leagueID, totalPoints);
                 rs.close();
+                conn.close();
 
             } catch (SQLException ex) {
                 ex.printStackTrace();
@@ -89,6 +91,7 @@ public class ScoreBoardDAO {
             }
 
             rs.close();
+            conn.close();
 
         } catch (SQLException ex) {
             ex.printStackTrace();
@@ -110,6 +113,7 @@ public class ScoreBoardDAO {
             }
 
             rs.close();
+            conn.close();
 
         } catch (SQLException ex) {
             ex.printStackTrace();
@@ -136,6 +140,7 @@ public class ScoreBoardDAO {
                 }
                 plf = new PrivateLeagueProfile(usernames.get(i), leagueID, totalPoints);
                 rs.close();
+                conn.close();
 
             } catch (SQLException ex) {
                 ex.printStackTrace();

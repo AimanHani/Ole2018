@@ -47,6 +47,7 @@ public class PublicLeagueDAO {
                 publicLeagueList.add(new PublicLeague(leagueID, prize, tournamentID, pointsAllocated, tournamentName, leagueName, logid));
             }
             rs.close();
+            conn.close();
 
         } catch (SQLException ex) {
             ex.printStackTrace();
@@ -73,6 +74,7 @@ public class PublicLeagueDAO {
                 dbAllPublicLeague.put(leagueId, new AllPublicLeague(leagueId, prize, tournamentID, pointsAllocated, leagueName, tournamentName));
             }
             rs.close();
+            conn.close();
 
         } catch (SQLException ex) {
             ex.printStackTrace();
@@ -92,6 +94,7 @@ public class PublicLeagueDAO {
                 totalNumberOfParticipants = rs.getInt(1);
             }
             rs.close();
+            conn.close();
 
         } catch (SQLException ex) {
             ex.printStackTrace();
@@ -125,6 +128,7 @@ public class PublicLeagueDAO {
                 //publicLeagueList.add(new PublicLeague(leagueID, prize, tournamentID, pointsAllocated, tournamentName, leagueName, logid));
             }
             rs.close();
+            conn.close();
 
         } catch (SQLException ex) {
             ex.printStackTrace();

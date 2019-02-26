@@ -33,6 +33,7 @@ public class ManageTeamDAO {
                 
             }
             rs.close();
+            conn.close();
 
         } catch (SQLException ex) {
             ex.printStackTrace();

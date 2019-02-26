@@ -32,6 +32,7 @@ public class AskOleDAO {
             if (rs > 0) {
                 return "successful";
             }
+            c.close();
         } catch (Exception e) {
             System.out.println("check db connection class");
         }
@@ -57,6 +58,7 @@ public class AskOleDAO {
 
             }
             rs.close();
+            conn.close();
 
         } catch (SQLException ex) {
             ex.printStackTrace();

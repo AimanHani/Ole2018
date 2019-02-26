@@ -47,6 +47,7 @@ public class GetMatchesDAO {
 
             }
             rs.close();
+            conn.close();
 
         } catch (SQLException ex) {
             ex.printStackTrace();
@@ -72,6 +73,7 @@ public class GetMatchesDAO {
 
             }
             rs.close();
+            conn.close();
 
         } catch (SQLException ex) {
             ex.printStackTrace();
@@ -101,6 +103,7 @@ public class GetMatchesDAO {
 
             }
             rs.close();
+            conn.close();
 
         } catch (SQLException ex) {
             ex.printStackTrace();
@@ -130,6 +133,7 @@ public class GetMatchesDAO {
                 }
             }
             rs.close();
+            conn.close();
 
         } catch (SQLException ex) {
             Logger.getLogger(UserDAO.class.getName()).log(Level.SEVERE, null, ex);

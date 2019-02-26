@@ -54,6 +54,7 @@ public class PrivateLeagueDAO {
                 privateLeagueList.add(new PrivateLeague(leagueID, leagueName, prize, password, startDate, endDate, leagueID, userName, pointsAllocated, tournamentID));
             }
             rs.close();
+            conn.close();
 
         } catch (SQLException ex) {
             ex.printStackTrace();
@@ -85,6 +86,7 @@ public class PrivateLeagueDAO {
                 privateLeagueList.add(new PrivateLeague(leagueID, leagueName, prize, password, startDate, endDate, leagueID, userName, pointsAllocated, tournamentID));
             }
             rs.close();
+            conn.close();
 
         } catch (SQLException ex) {
             ex.printStackTrace();
@@ -208,6 +210,7 @@ public class PrivateLeagueDAO {
 
             }
             rs.close();
+            conn.close();
             return apl;
 
         } catch (SQLException ex) {
@@ -236,6 +239,7 @@ public class PrivateLeagueDAO {
 
             }
             rs.close();
+            conn.close();
             return memlist;
 
         } catch (SQLException ex) {
@@ -266,6 +270,7 @@ public class PrivateLeagueDAO {
 
             }
             rs.close();
+            conn.close();
             return privateLeaguesList;
 
         } catch (SQLException ex) {
@@ -287,6 +292,7 @@ public class PrivateLeagueDAO {
                 list.add(new model.Tournament(tournamentId, name));
             }
             rs.close();
+            conn.close();
             return list;
 
         } catch (SQLException ex) {

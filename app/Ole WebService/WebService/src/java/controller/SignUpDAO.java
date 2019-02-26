@@ -57,6 +57,7 @@ public class SignUpDAO {
                 if (rs > 0) {
                     return "success";
                 }
+                c.close();
             } catch (Exception e) {
                 System.out.println("check db connection class" + e.toString());
                 return "check db connection class or no such algorithm error check getSalt()" + e.toString();

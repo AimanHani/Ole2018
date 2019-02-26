@@ -32,6 +32,7 @@ public class JoinPublicLeaguesDAO {
             if (rs > 0) {
                 return "successful";
             }
+            c.close();
         } catch (Exception e) {
             e.printStackTrace();
             System.out.println("check db connection class");
@@ -52,6 +53,7 @@ public class JoinPublicLeaguesDAO {
 
             }
             rs.close();
+            conn.close();
 
         } catch (SQLException ex) {
             ex.printStackTrace();
@@ -73,6 +75,7 @@ public class JoinPublicLeaguesDAO {
             if (rs > 0) {
                 return "successful";
             }
+            c.close();
         } catch (Exception e) {
             System.out.println("check db connection class");
         }
@@ -92,6 +95,7 @@ public class JoinPublicLeaguesDAO {
                 specialsIDs.add(rs.getInt(1));
             }
             rs.close();
+            c.close();
 
         } catch (Exception e) {
             System.out.println("check db connection class");
@@ -109,6 +113,7 @@ public class JoinPublicLeaguesDAO {
                 ps.setInt(1, logID);
                 ps.setInt(2, specialsIDs.get(i));
                 rs = ps.executeUpdate();
+                c.close();
 
             } catch (Exception e) {
                 System.out.println("check db connection class");

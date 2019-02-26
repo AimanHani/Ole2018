@@ -32,6 +32,8 @@ public class UserDAO {
 
                 user = new User(username1, name, password, dob, country, contactNum, email, favoriteTeam);
             }
+            rs.close();
+            conn.close();
             return user;
 
         } catch (SQLException ex) {
@@ -65,6 +67,7 @@ public class UserDAO {
                 usersList.add(user);
             }
             rs.close();
+            conn.close();
         } catch (SQLException ex) {
             Logger.getLogger(UserDAO.class.getName()).log(Level.SEVERE, null, ex);
         } catch (ClassNotFoundException ex) {
@@ -83,6 +86,7 @@ public class UserDAO {
                 totalNumberOfLeagues = rs.getInt(1);
             }
             rs.close();
+            conn.close();
 
         } catch (SQLException ex) {
             Logger.getLogger(UserDAO.class.getName()).log(Level.SEVERE, null, ex);
@@ -104,6 +108,7 @@ public class UserDAO {
                 retrievedLeagueId = rs.getInt(1);
             }
             rs.close();
+            conn.close();
 
         } catch (SQLException ex) {
             Logger.getLogger(UserDAO.class.getName()).log(Level.SEVERE, null, ex);

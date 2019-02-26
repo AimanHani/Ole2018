@@ -32,6 +32,7 @@ public class RetrieveParticipantsDAO {
 
             }
             rs.close();
+            conn.close();
 
         } catch (SQLException ex) {
             ex.printStackTrace();

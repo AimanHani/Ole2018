@@ -41,6 +41,7 @@ public class FAQ_DAO {
 
             }
             rs.close();
+            conn.close();
 
         } catch (SQLException ex) {
             ex.printStackTrace();

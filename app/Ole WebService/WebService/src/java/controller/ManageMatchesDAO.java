@@ -113,6 +113,7 @@ public class ManageMatchesDAO {
                 matchIdPredictions.add(rs.getInt(1));
             }
             rs.close();
+            conn.close();
 
         } catch (SQLException ex) {
             Logger.getLogger(UserDAO.class.getName()).log(Level.SEVERE, null, ex);
@@ -149,6 +150,7 @@ public class ManageMatchesDAO {
             if (rs > 0) {
                 return "successful";
             }
+            c.close();
         } catch (Exception e) {
             System.out.println("check db connection class");
             e.printStackTrace();

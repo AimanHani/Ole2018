@@ -61,6 +61,7 @@ public class LoginDAO {
                     return true;
                 }
             }
+            c.close();
         } catch (ClassNotFoundException e) {
             System.out.println("check db connection class");
         } finally {
