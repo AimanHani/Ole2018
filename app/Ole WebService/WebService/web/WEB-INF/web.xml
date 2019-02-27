@@ -5,6 +5,10 @@
         <url-pattern>/json/scoreBoard</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
+        <servlet-name>UserVerfication</servlet-name>
+        <url-pattern>/json/userVerfication</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
         <servlet-name>GetUsers</servlet-name>
         <url-pattern>/json/getUsers</url-pattern>
     </servlet-mapping>
