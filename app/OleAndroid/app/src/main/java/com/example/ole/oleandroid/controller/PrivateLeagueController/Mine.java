@@ -54,7 +54,7 @@ public class Mine extends Fragment implements View.OnClickListener{
         String response = null;
         try {
             response = getConnection.run(url);
-            //System.out.println(response);
+            System.out.println(response);
             JSONObject result = new JSONObject(response);
             JSONArray privateLeagues = result.getJSONArray("results");
 
@@ -94,6 +94,7 @@ public class Mine extends Fragment implements View.OnClickListener{
         switch (v.getId()){
             case R.id.createPrivateLeagueBtn:
                 Intent intent = new Intent(getActivity(), PrivateLeagueCreate.class);
+                intent.putExtra("allLeague", allLeagues);
                 this.startActivity(intent);
         }
     }
@@ -105,7 +106,7 @@ public class Mine extends Fragment implements View.OnClickListener{
         String response = null;
         try {
             response = getConnection.run(url2);
-            //System.out.println(response);
+            System.out.println(response);
             JSONObject result = new JSONObject(response);
             JSONArray privateLeagues = result.getJSONArray("results");
             if (privateLeagues.length() > 0) {
