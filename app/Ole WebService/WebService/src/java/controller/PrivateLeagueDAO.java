@@ -63,13 +63,47 @@ public class PrivateLeagueDAO {
         }
         return privateLeagueList;
     }
-    
+
+    public static ArrayList<PrivateLeague> getAllNonPrivateLeagues(String username) {
+        ArrayList<PrivateLeague> privateLeagueList = new ArrayList<>();
+
+        try (Connection conn = DBConnection.getConnection();
+                PreparedStatement stmt = conn.prepareStatement(
+                        "select l.leagueId, l.tournamentId, l.pointsAllocated, l.leagueName, pv.prize, pv.password, pv.startDate, pv.endDate, pv.username from privateleague pv inner join league l on pv.leagueKeyId = l.leagueId where l.leagueId NOT IN ( SELECT lg.leagueId FROM log lg where lg.username = '" + username + "')");) {
+                        //"select distinct l.leagueId, l.tournamentId, l.pointsAllocated, l.leagueName, pl.prize, pl.password, pl.startDate, pl.endDate, pl.username from league l inner join privateleague pl inner join log lg on l.leagueId = pl.leagueKeyId AND pl.leagueKeyId = lg.leagueId where pl.username <> '" + username + "'");) {
+            System.out.println(stmt);
+            ResultSet rs = stmt.executeQuery();
+
+            while (rs.next()) {
+                int leagueID = rs.getInt(1);
+                int tournamentID = rs.getInt(2);
+                int pointsAllocated = rs.getInt(3);
+                String leagueName = rs.getString(4);
+                String prize = rs.getString(5);
+                String password = rs.getString(6);
+                Date startDate = rs.getDate(7);
+                Date endDate = rs.getDate(8);
+                String userName = rs.getString(9);
+
+                privateLeagueList.add(new PrivateLeague(leagueID, leagueName, prize, password, startDate, endDate, leagueID, userName, pointsAllocated, tournamentID));
+            }
+            rs.close();
+            conn.close();
+
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        } catch (ClassNotFoundException ex) {
+            ex.printStackTrace();
+        }
+        return privateLeagueList;
+    }
+
     public static ArrayList<PrivateLeague> getAllPrivateLeagues() {
         ArrayList<PrivateLeague> privateLeagueList = new ArrayList<>();
 
         try (Connection conn = DBConnection.getConnection();
                 PreparedStatement stmt = conn.prepareStatement(
-                        "select l.leagueId, l.tournamentId, l.pointsAllocated, l.leagueName, pl.prize, pl.password, pl.startDate, pl.endDate, pl.username from league l inner join privateleague pl on l.leagueId = pl.leagueKeyId");) {
+                        "select distinct l.leagueId, l.tournamentId, l.pointsAllocated, l.leagueName, pl.prize, pl.password, pl.startDate, pl.endDate, pl.username from league l inner join privateleague pl on l.leagueId = pl.leagueKeyId");) {
             ResultSet rs = stmt.executeQuery();
 
             while (rs.next()) {
@@ -134,7 +168,7 @@ public class PrivateLeagueDAO {
                                         if (rs > 0) {
                                             String[] teamsList = teams.split(",");
                                             for (String teamid : teamsList) {
-                                                try (Connection c6 = DBConnection.getConnection(); PreparedStatement ps6 = c6.prepareStatement("insert into PrivateLeagueTeams(teamId, leagueId) values ('" + teamid + "', " + leagueID+")");) {
+                                                try (Connection c6 = DBConnection.getConnection(); PreparedStatement ps6 = c6.prepareStatement("insert into PrivateLeagueTeams(teamId, leagueId) values ('" + teamid + "', " + leagueID + ")");) {
                                                     System.out.println(ps6);
                                                     rs = ps6.executeUpdate();
 
@@ -142,8 +176,8 @@ public class PrivateLeagueDAO {
 
                                                 }
                                             }
-                                            int logId=0;
-                                            try (Connection c8 = DBConnection.getConnection(); PreparedStatement ps8 = c8.prepareStatement("select logId from log where leagueId = '"+ leagueID +"' AND username = 'admin'");) {
+                                            int logId = 0;
+                                            try (Connection c8 = DBConnection.getConnection(); PreparedStatement ps8 = c8.prepareStatement("select logId from log where leagueId = '" + leagueID + "' AND username = 'admin'");) {
                                                 resultSet = ps8.executeQuery();
                                                 if (resultSet.next()) {
                                                     logId = resultSet.getInt(1);
@@ -155,7 +189,7 @@ public class PrivateLeagueDAO {
                                             //select logId from log where leagueId = '42' AND username = 'admin'
                                             String[] specialsList = specials.split(",");
                                             for (String specialid : specialsList) {
-                                                try (Connection c7 = DBConnection.getConnection(); PreparedStatement ps7 = c7.prepareStatement("insert into specialslog(logid, specialsId, prediction) values("+ logId +"," + specialid + ", -1)");) {
+                                                try (Connection c7 = DBConnection.getConnection(); PreparedStatement ps7 = c7.prepareStatement("insert into specialslog(logid, specialsId, prediction) values(" + logId + "," + specialid + ", -1)");) {
                                                     System.out.println(ps7);
                                                     rs = ps7.executeUpdate();
 
@@ -193,6 +227,20 @@ public class PrivateLeagueDAO {
         return "error";
     }
 
+    public static String joinPrivateLeague(String username, String leagueId) {
+        int rs = 0;
+        System.out.println("Joining Private League: " + username + leagueId);
+        try (Connection c5 = DBConnection.getConnection(); PreparedStatement ps5 = c5.prepareStatement("insert into log(username, leagueId, points) values ('" + username + "', " + leagueId + ", -1)");) {
+            rs = ps5.executeUpdate();
+            if (rs > 0) {
+                return "successful";
+            }
+        } catch (Exception e) {
+            return "error";
+        }
+        return "error";
+    }
+
     public static AllPublicLeague retrieveLeague(int leagueId) {
         PrivateLeague pl = null;
         AllPublicLeague apl = null;
@@ -221,7 +269,7 @@ public class PrivateLeagueDAO {
 
         return null;
     }
-    
+
     public static ArrayList<model.PrivateMembers> getMembers(int leagueid) {
         ArrayList<model.PrivateMembers> memlist = new ArrayList<model.PrivateMembers>();
         PrivateMembers members = null;
@@ -281,7 +329,7 @@ public class PrivateLeagueDAO {
 
         return null;
     }
-    
+
     public static ArrayList<model.Tournament> getTournament() {
         ArrayList<model.Tournament> list = new ArrayList<model.Tournament>();
         try (Connection conn = DBConnection.getConnection(); PreparedStatement stmt = conn.prepareStatement("select * from tournament");) {

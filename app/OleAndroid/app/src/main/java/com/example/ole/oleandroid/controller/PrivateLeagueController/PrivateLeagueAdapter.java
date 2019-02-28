@@ -111,7 +111,7 @@ public class PrivateLeagueAdapter extends BaseAdapter implements View.OnClickLis
     }
 
     private void loadNextPage(View view, Context ctx, String leagueid) {
-                Intent intent = new Intent(ctx, PrivateMemberList.class);
+                Intent intent = new Intent(ctx, PrivateLeagueDetails.class);
                 Bundle bundle = new Bundle();
                 bundle.putString("leagueid", leagueid);
                 intent.putExtras(bundle);
