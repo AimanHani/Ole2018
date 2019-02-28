@@ -108,7 +108,8 @@ public class PrivateLeagueDiscoverAdapter extends BaseAdapter implements View.On
                                     dialog.dismiss();
 
                                     System.out.println("Joining Private League");
-                                    Toast.makeText(context,"Joining private league", Toast.LENGTH_LONG).show();
+                                    Toast.makeText(context,"Password Matched!", Toast.LENGTH_LONG).show();
+                                    Toast.makeText(context,"Joining..." + s.getLeagueName()+"", Toast.LENGTH_LONG).show();
 
                                     final String[] status = {"error"};
                                     JSONObject json = new JSONObject();
@@ -139,8 +140,8 @@ public class PrivateLeagueDiscoverAdapter extends BaseAdapter implements View.On
                                     //add pop up success
                                 }else{
                                     System.out.println("Non Match! League Password: " + leaguePassword + ", Input Password: " + inputPassword);
+                                    Toast.makeText(context,"Invalid password", Toast.LENGTH_LONG).show();
                                     dialog.dismiss();
-
                                     //add pop up failure
                                 }
                             }
