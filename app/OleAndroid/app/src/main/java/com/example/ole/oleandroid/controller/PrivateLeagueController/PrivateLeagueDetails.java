@@ -37,7 +37,7 @@ public class PrivateLeagueDetails extends SideMenuBar implements View.OnClickLis
     Button button;
     PrivateLeagueDetailsAdapter privateLeagueDetailsAdapter;
     ListView privateLeagueListView;
-    TextView privatePrizeInput, leagueNameInput,creator;
+    TextView privatePrizeInput, leagueNameInput,creator, privatepoints;
     PrivateLeague privateleague = null;
 
 @Override
@@ -134,11 +134,13 @@ protected void onCreate(Bundle savedInstanceState) {
             privatePrizeInput = findViewById(R.id.privatePrizeInput);
             leagueNameInput = findViewById(R.id.leagueNameInput);
             creator = findViewById(R.id.creator);
+            privatepoints = findViewById(R.id.privatepoints);
 
         if (privateleague != null) {
             privatePrizeInput.setText(privateleague.getPrize());
             leagueNameInput.setText(privateleague.getLeagueName());
             creator.setText(privateleague.getUsername());
+            privatepoints.setText(privateleague.getPointsAllocated()+"");
         }
         privateLeagueListView = findViewById(R.id.privateLeagueListView);
         privateLeagueDetailsAdapter = new PrivateLeagueDetailsAdapter(PrivateLeagueDetails.this, PrivateMembersDAO.getAllPrivateMembers());

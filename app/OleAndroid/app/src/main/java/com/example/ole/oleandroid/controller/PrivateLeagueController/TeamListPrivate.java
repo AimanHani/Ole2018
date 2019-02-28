@@ -151,7 +151,7 @@ try {
             System.out.println(response);
 
         load.dismiss();
-        intent = new Intent(TeamListPrivate.this, PrivateLeagueList.class);
+        intent = new Intent(TeamListPrivate.this, PrivateLeagueMain.class);
         startActivity(intent);
 
     } else {
