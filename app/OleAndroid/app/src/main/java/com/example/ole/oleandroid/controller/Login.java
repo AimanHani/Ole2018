@@ -25,6 +25,7 @@ public class Login extends AppCompatActivity {
     TextView signup;
     RequestQueue requestQueue;
     TextView result;
+    TextView checksmth;
    // Button facebookButton;
 
     @Override
@@ -40,6 +41,7 @@ public class Login extends AppCompatActivity {
         password = findViewById(R.id.password);
         signin = findViewById(R.id.signin);
         signup = findViewById(R.id.signup);
+        checksmth = findViewById(R.id.checksmth);
 
         //facebookButton = findViewById(R.id.facebookButton);
 
@@ -91,6 +93,15 @@ public class Login extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(Login.this, Signup.class);
+                startActivity(intent);
+            }
+        });
+
+        checksmth.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(Login.this, PredictMainPage.class);
                 startActivity(intent);
             }
         });

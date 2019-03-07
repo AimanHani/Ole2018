@@ -32,8 +32,8 @@ import java.util.ArrayList;
 public class SpecialList extends SideMenuBar {
 
     SpecialListAdapter specialListAdapter;
-    //    ArrayList<Integer> pointsList;
-//    ArrayList<String> specialNameList;
+    //ArrayList<Integer> pointsList;
+    //ArrayList<String> specialNameList;
     ListView specialListView;
     Button confirmspecialsbtn;
 
@@ -50,10 +50,8 @@ public class SpecialList extends SideMenuBar {
 //        pointsList = new ArrayList<>();
 //        specialNameList = new ArrayList<>();
 
-
         specialListView = findViewById(R.id.specialListView);
         confirmspecialsbtn = findViewById(R.id.confirmspecialsbtn);
-
 
         //int logid = 2;
 
