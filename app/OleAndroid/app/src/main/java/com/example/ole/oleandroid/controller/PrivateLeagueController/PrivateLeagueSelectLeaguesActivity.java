@@ -120,60 +120,7 @@ public class PrivateLeagueSelectLeaguesActivity extends BaseAdapter implements V
         TournamentDAO.setAllTournamentLeague(leaguelist);
         return convertView;// returns the view for the current row
     }
-    /*
 
-
-
-
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-
-        super.onCreate(savedInstanceState);
-        LayoutInflater inflater = (LayoutInflater) this.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        View contentView = inflater.inflate(R.layout.activity_private_league_select_leagues, null, false);
-        super.mDrawerlayout.addView(contentView, 0);
-
-
-        //radioGroup = (RadioGroup) findViewById(R.id.radio);
-        joinleaguebtn = findViewById(R.id.joinleaguebtn);
-
-        //System.out.println(radioGroup.getCheckedRadioButtonId());
-
-
-
-        selectDateButton = findViewById(R.id.selectDateButton);
-        selectDateButton.setOnClickListener(new View.OnClickListener( ) {
-            @Override
-            public void onClick(View view){
-                Bundle extras = getIntent().getExtras();
-                if (extras != null) {
-                    Intent intent = new Intent(PrivateLeagueSelectLeaguesActivity.this, PrivateLeagueSelectDateActivity.class);
-                    intent.putExtra("leaguename", extras.getString("leaguename"));
-                    intent.putExtra("prize", extras.getString("prize"));
-                    intent.putExtra("password", extras.getString("password"));
-                    intent.putExtra("pointsAllocated", extras.getString("pointsAllocated"));
-                    intent.putExtra("leagueid", "2");
-                    startActivity(intent);
-                }
-            }
-        });
-    }
-
-
-    viewHolder.radio.setOnClickListener( new View.OnClickListener() {
-            public void onClick(View v) {
-                RadioButton cb = (RadioButton) v ;
-                Tournament s = (Tournament) cb.getTag();
-                    /*Toast.makeText(context.getApplicationContext(),
-                            "Clicked on Checkbox: " + cb.getText() +
-                                    " is " + cb.isChecked(),
-                            Toast.LENGTH_LONG).show();
-                s.setChecked(cb.isSelected());
-                System.out.println(s.getTournamentId());
-}
-        });
-
-    */
     public void onClick(View view){
 
     }

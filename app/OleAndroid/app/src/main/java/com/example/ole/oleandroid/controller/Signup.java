@@ -251,18 +251,20 @@ public class Signup extends AppCompatActivity {
         String validateTeam = clickedTeamName;
         String validateCountries = clickedCountryName;
 
-        if (validateuserName.isEmpty() || name.length() < 3) {
-            username.setError("at least 3 characters");
+        if (validateuserName.isEmpty() || validateuserName.length() < 5) {
+            username.setError("at least 5 characters");
             valid = false;
+        } else if (UserDAO.checkUsernameExist(validateName)) {
+            username.setError("Username Exist");
+        } else if (validateName.contains(" ")) {
+            username.setError("Username cannot contain space");
         } else {
             username.setError("Good", tickDone);
         }
 
-        if (validateName.isEmpty() || validateName.length() < 3) {
-            name.setError("at least 3 characters for your name");
+        if (validateName.isEmpty() || validateName.length() < 1) {
+            name.setError("Please enter name");
 
-        } else if (UserDAO.checkUsernameExist(validateName)) {
-            username.setError("Username Exist");
         } else {
             name.setError("Good", tickDone);
         }
@@ -385,7 +387,7 @@ public class Signup extends AppCompatActivity {
         //return password.matches("^(?=.*[A-Z].*[A-Z])(?=.*[!@#$&*])(?=.*[0-9].*[0-9])(?=.*[a-z].*[a-z].*[a-z]).{8,20}$");
     }
 
-//    public static int calculateAge(String birthDay) {
+    //    public static int calculateAge(String birthDay) {
 //        if (birthDay != null) {
 //            DateTimeFormatter formatter_1 = DateTimeFormatter.ofPattern(DATE_FORMAT);
 //            LocalDate birthDate = null;
@@ -402,7 +404,7 @@ public class Signup extends AppCompatActivity {
 //        }
 //    }
     //dd-mm-yyyy
-    private int getAge(String birthday){
+    private int getAge(String birthday) {
         System.out.println("getage");
         String[] parts = birthday.split("-");
         int day = Integer.parseInt(parts[0]);
@@ -416,18 +418,18 @@ public class Signup extends AppCompatActivity {
 
         int age = today.get(Calendar.YEAR) - dob.get(Calendar.YEAR);
 
-        if (today.get(Calendar.DAY_OF_YEAR) < dob.get(Calendar.DAY_OF_YEAR)){
+        if (today.get(Calendar.DAY_OF_YEAR) < dob.get(Calendar.DAY_OF_YEAR)) {
             age--;
         }
 
 //        Integer ageInt = new Integer(age);
 //        String ageS = ageInt.toString();
-        System.out.println(age+"");
+        System.out.println(age + "");
         return age;
     }
 
     private boolean checkPhoneNumber(String phoneNumber, String validateCountries) {
-        phoneNumber = countryCodes.get(validateCountries)+phoneNumber;
+        phoneNumber = countryCodes.get(validateCountries) + phoneNumber;
         String regex = "^\\+(?:[0-9] ?){6,14}[0-9]$";
         return phoneNumber.matches(regex);
     }
@@ -494,9 +496,10 @@ public class Signup extends AppCompatActivity {
                             public void run() {
                                 if (s.toString().isEmpty() || s.toString().length() < 5) {
                                     username.setError("at least 5 characters");
-
                                 } else if (UserDAO.checkUsernameExist(s.toString())) {
                                     username.setError("Username Exist");
+                                } else if (s.toString().contains(" ")) {
+                                    username.setError("Username cannot contain space");
                                 } else {
                                     username.setError("Good", tickDone);
                                 }

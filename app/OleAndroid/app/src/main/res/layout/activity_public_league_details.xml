@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".controller.PrivateLeagueController.PrivateLeagueDetails">
+    tools:context=".controller.PublicLeague.PublicLeagueDetails">
+
+
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -61,7 +62,7 @@
                 tools:layout_editor_absoluteY="155dp" />
 
             <TextView
-                android:id="@+id/privatePrizeInput"
+                android:id="@+id/publicPrizeInput"
                 style="@android:style/Widget.DeviceDefault.Light.AutoCompleteTextView"
                 android:layout_width="match_parent"
                 android:layout_height="55dp"
@@ -78,24 +79,24 @@
         </LinearLayout>
 
         <LinearLayout
-            android:id="@+id/pointsalloc"
+            android:id="@+id/pointLayout"
             android:layout_width="320dp"
             android:layout_height="50dp"
             android:layout_marginLeft="32dp"
             android:orientation="horizontal"
             app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/prizeLayout">
+            app:layout_constraintTop_toBottomOf="@id/leagueNameLayout">
 
             <TextView
-                android:id="@+id/pointsprivate"
+                android:id="@+id/pointsAllo"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Points: "
-                tools:layout_editor_absoluteX="43dp"
-                tools:layout_editor_absoluteY="231dp" />
+                tools:layout_editor_absoluteX="16dp"
+                tools:layout_editor_absoluteY="155dp" />
 
             <TextView
-                android:id="@+id/privatepoints"
+                android:id="@+id/publicPoints"
                 style="@android:style/Widget.DeviceDefault.Light.AutoCompleteTextView"
                 android:layout_width="match_parent"
                 android:layout_height="55dp"
@@ -103,42 +104,11 @@
                 android:layout_marginEnd="16dp"
                 android:layout_marginBottom="8dp"
                 android:ems="10"
-                android:text="ReginaPhalange999"
+                android:text="0"
                 android:focusable="false"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent" />
-        </LinearLayout>
 
-        <LinearLayout
-            android:id="@+id/CreatedBy"
-            android:layout_width="320dp"
-            android:layout_height="50dp"
-            android:layout_marginLeft="32dp"
-            android:orientation="horizontal"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/prizeLayout">
-
-            <TextView
-                android:id="@+id/friendList"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Created By: "
-                tools:layout_editor_absoluteX="43dp"
-                tools:layout_editor_absoluteY="231dp" />
-
-            <TextView
-                android:id="@+id/creator"
-                style="@android:style/Widget.DeviceDefault.Light.AutoCompleteTextView"
-                android:layout_width="match_parent"
-                android:layout_height="55dp"
-                android:layout_marginStart="16dp"
-                android:layout_marginEnd="16dp"
-                android:layout_marginBottom="8dp"
-                android:ems="10"
-                android:text="ReginaPhalange999"
-                android:focusable="false"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent" />
         </LinearLayout>
 
         <TextView
@@ -154,4 +124,21 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent" />
     </LinearLayout>
+
+    <Button
+        android:id="@+id/predict"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentBottom="true"
+        android:background="@color/themeColor"
+        android:text="PREDICT MATCH"
+        android:textColor="@color/white"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        android:visibility="visible"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent" />
+
+
 </android.support.constraint.ConstraintLayout>

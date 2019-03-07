@@ -12,6 +12,8 @@ package com.example.ole.oleandroid.controller.PrivateLeagueController;
         import android.support.v7.app.AppCompatActivity;
         import android.view.LayoutInflater;
         import android.view.View;
+
+        import com.example.ole.oleandroid.controller.Leaderboard.LeaderboardPublic;
         import com.example.ole.oleandroid.controller.SideMenuBar;
 
         import com.example.ole.oleandroid.R;
@@ -26,7 +28,6 @@ public class PrivateLeagueMain extends SideMenuBar {
     Adapter adapter;
 
     FloatingActionButton addPrivateLeague;
-    //int logId;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -35,13 +36,8 @@ public class PrivateLeagueMain extends SideMenuBar {
         LayoutInflater inflater = (LayoutInflater) this.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         View contentView = inflater.inflate(R.layout.activity_private_league_main, null, false);
         super.mDrawerlayout.addView(contentView, 0);
-
-        //Bundle bundle = getIntent().getExtras();
-        //logId = bundle.getInt("logId");
-
         viewPager = findViewById(R.id.viewpagerId);
         setupViewPager(viewPager);
-
         privateLeagueTabLayout = findViewById(R.id.privateLeagueTabLayout);
         privateLeagueTabLayout.setupWithViewPager(viewPager);
     }
@@ -49,12 +45,6 @@ public class PrivateLeagueMain extends SideMenuBar {
     @Override
     protected void onResume() {
         super.onResume();
-        /*if(!Util.isNetworkAvailable(getApplicationContext())) {
-            Intent toNoConnectionActivity = new Intent(CurrentEvents.this, NoConnection.class);
-            startActivity(toNoConnectionActivity);
-            return;
-        }*/
-
         // reload the fragments, in case of the deletion of event by user
         if(viewPager != null) {
             Fragment fragment = getSupportFragmentManager().findFragmentByTag("android:switcher:"
@@ -68,15 +58,9 @@ public class PrivateLeagueMain extends SideMenuBar {
             }
         }
     }
-
-    //add the child fragments
     private void setupViewPager(ViewPager viewPager){
         adapter = new Adapter(getSupportFragmentManager());
         adapter.addFragment(new Mine(),"Mine");
-        // upcomingMatches now has a logId which u can set (so i can pass this logId on. logid is needed for specials list
-        //UpcomingMatches upcomingMatches = new UpcomingMatches();
-        //upcomingMatches.setLogId(logId);
-
         adapter.addFragment(new Discover(), "Discover");
         viewPager.setAdapter(adapter);
     }

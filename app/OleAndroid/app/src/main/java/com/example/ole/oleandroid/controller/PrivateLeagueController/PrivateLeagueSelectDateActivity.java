@@ -13,6 +13,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import com.example.ole.oleandroid.R;
 import com.example.ole.oleandroid.controller.SideMenuBar;
@@ -40,6 +41,9 @@ public class PrivateLeagueSelectDateActivity extends SideMenuBar {
     EditText startdate, enddate;
     Button selectSpecialsButton;
 
+    boolean startOk = false;
+    boolean endOk = false;
+
     private Button startDateButton;
     private Button endDateButton;
     private DatePickerDialog.OnDateSetListener dateSetListener;
@@ -58,14 +62,6 @@ public class PrivateLeagueSelectDateActivity extends SideMenuBar {
 
         startdate = (EditText) findViewById(R.id.startDate);
         enddate = (EditText) findViewById(R.id.endDate);
-        /*
-        Bundle extras = getIntent().getExtras();
-        if (extras != null) {
-            String leaguename = extras.getString("prize");
-            System.out.println("hello" + leaguename);
-            //The key argument here must match that used in the other activity
-        }
-        */
 
         //Calendar code
         startdateButton = findViewById(R.id.startDateButton);
@@ -84,6 +80,7 @@ public class PrivateLeagueSelectDateActivity extends SideMenuBar {
                         dateSetListenerStart, year, month, day);
                 //dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.blue(0b1449)));
                 dialog.show();
+
 
 
             }
@@ -114,6 +111,7 @@ public class PrivateLeagueSelectDateActivity extends SideMenuBar {
                     startdate.setText(showDate);
                 } catch (Exception e) {
                 }
+                startOk=true;
             }
         };
 
@@ -133,7 +131,6 @@ public class PrivateLeagueSelectDateActivity extends SideMenuBar {
                         dateSetListenerEnd, year, month, day);
                 //dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.blue(0b1449)));
                 dialog.show();
-
 
             }
         });
@@ -165,6 +162,7 @@ public class PrivateLeagueSelectDateActivity extends SideMenuBar {
 
                 } catch (Exception e) {
                 }
+                endOk=true;
             }
         };
 
@@ -178,126 +176,28 @@ public class PrivateLeagueSelectDateActivity extends SideMenuBar {
             @Override
             public void onClick(View view) {
                 Bundle extras = getIntent().getExtras();
-                if (extras != null) {
-                    Intent intent = new Intent(PrivateLeagueSelectDateActivity.this, SpecialListPrivate.class);
-                    intent.putExtra("leaguename", extras.getString("leaguename"));
-                    intent.putExtra("prize", extras.getString("prize"));
-                    intent.putExtra("password", extras.getString("password"));
-                    intent.putExtra("pointsAllocated", extras.getString("pointsAllocated"));
-                    intent.putExtra("leagueid", extras.getString("leagueid"));
-                    intent.putExtra("startdate", sDate);
-                    intent.putExtra("enddate", eDate);
-                    startActivity(intent);
+                if (!startdate.getEditableText().toString().isEmpty() && !enddate.getEditableText().toString().isEmpty()  && startOk && endOk ) {
+
+                    if (extras != null) {
+                        Intent intent = new Intent(PrivateLeagueSelectDateActivity.this, SpecialListPrivate.class);
+                        intent.putExtra("leaguename", extras.getString("leaguename"));
+                        intent.putExtra("prize", extras.getString("prize"));
+                        intent.putExtra("password", extras.getString("password"));
+                        intent.putExtra("pointsAllocated", extras.getString("pointsAllocated"));
+                        intent.putExtra("leagueid", extras.getString("leagueid"));
+                        intent.putExtra("startdate", sDate);
+                        intent.putExtra("enddate", eDate);
+                        startActivity(intent);
+                    }
+                }else {
+                    Toast.makeText(PrivateLeagueSelectDateActivity.this,
+                            "Please Complete the form", Toast.LENGTH_LONG).show();
+
                 }
             }
         });
     }
-        /*
-        startdateButton = findViewById(R.id.startDateButton);
-        startdateButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Calendar cal = Calendar.getInstance();
-                int year = cal.get(Calendar.YEAR);
-                int month = cal.get(Calendar.MONTH);
-                int day = cal.get(Calendar.DAY_OF_MONTH);
 
-                DatePickerDialog dialog = new DatePickerDialog(
-                        PrivateLeagueSelectDateActivity.this,
-                        android.R.style.Theme_Material_Dialog_MinWidth,
-                        dateSetListenerStart, year, month, day);
-                dialog.getDatePicker().setMinDate(System.currentTimeMillis());
-                //dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.blue(0b1449)));
-                dialog.show();
-            }
-        });
-        dateSetListenerStart = new DatePickerDialog.OnDateSetListener() {
-            @Override
-            public void onDateSet(DatePicker datePicker, int year, int month, int day) {
-                month = month + 1;
-                String mth = month + "";
-                if (month < 10) {
-                    mth = "0" + mth;
-                }
-                Log.d(TAG, DATE_FORMAT + year + "-" + month + "-" + day);
-                String date = day + "-" + mth + "-" + year;
-                Log.d(TAG, DATE_FORMAT + date);
-                startdate.setText(date);
-            }
-        };
-
-        enddateButton = findViewById(R.id.endDateButton);
-        enddateButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Calendar cal = Calendar.getInstance();
-                int year = cal.get(Calendar.YEAR);
-                int month = cal.get(Calendar.MONTH);
-                int day = cal.get(Calendar.DAY_OF_MONTH);
-
-                try {
-                    String EPLEndDate = "12/05/2019";
-                    DateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
-                    Date date = formatter.parse(EPLEndDate);
-                    endDateInLong = date.getTime();
-                }
-                catch (Exception e) {
-                    System.out.println("line 113 parse exception");
-                }
-
-                DatePickerDialog dialog = new DatePickerDialog(
-                        PrivateLeagueSelectDateActivity.this,
-                        android.R.style.Theme_Material_Dialog_MinWidth,
-                        dateSetListenerEnd, year, month, day);
-                dialog.getDatePicker().setMaxDate(endDateInLong);
-                //dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.blue(0b1449)));
-                dialog.show();
-            }
-        });
-        dateSetListenerEnd = new DatePickerDialog.OnDateSetListener() {
-            @Override
-            public void onDateSet(DatePicker datePicker, int year, int month, int day) {
-                month = month + 1;
-                String mth = month + "";
-                if (month < 10) {
-                    mth = "0" + mth;
-                }
-                Log.d(TAG, DATE_FORMAT + year + "-" + month + "-" + day);
-                String date = day + "-" + mth + "-" + year;
-                Log.d(TAG, DATE_FORMAT + date);
-                enddate.setText(date);
-            }
-        };
-    }
-
-
-
-    final static String DATE_FORMAT = "dd-MM-yyyy";
-
-    public static boolean isDateValid(String date) {
-        try {
-            DateFormat df = new SimpleDateFormat(DATE_FORMAT);
-            df.setLenient(false);
-            df.parse(date);
-            return true;
-        } catch (Exception e) {
-            return false;
-        }
-    }
-
-        final static String DATE_FORMAT = "dd-MM-yyyy";
-
-    public static boolean isDateValid(String date) {
-        try {
-            DateFormat df = new SimpleDateFormat(DATE_FORMAT);
-            df.setLenient(false);
-            df.parse(date);
-            return true;
-        } catch (Exception e) {
-            return false;
-        }
-    }
-*/
     public void validationOnTextView() {
 
         startdate.addTextChangedListener(new TextWatcher() {

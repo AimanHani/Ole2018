@@ -96,52 +96,7 @@ public class PrivateLeagueCreate extends SideMenuBar {
         }
         });
 }
-/*
-                String url = new DBConnection( ).insertPrivateLeagueUrl( );
 
-                // Creating string request with post method.
-                StringRequest stringRequest = new StringRequest(Request.Method.POST, url,
-                        new Response.Listener<String>( ) {
-                            @Override
-                            public void onResponse(String ServerResponse) {
-                                System.out.println(ServerResponse);
-                                Intent intent = new Intent(PrivateLeagueCreate.this, PrivateLeagueChoosematchActivity.class);
-                                startActivity(intent);
-                            }
-                        },
-                        new Response.ErrorListener( ) {
-                            @Override
-                            public void onErrorResponse(VolleyError volleyError) {
-                                System.out.println("error  :");
-                                volleyError.printStackTrace( );
-                                Intent intent = new Intent(PrivateLeagueCreate.this, PrivateLeagueCreate.class);
-                                startActivity(intent);
-                            }
-                        }) {
-                    @Override
-                    protected Map<String, String> getParams() {
-                        Map<String, String> params = new HashMap<String, String>( );
-                        try {
-                            params.put("username", username);
-                            params.put("password", password.getText( ).toString( ));
-                            params.put("prize", prize.getText( ).toString( ));
-                            params.put("leagueName", leaguename.getText( ).toString( ));
-                            params.put("tournamentId", tournamentId);
-                            params.put("pointsAllocated", pointsAllocated.getText( ).toString( ));
-                            params.put("startDate", startdate.getText( ).toString( ));
-                            params.put("endDate", enddate.getText( ).toString( ));
-                            validate( );
-                        } catch (Exception e) {
-
-                        }
-                        return params;
-                    }
-                };
-                // Creating RequestQueue.
-                RequestQueue requestQueue = Volley.newRequestQueue(getApplicationContext( ));
-                // Adding the StringRequest object into requestQueue.
-                requestQueue.add(stringRequest);
-                */
 public void validationOnTextView() {
     leaguename.addTextChangedListener(new TextWatcher() {
         @Override
