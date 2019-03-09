@@ -71,9 +71,10 @@
 
             <Button
                 android:id="@+id/startDateButton"
-                android:layout_width="20dp"
-                android:layout_height="20dp"
-                android:background="@drawable/calender" />
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_gravity="center"
+                android:background="@drawable/step3" />
         </LinearLayout>
 
     </LinearLayout>
@@ -115,9 +116,10 @@
 
             <Button
                 android:id="@+id/endDateButton"
-                android:layout_width="20dp"
-                android:layout_height="20dp"
-                android:background="@drawable/calender" />
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_gravity="center"
+                android:background="@drawable/step3" />
         </LinearLayout>
 
     </LinearLayout>

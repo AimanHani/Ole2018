@@ -92,8 +92,8 @@ public class PredictMainPage extends AppCompatActivity implements View.OnClickLi
 
 
                 } else {
-                    //blackoutimage.setVisibility(View.VISIBLE);
-                    //blackoutimage.startAnimation(Fadein);
+                    blackoutimage.setVisibility(View.VISIBLE);
+                    blackoutimage.startAnimation(Fadein);
                     camera.startAnimation(FoodFabOpen);
                     diary.startAnimation(FoodFabOpen);
                     addmeal.startAnimation(FoodFabOpen);
