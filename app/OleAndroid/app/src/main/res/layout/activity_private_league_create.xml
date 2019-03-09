@@ -1,10 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.constraint.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".controller.PrivateLeagueController.PrivateLeagueCreate">
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="150dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
+        app:srcCompat="@drawable/stepbar_1"/>
 
     <LinearLayout
         android:id="@+id/leagueNameLayout"
@@ -23,6 +33,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text=" Choose a League Name:"
+            android:textSize="18sp"
             tools:layout_editor_absoluteX="16dp"
             tools:layout_editor_absoluteY="116dp" />
 
@@ -32,6 +43,7 @@
             android:layout_height="match_parent"
             android:ems="10"
             android:hint="Your League Name"
+            android:textSize="16sp"
             android:inputType="textPersonName"
             android:textAlignment="textStart"
             app:layout_constraintEnd_toEndOf="parent"
@@ -55,6 +67,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text=" Choose a Prize: "
+            android:textSize="18sp"
             tools:layout_editor_absoluteX="16dp"
             tools:layout_editor_absoluteY="155dp" />
 
@@ -64,26 +77,28 @@
             android:layout_height="wrap_content"
             android:ems="10"
             android:hint="Prize"
+            android:textSize="16sp"
             android:inputType="textPersonName"
             app:layout_constraintEnd_toEndOf="parent" />
 
     </LinearLayout>
 
     <LinearLayout
-    android:id="@+id/passwordLayout"
-    android:layout_width="320dp"
-    android:layout_height="60dp"
-    android:layout_marginTop="16dp"
-    android:orientation="vertical"
-    app:layout_constraintEnd_toEndOf="@+id/PrizeLayout"
-    app:layout_constraintStart_toStartOf="@+id/PrizeLayout"
-    app:layout_constraintTop_toBottomOf="@+id/PrizeLayout">
+        android:id="@+id/passwordLayout"
+        android:layout_width="320dp"
+        android:layout_height="60dp"
+        android:layout_marginTop="16dp"
+        android:orientation="vertical"
+        app:layout_constraintEnd_toEndOf="@+id/PrizeLayout"
+        app:layout_constraintStart_toStartOf="@+id/PrizeLayout"
+        app:layout_constraintTop_toBottomOf="@+id/PrizeLayout">
 
     <TextView
         android:id="@+id/passwordText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text=" Choose a Password: "
+        android:textSize="18sp"
         tools:layout_editor_absoluteX="16dp"
         tools:layout_editor_absoluteY="155dp" />
 
@@ -93,6 +108,7 @@
         android:layout_height="wrap_content"
         android:ems="10"
         android:hint="Password"
+        android:textSize="16sp"
         android:inputType="textPersonName"
         app:layout_constraintEnd_toEndOf="parent" />
     </LinearLayout>
@@ -125,8 +141,6 @@
             app:layout_constraintEnd_toEndOf="parent" />-->
     </LinearLayout>
 
-
-
     <Button
         android:id="@+id/selectleague"
         android:layout_width="match_parent"
@@ -134,7 +148,7 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentBottom="true"
         android:background="@color/themeColor"
-        android:text="SELECT LEAGUE"
+        android:text="NEXT"
         android:textColor="@color/white"
         android:textSize="18sp"
         android:textStyle="bold"
@@ -146,12 +160,10 @@
         android:id="@+id/imageView2"
         android:layout_width="120dp"
         android:layout_height="120dp"
-        android:layout_marginTop="24dp"
         android:adjustViewBounds="false"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/trophy_profile_private_league" />
-
+        android:visibility="invisible"
+        app:srcCompat="@drawable/trophy_profile_private_league"
+        tools:layout_editor_absoluteX="145dp"
+        tools:layout_editor_absoluteY="16dp" />
 
 </android.support.constraint.ConstraintLayout>

@@ -3,8 +3,8 @@
 xmlns:android="http://schemas.android.com/apk/res/android"
 xmlns:app="http://schemas.android.com/apk/res-auto"
 xmlns:tools="http://schemas.android.com/tools"
-android:layout_width="wrap_content"
-android:layout_height="wrap_content"
+android:layout_width="match_parent"
+android:layout_height="match_parent"
 android:layout_gravity="center">
 
 <View
@@ -16,8 +16,8 @@ android:layout_gravity="center">
 
 <RelativeLayout
     android:id="@+id/popupDialogFrame"
-    android:layout_width="350dp"
-    android:layout_height="300dp"
+    android:layout_width="300dp"
+    android:layout_height="280dp"
     android:layout_marginStart="8dp"
     android:layout_marginTop="8dp"
     android:layout_marginEnd="8dp"
@@ -41,8 +41,8 @@ android:layout_gravity="center">
 
     <ImageView
         android:id="@+id/success"
-        android:layout_width="85dp"
-        android:layout_height="85dp"
+        android:layout_width="75dp"
+        android:layout_height="75dp"
         android:layout_gravity="center"
         android:layout_margin="5dp"
         android:layout_marginTop="28dp"
@@ -52,7 +52,7 @@ android:layout_gravity="center">
         app:layout_constraintEnd_toEndOf="@+id/popupDialogFrame"
         app:layout_constraintStart_toStartOf="@+id/popupDialogFrame"
         app:layout_constraintTop_toTopOf="@+id/popupDialogFrame"
-        app:layout_constraintVertical_bias="0.300" />
+        app:layout_constraintVertical_bias="0.50" />
 
     <ImageView
         android:id="@+id/closeWindow"
@@ -69,9 +69,11 @@ android:layout_gravity="center">
 
     <TextView
         android:id="@+id/confirmMessage"
-        android:layout_width="300dp"
-        android:layout_height="wrap_content"
+        android:layout_width="265dp"
+        android:layout_height="66dp"
         android:layout_gravity="center_horizontal"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
         android:gravity="center"
         android:text="Specials Confirmed! You could earn up to ? Ole points!"
         android:textColor="@color/dimgrey"

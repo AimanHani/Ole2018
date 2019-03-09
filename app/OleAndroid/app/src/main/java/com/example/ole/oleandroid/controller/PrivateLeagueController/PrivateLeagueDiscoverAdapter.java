@@ -4,6 +4,8 @@ import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.support.design.widget.FloatingActionButton;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -29,6 +31,8 @@ import com.example.ole.oleandroid.model.User;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+
+import static android.graphics.Color.*;
 
 public class PrivateLeagueDiscoverAdapter extends BaseAdapter implements View.OnClickListener{
 
@@ -80,8 +84,6 @@ public class PrivateLeagueDiscoverAdapter extends BaseAdapter implements View.On
                 viewHolder.joinprivateleaguebtn.setOnClickListener(this);
                 convertView.setTag(viewHolder);
 
-
-
                 viewHolder.joinprivateleaguebtn.setOnClickListener(new View.OnClickListener() {
                     public void onClick(View v) {
                         Button cb = (Button) v;
@@ -89,6 +91,7 @@ public class PrivateLeagueDiscoverAdapter extends BaseAdapter implements View.On
 
                         final Dialog dialog = new Dialog(context);
                         dialog.setContentView(R.layout.activity_private_league_input_password);
+                        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(TRANSPARENT)); //to set bg transparent
                         dialog.show();
 
                         TextView join = (TextView) dialog.findViewById(R.id.join);

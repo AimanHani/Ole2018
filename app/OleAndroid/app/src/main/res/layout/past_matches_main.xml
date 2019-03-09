@@ -10,15 +10,6 @@
     <ListView
         android:id="@+id/matchListView"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_marginTop="0dp"
-        android:cacheColorHint="#00000000"
-        android:dividerHeight="1dp"
-        android:footerDividersEnabled="true"
-        android:headerDividersEnabled="true"
-        android:visibility="visible"
-        app:layout_constraintTop_toBottomOf="@+id/publicLeagueTab"
-        tools:layout_editor_absoluteX="30dp" />
+        android:layout_height="wrap_content" />
 
 </android.support.constraint.ConstraintLayout>

@@ -57,7 +57,8 @@
             android:layout_marginRight="16dp"
             android:layout_marginBottom="16dp"
             app:cardCornerRadius="8dp"
-            app:cardElevation="8dp">
+            app:cardElevation="8dp"
+            android:alpha="0.8">
 
             <LinearLayout
                 android:layout_width="wrap_content"
@@ -97,7 +98,8 @@
             android:layout_marginRight="16dp"
             android:layout_marginBottom="16dp"
             app:cardCornerRadius="8dp"
-            app:cardElevation="8dp">
+            app:cardElevation="8dp"
+            android:alpha="0.8">
 
             <LinearLayout
                 android:layout_width="wrap_content"
@@ -137,7 +139,8 @@
             android:layout_marginRight="16dp"
             android:layout_marginBottom="16dp"
             app:cardCornerRadius="8dp"
-            app:cardElevation="8dp">
+            app:cardElevation="8dp"
+            android:alpha="0.8">
 
             <LinearLayout
                 android:layout_width="wrap_content"
@@ -178,7 +181,8 @@
             android:layout_marginRight="10dp"
             android:layout_marginBottom="10dp"
             app:cardCornerRadius="8dp"
-            app:cardElevation="8dp">
+            app:cardElevation="8dp"
+            android:alpha="0.8">
 
             <LinearLayout
                 android:layout_width="wrap_content"
@@ -219,7 +223,8 @@
             android:layout_marginRight="16dp"
             android:layout_marginBottom="16dp"
             app:cardCornerRadius="8dp"
-            app:cardElevation="8dp">
+            app:cardElevation="8dp"
+            android:alpha="0.8">
 
             <LinearLayout
                 android:layout_width="wrap_content"
@@ -259,7 +264,8 @@
             android:layout_marginRight="16dp"
             android:layout_marginBottom="16dp"
             app:cardCornerRadius="8dp"
-            app:cardElevation="8dp">
+            app:cardElevation="8dp"
+            android:alpha="0.8">
 
             <LinearLayout
                 android:layout_width="wrap_content"
@@ -273,7 +279,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal"
                     android:layout_weight="10"
-                    android:src="@drawable/help" />
+                    android:src="@drawable/help"/>
 
                 <TextView
                     android:layout_width="match_parent"
