@@ -11,17 +11,9 @@ import android.widget.TextView;
 
 import com.example.ole.oleandroid.R;
 
-import com.example.ole.oleandroid.controller.DAO.PrivateLeagueDAO;
-import com.example.ole.oleandroid.controller.DAO.PublicMembersDAO;
 import com.example.ole.oleandroid.controller.MatchesTabs;
 import com.example.ole.oleandroid.controller.SideMenuBar;
-import com.example.ole.oleandroid.dbConnection.DBConnection;
-import com.example.ole.oleandroid.dbConnection.GetHttp;
 import com.example.ole.oleandroid.model.PublicLeague;
-import com.example.ole.oleandroid.model.PublicMembers;
-
-import org.json.JSONArray;
-import org.json.JSONObject;
 
 import java.io.Serializable;
 
@@ -30,8 +22,8 @@ public class PublicLeagueDetails extends SideMenuBar implements View.OnClickList
     View view;
     Button button, predict;
     PublicLeagueDetailsAdapter publicLeagueDetailsAdapter;
-    ListView LeagueListView;
-    TextView prizeInput, leagueNameInput,publicPoints;
+    ListView membersListView;
+    TextView prizeInput, leagueNameInput, publicPoints;
     PublicLeague publicLeague = null;
 
     @Override
@@ -39,41 +31,14 @@ public class PublicLeagueDetails extends SideMenuBar implements View.OnClickList
         super.onCreate(savedInstanceState);
         LayoutInflater inflater = (LayoutInflater) this.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 
-        publicLeague = PublicMembersDAO.getLeague();
-
         View contentView = inflater.inflate(R.layout.activity_public_league_details, null, false);
         super.mDrawerlayout.addView(contentView, 0);
 
-        PrivateLeagueDAO.clearAllPrivateLeague();
-        String url2 = DBConnection.insertPrivateLeagueUrl()+"?method=retrieveMembers&leagueid="+publicLeague.getLeagueId();
+        Bundle bundle = getIntent().getExtras();
+        int logId = bundle.getInt("logId");
+        int leagueId = bundle.getInt("leagueId");
+        publicLeague = PublicLeagueDAO.getOnePublicLeague(leagueId);
 
-        System.out.println("Getting public league members");
-        GetHttp getConnection = new GetHttp();
-        String response = null;
-        try {
-            response = getConnection.run(url2);
-            System.out.println(response);
-            JSONObject result = new JSONObject(response);
-            JSONArray members = result.getJSONArray("results");
-
-            PublicMembersDAO.clearAllPublicMembers();
-            if (members.length() > 0) {
-                for (int i = 0; i < members.length(); i++) {
-                    JSONObject membersObj = members.getJSONObject(i);
-                    PublicMembers publicmembers = new PublicMembers(
-                            membersObj.getInt("logid"),
-                            membersObj.getString("username"),
-                            membersObj.getInt("leagueid"),
-                            membersObj.getInt("points")
-                    );
-                    PublicMembersDAO.addPublicMembers(publicmembers);
-                }
-            } else {            }
-        } catch (Exception e) {
-            System.out.println("error");
-            e.printStackTrace();
-        }
-        //System.out.println(PublicMembersDAO.getAllPublicMembers().size());
         prizeInput = findViewById(R.id.publicPrizeInput);
         leagueNameInput = findViewById(R.id.leagueNameInput);
         publicPoints = findViewById(R.id.publicPoints);
@@ -81,17 +46,18 @@ public class PublicLeagueDetails extends SideMenuBar implements View.OnClickList
         if (publicLeague != null) {
             prizeInput.setText(publicLeague.getPrize());
             leagueNameInput.setText(publicLeague.getLeagueName());
-            publicPoints.setText(publicLeague.getPointsAllocated()+"");
+            publicPoints.setText(publicLeague.getPointsAllocated() + "");
         }
-        LeagueListView = findViewById(R.id.privateLeagueListView);
-        publicLeagueDetailsAdapter = new PublicLeagueDetailsAdapter(PublicLeagueDetails.this, PublicMembersDAO.getAllPublicMembers());
-        LeagueListView.setAdapter(publicLeagueDetailsAdapter);
+
+        membersListView = findViewById(R.id.membersListView);
+        publicLeagueDetailsAdapter = new PublicLeagueDetailsAdapter(PublicLeagueDetails.this, PublicLeagueDAO.loadPublicMembers(leagueId));
+        membersListView.setAdapter(publicLeagueDetailsAdapter);
 
         predict = findViewById(R.id.predict);
-        predict.setOnClickListener(new View.OnClickListener( ) {
+        predict.setOnClickListener(new View.OnClickListener() {
 
             @Override
-            public void onClick(View view){
+            public void onClick(View view) {
                 Intent intent = new Intent(PublicLeagueDetails.this, MatchesTabs.class);
                 Bundle bundle = new Bundle();
                 bundle.putInt("logId", publicLeague.getLogId());
@@ -104,5 +70,6 @@ public class PublicLeagueDetails extends SideMenuBar implements View.OnClickList
     }
 
     @Override
-    public void onClick(View v) {    }
+    public void onClick(View v) {
+    }
 }

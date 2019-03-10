@@ -55,10 +55,10 @@ public class SpecialDAO {
 
         for (Specials s : specialsList) {
             JSONObject childJson = new JSONObject();
-            System.out.println("Special: " + s.getSpecialsID() + ", " + s.getPrediction() + ", " + s.getDoubleIt() +  ", " + s.getPoints());
+            System.out.println("Special: " + s.getSpecialsID() + ", " + s.getPrediction() + ", " + s.getDoubleIt() + ", " + s.getPoints());
             childJson.put("specialsId", s.getSpecialsID());
             childJson.put("prediction", s.getPrediction());
-            if (s.getDoubleIt()){
+            if (s.getDoubleIt()) {
                 childJson.put("doubleIt", 1);
             } else {
                 childJson.put("doubleIt", 0);
@@ -68,7 +68,7 @@ public class SpecialDAO {
 
         parentJson.put("params", specialArray);
 
-        String send = "params="+parentJson.toString()+"&leagueId="+leagueId+"&username="+UserDAO.getLoginUser().getUsername();
+        String send = "params=" + parentJson.toString() + "&leagueId=" + leagueId + "&username=" + UserDAO.getLoginUser().getUsername();
         System.out.println(send);
 
         String url = DBConnection.manageSpecials();
@@ -80,10 +80,45 @@ public class SpecialDAO {
         JSONObject result = new JSONObject(response);
         String status = result.getString("status");
 
-        if (status.equals("successful")){
+        if (status.equals("successful")) {
             return true;
         }
 
         return false;
+    }
+
+    public static ArrayList<Specials> getAllSpecials() {
+        ArrayList<Specials> specialsList = new ArrayList<>();
+
+        String url = DBConnection.getSpecials();
+        System.out.println("Getting specials list");
+
+        GetHttp getConnection = new GetHttp();
+        String response = null;
+        try {
+            response = getConnection.run(url);
+            System.out.println(response);
+            if (response != null) {
+                JSONObject result = new JSONObject(response);
+                JSONArray publicLeagues = result.getJSONArray("results");
+                System.out.println(publicLeagues.length());
+                if (publicLeagues.length() > 0) {
+                    for (int i = 0; i < publicLeagues.length(); i++) {
+                        JSONObject specialsObject = publicLeagues.getJSONObject(i);
+                        Specials special = new Specials(
+                                specialsObject.getInt("specialsId"),
+                                specialsObject.getString("description"),
+                                specialsObject.getInt("points")
+                        );
+                        specialsList.add(special);
+                    }
+                }
+            }
+        } catch (Exception e) {
+            System.out.println("error");
+            e.printStackTrace();
+        }
+
+        return specialsList;
     }
 }

@@ -9,20 +9,20 @@ import android.widget.TextView;
 import com.example.ole.oleandroid.R;
 
 
-import com.example.ole.oleandroid.model.PublicMembers;
+import com.example.ole.oleandroid.model.Member;
 
 import java.util.ArrayList;
 
 public class PublicLeagueDetailsAdapter extends BaseAdapter {
     private Context context; //context
-    private ArrayList<PublicMembers> memberslist;//data source of the list adapter
+    private ArrayList<Member> memberslist;//data source of the list adapter
     private PublicLeagueDetailsAdapter.ViewHolder viewHolder;
 
     private static class ViewHolder {
         TextView pldusername;
     }
 
-    public PublicLeagueDetailsAdapter(Context context, ArrayList<PublicMembers> memberslist) {
+    public PublicLeagueDetailsAdapter(Context context, ArrayList<Member> memberslist) {
         this.context = context;
         this.memberslist = memberslist;
     }

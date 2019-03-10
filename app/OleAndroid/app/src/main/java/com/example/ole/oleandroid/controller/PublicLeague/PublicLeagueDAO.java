@@ -4,7 +4,7 @@ import com.example.ole.oleandroid.controller.DAO.UserDAO;
 import com.example.ole.oleandroid.dbConnection.DBConnection;
 import com.example.ole.oleandroid.dbConnection.GetHttp;
 import com.example.ole.oleandroid.dbConnection.PostHttp;
-import com.example.ole.oleandroid.model.Match;
+import com.example.ole.oleandroid.model.Member;
 import com.example.ole.oleandroid.model.PublicLeague;
 
 import org.json.JSONArray;
@@ -25,6 +25,15 @@ public class PublicLeagueDAO {
 
     public static void clearAllPublicLeague() {
         PublicLeagueDAO.allPublicLeague = new ArrayList<>();
+    }
+
+    public static PublicLeague getOnePublicLeague(int leagueId) {
+        for (PublicLeague pl : allPublicLeague) {
+            if (pl.getLeagueId() == leagueId) {
+                return pl;
+            }
+        }
+        return null;
     }
 
     public static void addPublicleague(PublicLeague publicLeague) {
@@ -134,7 +143,7 @@ public class PublicLeagueDAO {
         }
     }
 
-    public static void getPublicLeagueStats(){
+    public static void getPublicLeagueStats() {
         String url = DBConnection.getPublicLeagueStatsUrl();
         System.out.println("Getting public league stats list");
 
@@ -147,5 +156,41 @@ public class PublicLeagueDAO {
             System.out.println("error");
             e.printStackTrace();
         }
+    }
+
+    public static ArrayList<Member> loadPublicMembers(int leagueId) {
+        PublicLeague pl = getOnePublicLeague(leagueId);
+        ArrayList<Member> allMembers = new ArrayList<>();
+
+        String url2 = DBConnection.insertPrivateLeagueUrl() + "?method=retrieveMembers&leagueid=" + leagueId;
+
+        System.out.println("Getting public league members");
+        GetHttp getConnection = new GetHttp();
+        String response = null;
+        try {
+            response = getConnection.run(url2);
+            System.out.println(response);
+            JSONObject result = new JSONObject(response);
+            JSONArray members = result.getJSONArray("results");
+
+            if (members.length() > 0) {
+                for (int i = 0; i < members.length(); i++) {
+                    JSONObject membersObj = members.getJSONObject(i);
+                    Member member = new Member(
+                            membersObj.getInt("logid"),
+                            membersObj.getString("username"),
+                            membersObj.getInt("leagueid"),
+                            membersObj.getInt("points")
+                    );
+                    allMembers.add(member);
+                }
+            }
+        } catch (Exception e) {
+            System.out.println("error");
+            e.printStackTrace();
+        }
+
+        pl.setAllMembers(allMembers); // set the list of members in the public league
+        return pl.getAllMembers();
     }
 }

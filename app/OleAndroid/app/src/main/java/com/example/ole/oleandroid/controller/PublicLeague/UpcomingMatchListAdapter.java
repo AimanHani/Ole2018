@@ -60,7 +60,7 @@ public class UpcomingMatchListAdapter extends BaseAdapter {
     @Override
     public View getView(final int position, View convertView, ViewGroup parent) {
         // inflate the layout for each list row
-        if (convertView == null) {
+        //if (convertView == null) {
             viewHolder = new ViewHolder();
             convertView = LayoutInflater.from(context).
                     inflate(R.layout.activity_upcoming_matches, parent, false);
@@ -152,7 +152,7 @@ public class UpcomingMatchListAdapter extends BaseAdapter {
 
 
             convertView.setTag(viewHolder);
-        }
+        //}
 
         /**
          * This will tell initialize the textview element in past matches main

@@ -30,7 +30,7 @@ public class GetMatchesDAO {
     public static HashMap<Integer, Match> getRecentMatches() {
         HashMap<Integer, Match> recentMatches = new HashMap<Integer, Match>();
 
-        try (Connection conn = DBConnection.getConnection(); PreparedStatement stmt = conn.prepareStatement("select m.matchId,m.tournamentId, m.date, m.time, (SELECT t.teamName FROM team t where t.teamId = m.team1 ) AS team1, (SELECT t.teamName FROM team t where t.teamId = m.team2 ) AS team2, m.team1_score,m.team2_score from `match` m where date > DATE(NOW()) LIMIT 6");) {
+        try (Connection conn = DBConnection.getConnection(); PreparedStatement stmt = conn.prepareStatement("select m.matchId,m.tournamentId, m.date, m.time, (SELECT t.teamName FROM team t where t.teamId = m.team1 ) AS team1, (SELECT t.teamName FROM team t where t.teamId = m.team2 ) AS team2, m.team1_score,m.team2_score from `match` m where date > DATE(NOW()) and TIMESTAMPDIFF(day, date(NOW()), date) <= 7");) {
             ResultSet rs = stmt.executeQuery();
 
             while (rs.next()) {
@@ -86,7 +86,7 @@ public class GetMatchesDAO {
     public static HashMap<Integer, Match> getPastMatches() {
         HashMap<Integer, Match> pastMatcehs = new HashMap<Integer, Match>();
 
-        try (Connection conn = DBConnection.getConnection(); PreparedStatement stmt = conn.prepareStatement("select m.matchId,m.tournamentId, m.date, m.time, (SELECT t.teamName FROM team t where t.teamId = m.team1 ) AS team1, (SELECT t.teamName FROM team t where t.teamId = m.team2 ) AS team2, m.team1_score,m.team2_score from `match` m where date < DATE(NOW())  order by  m.date desc limit 6;");) {
+        try (Connection conn = DBConnection.getConnection(); PreparedStatement stmt = conn.prepareStatement("select m.matchId,m.tournamentId, m.date, m.time, (SELECT t.teamName FROM team t where t.teamId = m.team1 ) AS team1, (SELECT t.teamName FROM team t where t.teamId = m.team2 ) AS team2, m.team1_score,m.team2_score from `match` m where date < DATE(NOW()) and TIMESTAMPDIFF(day, date, date(NOW())) <= 7 order by m.date desc");) {
             ResultSet rs = stmt.executeQuery();
 
             while (rs.next()) {

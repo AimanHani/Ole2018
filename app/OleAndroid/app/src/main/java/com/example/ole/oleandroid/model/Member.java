@@ -1,13 +1,13 @@
 package com.example.ole.oleandroid.model;
 
-public class PublicMembers {
+public class Member {
 
     private int logid;
     private String username;
     private int leagueId;
     private int points;
 
-    public PublicMembers(int logid, String username, int leagueId, int points) {
+    public Member(int logid, String username, int leagueId, int points) {
         this.logid = logid;
         this.username = username;
         this.leagueId = leagueId;

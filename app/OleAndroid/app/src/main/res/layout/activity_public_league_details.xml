@@ -120,7 +120,7 @@
             tools:layout_editor_absoluteY="231dp" />
 
         <ListView
-            android:id="@+id/privateLeagueListView"
+            android:id="@+id/membersListView"
             android:layout_width="match_parent"
             android:layout_height="match_parent" />
     </LinearLayout>

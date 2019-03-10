@@ -1,5 +1,7 @@
 package com.example.ole.oleandroid.model;
 
+import java.util.ArrayList;
+
 public class PublicLeague {
     private int leagueId;
     private int tournamentId;
@@ -9,6 +11,7 @@ public class PublicLeague {
     private String tournamentName;
     private int logId;
     private Boolean userJoin;
+    private ArrayList<Member> allMembers;
 
     public PublicLeague(int leagueId, int tournamentId, String prize, int pointsAllocated, String leagueName, String tournamentName, int logId) {
         this.leagueId = leagueId;
@@ -18,6 +21,7 @@ public class PublicLeague {
         this.leagueName = leagueName;
         this.tournamentName = tournamentName;
         this.logId = logId;
+        this.allMembers = new ArrayList<>();
     }
 
     public PublicLeague(int leagueId, int tournamentId, String prize, int pointsAllocated, String leagueName, String tournamentName, int logId,  Boolean userJoin) {
@@ -29,6 +33,7 @@ public class PublicLeague {
         this.tournamentName = tournamentName;
         this.logId = logId;
         this.userJoin = userJoin;
+        this.allMembers = new ArrayList<>();
     }
 
     public int getLogId() {
@@ -92,5 +97,13 @@ public class PublicLeague {
 
     public void setUserJoin(Boolean userJoin) {
         this.userJoin = userJoin;
+    }
+
+    public ArrayList<Member> getAllMembers() {
+        return allMembers;
+    }
+
+    public void setAllMembers(ArrayList<Member> allMembers) {
+        this.allMembers = allMembers;
     }
 }

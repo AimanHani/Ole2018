@@ -2,6 +2,7 @@ package com.example.ole.oleandroid.controller.PublicLeague;
 
 import android.content.Context;
 import android.content.Intent;
+import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,7 +11,6 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.example.ole.oleandroid.R;
-import com.example.ole.oleandroid.controller.DAO.PublicMembersDAO;
 import com.example.ole.oleandroid.controller.DAO.UserDAO;
 import com.example.ole.oleandroid.model.PublicLeague;
 
@@ -124,16 +124,15 @@ public class PublicLeagueListAdapter extends BaseAdapter implements View.OnClick
     private void loadNextPage(View view, Context ctx, PublicLeague pl) {
         switch (view.getId()) {
             case R.id.joinleaguebtn:
-                Intent intent = new Intent(ctx, PublicLeagueDetails.class);
-                PublicMembersDAO.setLeague(pl);
-                context.startActivity(intent);
-
-//                Intent intent = new Intent(ctx, MatchesTabs.class);
-//                Bundle bundle = new Bundle();
-//                bundle.putInt("logId", logId);
-//                bundle.putInt("leagueId", leagueId);
-//                intent.putExtras(bundle);
+//                Intent intent = new Intent(ctx, PublicLeagueDetails.class);
 //                context.startActivity(intent);
+
+                Intent intent = new Intent(ctx, PublicLeagueDetails.class);
+                Bundle bundle = new Bundle();
+                bundle.putInt("logId", pl.getLogId());
+                bundle.putInt("leagueId", pl.getLeagueId());
+                intent.putExtras(bundle);
+                ctx.startActivity(intent);
 
         }
     }
