@@ -87,7 +87,7 @@ public class UpcomingMatchListAdapter extends BaseAdapter {
                 viewHolder.team2_scoreinput.setText(m.getTeam2Score()+"");
             }
 
-            System.out.println(m.getTeam1()+" vs "+m.getTeam2());
+            //System.out.println(m.getTeam1()+" vs "+m.getTeam2());
 
             viewHolder.team2_name.setText(m.getTeam2());
             viewHolder.team2_photo.setImageResource(teamItemsList.get(m.getTeam2()).getmTeamImage());
