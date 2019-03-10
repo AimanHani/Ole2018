@@ -1,82 +1,111 @@
 <?xml version="1.0" encoding="utf-8"?>
-
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.constraint.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:layout_gravity="center"
-    android:orientation="vertical">
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_gravity="center">
 
-    <android.support.v7.widget.CardView
-        android:id="@+id/profileCard"
+    <View
+        android:id="@+id/view"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_rowWeight="1"
-        android:layout_columnWeight="1"
-        app:cardCornerRadius="8dp"
-        app:cardElevation="8dp">
+        android:layout_height="match_parent"
+        android:alpha="0.5"
+        android:background="@color/black"/>
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical|center_horizontal"
-            android:orientation="vertical">
+    <RelativeLayout
+        android:id="@+id/popupDialogFrame"
+        android:layout_width="300dp"
+        android:layout_height="280dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:background="@color/white"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="@+id/view"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/view"
+        app:layout_constraintVertical_bias="0.483">
 
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="30dp"
-                android:background="@color/grey"
-                android:gravity="center"
-                android:text="Confirmation"
-                android:textAlignment="center"
-                android:textColor="@color/black"
-                android:textSize="18dp"
-                android:textStyle="bold" />
+        <RelativeLayout
+            android:layout_width="350dp"
+            android:layout_height="70dp"
+            android:background="@color/themeColor"
+            android:orientation="vertical" >
 
-            <TextView
-                android:id="@+id/confirmMessage"
-                android:layout_width="300dp"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
-                android:layout_marginStart="8dp"
-                android:layout_marginTop="8dp"
-                android:layout_marginEnd="8dp"
-                android:gravity="center_vertical"
-                android:text="Thank you for your question! It has been recorded and we will get back to you via email!"
-                android:textAlignment="center"
-                android:textColor="@color/black"
-                android:textSize="14sp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.5"
-                app:layout_constraintStart_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+        </RelativeLayout>
 
-            <TextView
-                android:id="@+id/end"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
-                android:layout_marginStart="8dp"
-                android:layout_marginTop="8dp"
-                android:layout_marginEnd="8dp"
-                android:layout_marginBottom="8dp"
-                android:gravity="center_vertical"
-                android:text="OK"
-                android:textColor="@color/black"
-                android:textSize="18sp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.5"
-                app:layout_constraintStart_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+    </RelativeLayout>
 
-        </LinearLayout>
+    <ImageView
+        android:id="@+id/success"
+        android:layout_width="75dp"
+        android:layout_height="75dp"
+        android:layout_gravity="center"
+        android:layout_margin="5dp"
+        android:layout_marginTop="28dp"
+        android:layout_marginBottom="8dp"
+        android:src="@drawable/success"
+        app:layout_constraintBottom_toTopOf="@+id/confirmMessage"
+        app:layout_constraintEnd_toEndOf="@+id/popupDialogFrame"
+        app:layout_constraintStart_toStartOf="@+id/popupDialogFrame"
+        app:layout_constraintTop_toTopOf="@+id/popupDialogFrame"
+        app:layout_constraintVertical_bias="0.50" />
 
-    </android.support.v7.widget.CardView>
+    <ImageView
+        android:id="@+id/closeWindow"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_gravity="end"
+        android:layout_marginEnd="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginTop="15dp"
+        android:layout_marginBottom="20dp"
+        android:background="@drawable/cancel"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/confirmMessage"
+        android:layout_width="265dp"
+        android:layout_height="66dp"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:gravity="center"
+        android:text="Your question has been recorded! We will reply via email."
+        android:textColor="@color/dimgrey"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.55" />
+
+    <TextView
+        android:id="@+id/end"
+        android:layout_width="90dp"
+        android:layout_height="30dp"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="8dp"
+        android:gravity="center_vertical"
+        android:text="Ok"
+        android:textAlignment="center"
+        android:textColor="@color/black"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toBottomOf="@+id/popupDialogFrame"
+        app:layout_constraintEnd_toEndOf="@+id/popupDialogFrame"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/confirmMessage"
+        app:layout_constraintVertical_bias="0.755" />
 
 
-</LinearLayout>
+</android.support.constraint.ConstraintLayout>
