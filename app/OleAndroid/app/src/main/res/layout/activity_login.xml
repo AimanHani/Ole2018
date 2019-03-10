@@ -7,6 +7,24 @@
     android:layout_height="match_parent"
     tools:context=".controller.Login">
 
+    <TextView
+        android:id="@+id/checksmth"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="80dp"
+        android:clickable="true"
+        android:elevation="10dp"
+        android:fontFamily="sans-serif"
+        android:text="checking smth"
+        android:textAppearance="@android:style/TextAppearance.Holo.Widget.Button"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.898"
+        app:layout_constraintStart_toStartOf="parent" />
+
     <EditText
         android:id="@+id/username"
         style="@style/Widget.MaterialComponents.TextInputEditText.OutlinedBox.Dense"

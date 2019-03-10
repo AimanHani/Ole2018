@@ -38,6 +38,7 @@
                 android:layout_marginBottom="8dp"
                 android:ems="10"
                 android:text="Big Bucket"
+                android:textSize="14sp"
                 android:focusable="false"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent" />
@@ -70,6 +71,7 @@
                 android:layout_marginBottom="8dp"
                 android:ems="10"
                 android:text="KFC Big Bucket"
+                android:textSize="14sp"
                 android:focusable="false"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent" />
@@ -104,6 +106,7 @@
                 android:layout_marginBottom="8dp"
                 android:ems="10"
                 android:text="ReginaPhalange999"
+                android:textSize="14sp"
                 android:focusable="false"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent" />
@@ -136,6 +139,7 @@
                 android:layout_marginBottom="8dp"
                 android:ems="10"
                 android:text="ReginaPhalange999"
+                android:textSize="14sp"
                 android:focusable="false"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent" />
@@ -146,6 +150,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Members: "
+            android:textSize="14sp"
             tools:layout_editor_absoluteX="43dp"
             tools:layout_editor_absoluteY="231dp" />
 

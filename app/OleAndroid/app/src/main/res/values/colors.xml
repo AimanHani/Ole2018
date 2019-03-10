@@ -10,6 +10,12 @@
     <color name="dimgrey">#696969</color>
     <color name="grey">#e0e0e0</color>
     <color name="translucent_white">#80D3D3D3</color>
+    <color name="lightGrey">#D3D3D3</color>
+
+    <!--Match Prediction-->
+    <color name="green">#45bc62</color>
+    <color name="yellow">#eaad43</color>
+    <color name="blue">#49acd5</color>
 
     <!--OnBoard-->
 

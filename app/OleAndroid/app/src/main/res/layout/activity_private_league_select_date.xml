@@ -6,18 +6,16 @@
     android:layout_height="match_parent"
     tools:context=".controller.PrivateLeagueController.PrivateLeagueSelectDateActivity">
 
-<!--    <Button
-        android:id="@+id/selectDateText"
-        android:layout_width="match_parent"
-        android:layout_height="68dp"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentBottom="true"
-        android:background="@color/themeColor"
-        android:text="SELECT DATE"
-        android:textColor="@color/white"
-        android:textSize="18sp"
-        android:textStyle="bold"
-        android:visibility="visible" />-->
+
+    <ImageView
+        android:id="@+id/stepbar"
+        android:layout_width="wrap_content"
+        android:layout_height="150dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
+        app:srcCompat="@drawable/stepbar_3" />
 
     <ImageView
         android:id="@+id/calenderImage"
@@ -27,6 +25,7 @@
         android:layout_marginTop="24dp"
         android:layout_marginEnd="8dp"
         android:adjustViewBounds="false"
+        android:visibility="invisible"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
@@ -72,9 +71,10 @@
 
             <Button
                 android:id="@+id/startDateButton"
-                android:layout_width="20dp"
-                android:layout_height="20dp"
-                android:background="@drawable/calender" />
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_gravity="center"
+                android:background="@drawable/step3" />
         </LinearLayout>
 
     </LinearLayout>
@@ -116,9 +116,10 @@
 
             <Button
                 android:id="@+id/endDateButton"
-                android:layout_width="20dp"
-                android:layout_height="20dp"
-                android:background="@drawable/calender" />
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_gravity="center"
+                android:background="@drawable/step3" />
         </LinearLayout>
 
     </LinearLayout>
@@ -130,7 +131,7 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentBottom="true"
         android:background="@color/themeColor"
-        android:text="SELECT SPECIALS"
+        android:text="NEXT"
         android:textColor="@color/white"
         android:textSize="18sp"
         android:textStyle="bold"

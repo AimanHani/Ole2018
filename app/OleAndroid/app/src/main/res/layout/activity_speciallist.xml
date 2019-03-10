@@ -1,149 +1,53 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical" >
 
-    <!--<LinearLayout
-        android:layout_width="match_parent"
-        android:orientation="horizontal"
-        android:layout_height="wrap_content">
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_marginLeft="20dp"
-            android:layout_marginTop="10dp"
-            android:textStyle="bold"
-            android:layout_height="wrap_content"
-            android:text="Best Player"
-            />
-
-    </LinearLayout>-->
-
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="89dp"
+        android:layout_height="65dp"
         android:orientation="horizontal">
+
+        <ImageView xmlns:app="http://schemas.android.com/apk/res-auto"
+            android:id="@+id/profile_image"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp"
+            android:src="@drawable/bestplayer" />
 
         <TextView
             android:id="@+id/itemname"
-            android:layout_width="116dp"
-            android:layout_height="45dp"
+            android:layout_width="175dp"
+            android:layout_height="48dp"
             android:layout_gravity="center"
-            android:layout_marginLeft="20dp"
+            android:layout_marginLeft="5dp"
             android:layout_marginTop="0dp"
-            android:text="Item"
-            android:textAlignment="viewStart"
+            android:gravity="center"
+            android:text="Item Name"
             android:textStyle="bold" />
 
-        <!--<ImageView xmlns:app="http://schemas.android.com/apk/res-auto"-->
-            <!--android:id="@+id/profile_image"-->
-            <!--android:layout_width="70dp"-->
-            <!--android:layout_height="70dp"-->
-            <!--android:layout_marginLeft="20dp"-->
-            <!--android:layout_marginTop="10dp"-->
-            <!--android:layout_marginBottom="10dp"-->
-            <!--android:src="@drawable/bestplayer" />-->
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+        <TextView
+            android:id="@+id/points"
+            android:layout_width="60dp"
+            android:layout_height="48dp"
             android:layout_gravity="center"
-            android:layout_marginRight="20dp"
-            android:orientation="horizontal"
-            android:weightSum="3">
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="15dp"
+            android:layout_weight="1.2"
+            android:gravity="center"
+            android:textSize="30sp" />
 
-            <Spinner
-                android:id="@+id/spinner"
-                android:layout_width="match_parent"
-                android:layout_height="39dp"
-                android:layout_gravity="center"
-                android:layout_marginLeft="15dp"
-                android:layout_weight="0.9" />
-
-            <TextView
-                android:id="@+id/points"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_weight="1.1"
-                android:gravity="center"
-                android:textSize="30sp" />
-
-            <Button
-                android:id="@+id/doubleitbtn"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_weight="1"
-                android:text="Double It!"
-                android:visibility="visible"/>
-
-            <Button
-                android:id="@+id/unDoubleIt"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_weight="1"
-                android:text="UnDouble It!"
-                android:visibility="gone" />
-
-        </LinearLayout>
     </LinearLayout>
-</LinearLayout>
-
-<!--
-
-    <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-xmlns:android="http://schemas.android.com/apk/res/android"
-xmlns:app="http://schemas.android.com/apk/res-auto"
-xmlns:tools="http://schemas.android.com/tools"
-android:orientation="vertical"
-android:layout_width="match_parent"
-android:layout_height="match_parent"
-tools:context=".controller.PrivateLeagueController.SpecialListPrivateAdapter">
-
-<LinearLayout
-    android:layout_marginTop="0dp"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:orientation="horizontal">
-
-    <TextView
-        android:id="@+id/itemname"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:layout_marginTop="0dp"
-        android:paddingLeft="20dp"
-        android:text="Item"
-        android:textSize="18sp"/>
-
-</LinearLayout>
-
-<LinearLayout
-    android:layout_width="match_parent"
-    android:layout_height="69dp"
-    android:orientation="horizontal"
-    tools:layout_editor_absoluteX="0dp"
-    tools:layout_editor_absoluteY="21dp">
-
-    <ImageView xmlns:app="http://schemas.android.com/apk/res-auto"
-        android:id="@+id/profile_image"
-        android:layout_width="70dp"
-        android:layout_height="70dp"
-        android:layout_marginLeft="20dp"
-        android:layout_marginTop="10dp"
-        android:layout_marginBottom="10dp"
-        android:src="@drawable/bestplayer" />
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:layout_marginRight="20dp"
         android:orientation="horizontal"
         android:weightSum="3">
 
@@ -153,28 +57,26 @@ tools:context=".controller.PrivateLeagueController.SpecialListPrivateAdapter">
             android:layout_height="39dp"
             android:layout_gravity="center"
             android:layout_marginLeft="15dp"
-            android:layout_weight="0.5" />
+            android:layout_weight="0.9" />
 
-        <TextView
-            android:id="@+id/points"
+        <Button
+            android:id="@+id/doubleitbtn"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:layout_marginLeft="0dp"
-            android:layout_marginTop="0dp"
-            android:layout_marginBottom="3dp"
-            android:layout_weight="1.2"
-            android:gravity="center"
-            android:textSize="18sp" />
+            android:layout_weight="2.1"
+            android:text="Double It!"
+            android:visibility="visible"
+            android:layout_marginRight="15dp"/>
 
-        <CheckBox
-            android:id="@+id/checkPrivateSpecials"
+        <Button
+            android:id="@+id/unDoubleIt"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:layout_weight="0.8"
-            android:gravity="center" />
+            android:layout_weight="1"
+            android:text="UnDouble It!"
+            android:visibility="gone" />
 
     </LinearLayout>
 </LinearLayout>
-</LinearLayout>-->

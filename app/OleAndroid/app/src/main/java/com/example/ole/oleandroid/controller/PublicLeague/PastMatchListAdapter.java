@@ -57,6 +57,7 @@ public class PastMatchListAdapter extends BaseAdapter{
             if (convertView == null) {
                 viewHolder = new ViewHolder();
                 convertView = LayoutInflater.from(context).
+                        //inflate(R.layout.matches_with_predicted_score, parent, false);
                         inflate(R.layout.activity_past_matches, parent, false);
             }
 

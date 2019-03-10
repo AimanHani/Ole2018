@@ -4,6 +4,8 @@ import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.support.design.widget.FloatingActionButton;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -12,6 +14,7 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -29,6 +32,8 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 
+import static android.graphics.Color.*;
+
 public class PrivateLeagueDiscoverAdapter extends BaseAdapter implements View.OnClickListener{
 
     private Context context; //context
@@ -39,6 +44,7 @@ public class PrivateLeagueDiscoverAdapter extends BaseAdapter implements View.On
     Button joinprivateleaguebtn;
     String leaguid;
     EditText passwordInput;
+    //ImageView close;
 
     private static class ViewHolder {
         TextView league;
@@ -85,13 +91,22 @@ public class PrivateLeagueDiscoverAdapter extends BaseAdapter implements View.On
 
                         final Dialog dialog = new Dialog(context);
                         dialog.setContentView(R.layout.activity_private_league_input_password);
+                        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(TRANSPARENT)); //to set bg transparent
                         dialog.show();
 
                         TextView join = (TextView) dialog.findViewById(R.id.join);
                         TextView cancel = (TextView) dialog.findViewById(R.id.cancel);
                         passwordInput = (EditText) dialog.findViewById(R.id.passwordInput);
+                        ImageView close = (ImageView) dialog.findViewById(R.id.close);
 
                         cancel.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                dialog.dismiss();
+                            }
+                        });
+
+                        close.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View v) {
                                 dialog.dismiss();
@@ -102,13 +117,13 @@ public class PrivateLeagueDiscoverAdapter extends BaseAdapter implements View.On
                             public void onClick(View v) {
                                 String leaguePassword = s.getPassword();
                                 String inputPassword = passwordInput.getText().toString();
-
+                                System.out.println(leaguePassword);
+                                System.out.println(inputPassword);
                                 if(leaguePassword.equals(inputPassword)){
-                                    System.out.println("Match! League Password: " + leaguePassword + ", Input Password: " + inputPassword);
                                     dialog.dismiss();
-
-                                    System.out.println("Joining Private League");
-                                    Toast.makeText(context,"Password Matched!", Toast.LENGTH_LONG).show();
+                                    System.out.println("Match! League Password: " + leaguePassword + ", Input Password: " + inputPassword);
+                                    //System.out.println("Joining Private League");
+                                    //Toast.makeText(context,"Password Matched!", Toast.LENGTH_LONG).show();
                                     Toast.makeText(context,"Joining..." + s.getLeagueName()+"", Toast.LENGTH_LONG).show();
 
                                     final String[] status = {"error"};
@@ -141,8 +156,6 @@ public class PrivateLeagueDiscoverAdapter extends BaseAdapter implements View.On
                                 }else{
                                     System.out.println("Non Match! League Password: " + leaguePassword + ", Input Password: " + inputPassword);
                                     Toast.makeText(context,"Invalid password", Toast.LENGTH_LONG).show();
-                                    dialog.dismiss();
-                                    //add pop up failure
                                 }
                             }
                         });

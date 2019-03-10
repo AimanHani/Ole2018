@@ -47,7 +47,7 @@ public class AskOle extends SideMenuBar {
         final String[] category = {"General"};
 
         Spinner dropdown = findViewById(R.id.spinner1);
-        String[] items = new String[]{"General/Others", "Private League", "Public League"}; //"Leaderboard", "League", "Profile",
+        String[] items = new String[]{"General", "Private League", "Public League"}; //"Leaderboard", "League", "Profile",
         ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, items);
         dropdown.setAdapter(adapter);
 
