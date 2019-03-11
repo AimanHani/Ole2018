@@ -71,7 +71,7 @@ public class ForgotPassword extends AppCompatActivity {
                 if (confirmChangePassword.getText().toString().equals(changePassword.getText().toString())) {
                     confirmChangePassword.setError("Good", tickDone);
                 } else {
-                    confirmChangePassword.setError("Password confirmation does not match.");
+                    confirmChangePassword.setError("Does not match above password");
                 }
             }
         });
