@@ -13,6 +13,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  * LoginDAO contains the method that will validate the login details
@@ -50,7 +52,7 @@ public class LoginDAO {
                 String queryUsername = rs.getString(1);
                 String queryPassword = rs.getString(2);
                 byte[] querySalt = rs.getBytes(3);
-                
+
                 if (querySalt == null) {
                     return false;
                 }
@@ -109,6 +111,49 @@ public class LoginDAO {
             }
         }
         return null;
+    }
+
+    public static boolean changePassword(String email, String password) throws SQLException {
+        boolean results = false;
+        String queryUsername = null;
+        byte[] querySalt = null;
+
+        ResultSet rs = null;
+        try (Connection c = DBConnection.getConnection(); PreparedStatement ps = c.prepareStatement("Select username, salt from user where email=?");) {
+            ps.setString(1, email);
+
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                queryUsername = rs.getString(1);
+                querySalt = rs.getBytes(2);
+            }
+            
+            if (querySalt == null) {
+                return false;
+            } else {
+                String newHashedPassword = getSHA1SecurePassword(password, querySalt);
+
+                PreparedStatement updateStmt = c.prepareStatement("Update user set password = ? where username = ?");
+                updateStmt.setString(1, newHashedPassword);
+                updateStmt.setString(2, queryUsername);
+                int updateCount = updateStmt.executeUpdate();
+                
+                if (updateCount == 1){
+                    return true;
+                } 
+            }
+            
+            c.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+            System.out.println("check db connection class");
+        } finally {
+            if (rs != null) {
+                rs.close();
+            }
+        }
+
+        return results;
     }
 
 }

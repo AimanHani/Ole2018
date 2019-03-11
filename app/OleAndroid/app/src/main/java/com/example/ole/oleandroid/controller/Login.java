@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.os.StrictMode;
+import android.support.design.widget.TextInputEditText;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.text.InputType;
@@ -25,9 +26,10 @@ import com.example.ole.oleandroid.controller.PublicLeague.SpecialList;
 
 
 public class Login extends AppCompatActivity {
-    EditText username, password;
+    EditText username;
+    TextInputEditText password;
     Button signin;
-    TextView signup;
+    TextView signup, forgotPwd;
     RequestQueue requestQueue;
     TextView result;
     TextView checksmth;
@@ -48,7 +50,7 @@ public class Login extends AppCompatActivity {
         signin = findViewById(R.id.signin);
         signup = findViewById(R.id.signup);
         checksmth = findViewById(R.id.checksmth);
-        showPwd = findViewById(R.id.showPwd);
+        forgotPwd = findViewById(R.id.forgotPwd);
         //facebookButton = findViewById(R.id.facebookButton);
 
         StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
@@ -64,16 +66,12 @@ public class Login extends AppCompatActivity {
             }
         });*/
 
-        showPwd.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+        forgotPwd.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                if (isChecked) {
-                    password.setInputType(InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD);
-                } else {
-                    password.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD);
-                }
-                password.setTypeface(Typeface.DEFAULT);
-                password.setSelection(password.getText().length());
+            public void onClick(View v) {
+                //Toast.makeText(getBaseContext(), "Forgot Click", Toast.LENGTH_LONG).show();
+                Intent intent = new Intent(Login.this, ForgotPassword.class);
+                startActivity(intent);
             }
         });
 

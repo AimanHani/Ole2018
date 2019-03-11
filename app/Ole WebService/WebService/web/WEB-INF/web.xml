@@ -5,8 +5,8 @@
         <url-pattern>/json/scoreBoard</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>UserVerfication</servlet-name>
-        <url-pattern>/json/userVerfication</url-pattern>
+        <servlet-name>UserVerification</servlet-name>
+        <url-pattern>/json/userVerification</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>GetUsers</servlet-name>
@@ -72,5 +72,9 @@
     <servlet-mapping>
         <servlet-name>LeaguesJoined</servlet-name>
         <url-pattern>/json/leaguesJoined</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ChangePassword</servlet-name>
+        <url-pattern>/json/changePassword</url-pattern>
     </servlet-mapping>
 </web-app>

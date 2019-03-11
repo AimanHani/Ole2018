@@ -46,12 +46,36 @@ public class LoginDAO {
             e.printStackTrace();
             return false;
         }
-
-
         return valid;
     }
 
     public static String returnResult (String results){
         return results;
+    }
+
+
+    public static boolean changePassword(String email, String password){
+        String url = DBConnection.changePasswordUrl();
+        PostHttp connection = new PostHttp();
+        String response = null;
+        Boolean valid = false;
+
+        try {
+            response = connection.postForm(url, "email=" + email + "&password=" + password);
+            System.out.println(response);
+
+            JSONObject result = new JSONObject(response);
+            String status = result.getString("status");
+
+            if (status.equals("success")) {
+                return true;
+            } else {
+                return false;
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
     }
 }

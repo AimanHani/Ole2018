@@ -21,8 +21,8 @@ import org.json.JSONObject;
  *
  * @author user
  */
-@WebServlet(name = "UserVerfication", urlPatterns = {"/json/userVerfication"})
-public class UserVerfication extends HttpServlet {
+@WebServlet(name = "UserVerification", urlPatterns = {"/json/userVerification"})
+public class UserVerification extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -81,27 +81,31 @@ public class UserVerfication extends HttpServlet {
         response.setContentType("\"Content-Type\", \"application/x-www-form-urlencoded\"");
         response.setCharacterEncoding("utf-8");
         PrintWriter out = response.getWriter();
-        String email = request.getParameter("email");
-        String verficationNumber = (int)(Math.random()*9000)+1000+"";
-         Boolean emaiSentStatus = Mailer.send("olegroup18@gmail.com","squadxole",email,"Do not reply: Your verfication number " ,verficationNumber);
-        
 
-        try {
+        if (request.getParameter("email") != null) {
+            String email = request.getParameter("email");
+            String verficationNumber = (int) (Math.random() * 9000) + 1000 + "";
+            Boolean emailSentStatus = Mailer.send("olegroup18@gmail.com", "squadxole", email, "Do not reply: Your verfication number is ", verficationNumber);
 
-            JSONObject json = new JSONObject();
+            try {
 
-            json.put("status", emaiSentStatus);
-            json.put("verificationNumber", verficationNumber);
-            list.put(json);
+                JSONObject json = new JSONObject();
 
-            parentJson.put("results", list);
-            out.print(parentJson);
-            out.flush();
+                json.put("status", emailSentStatus);
+                json.put("verificationNumber", verficationNumber);
+                list.put(json);
 
-        } catch (JSONException e) {
-            e.printStackTrace();
+                parentJson.put("results", list);
+                out.print(parentJson);
+                out.flush();
+
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+
+        } else {
+            
         }
-
     }
 
     /**
