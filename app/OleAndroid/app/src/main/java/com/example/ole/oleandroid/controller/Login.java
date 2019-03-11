@@ -2,13 +2,17 @@ package com.example.ole.oleandroid.controller;
 
 import android.app.Dialog;
 import android.content.Intent;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.os.StrictMode;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
+import android.text.InputType;
 import android.view.View;
 import android.view.Window;
 import android.widget.Button;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -27,7 +31,8 @@ public class Login extends AppCompatActivity {
     RequestQueue requestQueue;
     TextView result;
     TextView checksmth;
-   // Button facebookButton;
+    CheckBox showPwd;
+    // Button facebookButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,7 +48,7 @@ public class Login extends AppCompatActivity {
         signin = findViewById(R.id.signin);
         signup = findViewById(R.id.signup);
         checksmth = findViewById(R.id.checksmth);
-
+        showPwd = findViewById(R.id.showPwd);
         //facebookButton = findViewById(R.id.facebookButton);
 
         StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
@@ -58,6 +63,19 @@ public class Login extends AppCompatActivity {
                 startActivity(intent);
             }
         });*/
+
+        showPwd.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (isChecked) {
+                    password.setInputType(InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD);
+                } else {
+                    password.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD);
+                }
+                password.setTypeface(Typeface.DEFAULT);
+                password.setSelection(password.getText().length());
+            }
+        });
 
         signin.setOnClickListener(new View.OnClickListener() {
             @Override
