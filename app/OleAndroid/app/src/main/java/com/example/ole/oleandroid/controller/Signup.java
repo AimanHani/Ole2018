@@ -213,11 +213,12 @@ public class Signup extends AppCompatActivity {
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
         dialog.setContentView(R.layout.successful_pop_up);
 
-        Button close = dialog.findViewById(R.id.close);
+        TextView confirm = dialog.findViewById(R.id.confirm);
+        TextView caption = dialog.findViewById(R.id.successfulMessage);
 
-        close.setEnabled(true);
+        caption.setText("Successfully Signed Up! Press confirm to proceed to app!");
 
-        close.setOnClickListener(new View.OnClickListener() {
+        confirm.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(Signup.this, HomeLeague.class);
