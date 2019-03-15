@@ -75,7 +75,7 @@
         app:fabCustomSize="60dp"
         android:clickable="true"
         android:src="@drawable/add"
-        app:backgroundTint="@color/lightGrey"
+        app:backgroundTint="@color/white"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
 
