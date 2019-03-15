@@ -5,7 +5,9 @@
  */
 package json;
 
+import backgroundTask.SMSVerfication;
 import backgroundTask.Mailer;
+import backgroundTask.SMSVerfication;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;
@@ -82,16 +84,16 @@ public class UserVerification extends HttpServlet {
         response.setCharacterEncoding("utf-8");
         PrintWriter out = response.getWriter();
 
-        if (request.getParameter("email") != null) {
-            String email = request.getParameter("email");
+        if (request.getParameter("userNumber") != null) {
+            String userNumber = request.getParameter("userNumber");
             String verficationNumber = (int) (Math.random() * 9000) + 1000 + "";
-            Boolean emailSentStatus = Mailer.send("olegroup18@gmail.com", "squadxole", email, "Do not reply: Your verfication number is ", verficationNumber);
+            Boolean smsStatus = SMSVerfication.send(userNumber, verficationNumber);
 
             try {
 
                 JSONObject json = new JSONObject();
 
-                json.put("status", emailSentStatus);
+                json.put("status", smsStatus);
                 json.put("verificationNumber", verficationNumber);
                 list.put(json);
 
