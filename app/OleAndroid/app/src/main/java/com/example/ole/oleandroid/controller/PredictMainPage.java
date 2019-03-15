@@ -15,9 +15,9 @@ import com.example.ole.oleandroid.R;
 public class PredictMainPage extends AppCompatActivity implements View.OnClickListener {
 
     LinearLayout blackoutimage;
-    FloatingActionButton main, camera, diary, addmeal;
+    FloatingActionButton main, predictSpecial, predictMatch;
     Animation FoodFabOpen, FoodFabClose, FabRClockwise, FabRAntiClockwise, Fadein, Fadeout;
-    TextView addmealtext, diarytext, cameratext;
+    TextView specialtext, matchtext, mainview;
     boolean isOpen = false;
 
     @Override
@@ -26,6 +26,10 @@ public class PredictMainPage extends AppCompatActivity implements View.OnClickLi
         setContentView(R.layout.predict_main_page);
 
         blackoutimage = findViewById(R.id.blackoutimage);
+        main = findViewById(R.id.floatingActionButton);
+        predictSpecial = findViewById(R.id.predictSpecial);
+        predictMatch = findViewById(R.id.predictMatch);
+        mainview = findViewById(R.id.mainview);
 
         // enable animations for FloatingActionButton
         FoodFabOpen = AnimationUtils.loadAnimation(this, R.anim.foodfabopen);
@@ -35,9 +39,44 @@ public class PredictMainPage extends AppCompatActivity implements View.OnClickLi
         Fadein = AnimationUtils.loadAnimation(this, R.anim.fadein);
         Fadeout = AnimationUtils.loadAnimation(this, R.anim.fadeout);
 
-        addmealtext = findViewById(R.id.addmealtext);
-        diarytext = findViewById(R.id.diarytext);
-        cameratext = findViewById(R.id.cameratext);
+        specialtext = findViewById(R.id.specialtext);
+        matchtext = findViewById(R.id.matchtext);
+
+        main.bringToFront();
+        main.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (isOpen) {
+                    blackoutimage.startAnimation(Fadeout);
+                    blackoutimage.setVisibility(View.GONE);
+                    predictSpecial.startAnimation(FoodFabClose);
+                    predictMatch.startAnimation(FoodFabClose);
+                    main.startAnimation(FabRAntiClockwise);
+                    predictSpecial.setClickable(false);
+                    predictMatch.setClickable(false);
+                    specialtext.setVisibility(View.GONE);
+                    matchtext.setVisibility(View.GONE);
+                    isOpen = false;
+
+
+                } else {
+                    blackoutimage.setVisibility(View.VISIBLE);
+                    blackoutimage.startAnimation(Fadein);
+                    predictSpecial.startAnimation(FoodFabOpen);
+                    predictMatch.startAnimation(FoodFabOpen);
+                    main.startAnimation(FabRClockwise);
+                    predictSpecial.setClickable(true);
+                    predictMatch.setClickable(true);
+                    specialtext.setVisibility(View.VISIBLE);
+                    matchtext.setVisibility(View.VISIBLE);
+                    isOpen = true;
+
+                    predictMatch.setOnClickListener(this);
+                    predictSpecial.setOnClickListener(this);
+                    blackoutimage.setOnClickListener(this);
+                }
+            }
+        });
 
     }
 
@@ -47,68 +86,55 @@ public class PredictMainPage extends AppCompatActivity implements View.OnClickLi
             case R.id.blackoutimage:
                 blackoutimage.startAnimation(Fadeout);
                 blackoutimage.setVisibility(View.GONE);
-                camera.startAnimation(FoodFabClose);
-                diary.startAnimation(FoodFabClose);
-                addmeal.startAnimation(FoodFabClose);
+                predictSpecial.startAnimation(FoodFabClose);
+                predictMatch.startAnimation(FoodFabClose);
                 main.startAnimation(FabRAntiClockwise);
-                camera.setClickable(false);
-                diary.setClickable(false);
-                addmeal.setClickable(false);
-                addmealtext.setVisibility(View.GONE);
-                cameratext.setVisibility(View.GONE);
-                diarytext.setVisibility(View.GONE);
+                predictSpecial.setClickable(false);
+                predictMatch.setClickable(false);
+                specialtext.setVisibility(View.GONE);
+                matchtext.setVisibility(View.GONE);
                 isOpen = false;
                 break;
 
-            case R.id.addmeal:
-                //Intent toAddMeal = new Intent(FoodPage.this.getActivity(), FoodSearchResult.class);
+            case R.id.specialtext:
+                //Intent toAddMeal = new Intent(this.getActivity(), xxx.class);
                 //startActivity(toAddMeal);
                 break;
 
-            case R.id.diary:
-                //Intent toDiaryActivity = new Intent(FoodPage.this.getActivity(), Diary.class);
+            case R.id.matchtext:
+                //Intent toDiaryActivity = new Intent(this.getActivity(), xxx.class);
                 //startActivity(toDiaryActivity);
                 break;
 
-            case R.id.camera:
-                //dispatchTakePictureIntent();
-                break;
-
             case R.id.floatingActionButton:
+                mainview.setText("BYEBYE");
                 if (isOpen) {
                     blackoutimage.startAnimation(Fadeout);
                     blackoutimage.setVisibility(View.GONE);
-                    camera.startAnimation(FoodFabClose);
-                    diary.startAnimation(FoodFabClose);
-                    addmeal.startAnimation(FoodFabClose);
+                    predictSpecial.startAnimation(FoodFabClose);
+                    predictMatch.startAnimation(FoodFabClose);
                     main.startAnimation(FabRAntiClockwise);
-                    camera.setClickable(false);
-                    diary.setClickable(false);
-                    addmeal.setClickable(false);
-                    addmealtext.setVisibility(View.GONE);
-                    cameratext.setVisibility(View.GONE);
-                    diarytext.setVisibility(View.GONE);
+                    predictSpecial.setClickable(false);
+                    predictMatch.setClickable(false);
+                    specialtext.setVisibility(View.GONE);
+                    matchtext.setVisibility(View.GONE);
                     isOpen = false;
 
 
                 } else {
                     blackoutimage.setVisibility(View.VISIBLE);
                     blackoutimage.startAnimation(Fadein);
-                    camera.startAnimation(FoodFabOpen);
-                    diary.startAnimation(FoodFabOpen);
-                    addmeal.startAnimation(FoodFabOpen);
+                    predictSpecial.startAnimation(FoodFabOpen);
+                    predictMatch.startAnimation(FoodFabOpen);
                     main.startAnimation(FabRClockwise);
-                    camera.setClickable(true);
-                    diary.setClickable(true);
-                    addmeal.setClickable(true);
-                    addmealtext.setVisibility(View.VISIBLE);
-                    cameratext.setVisibility(View.VISIBLE);
-                    diarytext.setVisibility(View.VISIBLE);
+                    predictSpecial.setClickable(true);
+                    predictMatch.setClickable(true);
+                    specialtext.setVisibility(View.VISIBLE);
+                    matchtext.setVisibility(View.VISIBLE);
                     isOpen = true;
 
-                    diary.setOnClickListener(this);
-                    camera.setOnClickListener(this);
-                    addmeal.setOnClickListener(this);
+                    predictMatch.setOnClickListener(this);
+                    predictSpecial.setOnClickListener(this);
                     blackoutimage.setOnClickListener(this);
                 }
 

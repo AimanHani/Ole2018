@@ -5,18 +5,12 @@ android:layout_width="match_parent"
 android:layout_height="match_parent"
 xmlns:app="http://schemas.android.com/apk/res-auto">
 
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/mainview" />
 
-    <LinearLayout
-        android:orientation="vertical"
-        android:layout_width="match_parent"
-        android:visibility="gone"
-        android:clickable="true"
-        android:id="@+id/blackoutimage"
-        android:scaleType="fitXY"
-        android:background="@drawable/blackoverlay"
-        android:layout_height="match_parent" />
-
-    <android.support.design.widget.FloatingActionButton
+    <!--<android.support.design.widget.FloatingActionButton
         android:id="@+id/addmeal"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -28,88 +22,86 @@ xmlns:app="http://schemas.android.com/apk/res-auto">
         android:visibility="invisible"
         app:fabSize="mini"
         app:fabCustomSize="50dp"
-        app:layout_constraintBottom_toTopOf="@+id/diary"
+        app:backgroundTint="@color/lightGrey"
+        app:layout_constraintBottom_toTopOf="@+id/predictMatch"
         app:layout_constraintEnd_toEndOf="parent"
-        app:pressedTranslationZ="12dp" />
+        app:pressedTranslationZ="12dp" />-->
 
-    <TextView
-        android:id="@+id/addmealtext"
+<!--    <TextView
+        android:id="@+id/addspecialtext"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="8dp"
         android:layout_marginEnd="16dp"
         android:layout_marginRight="16dp"
         android:layout_marginTop="8dp"
-        android:layout_toRightOf="@+id/addmeal"
         android:text="Add Meal"
-        android:textColor="#FFFF"
-        android:visibility="gone"
-        app:layout_constraintBottom_toBottomOf="@+id/addmeal"
-        app:layout_constraintEnd_toStartOf="@+id/addmeal"
-        app:layout_constraintTop_toTopOf="@+id/addmeal" />
+        android:textColor="@color/black"
+        android:visibility="gone"/>-->
 
 
     <TextView
-        android:id="@+id/diarytext"
+        android:id="@+id/matchtext"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="8dp"
         android:layout_marginEnd="16dp"
         android:layout_marginRight="16dp"
         android:layout_marginTop="8dp"
-        android:layout_toRightOf="@+id/addmeal"
-        android:text="Diary"
-        android:textColor="#FFFF"
+        android:text="Predict Matches"
+        android:textColor="@color/black"
         android:visibility="gone"
-        app:layout_constraintBottom_toBottomOf="@+id/diary"
-        app:layout_constraintEnd_toStartOf="@+id/diary"
-        app:layout_constraintTop_toTopOf="@+id/diary" />
+        app:layout_constraintBottom_toBottomOf="@+id/predictMatch"
+        app:layout_constraintEnd_toStartOf="@+id/predictMatch"
+        app:layout_constraintTop_toTopOf="@+id/predictMatch" />
 
     <TextView
-        android:id="@+id/cameratext"
+        android:id="@+id/specialtext"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="8dp"
         android:layout_marginEnd="16dp"
         android:layout_marginRight="16dp"
         android:layout_marginTop="8dp"
-        android:layout_toRightOf="@+id/addmeal"
-        android:text="Food Image Recognition"
-        android:textColor="#FFFF"
+        android:text="Predict Specials"
+        android:textColor="@color/black"
         android:visibility="gone"
-        app:layout_constraintBottom_toBottomOf="@+id/camera"
-        app:layout_constraintEnd_toStartOf="@+id/camera"
-        app:layout_constraintTop_toTopOf="@+id/camera" />
+        app:layout_constraintBottom_toBottomOf="@+id/predictSpecial"
+        app:layout_constraintEnd_toStartOf="@+id/predictSpecial"
+        app:layout_constraintTop_toTopOf="@+id/predictSpecial" />
 
     <android.support.design.widget.FloatingActionButton
-        android:id="@+id/diary"
+        android:id="@+id/predictMatch"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="16dp"
-        android:layout_marginEnd="32dp"
-        android:layout_marginRight="32dp"
-        android:clickable="true"
-        android:src="@drawable/bestplayer"
+        android:layout_marginRight="30dp"
+        android:layout_marginEnd="30dp"
+        android:layout_marginBottom="30dp"
+        app:fabCustomSize="60dp"
+        app:maxImageSize="45dp"
+        android:scaleType="fitCenter"
+        android:src="@drawable/scoreboard2"
         android:visibility="invisible"
-        app:fabSize="mini"
-        app:fabCustomSize="50dp"
-        app:layout_constraintBottom_toTopOf="@+id/camera"
+        app:backgroundTint="@color/lightGrey"
+        app:layout_constraintBottom_toTopOf="@+id/predictSpecial"
         app:layout_constraintEnd_toEndOf="parent"
         app:pressedTranslationZ="12dp" />
 
 
     <android.support.design.widget.FloatingActionButton
-        android:id="@+id/camera"
+        android:id="@+id/predictSpecial"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="16dp"
-        android:layout_marginEnd="32dp"
-        android:layout_marginRight="32dp"
+        android:layout_marginRight="30dp"
+        android:layout_marginEnd="30dp"
+        android:layout_marginBottom="30dp"
+        app:fabCustomSize="60dp"
+        app:maxImageSize="45dp"
+        android:scaleType="fitCenter"
         android:clickable="true"
-        android:src="@drawable/bestplayer"
+        android:src="@drawable/soccerplayer2"
         android:visibility="invisible"
-        app:fabSize="mini"
-        app:fabCustomSize="50dp"
+        app:backgroundTint="@color/lightGrey"
         app:layout_constraintBottom_toTopOf="@+id/floatingActionButton"
         app:layout_constraintEnd_toEndOf="parent"
         app:pressedTranslationZ="12dp" />
@@ -118,17 +110,31 @@ xmlns:app="http://schemas.android.com/apk/res-auto">
         android:id="@+id/floatingActionButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="70dp"
-        android:layout_marginEnd="32dp"
-        android:layout_marginRight="32dp"
+        android:layout_marginRight="30dp"
+        android:layout_marginEnd="30dp"
+        android:layout_marginBottom="30dp"
+        app:fabCustomSize="60dp"
+        app:maxImageSize="25dp"
+        android:scaleType="fitCenter"
         android:clickable="true"
         app:layout_behavior="com.eventizon.behavior.ScrollAwareFABBehavior"
         android:src="@drawable/add"
         app:fabSize="mini"
-        app:fabCustomSize="50dp"
+        app:backgroundTint="@color/lightGrey"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_anchorGravity="bottom|right|end"
         app:pressedTranslationZ="12dp" />
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:visibility="gone"
+        android:clickable="true"
+        android:id="@+id/blackoutimage"
+        android:scaleType="fitXY"
+        android:background="@drawable/blackoverlay"
+        android:alpha="0.5"
+        android:layout_height="match_parent" />
 
 </android.support.constraint.ConstraintLayout>
