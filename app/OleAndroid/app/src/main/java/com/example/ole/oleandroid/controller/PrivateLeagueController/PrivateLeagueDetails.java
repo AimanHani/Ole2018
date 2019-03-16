@@ -20,6 +20,9 @@ import android.widget.TextView;
 import com.example.ole.oleandroid.R;
 import com.example.ole.oleandroid.controller.DAO.PrivateLeagueDAO;
 import com.example.ole.oleandroid.controller.DAO.PrivateMembersDAO;
+import com.example.ole.oleandroid.controller.HomeLeague;
+import com.example.ole.oleandroid.controller.MatchesTabs;
+import com.example.ole.oleandroid.controller.PublicLeague.PublicLeagueDetails;
 import com.example.ole.oleandroid.controller.SideMenuBar;
 import com.example.ole.oleandroid.dbConnection.DBConnection;
 import com.example.ole.oleandroid.dbConnection.GetHttp;
@@ -43,7 +46,7 @@ public class PrivateLeagueDetails extends SideMenuBar implements View.OnClickLis
     ListView privateLeagueListView;
     TextView privatePrizeInput, leagueNameInput,creator, privatepoints;
     PrivateLeague privateleague = null;
-
+    int logid = 0;
     LinearLayout blackoutimage;
     FloatingActionButton main, predictSpecial, predictMatch;
     Animation FoodFabOpen, FoodFabClose, FabRClockwise, FabRAntiClockwise, Fadein, Fadeout;
@@ -56,7 +59,7 @@ protected void onCreate(Bundle savedInstanceState) {
     LayoutInflater inflater = (LayoutInflater) this.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 
     Intent intent = getIntent();
-    String leagueid = intent.getStringExtra("leagueid");
+    final String leagueid = intent.getStringExtra("leagueid");
 
     View contentView = inflater.inflate(R.layout.activity_private_league_details, null, false);
     super.mDrawerlayout.addView(contentView, 0);
@@ -119,16 +122,11 @@ protected void onCreate(Bundle savedInstanceState) {
             System.out.println(response);
             JSONObject result = new JSONObject(response);
             JSONArray members = result.getJSONArray("results");
-
             PrivateMembersDAO.clearAllPrivateMembers();
             if (members.length() > 0) {
-
-
                 for (int i = 0; i < members.length(); i++) {
                     JSONObject membersObj = members.getJSONObject(i);
-
                     PrivateMembers privateMembers = new PrivateMembers(
-
                             membersObj.getInt("logid"),
                             membersObj.getString("username"),
                             membersObj.getInt("leagueid"),
@@ -141,6 +139,30 @@ protected void onCreate(Bundle savedInstanceState) {
             System.out.println("error");
             e.printStackTrace();
         }
+    String url3 = DBConnection.insertPrivateLeagueUrl()+"?method=retrieveAdminLog&leagueid="+leagueid;
+
+    System.out.println("Getting admin log");
+    getConnection = new GetHttp();
+    response = null;
+    try {
+        response = getConnection.run(url3);
+        System.out.println(response);
+        JSONObject result = new JSONObject(response);
+        JSONArray arr = result.getJSONArray("results");
+        if (arr.length() > 0) {
+                JSONObject obj = arr.getJSONObject(0);
+                logid = obj.getInt("logid");
+            }
+        }
+
+         catch (Exception e) {
+        System.out.println("error");
+        e.printStackTrace();
+    }
+
+    System.out.println("LOG ID" + logid);
+
+
             privatePrizeInput = findViewById(R.id.privatePrizeInput);
             leagueNameInput = findViewById(R.id.leagueNameInput);
             creator = findViewById(R.id.creator);
@@ -202,18 +224,24 @@ protected void onCreate(Bundle savedInstanceState) {
                 matchtext.setVisibility(View.VISIBLE);
                 isOpen = true;
 
-                predictMatch.setOnClickListener(this);
+                predictMatch.setOnClickListener(new View.OnClickListener() {
+                    public void onClick(View view) {
+                        Intent intent = new Intent(PrivateLeagueDetails.this, PrivateLeagueMatchesMain.class);
+                        Bundle bundle = new Bundle();
+                        bundle.putInt("logId", logid);
+                        bundle.putInt("leagueId", Integer.parseInt(leagueid));
+                        intent.putExtras(bundle);
+                        startActivity(intent);
+                    }
+                });
                 predictSpecial.setOnClickListener(this);
                 blackoutimage.setOnClickListener(this);
             }
         }
     });
-
 }
-
     public void onClick(View v) {
         switch (v.getId()) {
-
             case R.id.blackoutimage:
                 blackoutimage.startAnimation(Fadeout);
                 blackoutimage.setVisibility(View.GONE);
@@ -231,14 +259,11 @@ protected void onCreate(Bundle savedInstanceState) {
                 //Intent = new Intent(this.getActivity(), xxx.class);
                 //startActivity();
                 break;
-
-            case R.id.matchtext:
-                //Intent = new Intent(this.getActivity(), xxx.class);
-                //startActivity();
+            case R.id.predictMatch:
+                //Intent intent = new Intent(PrivateLeagueDetails.this, HomeLeague.class);
+                //startActivity(intent);
                 break;
-
             case R.id.floatingActionButton:
-                //mainview.setText("BYEBYE");
                 if (isOpen) {
                     blackoutimage.startAnimation(Fadeout);
                     blackoutimage.setVisibility(View.GONE);
@@ -250,8 +275,6 @@ protected void onCreate(Bundle savedInstanceState) {
                     specialtext.setVisibility(View.GONE);
                     matchtext.setVisibility(View.GONE);
                     isOpen = false;
-
-
                 } else {
                     blackoutimage.setVisibility(View.VISIBLE);
                     blackoutimage.startAnimation(Fadein);
@@ -263,15 +286,12 @@ protected void onCreate(Bundle savedInstanceState) {
                     specialtext.setVisibility(View.VISIBLE);
                     matchtext.setVisibility(View.VISIBLE);
                     isOpen = true;
-
                     predictMatch.setOnClickListener(this);
                     predictSpecial.setOnClickListener(this);
                     blackoutimage.setOnClickListener(this);
                 }
-
                 break;
         }
     }
-
 }
 

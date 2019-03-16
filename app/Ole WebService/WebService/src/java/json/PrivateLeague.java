@@ -224,6 +224,22 @@ public class PrivateLeague extends HttpServlet {
                     Logger.getLogger(PublicLeagueJson.class.getName()).log(Level.SEVERE, null, ex);
                 }
                 break;
+                
+                case "retrieveAdminLog":
+                System.out.println("retrieving Admin Log for Private League");
+                list = new JSONArray();
+                parentJson = new JSONObject();
+                int logid = PrivateLeagueDAO.getLog(Integer.parseInt(leagueid));
+                try {
+                    json = new JSONObject();
+                    json.put("logid", logid);
+                    list.put(json);
+                    parentJson.put("results", list);
+                    out.print(parentJson);
+                    out.flush();
+
+                } catch (Exception ex) { }
+                break;
             default:
                 break;
         }
