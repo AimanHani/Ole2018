@@ -21,6 +21,7 @@ public class PrivateMatchDAO {
         ArrayList<Match> matches = new ArrayList<>();
         String url = DBConnection.getPrivateMatchesUrl() + "?matchStatus=past"+"&leagueId="+leagueId+"&username="+UserDAO.getLoginUser().getUsername();
         System.out.println("Getting past matches list");
+        System.out.println(url);
 
         GetHttp getConnection = new GetHttp();
         String response = null;
@@ -65,7 +66,7 @@ public class PrivateMatchDAO {
         ArrayList<Match> matches = new ArrayList<>();
         String url = DBConnection.getPrivateMatchesUrl() + "?matchStatus=future"+"&leagueId="+leagueId+"&username="+UserDAO.getLoginUser().getUsername();
         System.out.println("Getting future matches list");
-
+        System.out.println(url);
         GetHttp getConnection = new GetHttp();
         String response = null;
         try {

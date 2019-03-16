@@ -109,7 +109,7 @@ public class PrivateLeagueUpcomingMatchesList extends Fragment implements View.O
     public void getAllPrediction() throws IOException, JSONException {
         ArrayList<Match> newMatchList = pmListAdapter.getEditMatches();
         if (newMatchList.size() > 0) {
-            boolean insert = PrivateMatchDAO.updateMatchPredictions(newMatchList, leagueId);
+            boolean insert = MatchDAO.updateMatchPredictions(newMatchList, leagueId);
             System.out.println("insert status " + insert);
         }
     }
