@@ -195,7 +195,7 @@ public class Signup extends AppCompatActivity {
         signupBtn.setEnabled(true);
         setResult(RESULT_OK, null);
         //finish();
-        successfulAlertDialog();
+        smsVerification();
     }
 
     public Dialog loadingDialog() {
@@ -206,6 +206,26 @@ public class Signup extends AppCompatActivity {
 
         dialog2.show();
         return dialog2;
+    }
+
+    public void smsVerification(){
+        dialog = new Dialog(Signup.this);
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        dialog.setContentView(R.layout.activity_sms_verification);
+
+        EditText smsInput = dialog.findViewById(R.id.smsInput);
+        TextView confirm = dialog.findViewById(R.id.confirm);
+
+        confirm.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //if success,
+                successfulAlertDialog();
+                dialog.cancel();
+                //else, error message
+            }
+        });
+        dialog.show();
     }
 
     public void successfulAlertDialog() {
