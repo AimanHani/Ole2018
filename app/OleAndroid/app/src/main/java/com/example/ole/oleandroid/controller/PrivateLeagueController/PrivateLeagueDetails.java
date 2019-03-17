@@ -234,7 +234,16 @@ protected void onCreate(Bundle savedInstanceState) {
                         startActivity(intent);
                     }
                 });
-                predictSpecial.setOnClickListener(this);
+                predictSpecial.setOnClickListener(new View.OnClickListener() {
+                    public void onClick(View view) {
+                        Intent intent = new Intent(PrivateLeagueDetails.this, PrivateLeagueSpecialsList.class);
+                        Bundle bundle = new Bundle();
+                        bundle.putInt("logId", logid);
+                        bundle.putInt("leagueId", Integer.parseInt(leagueid));
+                        intent.putExtras(bundle);
+                        startActivity(intent);
+                    }
+                });
                 blackoutimage.setOnClickListener(this);
             }
         }
