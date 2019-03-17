@@ -2,20 +2,27 @@ package com.example.ole.oleandroid.controller.PrivateLeagueController;
 
 import android.content.Context;
 import android.content.Intent;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
 import android.text.InputType;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 
 import com.example.ole.oleandroid.R;
 import com.example.ole.oleandroid.controller.DAO.PrivateLeagueDAO;
 import com.example.ole.oleandroid.controller.DAO.PrivateMembersDAO;
+import com.example.ole.oleandroid.controller.HomeLeague;
+import com.example.ole.oleandroid.controller.MatchesTabs;
+import com.example.ole.oleandroid.controller.PublicLeague.PublicLeagueDetails;
 import com.example.ole.oleandroid.controller.SideMenuBar;
 import com.example.ole.oleandroid.dbConnection.DBConnection;
 import com.example.ole.oleandroid.dbConnection.GetHttp;
@@ -39,6 +46,12 @@ public class PrivateLeagueDetails extends SideMenuBar implements View.OnClickLis
     ListView privateLeagueListView;
     TextView privatePrizeInput, leagueNameInput,creator, privatepoints;
     PrivateLeague privateleague = null;
+    int logid = 0;
+    LinearLayout blackoutimage;
+    FloatingActionButton main, predictSpecial, predictMatch;
+    Animation FoodFabOpen, FoodFabClose, FabRClockwise, FabRAntiClockwise, Fadein, Fadeout;
+    TextView specialtext, matchtext, mainview;
+    boolean isOpen = false;
 
 @Override
 protected void onCreate(Bundle savedInstanceState) {
@@ -46,7 +59,7 @@ protected void onCreate(Bundle savedInstanceState) {
     LayoutInflater inflater = (LayoutInflater) this.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 
     Intent intent = getIntent();
-    String leagueid = intent.getStringExtra("leagueid");
+    final String leagueid = intent.getStringExtra("leagueid");
 
     View contentView = inflater.inflate(R.layout.activity_private_league_details, null, false);
     super.mDrawerlayout.addView(contentView, 0);
@@ -109,16 +122,11 @@ protected void onCreate(Bundle savedInstanceState) {
             System.out.println(response);
             JSONObject result = new JSONObject(response);
             JSONArray members = result.getJSONArray("results");
-
             PrivateMembersDAO.clearAllPrivateMembers();
             if (members.length() > 0) {
-
-
                 for (int i = 0; i < members.length(); i++) {
                     JSONObject membersObj = members.getJSONObject(i);
-
                     PrivateMembers privateMembers = new PrivateMembers(
-
                             membersObj.getInt("logid"),
                             membersObj.getString("username"),
                             membersObj.getInt("leagueid"),
@@ -131,6 +139,30 @@ protected void onCreate(Bundle savedInstanceState) {
             System.out.println("error");
             e.printStackTrace();
         }
+    String url3 = DBConnection.insertPrivateLeagueUrl()+"?method=retrieveAdminLog&leagueid="+leagueid;
+
+    System.out.println("Getting admin log");
+    getConnection = new GetHttp();
+    response = null;
+    try {
+        response = getConnection.run(url3);
+        System.out.println(response);
+        JSONObject result = new JSONObject(response);
+        JSONArray arr = result.getJSONArray("results");
+        if (arr.length() > 0) {
+                JSONObject obj = arr.getJSONObject(0);
+                logid = obj.getInt("logid");
+            }
+        }
+
+         catch (Exception e) {
+        System.out.println("error");
+        e.printStackTrace();
+    }
+
+    System.out.println("LOG ID" + logid);
+
+
             privatePrizeInput = findViewById(R.id.privatePrizeInput);
             leagueNameInput = findViewById(R.id.leagueNameInput);
             creator = findViewById(R.id.creator);
@@ -145,9 +177,130 @@ protected void onCreate(Bundle savedInstanceState) {
         privateLeagueListView = findViewById(R.id.privateLeagueListView);
         privateLeagueDetailsAdapter = new PrivateLeagueDetailsAdapter(PrivateLeagueDetails.this, PrivateMembersDAO.getAllPrivateMembers());
         privateLeagueListView.setAdapter(privateLeagueDetailsAdapter);
-}
 
-    @Override
-    public void onClick(View v) {    }
+    blackoutimage = findViewById(R.id.blackoutimage);
+    main = findViewById(R.id.floatingActionButton);
+    predictSpecial = findViewById(R.id.predictSpecial);
+    predictMatch = findViewById(R.id.predictMatch);
+    mainview = findViewById(R.id.mainview);
+
+    // enable animations for FloatingActionButton
+    FoodFabOpen = AnimationUtils.loadAnimation(this, R.anim.foodfabopen);
+    FoodFabClose = AnimationUtils.loadAnimation(this, R.anim.foodfabclose);
+    FabRClockwise = AnimationUtils.loadAnimation(this, R.anim.rotate_clockwise);
+    FabRAntiClockwise = AnimationUtils.loadAnimation(this, R.anim.rotate_anticlockwise);
+    Fadein = AnimationUtils.loadAnimation(this, R.anim.fadein);
+    Fadeout = AnimationUtils.loadAnimation(this, R.anim.fadeout);
+
+    specialtext = findViewById(R.id.specialtext);
+    matchtext = findViewById(R.id.matchtext);
+
+    main.bringToFront();
+    main.setOnClickListener(new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            if (isOpen) {
+                blackoutimage.startAnimation(Fadeout);
+                blackoutimage.setVisibility(View.GONE);
+                predictSpecial.startAnimation(FoodFabClose);
+                predictMatch.startAnimation(FoodFabClose);
+                main.startAnimation(FabRAntiClockwise);
+                predictSpecial.setClickable(false);
+                predictMatch.setClickable(false);
+                specialtext.setVisibility(View.GONE);
+                matchtext.setVisibility(View.GONE);
+                isOpen = false;
+
+
+            } else {
+                blackoutimage.setVisibility(View.VISIBLE);
+                blackoutimage.startAnimation(Fadein);
+                predictSpecial.startAnimation(FoodFabOpen);
+                predictMatch.startAnimation(FoodFabOpen);
+                main.startAnimation(FabRClockwise);
+                predictSpecial.setClickable(true);
+                predictMatch.setClickable(true);
+                specialtext.setVisibility(View.VISIBLE);
+                matchtext.setVisibility(View.VISIBLE);
+                isOpen = true;
+
+                predictMatch.setOnClickListener(new View.OnClickListener() {
+                    public void onClick(View view) {
+                        Intent intent = new Intent(PrivateLeagueDetails.this, PrivateLeagueMatchesMain.class);
+                        Bundle bundle = new Bundle();
+                        bundle.putInt("logId", logid);
+                        bundle.putInt("leagueId", Integer.parseInt(leagueid));
+                        intent.putExtras(bundle);
+                        startActivity(intent);
+                    }
+                });
+                predictSpecial.setOnClickListener(new View.OnClickListener() {
+                    public void onClick(View view) {
+                        Intent intent = new Intent(PrivateLeagueDetails.this, PrivateLeagueSpecialsList.class);
+                        Bundle bundle = new Bundle();
+                        bundle.putInt("logId", logid);
+                        bundle.putInt("leagueId", Integer.parseInt(leagueid));
+                        intent.putExtras(bundle);
+                        startActivity(intent);
+                    }
+                });
+                blackoutimage.setOnClickListener(this);
+            }
+        }
+    });
+}
+    public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.blackoutimage:
+                blackoutimage.startAnimation(Fadeout);
+                blackoutimage.setVisibility(View.GONE);
+                predictSpecial.startAnimation(FoodFabClose);
+                predictMatch.startAnimation(FoodFabClose);
+                main.startAnimation(FabRAntiClockwise);
+                predictSpecial.setClickable(false);
+                predictMatch.setClickable(false);
+                specialtext.setVisibility(View.GONE);
+                matchtext.setVisibility(View.GONE);
+                isOpen = false;
+                break;
+
+            case R.id.specialtext:
+                //Intent = new Intent(this.getActivity(), xxx.class);
+                //startActivity();
+                break;
+            case R.id.predictMatch:
+                //Intent intent = new Intent(PrivateLeagueDetails.this, HomeLeague.class);
+                //startActivity(intent);
+                break;
+            case R.id.floatingActionButton:
+                if (isOpen) {
+                    blackoutimage.startAnimation(Fadeout);
+                    blackoutimage.setVisibility(View.GONE);
+                    predictSpecial.startAnimation(FoodFabClose);
+                    predictMatch.startAnimation(FoodFabClose);
+                    main.startAnimation(FabRAntiClockwise);
+                    predictSpecial.setClickable(false);
+                    predictMatch.setClickable(false);
+                    specialtext.setVisibility(View.GONE);
+                    matchtext.setVisibility(View.GONE);
+                    isOpen = false;
+                } else {
+                    blackoutimage.setVisibility(View.VISIBLE);
+                    blackoutimage.startAnimation(Fadein);
+                    predictSpecial.startAnimation(FoodFabOpen);
+                    predictMatch.startAnimation(FoodFabOpen);
+                    main.startAnimation(FabRClockwise);
+                    predictSpecial.setClickable(true);
+                    predictMatch.setClickable(true);
+                    specialtext.setVisibility(View.VISIBLE);
+                    matchtext.setVisibility(View.VISIBLE);
+                    isOpen = true;
+                    predictMatch.setOnClickListener(this);
+                    predictSpecial.setOnClickListener(this);
+                    blackoutimage.setOnClickListener(this);
+                }
+                break;
+        }
+    }
 }
 

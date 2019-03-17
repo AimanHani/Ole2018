@@ -346,4 +346,20 @@ public class PrivateLeagueDAO {
             return false;
         }
     }
+    
+    public static int getLog(int leagueid){
+        System.out.println("Getting Private League Logid");
+        try (Connection c5 = DBConnection.getConnection(); PreparedStatement ps5 = c5.prepareStatement("SELECT logId FROM `log` where username = 'admin' and leagueId = ?");) {
+            ps5.setInt(1, leagueid);
+            ResultSet rs = ps5.executeQuery();
+            while (rs.next()) {
+                return rs.getInt(1);
+            }
+            rs.close();
+            c5.close();
+        } catch (Exception e) {
+            return 0;
+        }
+        return 0;
+    }
 }

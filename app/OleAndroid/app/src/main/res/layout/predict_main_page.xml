@@ -10,36 +10,6 @@ xmlns:app="http://schemas.android.com/apk/res-auto">
         android:layout_height="wrap_content"
         android:id="@+id/mainview" />
 
-    <!--<android.support.design.widget.FloatingActionButton
-        android:id="@+id/addmeal"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="16dp"
-        android:layout_marginEnd="32dp"
-        android:layout_marginRight="32dp"
-        android:clickable="true"
-        android:src="@drawable/bestplayer"
-        android:visibility="invisible"
-        app:fabSize="mini"
-        app:fabCustomSize="50dp"
-        app:backgroundTint="@color/lightGrey"
-        app:layout_constraintBottom_toTopOf="@+id/predictMatch"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:pressedTranslationZ="12dp" />-->
-
-<!--    <TextView
-        android:id="@+id/addspecialtext"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
-        android:layout_marginEnd="16dp"
-        android:layout_marginRight="16dp"
-        android:layout_marginTop="8dp"
-        android:text="Add Meal"
-        android:textColor="@color/black"
-        android:visibility="gone"/>-->
-
-
     <TextView
         android:id="@+id/matchtext"
         android:layout_width="wrap_content"
@@ -82,7 +52,7 @@ xmlns:app="http://schemas.android.com/apk/res-auto">
         android:scaleType="fitCenter"
         android:src="@drawable/scoreboard2"
         android:visibility="invisible"
-        app:backgroundTint="@color/lightGrey"
+        app:backgroundTint="@color/white"
         app:layout_constraintBottom_toTopOf="@+id/predictSpecial"
         app:layout_constraintEnd_toEndOf="parent"
         app:pressedTranslationZ="12dp" />
@@ -101,7 +71,7 @@ xmlns:app="http://schemas.android.com/apk/res-auto">
         android:clickable="true"
         android:src="@drawable/soccerplayer2"
         android:visibility="invisible"
-        app:backgroundTint="@color/lightGrey"
+        app:backgroundTint="@color/white"
         app:layout_constraintBottom_toTopOf="@+id/floatingActionButton"
         app:layout_constraintEnd_toEndOf="parent"
         app:pressedTranslationZ="12dp" />
@@ -120,7 +90,7 @@ xmlns:app="http://schemas.android.com/apk/res-auto">
         app:layout_behavior="com.eventizon.behavior.ScrollAwareFABBehavior"
         android:src="@drawable/add"
         app:fabSize="mini"
-        app:backgroundTint="@color/lightGrey"
+        app:backgroundTint="@color/white"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_anchorGravity="bottom|right|end"
@@ -134,7 +104,7 @@ xmlns:app="http://schemas.android.com/apk/res-auto">
         android:id="@+id/blackoutimage"
         android:scaleType="fitXY"
         android:background="@drawable/blackoverlay"
-        android:alpha="0.5"
+        android:alpha="0.8"
         android:layout_height="match_parent" />
 
 </android.support.constraint.ConstraintLayout>

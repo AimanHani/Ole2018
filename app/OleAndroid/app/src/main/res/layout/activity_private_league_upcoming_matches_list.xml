@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".controller.PrivateLeagueController.PrivateLeagueUpcomingMatchesList">
+
+    <ListView
+        android:id="@+id/matchListView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/buttons"
+        android:layout_alignParentStart="true"
+        android:layout_marginStart="0dp"
+        android:typeface="sans" />
+
+    <LinearLayout
+        android:id="@+id/buttons"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginStart="0dp"
+        android:orientation="horizontal"
+        android:weightSum="2">
+
+        <Button
+            android:id="@+id/saveMatchPrediction"
+            style="?attr/buttonBarButtonStyle"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:layout_marginRight="1dp"
+            android:layout_weight="1"
+            android:background="@color/themeColor"
+            android:baselineAligned="false"
+            android:text="Save Prediction"
+            android:textColor="@color/white"
+            android:textSize="20sp" />
+
+        <!--<Button-->
+            <!--android:id="@+id/predictspecials"-->
+            <!--style="?attr/buttonBarButtonStyle"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="60dp"-->
+            <!--android:layout_marginLeft="1dp"-->
+            <!--android:layout_weight="1"-->
+            <!--android:background="@color/themeColor"-->
+            <!--android:baselineAligned="false"-->
+            <!--android:text="Predict Specials"-->
+            <!--android:textColor="@color/white"-->
+            <!--android:textSize="20sp" />-->
+    </LinearLayout>
+</RelativeLayout>
