@@ -32,6 +32,11 @@ public class GetMatchesDAO {
 
         try (Connection conn = DBConnection.getConnection(); PreparedStatement stmt = conn.prepareStatement("select m.matchId,m.tournamentId, m.date, m.time, (SELECT t.teamName FROM team t where t.teamId = m.team1 ) AS team1, (SELECT t.teamName FROM team t where t.teamId = m.team2 ) AS team2, m.team1_score,m.team2_score from `match` m where date > DATE(NOW()) and TIMESTAMPDIFF(day, date(NOW()), date) <= 7");) {
             ResultSet rs = stmt.executeQuery();
+            if (!rs.next()) {
+                System.out.println("no data 7 days");
+                PreparedStatement stmtAgain = conn.prepareStatement("select m.matchId,m.tournamentId, m.date, m.time, (SELECT t.teamName FROM team t where t.teamId = m.team1 ) AS team1, (SELECT t.teamName FROM team t where t.teamId = m.team2 ) AS team2, m.team1_score,m.team2_score from `match` m where date > DATE(NOW()) and TIMESTAMPDIFF(day, date(NOW()), date) <= 14");
+                rs = stmtAgain.executeQuery();
+            }
 
             while (rs.next()) {
                 int matchID = rs.getInt(1);
@@ -128,7 +133,7 @@ public class GetMatchesDAO {
                     json.put("team1_prediction", rs.getInt(2));
                     json.put("team2_prediction", rs.getInt(3));
                     existingMatches.put(matchId, json);
-                } catch (Exception e){
+                } catch (Exception e) {
                     e.printStackTrace();
                 }
             }

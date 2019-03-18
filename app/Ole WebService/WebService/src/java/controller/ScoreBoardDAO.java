@@ -127,29 +127,32 @@ public class ScoreBoardDAO {
         ArrayList<PrivateLeagueProfile> plfList = new ArrayList();
         ArrayList<String> usernames = getAllUsers(leagueID);
         for (int i = 0; i < usernames.size(); i++) {
-            PrivateLeagueProfile plf = new PrivateLeagueProfile();
-            try (Connection conn = DBConnection.getConnection(); PreparedStatement stmt = conn.prepareStatement("select points from log where username = ? and leagueId = ?");) {
-                stmt.setString(1, usernames.get(i));
-                stmt.setInt(2, leagueID);
-                ResultSet rs = stmt.executeQuery();
-                int totalPoints = 0;
+            if (!usernames.get(i).equals("admin")) {
+                PrivateLeagueProfile plf = new PrivateLeagueProfile();
+                try (Connection conn = DBConnection.getConnection(); PreparedStatement stmt = conn.prepareStatement("select points, leagueName from log, league where username = ? and log.leagueId = ? and log.leagueId = league.leagueId");) {
+                    stmt.setString(1, usernames.get(i));
+                    stmt.setInt(2, leagueID);
+                    ResultSet rs = stmt.executeQuery();
+                    int totalPoints = 0;
+                    String leagueName = "";
 
-                while (rs.next()) {
-                    totalPoints += rs.getInt(1);
+                    while (rs.next()) {
+                        totalPoints += rs.getInt(1);
+                        leagueName = rs.getString(2);
+                    }
+                    
+                    plf = new PrivateLeagueProfile(usernames.get(i), leagueID, leagueName, totalPoints);
+                    rs.close();
+                    conn.close();
 
+                } catch (SQLException ex) {
+                    ex.printStackTrace();
+                } catch (ClassNotFoundException ex) {
+                    ex.printStackTrace();
                 }
-                plf = new PrivateLeagueProfile(usernames.get(i), leagueID, totalPoints);
-                rs.close();
-                conn.close();
-
-            } catch (SQLException ex) {
-                ex.printStackTrace();
-            } catch (ClassNotFoundException ex) {
-                ex.printStackTrace();
+                plfList.add(plf);
             }
-            plfList.add(plf);
         }
-
         return plfList;
     }
 
@@ -157,24 +160,23 @@ public class ScoreBoardDAO {
         ArrayList<Integer> privateLeaguesIDsOfTheUserJoined = new ArrayList();
         ArrayList<Integer> privateLeagueIDsList = getAllPrivateLeagueIDs();
 
-        for (int i = 0; i < privateLeagueIDsList.size(); i++) {
-            try (Connection conn = DBConnection.getConnection(); PreparedStatement stmt = conn.prepareStatement("select distinct leagueId from log where username = ? and leagueId = ? ");) {
-                stmt.setString(1, username);
-                stmt.setInt(2, privateLeagueIDsList.get(i));
-                ResultSet rs = stmt.executeQuery();
-                while (rs.next()) {
-                    privateLeaguesIDsOfTheUserJoined.add(rs.getInt(1));
-                }
-
-                rs.close();
-                conn.close();
-
-            } catch (SQLException ex) {
-                ex.printStackTrace();
-            } catch (ClassNotFoundException ex) {
-                ex.printStackTrace();
+        //for (int i = 0; i < privateLeagueIDsList.size(); i++) {
+        try (Connection conn = DBConnection.getConnection(); PreparedStatement stmt = conn.prepareStatement("select distinct leagueId from log where username = ? and leagueId in (select distinct leagueKeyId from privateleague)");) {
+            stmt.setString(1, username);
+            ResultSet rs = stmt.executeQuery();
+            while (rs.next()) {
+                privateLeaguesIDsOfTheUserJoined.add(rs.getInt(1));
             }
+
+            rs.close();
+            conn.close();
+
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        } catch (ClassNotFoundException ex) {
+            ex.printStackTrace();
         }
+        //}
         return privateLeaguesIDsOfTheUserJoined;
     }
 

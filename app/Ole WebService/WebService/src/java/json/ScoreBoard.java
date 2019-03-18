@@ -132,15 +132,14 @@ public class ScoreBoard extends HttpServlet {
             }
         } else {
             PrivateLeagueProfile plf;
-            ArrayList<PrivateLeagueProfile> pList;
+            ArrayList<PrivateLeagueProfile> pList = new ArrayList();
             ArrayList<Integer> privateLeagueIDs = new ArrayList();
             try {
                 privateLeagueIDs = ScoreBoardDAO.privateLeagueIDsOfTheSpecificUserJoined(username);
-                if (privateLeagueIDs.size() != 0) {
+                if (!privateLeagueIDs.isEmpty()) {
                     for (int i = 0; i < privateLeagueIDs.size(); i++) {
-                        pList = new ArrayList();
                         pList = ScoreBoardDAO.getUsersAndTheirTotalPointsPrivate(privateLeagueIDs.get(i));
-                        if (pList.size() != 0) {
+                        if (!pList.isEmpty()) {
                             Collections.sort(pList);
                             int rank = 0;
                             int previousPoints = 0;
