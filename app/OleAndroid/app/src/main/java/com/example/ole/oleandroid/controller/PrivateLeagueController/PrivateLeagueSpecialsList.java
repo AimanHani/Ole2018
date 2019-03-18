@@ -76,6 +76,14 @@ public class PrivateLeagueSpecialsList extends SideMenuBar {
                     }
                 });
 
+                TextView end = dialog.findViewById(R.id.end);
+                end.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        dialog.dismiss();
+                    }
+                });
+
                 TextView confirmspecialsbtn = dialog.findViewById(R.id.confirmspecialsbtn);
                 confirmspecialsbtn.setOnClickListener(new View.OnClickListener() {
                     @Override
