@@ -16,6 +16,9 @@ import android.widget.TextView;
 import com.example.ole.oleandroid.R;
 
 import com.example.ole.oleandroid.controller.MatchesTabs;
+import com.example.ole.oleandroid.controller.PrivateLeagueController.PrivateLeagueDetails;
+import com.example.ole.oleandroid.controller.PrivateLeagueController.PrivateLeagueMatchesMain;
+import com.example.ole.oleandroid.controller.PrivateLeagueController.PrivateLeagueSpecialsList;
 import com.example.ole.oleandroid.controller.SideMenuBar;
 import com.example.ole.oleandroid.model.PublicLeague;
 
@@ -30,7 +33,7 @@ public class PublicLeagueDetails extends SideMenuBar implements View.OnClickList
     ListView membersListView;
     TextView prizeInput, leagueNameInput, publicPoints;
     PublicLeague publicLeague = null;
-
+    int logId = 0;
     LinearLayout blackoutimage;
     FloatingActionButton main, predictSpecial, predictMatch;
     Animation FoodFabOpen, FoodFabClose, FabRClockwise, FabRAntiClockwise, Fadein, Fadeout;
@@ -46,7 +49,7 @@ public class PublicLeagueDetails extends SideMenuBar implements View.OnClickList
         super.mDrawerlayout.addView(contentView, 0);
 
         Bundle bundle = getIntent().getExtras();
-        int logId = bundle.getInt("logId");
+        logId = bundle.getInt("logId");
         int leagueId = bundle.getInt("leagueId");
         publicLeague = PublicLeagueDAO.getOnePublicLeague(leagueId);
 
@@ -64,20 +67,20 @@ public class PublicLeagueDetails extends SideMenuBar implements View.OnClickList
         publicLeagueDetailsAdapter = new PublicLeagueDetailsAdapter(PublicLeagueDetails.this, PublicLeagueDAO.loadPublicMembers(leagueId));
         membersListView.setAdapter(publicLeagueDetailsAdapter);
 
-        predict = findViewById(R.id.predict);
-        predict.setOnClickListener(new View.OnClickListener() {
-
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(PublicLeagueDetails.this, MatchesTabs.class);
-                Bundle bundle = new Bundle();
-                bundle.putInt("logId", publicLeague.getLogId());
-                bundle.putInt("leagueId", publicLeague.getLeagueId());
-                intent.putExtras(bundle);
-                PublicLeagueDetails.this.startActivity(intent);
-            }
-
-        });
+//        predict = findViewById(R.id.predict);
+//        predict.setOnClickListener(new View.OnClickListener() {
+//
+//            @Override
+//            public void onClick(View view) {
+//                Intent intent = new Intent(PublicLeagueDetails.this, MatchesTabs.class);
+//                Bundle bundle = new Bundle();
+//                bundle.putInt("logId", publicLeague.getLogId());
+//                bundle.putInt("leagueId", publicLeague.getLeagueId());
+//                intent.putExtras(bundle);
+//                PublicLeagueDetails.this.startActivity(intent);
+//            }
+//
+//        });
 
         blackoutimage = findViewById(R.id.blackoutimage);
         main = findViewById(R.id.floatingActionButton);
@@ -125,8 +128,26 @@ public class PublicLeagueDetails extends SideMenuBar implements View.OnClickList
                     matchtext.setVisibility(View.VISIBLE);
                     isOpen = true;
 
-                    predictMatch.setOnClickListener(this);
-                    predictSpecial.setOnClickListener(this);
+                    predictMatch.setOnClickListener(new View.OnClickListener() {
+                        public void onClick(View view) {
+                            Intent intent = new Intent(PublicLeagueDetails.this, MatchesTabs.class);
+                            Bundle bundle = new Bundle();
+                            bundle.putInt("logId", logId);
+                            bundle.putInt("leagueId", publicLeague.getLeagueId());
+                            intent.putExtras(bundle);
+                            startActivity(intent);
+                        }
+                    });
+                    predictSpecial.setOnClickListener(new View.OnClickListener() {
+                        public void onClick(View view) {
+                            Intent intent = new Intent(PublicLeagueDetails.this, SpecialList.class);
+                            Bundle bundle = new Bundle();
+                            bundle.putInt("logId", logId);
+                            bundle.putInt("leagueId", publicLeague.getLeagueId());
+                            intent.putExtras(bundle);
+                            startActivity(intent);
+                        }
+                    });
                     blackoutimage.setOnClickListener(this);
                 }
             }

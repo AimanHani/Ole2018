@@ -85,13 +85,13 @@ public class SpecialList extends SideMenuBar {
                 dialog.setContentView(R.layout.confirmspecialspopout);
                 TextView msg = dialog.findViewById(R.id.confirmMessage);
                 msg.setText("Confirm Specials? You could earn up to " + totalPoints + " Ole points");
-                TextView cancel = dialog.findViewById(R.id.cancel);
-                cancel.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        dialog.dismiss();
-                    }
-                });
+//                TextView cancel = dialog.findViewById(R.id.cancel);
+//                cancel.setOnClickListener(new View.OnClickListener() {
+//                    @Override
+//                    public void onClick(View v) {
+//                        dialog.dismiss();
+//                    }
+//                });
 
                 ImageView closeWindow = dialog.findViewById(R.id.closeWindow);
                 closeWindow.setOnClickListener(new View.OnClickListener() {
@@ -105,12 +105,20 @@ public class SpecialList extends SideMenuBar {
                 end.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
+                        dialog.dismiss();
+                    }
+                });
+
+                TextView confirmspecialsbtn = dialog.findViewById(R.id.confirmspecialsbtn);
+                confirmspecialsbtn.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
                         try {
                             SpecialDAO.updateSpecialsPrediction(newList, leagueId);
                         } catch (Exception e) {
                             e.printStackTrace();
                         }
-                        Intent i = new Intent(SpecialList.this, MatchesTabs.class);
+                        Intent i = new Intent(SpecialList.this, SpecialList.class);
                         Bundle bundle = new Bundle();
                         bundle.putInt("logId", logId);
                         bundle.putInt("leagueId", leagueId);

@@ -74,7 +74,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:layout_weight="1"
+            android:layout_weight="2.1"
+            android:layout_marginRight="13dp"
             android:text="UnDouble It!"
             android:visibility="gone" />
 

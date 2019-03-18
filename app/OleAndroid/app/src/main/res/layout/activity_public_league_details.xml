@@ -128,20 +128,20 @@
             android:layout_height="match_parent" />
     </LinearLayout>
 
-    <Button
-        android:id="@+id/predict"
-        android:layout_width="match_parent"
-        android:layout_height="63dp"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentBottom="true"
-        android:background="@color/themeColor"
-        android:text="PREDICT MATCH"
-        android:textColor="@color/white"
-        android:textSize="18sp"
-        android:textStyle="bold"
-        android:visibility="visible"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent" />
+    <!--<Button-->
+        <!--android:id="@+id/predict"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="63dp"-->
+        <!--android:layout_alignParentLeft="true"-->
+        <!--android:layout_alignParentBottom="true"-->
+        <!--android:background="@color/themeColor"-->
+        <!--android:text="PREDICT MATCH"-->
+        <!--android:textColor="@color/white"-->
+        <!--android:textSize="18sp"-->
+        <!--android:textStyle="bold"-->
+        <!--android:visibility="visible"-->
+        <!--app:layout_constraintBottom_toBottomOf="parent"-->
+        <!--app:layout_constraintLeft_toLeftOf="parent" />-->
 
     <TextView
         android:layout_width="wrap_content"
