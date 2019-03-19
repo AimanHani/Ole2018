@@ -67,12 +67,12 @@ public class Leaderboard extends SideMenuBar {
 
     private void setupViewPager(ViewPager viewPager){
         privateLeagueProfiles = ScoreBoardDAO.getPrivateLeagueProfiles();
-        privateLeagueProfiles = null;
-
+//        privateLeagueProfiles = null;
+        System.out.println("size priv league "+privateLeagueProfiles.size());
         adapter = new Adapter(getSupportFragmentManager());
         adapter.addFragment(new LeaderboardPublic(),"Public League");
 
-        if (privateLeagueProfiles == null) {
+        if (privateLeagueProfiles.size() == 0) {
             adapter.addFragment(new LeaderboardPrivateNo(), "Private League");
         } else {
             adapter.addFragment(new LeaderboardPrivate(), "Private League");

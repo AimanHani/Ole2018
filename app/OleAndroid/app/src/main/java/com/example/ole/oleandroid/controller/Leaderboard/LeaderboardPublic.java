@@ -45,8 +45,8 @@ public class LeaderboardPublic extends Fragment {
         lbPubList = view.findViewById(R.id.lbPubList);
         userPosition = view.findViewById(R.id.userPosition);
         userScore = view.findViewById(R.id.userScore);
-        int userPos = ScoreBoardDAO.getUserPosition(UserDAO.getLoginUser().getUsername(), publicLeagueProfileList);
-        int getUserPoints = ScoreBoardDAO.getUserPoints(UserDAO.getLoginUser().getUsername(), publicLeagueProfileList);
+        int userPos = ScoreBoardDAO.getUserPositionPublic(UserDAO.getLoginUser().getUsername(), publicLeagueProfileList);
+        int getUserPoints = ScoreBoardDAO.getUserPointsPublic(UserDAO.getLoginUser().getUsername(), publicLeagueProfileList);
 
         if (userPos == 0) {
             userPosition.setText("-");

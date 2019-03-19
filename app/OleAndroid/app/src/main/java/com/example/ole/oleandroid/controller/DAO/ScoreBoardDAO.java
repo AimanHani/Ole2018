@@ -4,6 +4,7 @@ import com.example.ole.oleandroid.dbConnection.DBConnection;
 import com.example.ole.oleandroid.dbConnection.GetHttp;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import com.example.ole.oleandroid.model.PrivateLeagueProfile;
 import com.example.ole.oleandroid.model.PublicLeagueProfile;
@@ -15,6 +16,17 @@ public class ScoreBoardDAO {
 
     public static ArrayList<PublicLeagueProfile> publicLeagueProfiles = new ArrayList<>();
     public static ArrayList<PrivateLeagueProfile> privateLeagueProfiles = new ArrayList<>();
+    //public static HashMap<Integer, ArrayList<PrivateLeagueProfile>> privateLeagueProfilesList = new HashMap<>();
+
+//    public static void newPrivateLeagueProfileList(int leagueId, PrivateLeagueProfile privateLeagueProfile){
+//        privateLeagueProfilesList.put(leagueId, new ArrayList<PrivateLeagueProfile>());
+//        addPrivateLeagueProfileList(leagueId, privateLeagueProfile);
+//    }
+//
+//    public static void addPrivateLeagueProfileList(int leagueId, PrivateLeagueProfile privateLeagueProfile){
+//        ArrayList<PrivateLeagueProfile> list = privateLeagueProfilesList.get(leagueId);
+//        list.add(privateLeagueProfile);
+//    }
 
     public static ArrayList<PublicLeagueProfile> getPublicLeagueProfiles() {
         ArrayList<PublicLeagueProfile> publicLeagueProfileList = new ArrayList<>();
@@ -66,34 +78,43 @@ public class ScoreBoardDAO {
             response = getConnection.run(url);
             System.out.println(response);
             JSONObject result = new JSONObject(response);
-            JSONArray privateLeagueProfile = result.getJSONArray("results");
+            JSONArray privateLeagueProfileArray = result.getJSONArray("results");
 
-            if (privateLeagueProfile.length() > 0) {
-                for (int i = 0; i < privateLeagueProfile.length(); i++) {
-                    JSONObject matchObject = privateLeagueProfile.getJSONObject(i);
+            if (privateLeagueProfileArray.length() > 0) {
+                for (int i = 0; i < privateLeagueProfileArray.length(); i++) {
+                    //for (league)
+                    JSONObject matchObject = privateLeagueProfileArray.getJSONObject(i);
 
                     int leagueID = matchObject.getInt("leagueId");
                     int totalPoints = matchObject.getInt("totalPoints");
                     String username = matchObject.getString("username");
-                    PrivateLeagueProfile plp = new PrivateLeagueProfile(username, leagueID, totalPoints);
+                    String leagueName = matchObject.getString("leagueName");
+                    int rank = matchObject.getInt("rank");
+                    PrivateLeagueProfile plp = new PrivateLeagueProfile(username, leagueID, leagueName, totalPoints, rank);
                     privateLeagueProfileList.add(plp);
+//                    if (privateLeagueProfilesList.get(leagueID) == null){
+//                        newPrivateLeagueProfileList(leagueID, plp);
+//                    } else {
+//                        addPrivateLeagueProfileList(leagueID, plp);
+//                    }
                 }
 
             } else {
                 //loadSamePage();
-                privateLeagueProfileList = null;
+                return null;
 
             }
         } catch (Exception e) {
             System.out.println("error");
             e.printStackTrace();
-            privateLeagueProfileList = null;
+            return null;
         }
+        //System.out.println(privateLeagueProfileList.toString());
         privateLeagueProfiles = privateLeagueProfileList;
         return privateLeagueProfileList;
     }
 
-    public static int getUserPosition(String username, ArrayList<PublicLeagueProfile> list) {
+    public static int getUserPositionPublic(String username, ArrayList<PublicLeagueProfile> list) {
         for (PublicLeagueProfile p : list) {
             if (p.getUsername().equals(username)) {
                 return p.getRank();
@@ -102,8 +123,27 @@ public class ScoreBoardDAO {
         return 0;
     }
 
-    public static int getUserPoints(String username, ArrayList<PublicLeagueProfile> list) {
+    public static int getUserPointsPublic(String username, ArrayList<PublicLeagueProfile> list) {
         for (PublicLeagueProfile p : list) {
+            if (p.getUsername().equals(username)) {
+                return p.getTotalPoints();
+            }
+        }
+        return -1;
+    }
+
+
+    public static int getUserPositionPrivate(String username, ArrayList<PrivateLeagueProfile> list) {
+        for (PrivateLeagueProfile p : list) {
+            if (p.getUsername().equals(username)) {
+                return p.getRank();
+            }
+        }
+        return 0;
+    }
+
+    public static int getUserPointsPrivate(String username, ArrayList<PrivateLeagueProfile> list) {
+        for (PrivateLeagueProfile p : list) {
             if (p.getUsername().equals(username)) {
                 return p.getTotalPoints();
             }

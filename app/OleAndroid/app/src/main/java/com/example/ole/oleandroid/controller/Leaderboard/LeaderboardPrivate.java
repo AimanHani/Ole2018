@@ -8,7 +8,11 @@ import android.view.ViewGroup;
 import android.widget.ExpandableListView;
 
 import com.example.ole.oleandroid.R;
+import com.example.ole.oleandroid.controller.DAO.ScoreBoardDAO;
+import com.example.ole.oleandroid.controller.DAO.UserDAO;
 import com.example.ole.oleandroid.controller.FAQ.FAQExpandableListAdapter;
+import com.example.ole.oleandroid.model.PrivateLeague;
+import com.example.ole.oleandroid.model.PrivateLeagueProfile;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -16,43 +20,55 @@ import java.util.List;
 
 public class LeaderboardPrivate extends Fragment {
     private ExpandableListView listView;
-    FAQExpandableListAdapter listAdapter;
-    private List<String> listDataHeader;
-    private HashMap<String, List<String>> listHash;
+    LeaderboardExpandableListAdapter listAdapter;
+    private ArrayList<String> listDataHeader;
+    private HashMap<String, ArrayList<PrivateLeagueProfile>> listHash;
     View view;
-
-//    @Override
-//    public void onCreate(Bundle savedInstanceState) {
-//        super.onCreate(savedInstanceState);
-//        setContentView(R.layout.activity_leaderboard_private);
-//
-//        listView = (ExpandableListView) findViewById(R.id.output);
-//        initData();
-//        listAdapter = new FAQExpandableListAdapter(this,listDataHeader,listHash);
-//        listView.setAdapter(listAdapter);
-//
-//    }
 
     private void initData() {
         listDataHeader = new ArrayList<>();
         listHash = new HashMap<>();
+        ArrayList<PrivateLeagueProfile> list = ScoreBoardDAO.privateLeagueProfiles;
 
-        listDataHeader.add("How do I earn more points?");
-        listDataHeader.add("Can I not be on the Leaderboard?");
+        for (PrivateLeagueProfile p : list){
+            String leagueName = p.getLeagueName();
+            if (!listDataHeader.contains(leagueName)){
+                listDataHeader.add(leagueName);
+            }
 
-        List<String> questOne = new ArrayList<>();
-        questOne.add("Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.");
+            //int leagueId = p.getLeagueID();
+            if (listHash.get(leagueName) == null){
+                ArrayList<PrivateLeagueProfile> listProfiles = new ArrayList<>();
+                listProfiles.add(p);
+                listHash.put(leagueName, listProfiles);
+            } else {
+                ArrayList<PrivateLeagueProfile> listProfiles  = listHash.get(leagueName);
+                listProfiles.add(p);
+                listHash.put(leagueName, listProfiles);
+            }
+        }
 
-        List<String> questTwo = new ArrayList<>();
-        questTwo.add("Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Diam vel quam elementum pulvinar. At tellus at urna condimentum mattis pellentesque id. Enim facilisis gravida neque convallis a. Eget magna fermentum iaculis eu non diam phasellus.");
-
-        listHash.put(listDataHeader.get(0), questOne); // Header, Child data
-        listHash.put(listDataHeader.get(1), questOne);
+        //listHash = ScoreBoardDAO.privateLeagueProfiles;
     }
+
+
+//    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+//        view = inflater.inflate(R.layout.activity_leaderboard_private, container, false);
+//        return view;
+//    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        view = inflater.inflate(R.layout.activity_leaderboard_public, container, false);
+        initData();
+        System.out.println(listDataHeader.toString());
+        System.out.println(listHash.toString());
+        view = inflater.inflate(R.layout.activity_leaderboard_private, container, false);
+        listView = view.findViewById(R.id.output);
+        listAdapter = new LeaderboardExpandableListAdapter(getContext(), listDataHeader, listHash);
+        listView.setAdapter(listAdapter);
+
         return view;
     }
+
+
 }

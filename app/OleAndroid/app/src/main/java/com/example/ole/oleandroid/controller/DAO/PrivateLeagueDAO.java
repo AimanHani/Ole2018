@@ -3,10 +3,12 @@ package com.example.ole.oleandroid.controller.DAO;
 import com.example.ole.oleandroid.dbConnection.DBConnection;
 import com.example.ole.oleandroid.dbConnection.PostHttp;
 import com.example.ole.oleandroid.model.PrivateLeague;
+import com.example.ole.oleandroid.model.PrivateLeagueProfile;
 
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public class PrivateLeagueDAO {
     private static ArrayList<PrivateLeague> allPrivateLeague = new ArrayList<>();

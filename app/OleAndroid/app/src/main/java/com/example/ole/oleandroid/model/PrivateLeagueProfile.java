@@ -7,6 +7,7 @@ public class PrivateLeagueProfile implements Comparable {
     private int leagueID;
     private String leagueName;
     private int totalPoints;
+    private int rank;
 
     public PrivateLeagueProfile(String username, int leagueID, int totalPoints) {
         this.username = username;
@@ -17,11 +18,12 @@ public class PrivateLeagueProfile implements Comparable {
     public PrivateLeagueProfile() {
     }
 
-    public PrivateLeagueProfile(String username, int leagueID, String leagueName, int totalPoints) {
+    public PrivateLeagueProfile(String username, int leagueID, String leagueName, int totalPoints, int rank) {
         this.username = username;
         this.leagueID = leagueID;
         this.leagueName = leagueName;
         this.totalPoints = totalPoints;
+        this.rank = rank;
     }
 
     public int getLogID() {
@@ -63,6 +65,15 @@ public class PrivateLeagueProfile implements Comparable {
     public void setTotalPoints(int totalPoints) {
         this.totalPoints = totalPoints;
     }
+
+    public int getRank() {
+        return rank;
+    }
+
+    public void setRank(int rank) {
+        this.rank = rank;
+    }
+
     @Override
     public int compareTo(Object o) {
         int compareTotalScore=((PrivateLeagueProfile)o).getTotalPoints();
