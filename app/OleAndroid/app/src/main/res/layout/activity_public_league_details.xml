@@ -128,20 +128,122 @@
             android:layout_height="match_parent" />
     </LinearLayout>
 
-    <Button
-        android:id="@+id/predict"
-        android:layout_width="match_parent"
-        android:layout_height="60dp"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentBottom="true"
-        android:background="@color/themeColor"
-        android:text="PREDICT MATCH"
-        android:textColor="@color/white"
-        android:textSize="18sp"
-        android:textStyle="bold"
-        android:visibility="visible"
+    <!--<Button-->
+        <!--android:id="@+id/predict"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="63dp"-->
+        <!--android:layout_alignParentLeft="true"-->
+        <!--android:layout_alignParentBottom="true"-->
+        <!--android:background="@color/themeColor"-->
+        <!--android:text="PREDICT MATCH"-->
+        <!--android:textColor="@color/white"-->
+        <!--android:textSize="18sp"-->
+        <!--android:textStyle="bold"-->
+        <!--android:visibility="visible"-->
+        <!--app:layout_constraintBottom_toBottomOf="parent"-->
+        <!--app:layout_constraintLeft_toLeftOf="parent" />-->
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/mainview" />
+
+    <TextView
+        android:id="@+id/matchtext"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginRight="16dp"
+        android:layout_marginTop="8dp"
+        android:text="Predict Matches"
+        android:textColor="@color/black"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="@+id/predictMatch"
+        app:layout_constraintEnd_toStartOf="@+id/predictMatch"
+        app:layout_constraintTop_toTopOf="@+id/predictMatch" />
+
+    <TextView
+        android:id="@+id/specialtext"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginRight="16dp"
+        android:layout_marginTop="8dp"
+        android:text="Predict Specials"
+        android:textColor="@color/black"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="@+id/predictSpecial"
+        app:layout_constraintEnd_toStartOf="@+id/predictSpecial"
+        app:layout_constraintTop_toTopOf="@+id/predictSpecial" />
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/predictMatch"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="30dp"
+        android:layout_marginEnd="30dp"
+        android:layout_marginBottom="30dp"
+        app:fabCustomSize="60dp"
+        app:maxImageSize="45dp"
+        android:scaleType="fitCenter"
+        android:src="@drawable/scoreboard2"
+        android:visibility="invisible"
+        app:backgroundTint="@color/white"
+        app:layout_constraintBottom_toTopOf="@+id/predictSpecial"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:pressedTranslationZ="12dp" />
+
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/predictSpecial"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="30dp"
+        android:layout_marginEnd="30dp"
+        android:layout_marginBottom="30dp"
+        app:fabCustomSize="60dp"
+        app:maxImageSize="45dp"
+        android:scaleType="fitCenter"
+        android:clickable="true"
+        android:src="@drawable/soccerplayer2"
+        android:visibility="invisible"
+        app:backgroundTint="@color/white"
+        app:layout_constraintBottom_toTopOf="@+id/floatingActionButton"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:pressedTranslationZ="12dp" />
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/floatingActionButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="30dp"
+        android:layout_marginEnd="30dp"
+        android:layout_marginBottom="30dp"
+        app:fabCustomSize="60dp"
+        app:maxImageSize="25dp"
+        android:scaleType="fitCenter"
+        android:clickable="true"
+        app:layout_behavior="com.eventizon.behavior.ScrollAwareFABBehavior"
+        android:src="@drawable/add"
+        app:fabSize="mini"
+        app:backgroundTint="@color/white"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_anchorGravity="bottom|right|end"
+        app:pressedTranslationZ="12dp" />
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:visibility="gone"
+        android:clickable="true"
+        android:id="@+id/blackoutimage"
+        android:scaleType="fitXY"
+        android:background="@drawable/blackoverlay"
+        android:alpha="0.8"
+        android:layout_height="match_parent" />
 
 
 </android.support.constraint.ConstraintLayout>

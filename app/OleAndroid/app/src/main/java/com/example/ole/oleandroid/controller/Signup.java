@@ -195,7 +195,7 @@ public class Signup extends AppCompatActivity {
         signupBtn.setEnabled(true);
         setResult(RESULT_OK, null);
         //finish();
-        successfulAlertDialog();
+        smsVerification();
     }
 
     public Dialog loadingDialog() {
@@ -208,16 +208,37 @@ public class Signup extends AppCompatActivity {
         return dialog2;
     }
 
+    public void smsVerification(){
+        dialog = new Dialog(Signup.this);
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        dialog.setContentView(R.layout.activity_sms_verification);
+
+        EditText smsInput = dialog.findViewById(R.id.smsInput);
+        TextView confirm = dialog.findViewById(R.id.confirm);
+
+        confirm.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //if success,
+                successfulAlertDialog();
+                dialog.cancel();
+                //else, error message
+            }
+        });
+        dialog.show();
+    }
+
     public void successfulAlertDialog() {
         dialog = new Dialog(Signup.this);
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
         dialog.setContentView(R.layout.successful_pop_up);
 
-        Button close = dialog.findViewById(R.id.close);
+        TextView confirm = dialog.findViewById(R.id.confirm);
+        TextView caption = dialog.findViewById(R.id.successfulMessage);
 
-        close.setEnabled(true);
+        caption.setText("Successfully Signed Up! Press confirm to proceed to app!");
 
-        close.setOnClickListener(new View.OnClickListener() {
+        confirm.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(Signup.this, HomeLeague.class);
