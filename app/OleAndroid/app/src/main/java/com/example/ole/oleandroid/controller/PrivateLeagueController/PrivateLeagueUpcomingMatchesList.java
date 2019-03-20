@@ -90,14 +90,14 @@ public class PrivateLeagueUpcomingMatchesList extends Fragment implements View.O
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
         dialog.setContentView(R.layout.successful_pop_up);
 
-        Button close = dialog.findViewById(R.id.close);
-        close.setText("Ok");
-        close.setEnabled(true);
+        TextView confirm = dialog.findViewById(R.id.confirm);
+        confirm.setText("Close");
+        confirm.setEnabled(true);
 
-        TextView text = dialog.findViewById(R.id.textStatus);
-        text.setText("Match Prediction Saved!");
+//        TextView text = dialog.findViewById(R.id.textStatus);
+//        text.setText("Match Prediction Saved!");
 
-        close.setOnClickListener(new View.OnClickListener() {
+        confirm.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 dialog.cancel();

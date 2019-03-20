@@ -1,6 +1,6 @@
 package com.example.ole.oleandroid.model;
 
-public class PrivateSpecials {
+public class PSpecials {
 
     private int specialsID;
     private String description;
@@ -9,7 +9,7 @@ public class PrivateSpecials {
     private boolean doubleIt;
     private String prediction;
 
-    public PrivateSpecials(int specialsID, String description, int points, int doubleIt, String prediction) {
+    public PSpecials(int specialsID, String description, int points, int doubleIt, String prediction) {
         this.specialsID = specialsID;
         this.description = description;
         this.points = points;
