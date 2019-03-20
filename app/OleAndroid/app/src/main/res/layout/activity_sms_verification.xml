@@ -1,31 +1,32 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_gravity="center">
+    android:layout_gravity="center"
+    android:background="@android:color/transparent">
 
-    <View
-        android:id="@+id/view"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:alpha="0.5"
-        android:background="@color/black"/>
+    <!--<View-->
+        <!--android:id="@+id/view"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="match_parent"-->
+        <!--android:alpha="0.5"-->
+        <!--android:background="@color/black" />-->
 
     <RelativeLayout
         android:id="@+id/popupDialogFrame"
         android:layout_width="300dp"
-        android:layout_height="280dp"
+        android:layout_height="281dp"
         android:background="@color/white"
         android:orientation="vertical"
-        app:layout_constraintBottom_toBottomOf="@+id/view"
+        tools:layout_editor_absoluteX="55dp"
+        tools:layout_editor_absoluteY="224dp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/view"
-        tools:layout_editor_absoluteX="32dp"
-        tools:layout_editor_absoluteY="116dp">
+        app:layout_constraintTop_toTopOf="parent">
 
         <RelativeLayout
             android:layout_width="350dp"
@@ -51,19 +52,6 @@
         app:layout_constraintStart_toStartOf="@+id/popupDialogFrame"
         app:layout_constraintTop_toTopOf="@+id/popupDialogFrame"
         app:layout_constraintVertical_bias="0.0" />
-
-    <ImageView
-        android:id="@+id/close"
-        android:layout_width="20dp"
-        android:layout_height="20dp"
-        android:layout_gravity="end"
-        android:layout_marginEnd="20dp"
-        android:layout_marginRight="20dp"
-        android:layout_marginTop="15dp"
-        android:layout_marginBottom="20dp"
-        android:background="@drawable/cancel"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
 
     <EditText
         android:id="@+id/smsInput"

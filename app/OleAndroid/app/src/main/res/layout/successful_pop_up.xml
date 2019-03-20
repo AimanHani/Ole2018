@@ -7,33 +7,24 @@
     android:layout_height="match_parent"
     android:layout_gravity="center">
 
-    <View
-        android:id="@+id/view"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:alpha="0.5"
-        android:background="@color/black"/>
-
     <RelativeLayout
         android:id="@+id/popupDialogFrame"
-        android:layout_width="300dp"
+        android:layout_width="295dp"
         android:layout_height="280dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
+
         android:background="@color/white"
         android:orientation="vertical"
-        app:layout_constraintBottom_toBottomOf="@+id/view"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/view"
-        app:layout_constraintVertical_bias="0.483">
+        app:layout_constraintTop_toTopOf="parent">
 
         <RelativeLayout
-            android:layout_width="350dp"
+            android:layout_width="300dp"
             android:layout_height="70dp"
             android:background="@color/themeColor"
-            android:orientation="vertical" >
+            android:orientation="vertical">
 
         </RelativeLayout>
 
@@ -45,27 +36,13 @@
         android:layout_height="75dp"
         android:layout_gravity="center"
         android:layout_margin="5dp"
-        android:layout_marginTop="28dp"
+        android:layout_marginTop="40dp"
         android:layout_marginBottom="8dp"
         android:src="@drawable/success"
-        app:layout_constraintBottom_toTopOf="@+id/confirmMessage"
-        app:layout_constraintEnd_toEndOf="@+id/popupDialogFrame"
-        app:layout_constraintStart_toStartOf="@+id/popupDialogFrame"
-        app:layout_constraintTop_toTopOf="@+id/popupDialogFrame"
-        app:layout_constraintVertical_bias="0.50" />
-
-    <ImageView
-        android:id="@+id/closeWindow"
-        android:layout_width="20dp"
-        android:layout_height="20dp"
-        android:layout_gravity="end"
-        android:layout_marginEnd="20dp"
-        android:layout_marginRight="20dp"
-        android:layout_marginTop="15dp"
-        android:layout_marginBottom="20dp"
-        android:background="@drawable/cancel"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintBottom_toTopOf="@+id/successfulMessage"
+        app:layout_constraintEnd_toEndOf="@+id/successfulMessage"
+        app:layout_constraintStart_toStartOf="@+id/successfulMessage"
+        app:layout_constraintTop_toTopOf="@+id/popupDialogFrame" />
 
     <TextView
         android:id="@+id/successfulMessage"
