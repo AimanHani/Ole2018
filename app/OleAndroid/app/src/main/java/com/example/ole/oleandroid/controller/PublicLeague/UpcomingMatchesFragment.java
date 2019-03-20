@@ -99,12 +99,12 @@ public class UpcomingMatchesFragment extends Fragment implements View.OnClickLis
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
         dialog.setContentView(R.layout.successful_pop_up);
 
-        Button close = dialog.findViewById(R.id.close);
-        close.setText("Ok");
+        TextView close = dialog.findViewById(R.id.confirm);
+        close.setText("Close");
         close.setEnabled(true);
 
-        TextView text = dialog.findViewById(R.id.textStatus);
-        text.setText("Match Prediction Saved!");
+//        TextView text = dialog.findViewById(R.id.textStatus);
+//        text.setText("Match Prediction Saved!");
 
         close.setOnClickListener(new View.OnClickListener() {
             @Override
