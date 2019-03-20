@@ -4,7 +4,7 @@ import com.twilio.Twilio;
 import com.twilio.rest.api.v2010.account.Message;
 import com.twilio.type.PhoneNumber;
 
-public class SMSVerfication {
+public class SMSVerification {
     // Find your Account Sid and Auth Token at twilio.com/console
     public static final String ACCOUNT_SID =
             "AC449ad5037d5a1fde39bbaeb0a6b88471";
