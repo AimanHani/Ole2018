@@ -57,7 +57,7 @@ public class PrivateLeagueSpecialsList extends SideMenuBar {
                 final Dialog dialog = new Dialog(PrivateLeagueSpecialsList.this);
                 dialog.setContentView(R.layout.confirmspecialspopout);
                 TextView msg = dialog.findViewById(R.id.confirmMessage);
-                msg.setText("Confirm PSpecials? You could earn up to " + totalPoints + " Ole points");
+                msg.setText("Confirm Specials? You could earn up to " + totalPoints + " Ole points");
 //                TextView cancel = dialog.findViewById(R.id.cancel);
 //                cancel.setOnClickListener(new View.OnClickListener() {
 //                    @Override
