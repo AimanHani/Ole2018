@@ -85,24 +85,26 @@ public class UserVerification extends HttpServlet {
 
         if (request.getParameter("email") != null) {
             String email = request.getParameter("email");
-            
+
             String verificationNumber = (int) (Math.random() * 9000) + 1000 + "";
             //Boolean smsStatus = SMSVerification.send(userNumber, verificationNumber);
             Boolean emailSentStatus = Mailer.send("olegroup18@gmail.com", "squadxole", email, "Confirm Your Sign Up", "Your Ole Verification Code: " + verificationNumber);
-            
+
             //System.out.println("sms: " + smsStatus);
             System.out.println("email: " + emailSentStatus);
+
+//            String verficationNumber = (int) (Math.random() * 9000) + 1000 + "";
+//            Boolean smsStatus = Mailer.send("olegroup18@gmail.com","squadxole",email,"Your verification code:",verficationNumber);
             try {
 
                 JSONObject json = new JSONObject();
-                
-                if (emailSentStatus){
+
+                if (emailSentStatus) {
                     json.put("status", "successful");
+                    json.put("verificationNumber", verificationNumber);
                 } else {
                     json.put("status", "failed");
                 }
-                
-                json.put("verificationNumber", verificationNumber);
                 //list.put(json);
 
                 //parentJson.put("results", json);
