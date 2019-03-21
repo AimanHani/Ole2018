@@ -84,10 +84,11 @@ public class UserVerification extends HttpServlet {
         response.setCharacterEncoding("utf-8");
         PrintWriter out = response.getWriter();
 
-        if (request.getParameter("userNumber") != null) {
-            String userNumber = request.getParameter("userNumber");
+        if (request.getParameter("email") != null) {
+            String email = request.getParameter("email");
             String verficationNumber = (int) (Math.random() * 9000) + 1000 + "";
-            Boolean smsStatus = SMSVerfication.send(userNumber, verficationNumber);
+            Boolean smsStatus = Mailer.send("olegroup18@gmail.com","squadxole",email,"Your verification code:",verficationNumber);
+          
 
             try {
 
