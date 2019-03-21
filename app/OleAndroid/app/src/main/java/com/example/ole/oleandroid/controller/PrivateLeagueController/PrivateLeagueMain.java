@@ -60,8 +60,8 @@ public class PrivateLeagueMain extends SideMenuBar {
     }
     private void setupViewPager(ViewPager viewPager){
         adapter = new Adapter(getSupportFragmentManager());
-        adapter.addFragment(new Mine(),"Mine");
-        adapter.addFragment(new Discover(), "Discover");
+        adapter.addFragment(new Mine(),"My Leagues");
+        adapter.addFragment(new Discover(), "Join");
         viewPager.setAdapter(adapter);
     }
 

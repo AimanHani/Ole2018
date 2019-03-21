@@ -139,11 +139,11 @@ public class UpcomingMatchListAdapter extends BaseAdapter {
                         int matchId = m.getMatchID();
                         //Match match = MatchDAO.getFutureMatchById(matchId);
 
-                        if (editMatches.get(matchId) != null) {
+                        if (editMatches.get(matchId) == null) {
                             m.setTeam2Score(score);
                             editMatches.put(matchId, m);
                         } else {
-                            editMatches.get(editMatches.get(matchId)).setTeam2Score(score);
+                            editMatches.get(matchId).setTeam2Score(score);
                         }
                     }
 

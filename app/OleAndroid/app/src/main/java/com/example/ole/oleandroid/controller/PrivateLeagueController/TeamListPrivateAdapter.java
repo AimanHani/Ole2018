@@ -12,6 +12,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.ole.oleandroid.controller.DAO.TeamItemDAO;
+import com.example.ole.oleandroid.model.Match;
 import com.example.ole.oleandroid.model.TeamItems;
 import com.example.ole.oleandroid.model.Teams;
 
@@ -25,11 +26,11 @@ public class TeamListPrivateAdapter extends BaseAdapter {
     private ArrayList<Integer> pointsList; //data source of the list adapter
     private ArrayList<String> teamNameList;
     private ArrayList<Teams> teamList;
-    private TeamListPrivateAdapter.ViewHolder viewHolder;
+    private ViewHolder viewHolder;
     private Button confirmspecialsbtn;
     private CheckBox checkPrivateTeam;
     private ImageView profile_image;
-    HashMap<String, TeamItems> teamItemsList = TeamItemDAO.teamItemsList;
+//    HashMap<String, TeamItems> teamItemsList = TeamItemDAO.teamItemsList;
 
     private static class ViewHolder {
         ImageView profile_image;
@@ -71,16 +72,19 @@ public class TeamListPrivateAdapter extends BaseAdapter {
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         // inflate the layout for each list row
+        final Teams tt = (Teams) getItem(position);
+        HashMap<String, TeamItems> teamItemsList = TeamItemDAO.initiateTeamList();
+
         if (convertView == null) {
-            viewHolder = new TeamListPrivateAdapter.ViewHolder();
+            viewHolder = new ViewHolder();
             convertView = LayoutInflater.from(context).
                     inflate(R.layout.activity_team_list_private_adapter, parent, false);
 
 
 
-        /**
-         * This will tell initialize the textview element in speciallistlayout
-         */
+            /**
+             * This will tell initialize the textview element in speciallistlayout
+             */
         viewHolder.teamid = convertView.findViewById(R.id.teamid);
         viewHolder.itemname = convertView.findViewById(R.id.itemname);
         viewHolder.profile_image = convertView.findViewById(R.id.profile_image);
@@ -89,10 +93,10 @@ public class TeamListPrivateAdapter extends BaseAdapter {
         //this will get each point from the arraylist
         //viewHolder.teamid.setText(teamList.get(position).getTeamId()+"");
         viewHolder.itemname.setText(teamList.get(position).getTeamName());
-        viewHolder.profile_image.setImageResource(teamItemsList.get(teamList.get(position).getTeamName()).getmTeamImage());
+//        viewHolder.profile_image.setImageResource(teamItemsList.get(teamList.get(position).getTeamName()).getmTeamImage());
+            viewHolder.profile_image.setImageResource(teamItemsList.get(tt.getTeamName()).getmTeamImage());
 
-
-        convertView.setTag(viewHolder);
+            convertView.setTag(viewHolder);
             viewHolder.checkPrivateTeam.setOnClickListener( new View.OnClickListener() {
                 public void onClick(View v) {
                     CheckBox cb = (CheckBox) v ;
@@ -103,6 +107,7 @@ public class TeamListPrivateAdapter extends BaseAdapter {
                             Toast.LENGTH_LONG).show();*/
                     t.setChecked(cb.isChecked());
                     System.out.println(t.getTeamId());
+
                 }
             });
         }else
@@ -115,6 +120,7 @@ public class TeamListPrivateAdapter extends BaseAdapter {
 //        viewHolder.checkPrivateTeam.setText(t.getTeamId());
         viewHolder.checkPrivateTeam.setChecked(t.getChecked());
         viewHolder.checkPrivateTeam.setTag(t);
+        viewHolder.profile_image.setImageResource(teamItemsList.get(tt.getTeamName()).getmTeamImage());
 
         return convertView;
     }
