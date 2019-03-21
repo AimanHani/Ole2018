@@ -80,7 +80,8 @@
             android:baselineAligned="false"
             android:text="Predict Specials"
             android:textColor="@color/white"
-            android:textSize="20sp" />
+            android:textSize="20sp"
+            android:visibility="gone"/>
     </LinearLayout>
 
 

@@ -155,45 +155,60 @@ public class Signup extends AppCompatActivity {
                                 public void run() {
                                     System.out.println("signup2");
 
-                                    final String verificationNumber = SignupDAO.verify(contactNoStr, emailStr);
-                                    System.out.println("verificationNumber " + verificationNumber);
-                                    final Dialog verified = verificationDialog(verificationNumber);
+                                    String send = concatParams(usernameStr, nameStr, passwordStr, birthdateStr, countryStr, contactNoStr, emailStr, teamStr);
 
-                                    final EditText smsInput = verified.findViewById(R.id.smsInput);
-                                    TextView cancel = verified.findViewById(R.id.cancel);
-                                    TextView confirm = verified.findViewById(R.id.confirm);
+                                    Boolean signUp = SignupDAO.validate(send, usernameStr, passwordStr);
+                                    if (signUp) {
+                                        signupBtn.setEnabled(false);
+                                        onSignupSuccess();
+                                    } else {
+                                        onSignupFailed("");
+                                        return;
+                                    }
+                                    load.cancel();
 
-                                    confirm.setOnClickListener(new View.OnClickListener() {
-                                        @Override
-                                        public void onClick(View v) {
-                                            //if success,
-                                            if (verificationNumber.equals(smsInput.getText().toString())) {
-                                                System.out.println("contact " + contactNoStr);
-                                                String send = concatParams(usernameStr, nameStr, passwordStr, birthdateStr, countryStr, contactNoStr, emailStr, teamStr);
+//                                    final String verificationNumber = SignupDAO.verify(contactNoStr, emailStr);
+//                                    System.out.println("verificationNumber " + verificationNumber);
+//                                    final Dialog verified = verificationDialog();
+//
+//                                    final EditText smsInput = verified.findViewById(R.id.smsInput);
+//                                    TextView cancel = verified.findViewById(R.id.cancel);
+//                                    TextView confirm = verified.findViewById(R.id.confirm);
 
-                                                Boolean signUp = SignupDAO.validate(send, usernameStr, passwordStr);
-                                                load.cancel();
-                                                verified.cancel();
-                                                if (signUp) {
-                                                    signupBtn.setEnabled(false);
-                                                    onSignupSuccess();
-                                                } else {
-                                                    onSignupFailed("");
-                                                    return;
-                                                }
-                                            }
-                                            return;
-                                        }
-                                    });
-
-                                    cancel.setOnClickListener(new View.OnClickListener() {
-                                        @Override
-                                        public void onClick(View v) {
-                                            dialog.cancel();
-                                        }
-                                    });
-
-                                    System.out.println("ver " + verified);
+//                                    confirm.setOnClickListener(new View.OnClickListener() {
+//                                        @Override
+//                                        public void onClick(View v) {
+//                                            //if success,
+//                                            String input = smsInput.getText().toString();
+//                                            if (verificationNumber.equals(input)) {
+//                                                System.out.println("contact " + contactNoStr);
+//                                                String send = concatParams(usernameStr, nameStr, passwordStr, birthdateStr, countryStr, contactNoStr, emailStr, teamStr);
+//
+//                                                Boolean signUp = SignupDAO.validate(send, usernameStr, passwordStr);
+//                                                load.cancel();
+//                                                verified.cancel();
+//                                                if (signUp) {
+//                                                    signupBtn.setEnabled(false);
+//                                                    onSignupSuccess();
+//                                                } else {
+//                                                    onSignupFailed("");
+//                                                    return;
+//                                                }
+//                                            }
+//                                            return;
+//                                        }
+//                                    });
+//
+//                                    cancel.setOnClickListener(new View.OnClickListener() {
+//                                        @Override
+//                                        public void onClick(View v) {
+//                                            load.cancel();
+//                                            verified.cancel();
+//                                            dialog.cancel();
+//                                        }
+//                                    });
+//
+//                                    System.out.println("ver " + verified);
                                 }
                             }, 2000);
                 }
@@ -233,8 +248,7 @@ public class Signup extends AppCompatActivity {
         return dialog2;
     }
 
-    public Dialog verificationDialog(final String verificationNumber) {
-        final boolean[] verified = {false};
+    public Dialog verificationDialog() {
         dialog = new Dialog(Signup.this);
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
         dialog.setContentView(R.layout.activity_sms_verification);

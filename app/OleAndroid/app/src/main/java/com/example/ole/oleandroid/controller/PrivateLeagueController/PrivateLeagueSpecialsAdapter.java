@@ -1,8 +1,6 @@
 package com.example.ole.oleandroid.controller.PrivateLeagueController;
 
 import android.content.Context;
-import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,9 +11,8 @@ import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.example.ole.oleandroid.R;
-import com.example.ole.oleandroid.controller.PublicLeague.SpecialListAdapter;
 import com.example.ole.oleandroid.controller.PublicLeague.SpecialSpinnerAdapter;
-import com.example.ole.oleandroid.model.PrivateSpecials;
+import com.example.ole.oleandroid.model.PSpecials;
 
 import java.util.ArrayList;
 
@@ -23,7 +20,7 @@ public class PrivateLeagueSpecialsAdapter extends BaseAdapter {
     private Context context; //context
     private ArrayList<Integer> pointsList; //data source of the list adapter
     private ArrayList<String> specialNameList;
-    private ArrayList<PrivateSpecials> specialsList;
+    private ArrayList<PSpecials> specialsList;
     private ViewHolder viewHolder;
 
     private static class ViewHolder {
@@ -35,13 +32,13 @@ public class PrivateLeagueSpecialsAdapter extends BaseAdapter {
     }
 
     //uses list of specials Object so can get both points and name
-    public PrivateLeagueSpecialsAdapter(Context context, ArrayList<PrivateSpecials> specialsList) {
+    public PrivateLeagueSpecialsAdapter(Context context, ArrayList<PSpecials> specialsList) {
         this.context = context;
         this.specialsList = specialsList;
     }
 
     //public constructor
-    public PrivateLeagueSpecialsAdapter(Context context, ArrayList<Integer> pointsList, ArrayList<String> specialNameList, ArrayList<PrivateSpecials> specialsList) {
+    public PrivateLeagueSpecialsAdapter(Context context, ArrayList<Integer> pointsList, ArrayList<String> specialNameList, ArrayList<PSpecials> specialsList) {
         this.context = context;
         this.pointsList = pointsList;
         this.specialNameList = specialNameList;
@@ -54,7 +51,7 @@ public class PrivateLeagueSpecialsAdapter extends BaseAdapter {
     }
 
     @Override
-    public PrivateSpecials getItem(int position) {
+    public PSpecials getItem(int position) {
         return specialsList.get(position); //returns list item at the specified position
     }
 
@@ -81,7 +78,7 @@ public class PrivateLeagueSpecialsAdapter extends BaseAdapter {
             viewHolder.undoubleIt = convertView.findViewById(R.id.unDoubleIt);
             viewHolder.spinner = convertView.findViewById(R.id.spinner);
 
-            final PrivateSpecials s = getItem(position);
+            final PSpecials s = getItem(position);
             viewHolder.points.setText(s.getPoints() + "");
             viewHolder.itemname.setText(s.getDescription());
             viewHolder.doubleitbtn.setTag(s);
@@ -94,10 +91,12 @@ public class PrivateLeagueSpecialsAdapter extends BaseAdapter {
 
             //setting existing prediction values for spinner
             String prediction = s.getPrediction(); //the value you want the position for
-            SpecialSpinnerAdapter myAdap = (SpecialSpinnerAdapter) viewHolder.spinner.getAdapter(); //cast to an ArrayAdapter
-            int spinnerPosition = myAdap.getPosition(prediction);
-            //set the default according to value
-            viewHolder.spinner.setSelection(spinnerPosition);
+            if (prediction != null) {
+                SpecialSpinnerAdapter myAdap = (SpecialSpinnerAdapter) viewHolder.spinner.getAdapter(); //cast to an ArrayAdapter
+                int spinnerPosition = myAdap.getPosition(prediction);
+                //set the default according to value
+                viewHolder.spinner.setSelection(spinnerPosition);
+            }
 
 
             //setting existing prediction values for button
@@ -118,7 +117,7 @@ public class PrivateLeagueSpecialsAdapter extends BaseAdapter {
             viewHolder.doubleitbtn.setOnClickListener(new View.OnClickListener() {
                 public void onClick(View v) {
                     Button b = (Button) v;
-                    PrivateSpecials s = (PrivateSpecials) b.getTag();
+                    PSpecials s = (PSpecials) b.getTag();
                     s.setDoubleIt(true);
 
                     int sPoints = s.getPoints();
@@ -137,7 +136,7 @@ public class PrivateLeagueSpecialsAdapter extends BaseAdapter {
             viewHolder.undoubleIt.setOnClickListener(new View.OnClickListener() {
                 public void onClick(View v) {
                     Button b = (Button) v;
-                    PrivateSpecials s = (PrivateSpecials) b.getTag();
+                    PSpecials s = (PSpecials) b.getTag();
                     s.setDoubleIt(true);
 
                     int sPoints = s.getPoints();
@@ -169,11 +168,11 @@ public class PrivateLeagueSpecialsAdapter extends BaseAdapter {
         return convertView;
     }
 
-    public ArrayList<PrivateSpecials> getUpdatedSpecialList() {
+    public ArrayList<PSpecials> getUpdatedSpecialList() {
         return this.specialsList;
     }
 
-    public int getIdFromSpecialsArray(PrivateSpecials s) {
+    public int getIdFromSpecialsArray(PSpecials s) {
         int id = s.getSpecialsID();
 
         for (int i = 0; i < specialsList.size(); i++) {
@@ -185,7 +184,7 @@ public class PrivateLeagueSpecialsAdapter extends BaseAdapter {
         return 0;
     }
 
-    public void setSpecialsListDoubleIt(PrivateSpecials s, Boolean b) {
+    public void setSpecialsListDoubleIt(PSpecials s, Boolean b) {
         int id = s.getSpecialsID();
 
         for (int i = 0; i < specialsList.size(); i++) {
@@ -195,7 +194,7 @@ public class PrivateLeagueSpecialsAdapter extends BaseAdapter {
         }
     }
 
-    public void setSpecialsListPrediction(PrivateSpecials s, String prediction) {
+    public void setSpecialsListPrediction(PSpecials s, String prediction) {
         int id = s.getSpecialsID();
 
         for (int i = 0; i < specialsList.size(); i++) {

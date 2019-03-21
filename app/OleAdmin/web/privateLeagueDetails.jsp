@@ -60,10 +60,15 @@
                                 </table>
                             </div>
 
-                            <form action="PrivateLeagueServlet" method="post">
+                            <form action="PrivateLeagueServlet" method="post" style="display:inline;">
                                 <input type="hidden" name="param" value="loadAll"/>
                                 <button type="submit" class="btn btn-outline btn-primary">Back to Main Table</button>
                             </form> 
+                                                    
+                            <form action="PrivateLeagueServlet" method="post" style="display:inline;">
+                                <input type="hidden" name="param" value="delete"/>
+                                <button type="submit" class="btn btn-outline btn-danger">Delete this League</button>
+                            </form>
 
                         </div>
                     </div>

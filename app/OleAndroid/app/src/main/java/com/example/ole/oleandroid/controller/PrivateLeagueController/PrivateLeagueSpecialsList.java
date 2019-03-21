@@ -3,7 +3,6 @@ package com.example.ole.oleandroid.controller.PrivateLeagueController;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,11 +12,9 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.example.ole.oleandroid.R;
-import com.example.ole.oleandroid.controller.DAO.PrivateSpecialDAO;
-import com.example.ole.oleandroid.controller.DAO.SpecialDAO;
-import com.example.ole.oleandroid.controller.MatchesTabs;
+import com.example.ole.oleandroid.controller.DAO.PSpecialDAO;
 import com.example.ole.oleandroid.controller.SideMenuBar;
-import com.example.ole.oleandroid.model.PrivateSpecials;
+import com.example.ole.oleandroid.model.PSpecials;
 
 import java.util.ArrayList;
 
@@ -41,15 +38,15 @@ public class PrivateLeagueSpecialsList extends SideMenuBar {
         final int logId = bundle.getInt("logId");
         final int leagueId = bundle.getInt("leagueId");
 
-        final ArrayList<PrivateSpecials> specialsList = PrivateSpecialDAO.getSpecialsList(logId, leagueId);
+        final ArrayList<PSpecials> specialsList = PSpecialDAO.getSpecialsList(logId, leagueId);
         privateLeagueSpecialAdapter = new PrivateLeagueSpecialsAdapter(PrivateLeagueSpecialsList.this, specialsList);
         specialListView.setAdapter(privateLeagueSpecialAdapter);
         confirmspecialsbtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                final ArrayList<PrivateSpecials> newList = privateLeagueSpecialAdapter.getUpdatedSpecialList();
+                final ArrayList<PSpecials> newList = privateLeagueSpecialAdapter.getUpdatedSpecialList();
                 int totalPoints = 0;
-                for (PrivateSpecials s : newList) {
+                for (PSpecials s : newList) {
                     System.out.println("Special: " + s.getSpecialsID() + ", " + s.getPrediction() + ", " + s.getDoubleIt() + ", " + s.getPoints());
                     if (s.getDoubleIt()) {
                         totalPoints += s.getPoints() * 2;
@@ -60,7 +57,7 @@ public class PrivateLeagueSpecialsList extends SideMenuBar {
                 final Dialog dialog = new Dialog(PrivateLeagueSpecialsList.this);
                 dialog.setContentView(R.layout.confirmspecialspopout);
                 TextView msg = dialog.findViewById(R.id.confirmMessage);
-                msg.setText("Confirm PrivateSpecials? You could earn up to " + totalPoints + " Ole points");
+                msg.setText("Confirm Specials? You could earn up to " + totalPoints + " Ole points");
 //                TextView cancel = dialog.findViewById(R.id.cancel);
 //                cancel.setOnClickListener(new View.OnClickListener() {
 //                    @Override
@@ -89,7 +86,7 @@ public class PrivateLeagueSpecialsList extends SideMenuBar {
                     @Override
                     public void onClick(View v) {
                         try {
-                            PrivateSpecialDAO.updateSpecialsPrediction(newList, leagueId);
+                            PSpecialDAO.updateSpecialsPrediction(newList, leagueId);
                         } catch (Exception e) {
                             e.printStackTrace();
                         }

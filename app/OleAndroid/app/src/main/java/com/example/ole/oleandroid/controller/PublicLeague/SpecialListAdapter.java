@@ -20,7 +20,8 @@ import com.example.ole.oleandroid.R;
 import com.example.ole.oleandroid.controller.Signup;
 import com.example.ole.oleandroid.controller.TeamAdapter;
 import com.example.ole.oleandroid.model.CountryItem;
-import com.example.ole.oleandroid.model.Specials;
+import com.example.ole.oleandroid.model.PSpecials;
+import com.example.ole.oleandroid.model.PSpecials;
 
 import java.util.ArrayList;
 
@@ -28,7 +29,7 @@ public class SpecialListAdapter extends BaseAdapter {
     private Context context; //context
     private ArrayList<Integer> pointsList; //data source of the list adapter
     private ArrayList<String> specialNameList;
-    private ArrayList<Specials> specialsList;
+    private ArrayList<PSpecials> specialsList;
     private ViewHolder viewHolder;
     private Button doubleitbtn;
     private Button undoubleIt;
@@ -43,13 +44,13 @@ public class SpecialListAdapter extends BaseAdapter {
     }
 
     //uses list of specials Object so can get both points and name
-    public SpecialListAdapter(Context context, ArrayList<Specials> specialsList) {
+    public SpecialListAdapter(Context context, ArrayList<PSpecials> specialsList) {
         this.context = context;
         this.specialsList = specialsList;
     }
 
     //public constructor
-    public SpecialListAdapter(Context context, ArrayList<Integer> pointsList, ArrayList<String> specialNameList, ArrayList<Specials> specialsList) {
+    public SpecialListAdapter(Context context, ArrayList<Integer> pointsList, ArrayList<String> specialNameList, ArrayList<PSpecials> specialsList) {
         this.context = context;
         this.pointsList = pointsList;
         this.specialNameList = specialNameList;
@@ -62,7 +63,7 @@ public class SpecialListAdapter extends BaseAdapter {
     }
 
     @Override
-    public Specials getItem(int position) {
+    public PSpecials getItem(int position) {
         return specialsList.get(position); //returns list item at the specified position
     }
 
@@ -89,7 +90,7 @@ public class SpecialListAdapter extends BaseAdapter {
             viewHolder.undoubleIt = convertView.findViewById(R.id.unDoubleIt);
             viewHolder.spinner = convertView.findViewById(R.id.spinner);
 
-            final Specials s = getItem(position);
+            final PSpecials s = getItem(position);
             viewHolder.points.setText(s.getPoints() + "");
             viewHolder.itemname.setText(s.getDescription());
             viewHolder.doubleitbtn.setTag(s);
@@ -101,14 +102,33 @@ public class SpecialListAdapter extends BaseAdapter {
             viewHolder.spinner.setAdapter(adapter2);
 
 
-            convertView.setTag(viewHolder);
+            //setting existing prediction values for spinner
+            String prediction = s.getPrediction(); //the value you want the position for
+            SpecialSpinnerAdapter myAdap = (SpecialSpinnerAdapter) viewHolder.spinner.getAdapter(); //cast to an ArrayAdapter
+            int spinnerPosition = myAdap.getPosition(prediction);
+            //set the default according to value
+            viewHolder.spinner.setSelection(spinnerPosition);
 
+            //setting existing prediction values for button
+            boolean doubleIt = s.getDoubleIt();
+            if(doubleIt){
+                viewHolder.points.setText(s.getPoints() * 2 + "");
+                viewHolder.undoubleIt.setVisibility(View.VISIBLE);
+                viewHolder.doubleitbtn.setVisibility(View.GONE);
+            }else{
+                viewHolder.points.setText(s.getPoints() + "");
+                viewHolder.doubleitbtn.setVisibility(View.VISIBLE);
+                viewHolder.undoubleIt.setVisibility(View.GONE);
+            }
+
+
+            convertView.setTag(viewHolder);
             final View finalConvertView = convertView;
 
             viewHolder.doubleitbtn.setOnClickListener(new View.OnClickListener() {
                 public void onClick(View v) {
                     Button b = (Button) v;
-                    Specials s = (Specials) b.getTag();
+                    PSpecials s = (PSpecials) b.getTag();
                     s.setDoubleIt(true);
 
                     int sPoints = s.getPoints();
@@ -127,7 +147,7 @@ public class SpecialListAdapter extends BaseAdapter {
             viewHolder.undoubleIt.setOnClickListener(new View.OnClickListener() {
                 public void onClick(View v) {
                     Button b = (Button) v;
-                    Specials s = (Specials) b.getTag();
+                    PSpecials s = (PSpecials) b.getTag();
                     s.setDoubleIt(true);
 
                     int sPoints = s.getPoints();
@@ -164,11 +184,11 @@ public class SpecialListAdapter extends BaseAdapter {
         return convertView;
     }
 
-    public ArrayList<Specials> getUpdatedSpecialList() {
+    public ArrayList<PSpecials> getUpdatedSpecialList() {
         return this.specialsList;
     }
 
-    public int getIdFromSpecialsArray(Specials s) {
+    public int getIdFromSpecialsArray(PSpecials s) {
         int id = s.getSpecialsID();
 
         for (int i = 0; i < specialsList.size(); i++) {
@@ -180,7 +200,7 @@ public class SpecialListAdapter extends BaseAdapter {
         return 0;
     }
 
-    public void setSpecialsListDoubleIt(Specials s, Boolean b) {
+    public void setSpecialsListDoubleIt(PSpecials s, Boolean b) {
         int id = s.getSpecialsID();
 
         for (int i = 0; i < specialsList.size(); i++) {
@@ -190,7 +210,7 @@ public class SpecialListAdapter extends BaseAdapter {
         }
     }
 
-    public void setSpecialsListPrediction(Specials s, String prediction) {
+    public void setSpecialsListPrediction(PSpecials s, String prediction) {
         int id = s.getSpecialsID();
 
         for (int i = 0; i < specialsList.size(); i++) {

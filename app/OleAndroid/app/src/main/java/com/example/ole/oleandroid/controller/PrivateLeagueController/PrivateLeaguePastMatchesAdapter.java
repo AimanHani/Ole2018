@@ -26,7 +26,7 @@ public class PrivateLeaguePastMatchesAdapter extends BaseAdapter {
     TextView team1_name, team2_name, match_date, team1_score, team2_score;
 
     private static class ViewHolder {
-        TextView team1_name, team2_name, match_date, team1_score, team2_score;
+        TextView team1_name, team2_name, match_date, team1_score, team2_score, userteam1_score, userteam2_score, points;
         ImageView team1_photo, team2_photo;
     }
 
@@ -71,6 +71,10 @@ public class PrivateLeaguePastMatchesAdapter extends BaseAdapter {
         viewHolder.match_date = convertView.findViewById(R.id.match_date);
         viewHolder.team1_photo = convertView.findViewById(R.id.team1_photo);
         viewHolder.team2_photo = convertView.findViewById(R.id.team2_photo);
+
+        viewHolder.userteam1_score = convertView.findViewById(R.id.userteam1_score);
+        viewHolder.userteam2_score = convertView.findViewById(R.id.userteam2_score);
+        viewHolder.points = convertView.findViewById(R.id.points);
 
         HashMap<String, TeamItems> teamItemsList = TeamItemDAO.teamItemsList;
         //System.out.println(viewHolder.team1_name.getText().toString());

@@ -72,7 +72,7 @@
                                 <a href="home.jsp"><i class="fa fa-dashboard fa-fw"></i> Dashboard</a>
                             </li>
                             <li>
-                                <a href="#"><i class="fa fa-users fa-fw"></i> Olé Users<span class="fa arrow"></span></a>
+                                <a href="#"><i class="fa fa-user fa-fw"></i> Olé Users<span class="fa arrow"></span></a>
                                 <ul class="nav nav-second-level">
                                     <li>
                                         <a href="./UsersServlet?param=loadAll">View all users</a>
@@ -104,16 +104,26 @@
                                 </ul>
                             </li>
                             <li>
+                                <a href="#"><i class="fa fa-table fa-fw"></i> Matches<span class="fa arrow"></span></a>
+                                <ul class="nav nav-second-level">
+                                    <li>
+                                        <a href="./MatchesServlet">Premier League</a>
+                                    </li>
+                                </ul>
+                            </li>
+                            <li>
+                                <a href="#"><i class="fa fa-users fa-fw"></i> Team<span class="fa arrow"></span></a>
+                                <ul class="nav nav-second-level">
+                                    <li>
+                                        <a href="./TeamServlet">Premier League</a>
+                                    </li>
+                                </ul>
+                            </li>
+                            <li>
                                 <a href="./FaqServlet?param=loadAll"><i class="fa fa-a fa-fw"></i>Frequently Asked Questions</a>
                             </li>
                             <li>
                                 <a href="./AskServlet?param=loadAll"><i class="fa fa-a fa-fw"></i>Ask Ole</a>
-                            </li>
-                            <li>
-                                <a href="./MatchesServlet"><i class="fa fa-a fa-fw"></i>Premier League Matches</a>
-                            </li>
-                            <li>
-                                <a href="./TeamServlet"><i class="fa fa-a fa-fw"></i>Premier League Teams</a>
                             </li>
 
 <!--                            <li>
@@ -137,7 +147,7 @@
                             <div class="panel-heading">
                                 <div class="row">
                                     <div class="col-xs-3">
-                                        <i class="fa fa-users fa-5x"></i>
+                                        <i class="fa fa-user fa-5x"></i>
                                     </div>
                                     <div class="col-xs-9 text-right">
                                         <div class="huge"><%=HomeDAO.getTotalUsers()%></div> <!-- get total number of users-->

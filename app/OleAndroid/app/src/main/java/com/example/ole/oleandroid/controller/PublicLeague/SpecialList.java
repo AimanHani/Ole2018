@@ -14,6 +14,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.example.ole.oleandroid.R;
+import com.example.ole.oleandroid.controller.DAO.PSpecialDAO;
 import com.example.ole.oleandroid.controller.DAO.SpecialDAO;
 import com.example.ole.oleandroid.controller.HomeLeague;
 import com.example.ole.oleandroid.controller.Matches;
@@ -21,6 +22,7 @@ import com.example.ole.oleandroid.controller.MatchesTabs;
 import com.example.ole.oleandroid.controller.SideMenuBar;
 import com.example.ole.oleandroid.dbConnection.DBConnection;
 import com.example.ole.oleandroid.dbConnection.GetHttp;
+import com.example.ole.oleandroid.model.PSpecials;
 import com.example.ole.oleandroid.model.Specials;
 
 import org.json.JSONArray;
@@ -59,7 +61,7 @@ public class SpecialList extends SideMenuBar {
         final int logId = bundle.getInt("logId");
         final int leagueId = bundle.getInt("leagueId");
 
-        final ArrayList<Specials> specialsList = SpecialDAO.getSpecialsList(logId);
+        final ArrayList<PSpecials> specialsList = PSpecialDAO.getSpecialsList(logId, leagueId);
 
         specialListAdapter = new SpecialListAdapter(SpecialList.this, specialsList);
         specialListView.setAdapter(specialListAdapter);
@@ -68,11 +70,11 @@ public class SpecialList extends SideMenuBar {
         confirmspecialsbtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                final ArrayList<Specials> newList = specialListAdapter.getUpdatedSpecialList();
+                final ArrayList<PSpecials> newList = specialListAdapter.getUpdatedSpecialList();
 
                 int totalPoints = 0;
 
-                for (Specials s : newList) {
+                for (PSpecials s : newList) {
                     System.out.println("Special: " + s.getSpecialsID() + ", " + s.getPrediction() + ", " + s.getDoubleIt() + ", " + s.getPoints());
                     if (s.getDoubleIt()) {
                         totalPoints += s.getPoints() * 2;
@@ -114,7 +116,7 @@ public class SpecialList extends SideMenuBar {
                     @Override
                     public void onClick(View v) {
                         try {
-                            SpecialDAO.updateSpecialsPrediction(newList, leagueId);
+                            PSpecialDAO.updateSpecialsPrediction(newList, leagueId);
                         } catch (Exception e) {
                             e.printStackTrace();
                         }

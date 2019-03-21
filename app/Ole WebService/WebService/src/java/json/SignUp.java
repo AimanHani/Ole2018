@@ -73,6 +73,8 @@ public class SignUp extends HttpServlet {
             throws ServletException, IOException {
         String username = request.getParameter("username");
         String email = request.getParameter("email");
+        
+        System.out.println(username + " "+email);
         String status = SignUpDAO.checkEmailUsername(email, username);
 
         JSONObject json = new JSONObject();
