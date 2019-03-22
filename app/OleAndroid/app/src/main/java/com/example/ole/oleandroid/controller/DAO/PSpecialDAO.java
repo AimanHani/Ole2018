@@ -4,9 +4,11 @@ import com.example.ole.oleandroid.dbConnection.DBConnection;
 import com.example.ole.oleandroid.dbConnection.GetHttp;
 import com.example.ole.oleandroid.dbConnection.PostHttp;
 import com.example.ole.oleandroid.model.PSpecials;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+
 import java.io.IOException;
 import java.util.ArrayList;
 
@@ -15,7 +17,7 @@ public class PSpecialDAO {
     public static ArrayList<PSpecials> getSpecialsList(int logId, int leagueId) {
         ArrayList<PSpecials> specialsList = new ArrayList<>();
 
-        String url = DBConnection.privateSpecials() + "?logId=" + logId  + "&leagueId=" + leagueId + "&username=" + UserDAO.getLoginUser().getUsername();
+        String url = DBConnection.privateSpecials() + "?logId=" + logId + "&leagueId=" + leagueId + "&username=" + UserDAO.getLoginUser().getUsername();
         System.out.println("Getting specials list, logID:" + logId);
 
         GetHttp getConnection = new GetHttp();
@@ -34,9 +36,12 @@ public class PSpecialDAO {
                                 specialsObject.getInt("specialsId"),
                                 specialsObject.getString("description"),
                                 specialsObject.getInt("points"),
-                                specialsObject.getInt("doubleIt"),
-                                specialsObject.getString("prediction")
+                                specialsObject.getInt("doubleIt")
                         );
+
+                        if (specialsObject.has("prediction")) {
+                            special.setPrediction(specialsObject.getString("prediction"));
+                        }
                         specialsList.add(special);
                     }
                 }

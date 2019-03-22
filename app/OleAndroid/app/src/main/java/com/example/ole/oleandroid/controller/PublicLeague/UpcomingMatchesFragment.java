@@ -87,6 +87,7 @@ public class UpcomingMatchesFragment extends Fragment implements View.OnClickLis
     public static void setLogId(int id) {
         logId = id;
     }
+
     public static void setLeagueId(int id) {
         leagueId = id;
     }
@@ -98,13 +99,11 @@ public class UpcomingMatchesFragment extends Fragment implements View.OnClickLis
         final Dialog dialog = new Dialog(getActivity());
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
         dialog.setContentView(R.layout.successful_pop_up);
-
         TextView close = dialog.findViewById(R.id.confirm);
-        close.setText("Close");
-        close.setEnabled(true);
+        TextView text = dialog.findViewById(R.id.successfulMessage);
+        text.setText("Match Prediction Saved!");
 
-//        TextView text = dialog.findViewById(R.id.textStatus);
-//        text.setText("Match Prediction Saved!");
+        close.setEnabled(true);
 
         close.setOnClickListener(new View.OnClickListener() {
             @Override

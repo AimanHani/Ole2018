@@ -28,64 +28,59 @@ import model.Match;
 public class SignUpDAO {
 
     public static String signUp(String username, String name, String password, String email, String birthdate, String contactNo, String country, String team) throws SQLException, ParseException {
+        SimpleDateFormat fromUser = new SimpleDateFormat("dd-MM-yyyy");
+        SimpleDateFormat myFormat = new SimpleDateFormat("yyyy-MM-dd");
 
-        boolean usernameCheck = checkUsername(username);
-        boolean emailCheck = checkEmail(email);
-        if (emailCheck && usernameCheck) {
-            SimpleDateFormat fromUser = new SimpleDateFormat("dd-MM-yyyy");
-            SimpleDateFormat myFormat = new SimpleDateFormat("yyyy-MM-dd");
+        birthdate = myFormat.format(fromUser.parse(birthdate));
 
-            birthdate = myFormat.format(fromUser.parse(birthdate));
+        System.out.println(birthdate);
+        boolean status = false;
+        int rs = 0;
+        //if(isDateValid(birthdate)){
+        try (Connection c = DBConnection.getConnection(); PreparedStatement ps = c.prepareStatement("INSERT INTO user (username, name, password, dob, country, contactNo, email, favoriteTeam,salt) VALUES(?,?,?,?,?,?,?,?,?)");) {
+            byte[] salt = getSalt();
 
-            System.out.println(birthdate);
-            boolean status = false;
-            int rs = 0;
-            //if(isDateValid(birthdate)){
-            try (Connection c = DBConnection.getConnection(); PreparedStatement ps = c.prepareStatement("INSERT INTO user (username, name, password, dob, country, contactNo, email, favoriteTeam,salt) VALUES(?,?,?,?,?,?,?,?,?)");) {
-                byte[] salt = getSalt();
-
-                ps.setString(1, username);
-                ps.setString(2, name);
-                ps.setString(3, getSHA1SecurePassword(password, salt));
-                ps.setString(4, birthdate);
-                ps.setString(5, country);
-                ps.setString(6, contactNo);
-                ps.setString(7, email);
-                ps.setString(8, team);
-                ps.setBytes(9, salt);
-                rs = ps.executeUpdate();
-                if (rs > 0) {
-                    return "success";
-                }
-                c.close();
-            } catch (Exception e) {
-                System.out.println("check db connection class" + e.toString());
-                return "check db connection class or no such algorithm error check getSalt()" + e.toString();
-            } finally {
-                if (rs > 0) {
-                    rs = 0;
-                }
+            ps.setString(1, username);
+            ps.setString(2, name);
+            ps.setString(3, getSHA1SecurePassword(password, salt));
+            ps.setString(4, birthdate);
+            ps.setString(5, country);
+            ps.setString(6, contactNo);
+            ps.setString(7, email);
+            ps.setString(8, team);
+            ps.setBytes(9, salt);
+            rs = ps.executeUpdate();
+            if (rs > 0) {
+                return "success";
             }
-//        }
-//        else{
-//            return "birthdate error";
-//        }
-//        
-
-        } else {
-            String msg = "";
-            if (!emailCheck) {
-                msg = "email has been taken";
+            c.close();
+        } catch (Exception e) {
+            System.out.println("check db connection class" + e.toString());
+            return "check db connection class or no such algorithm error check getSalt()" + e.toString();
+        } finally {
+            if (rs > 0) {
+                rs = 0;
             }
-            if (!usernameCheck) {
-                msg = "username has been taken";
-            }
-            if (!usernameCheck && !emailCheck) {
-                msg = "username and email have been taken";
-            }
-            return msg;
         }
         return "";
+
+    }
+
+    public static String checkEmailUsername(String email, String username) {
+        boolean usernameCheck = checkUsername(username);
+        boolean emailCheck = checkEmail(email);
+
+        String msg = "success";
+        if (!emailCheck) {
+            msg = "email has been taken";
+        }
+        if (!usernameCheck) {
+            msg = "username has been taken";
+        }
+        if (!usernameCheck && !emailCheck) {
+            msg = "username and email have been taken";
+        }
+        return msg;
 
     }
 

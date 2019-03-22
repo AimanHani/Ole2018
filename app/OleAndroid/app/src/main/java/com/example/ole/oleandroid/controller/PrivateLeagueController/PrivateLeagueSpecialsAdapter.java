@@ -91,10 +91,12 @@ public class PrivateLeagueSpecialsAdapter extends BaseAdapter {
 
             //setting existing prediction values for spinner
             String prediction = s.getPrediction(); //the value you want the position for
-            SpecialSpinnerAdapter myAdap = (SpecialSpinnerAdapter) viewHolder.spinner.getAdapter(); //cast to an ArrayAdapter
-            int spinnerPosition = myAdap.getPosition(prediction);
-            //set the default according to value
-            viewHolder.spinner.setSelection(spinnerPosition);
+            if (prediction != null) {
+                SpecialSpinnerAdapter myAdap = (SpecialSpinnerAdapter) viewHolder.spinner.getAdapter(); //cast to an ArrayAdapter
+                int spinnerPosition = myAdap.getPosition(prediction);
+                //set the default according to value
+                viewHolder.spinner.setSelection(spinnerPosition);
+            }
 
 
             //setting existing prediction values for button

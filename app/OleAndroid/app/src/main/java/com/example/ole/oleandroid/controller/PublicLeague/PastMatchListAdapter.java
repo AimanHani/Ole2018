@@ -24,7 +24,7 @@ public class PastMatchListAdapter extends BaseAdapter{
         TextView team1_name, team2_name, match_date, team1_score, team2_score;
 
         private static class ViewHolder {
-            TextView team1_name, team2_name, match_date, team1_score, team2_score;
+            TextView team1_name, team2_name, match_date, team1_score, team2_score, userteam1_score, userteam2_score, points;
             ImageView team1_photo, team2_photo;
         }
 
@@ -75,6 +75,10 @@ public class PastMatchListAdapter extends BaseAdapter{
             viewHolder.team1_photo = convertView.findViewById(R.id.team1_photo);
             viewHolder.team2_photo = convertView.findViewById(R.id.team2_photo);
 
+            viewHolder.userteam1_score = convertView.findViewById(R.id.userteam1_score);
+            viewHolder.userteam2_score = convertView.findViewById(R.id.userteam2_score);
+            viewHolder.points = convertView.findViewById(R.id.points);
+
             HashMap<String, TeamItems> teamItemsList = TeamItemDAO.teamItemsList;
             //System.out.println(viewHolder.team1_name.getText().toString());
             viewHolder.team1_name.setText(matchList.get(position).getTeam1());
@@ -98,6 +102,50 @@ public class PastMatchListAdapter extends BaseAdapter{
         textViewItemName.setText(currentItem.getItemName());
         textViewItemDescription.setText(currentItem.getItemDescription());
         */
+
+            //get users prediction
+            if(matchList.get(position).getTeam1Prediction()==-1 || matchList.get(position).getTeam1Prediction()==-1){
+                viewHolder.userteam1_score.setText("-");
+                viewHolder.userteam2_score.setText("-");
+                viewHolder.points.setText("-");
+            }else{
+                viewHolder.userteam1_score.setText(matchList.get(position).getTeam1Prediction()+"");
+                viewHolder.userteam2_score.setText(matchList.get(position).getTeam2Prediction()+"");
+                viewHolder.points.setText("0");
+                Match m = matchList.get(position);
+                //setting the proper points
+
+                //team 1 wins
+                if(m.getTeam1Score()>m.getTeam2Score()){
+                    if(m.getTeam1Prediction()>m.getTeam2Prediction()){
+                        viewHolder.points.setText(m.getPoints()+"");
+                        if(m.getTeam1Score()==m.getTeam1Prediction() && m.getTeam2Score()==m.getTeam2Prediction()){
+                            viewHolder.points.setText(m.getPoints()*2 + "");
+                        }
+                    }
+                }
+                //team 2 wins
+                else if(m.getTeam2Score()>m.getTeam1Score()){
+                    if(m.getTeam2Prediction()>m.getTeam1Prediction()){
+                        viewHolder.points.setText(m.getPoints()+"");
+                        if(m.getTeam1Score()==m.getTeam1Prediction() && m.getTeam2Score()==m.getTeam2Prediction()){
+                            viewHolder.points.setText(m.getPoints()*2 + "");
+                        }
+                    }
+                }
+                //draw
+                else if(m.getTeam1Score() == m.getTeam2Score()){
+                    if(m.getTeam1Prediction() == m.getTeam2Prediction()){
+                        viewHolder.points.setText(m.getPoints()+"");
+                        if(m.getTeam1Score()==m.getTeam1Prediction() && m.getTeam2Score()==m.getTeam2Prediction()){
+                            viewHolder.points.setText(m.getPoints()*2 + "");
+                        }
+                    }
+                }else{
+                    viewHolder.points.setText("0");
+                }
+
+            }
 
             return convertView;// returns the view for the current row
         }

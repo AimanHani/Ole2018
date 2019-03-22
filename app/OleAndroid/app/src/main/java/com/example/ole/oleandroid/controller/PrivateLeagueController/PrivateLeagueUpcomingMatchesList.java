@@ -80,6 +80,7 @@ public class PrivateLeagueUpcomingMatchesList extends Fragment implements View.O
     public static void setLogId(int id) {
         logId = id;
     }
+
     public static void setLeagueId(int id) {
         leagueId = id;
     }
@@ -90,14 +91,11 @@ public class PrivateLeagueUpcomingMatchesList extends Fragment implements View.O
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
         dialog.setContentView(R.layout.successful_pop_up);
 
-        TextView confirm = dialog.findViewById(R.id.confirm);
-        confirm.setText("Close");
-        confirm.setEnabled(true);
+        TextView close = dialog.findViewById(R.id.confirm);
 
-//        TextView text = dialog.findViewById(R.id.textStatus);
-//        text.setText("Match Prediction Saved!");
-
-        confirm.setOnClickListener(new View.OnClickListener() {
+        TextView text = dialog.findViewById(R.id.successfulMessage);
+        text.setText("Match Prediction Saved!");
+        close.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 dialog.cancel();

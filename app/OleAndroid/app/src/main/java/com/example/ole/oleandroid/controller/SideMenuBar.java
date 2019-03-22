@@ -138,11 +138,11 @@ public class SideMenuBar extends AppCompatActivity implements NavigationView.OnN
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
         dialog.setContentView(R.layout.successful_pop_up);
 
-        Button close = dialog.findViewById(R.id.close);
+        TextView close = dialog.findViewById(R.id.confirm);
         close.setText("Ok");
         close.setEnabled(true);
 
-        TextView text = dialog.findViewById(R.id.textStatus);
+        TextView text = dialog.findViewById(R.id.successfulMessage);
         text.setText("Successfully Logged Out!");
 
         close.setOnClickListener(new View.OnClickListener() {

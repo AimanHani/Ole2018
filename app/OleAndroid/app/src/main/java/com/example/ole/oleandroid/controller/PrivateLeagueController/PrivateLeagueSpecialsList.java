@@ -57,7 +57,7 @@ public class PrivateLeagueSpecialsList extends SideMenuBar {
                 final Dialog dialog = new Dialog(PrivateLeagueSpecialsList.this);
                 dialog.setContentView(R.layout.confirmspecialspopout);
                 TextView msg = dialog.findViewById(R.id.confirmMessage);
-                msg.setText("Confirm Specials? You could earn up to " + totalPoints + " Ole points");
+                msg.setText("You could earn up to " + totalPoints + " Ole points! Confirm specials?");
 //                TextView cancel = dialog.findViewById(R.id.cancel);
 //                cancel.setOnClickListener(new View.OnClickListener() {
 //                    @Override
@@ -65,13 +65,13 @@ public class PrivateLeagueSpecialsList extends SideMenuBar {
 //                        dialog.dismiss();
 //                    }
 //                });
-                ImageView closeWindow = dialog.findViewById(R.id.closeWindow);
-                closeWindow.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        dialog.dismiss();
-                    }
-                });
+//                ImageView closeWindow = dialog.findViewById(R.id.closeWindow);
+//                closeWindow.setOnClickListener(new View.OnClickListener() {
+//                    @Override
+//                    public void onClick(View v) {
+//                        dialog.dismiss();
+//                    }
+//                });
 
                 TextView end = dialog.findViewById(R.id.end);
                 end.setOnClickListener(new View.OnClickListener() {
@@ -90,10 +90,17 @@ public class PrivateLeagueSpecialsList extends SideMenuBar {
                         } catch (Exception e) {
                             e.printStackTrace();
                         }
-                        Intent i = new Intent(PrivateLeagueSpecialsList.this, PrivateLeagueSpecialsList.class);
+
+
+//                        Intent i = new Intent(PrivateLeagueSpecialsList.this, PrivateLeagueDetails.class);
+//                        Bundle bundle = new Bundle();
+//                        bundle.putInt("logId", logId);
+//                        bundle.putInt("leagueId", leagueId);
+//                        i.putExtras(bundle);
+//                        startActivity(i);
+                        Intent i = new Intent(PrivateLeagueSpecialsList.this, PrivateLeagueDetails.class);
                         Bundle bundle = new Bundle();
-                        bundle.putInt("logId", logId);
-                        bundle.putInt("leagueId", leagueId);
+                        bundle.putString("leagueid", leagueId+"");
                         i.putExtras(bundle);
                         startActivity(i);
                     }

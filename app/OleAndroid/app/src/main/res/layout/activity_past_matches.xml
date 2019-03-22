@@ -254,11 +254,60 @@
                 android:layout_weight="1"
                 android:background="@color/lightGrey">
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="0 : 0"
-                    android:textSize="30sp"/>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal"
+                    android:weightSum="3">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:gravity="center">
+
+                        <TextView
+                            android:id="@+id/userteam1_score"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="0"
+                            android:textColor="@color/black"
+                            android:textSize="40sp" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:gravity="center">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text=":"
+                            android:textColor="@color/black"
+                            android:textSize="40sp" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:gravity="center">
+
+                        <TextView
+                            android:id="@+id/userteam2_score"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="2"
+                            android:textColor="@color/black"
+                            android:textSize="40sp" />
+
+                    </LinearLayout>
+
+                </LinearLayout>
             </LinearLayout>
 
             <LinearLayout
@@ -270,9 +319,16 @@
                 android:background="@color/lightGrey">
 
                 <TextView
+                    android:id="@+id/points"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="5 pts"
+                    android:text="0"
+                    android:textColor="@color/black"
+                    android:textSize="40sp" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="pts"
                     android:textSize="30sp" />
             </LinearLayout>
 

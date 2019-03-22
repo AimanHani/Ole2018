@@ -71,7 +71,26 @@ public class SignUp extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        String username = request.getParameter("username");
+        String email = request.getParameter("email");
+        
+        System.out.println(username + " "+email);
+        String status = SignUpDAO.checkEmailUsername(email, username);
+
+        JSONObject json = new JSONObject();
+        response.setContentType("\"Content-Type\", \"application/x-www-form-urlencoded\"");
+        response.setCharacterEncoding("utf-8");
+        PrintWriter out = response.getWriter();
+
+        try {
+            json.put("status", status);
+        } catch (JSONException ex) {
+            Logger.getLogger(SignUp.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        out.print(json);
+        out.flush();
+
     }
 
     /**
@@ -90,7 +109,7 @@ public class SignUp extends HttpServlet {
         response.setContentType("\"Content-Type\", \"application/x-www-form-urlencoded\"");
         response.setCharacterEncoding("utf-8");
         PrintWriter out = response.getWriter();
-        
+
         String username = request.getParameter("username");
         String name = request.getParameter("name");
         String password = request.getParameter("password");
@@ -99,11 +118,15 @@ public class SignUp extends HttpServlet {
         String contactNo = request.getParameter("contactNo");
         String country = request.getParameter("country");
         String team = request.getParameter("team");
-        
-        System.out.println(username+" "+ birthdate);
-        
+
+        System.out.println(username + " " + birthdate);
+
         String status = "";
         String token = "";
+        contactNo = contactNo.replaceAll("\\s", "");
+        if (!contactNo.substring(0, 0).equals("+")) {
+            contactNo = "+" + contactNo;
+        }
 
         try {
 

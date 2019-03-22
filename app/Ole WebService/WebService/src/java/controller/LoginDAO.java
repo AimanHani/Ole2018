@@ -43,8 +43,9 @@ public class LoginDAO {
 //        }
 
         ResultSet rs = null;
-        try (Connection c = DBConnection.getConnection(); PreparedStatement ps = c.prepareStatement("Select username, password, salt from user where username=?");) {
+        try (Connection c = DBConnection.getConnection(); PreparedStatement ps = c.prepareStatement("Select username, password, salt from user where username=? or email=?");) {
             ps.setString(1, username);
+            ps.setString(2, username);
             //ps.setString(2,hashedPw);
 
             rs = ps.executeQuery();

@@ -55,8 +55,7 @@ public class Signup extends AppCompatActivity {
     Spinner spinnerTeams, spinnerCountries;
     Drawable tickDone;
     //    TextView result;
-    String clickedTeamName;
-    String clickedCountryName;
+    String clickedTeamName, clickedCountryName;
     RequestQueue requestQueue;
     HashMap<String, String> countryCodes;
     ArrayList<String> usernames;
@@ -95,7 +94,7 @@ public class Signup extends AppCompatActivity {
         mAdapter2 = new TeamAdapter(this, mTeamList);
         spinnerTeams.setAdapter(mAdapter2);
 
-        UserDAO.getUsernames();
+        //UserDAO.getUsernames();
 
         spinnerCountries.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
@@ -103,6 +102,7 @@ public class Signup extends AppCompatActivity {
                 CountryItem clickedItem = (CountryItem) parent.getItemAtPosition(position);
                 clickedCountryName = clickedItem.getmCountryName();
                 Toast.makeText(Signup.this, clickedCountryName + " selected", Toast.LENGTH_SHORT).show();
+                contactNo.setText(countryCodes.get(clickedCountryName));
             }
 
             @Override
@@ -130,48 +130,87 @@ public class Signup extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 System.out.println("signup");
+                final String usernameStr = username.getText().toString();
+                final String nameStr = name.getText().toString();
+                final String emailStr = email.getText().toString();
 
                 boolean valid = validate();
-                if (!valid) {
-                    onSignupFailed();
+                String checkUsernameEmail = SignupDAO.checkEmailPassword(usernameStr, emailStr);
+
+                if (!valid || !checkUsernameEmail.equals("success")) {
+                    onSignupFailed(checkUsernameEmail);
                     return;
                 } else {
 
                     final Dialog load = loadingDialog();
 
+                    final String passwordStr = password.getText().toString();
+                    final String birthdateStr = birthdate.getText().toString();
+                    final String contactNoStr = contactNo.getText().toString();
+                    final String teamStr = clickedTeamName;
+                    final String countryStr = clickedCountryName;
+
                     new android.os.Handler().postDelayed(
                             new Runnable() {
                                 public void run() {
-                                    //On complete call either onSignupSuccess or onSignupFailed
-                                    // depending on success
-                                    //onSignupSuccess();
-                                    //onSignupFailed();
                                     System.out.println("signup2");
-
-
-                                    String usernameStr = username.getText().toString();
-                                    String nameStr = name.getText().toString();
-                                    String emailStr = email.getText().toString();
-                                    String passwordStr = password.getText().toString();
-                                    String birthdateStr = birthdate.getText().toString();
-                                    String contactNoStr = contactNo.getText().toString();
-                                    String teamStr = clickedTeamName;
-                                    String countryStr = clickedCountryName;
 
                                     String send = concatParams(usernameStr, nameStr, passwordStr, birthdateStr, countryStr, contactNoStr, emailStr, teamStr);
 
                                     Boolean signUp = SignupDAO.validate(send, usernameStr, passwordStr);
-                                    load.cancel();
-
                                     if (signUp) {
                                         signupBtn.setEnabled(false);
                                         onSignupSuccess();
                                     } else {
-                                        onSignupFailed();
+                                        onSignupFailed("");
                                         return;
                                     }
+                                    load.cancel();
+
+//                                    final String verificationNumber = SignupDAO.verify(contactNoStr, emailStr);
+//                                    System.out.println("verificationNumber " + verificationNumber);
+//                                    final Dialog verified = verificationDialog();
+//
+//                                    final EditText smsInput = verified.findViewById(R.id.smsInput);
+//                                    TextView cancel = verified.findViewById(R.id.cancel);
+//                                    TextView confirm = verified.findViewById(R.id.confirm);
+
+//                                    confirm.setOnClickListener(new View.OnClickListener() {
+//                                        @Override
+//                                        public void onClick(View v) {
+//                                            //if success,
+//                                            String input = smsInput.getText().toString();
+//                                            if (verificationNumber.equals(input)) {
+//                                                System.out.println("contact " + contactNoStr);
+//                                                String send = concatParams(usernameStr, nameStr, passwordStr, birthdateStr, countryStr, contactNoStr, emailStr, teamStr);
+//
+//                                                Boolean signUp = SignupDAO.validate(send, usernameStr, passwordStr);
+//                                                load.cancel();
+//                                                verified.cancel();
+//                                                if (signUp) {
+//                                                    signupBtn.setEnabled(false);
+//                                                    onSignupSuccess();
+//                                                } else {
+//                                                    onSignupFailed("");
+//                                                    return;
+//                                                }
+//                                            }
+//                                            return;
+//                                        }
+//                                    });
+//
+//                                    cancel.setOnClickListener(new View.OnClickListener() {
+//                                        @Override
+//                                        public void onClick(View v) {
+//                                            load.cancel();
+//                                            verified.cancel();
+//                                            dialog.cancel();
+//                                        }
+//                                    });
+//
+//                                    System.out.println("ver " + verified);
                                 }
-                            }, 3000);
+                            }, 2000);
                 }
             }
         });
@@ -195,7 +234,8 @@ public class Signup extends AppCompatActivity {
         signupBtn.setEnabled(true);
         setResult(RESULT_OK, null);
         //finish();
-        smsVerification();
+        //smsVerification();
+        successfulAlertDialog();
     }
 
     public Dialog loadingDialog() {
@@ -208,24 +248,17 @@ public class Signup extends AppCompatActivity {
         return dialog2;
     }
 
-    public void smsVerification(){
+    public Dialog verificationDialog() {
         dialog = new Dialog(Signup.this);
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
         dialog.setContentView(R.layout.activity_sms_verification);
+        dialog.show();
 
-        EditText smsInput = dialog.findViewById(R.id.smsInput);
+        final EditText smsInput = dialog.findViewById(R.id.smsInput);
+        TextView cancel = dialog.findViewById(R.id.cancel);
         TextView confirm = dialog.findViewById(R.id.confirm);
 
-        confirm.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                //if success,
-                successfulAlertDialog();
-                dialog.cancel();
-                //else, error message
-            }
-        });
-        dialog.show();
+        return dialog;
     }
 
     public void successfulAlertDialog() {
@@ -252,8 +285,12 @@ public class Signup extends AppCompatActivity {
         dialog.show();
     }
 
-    public void onSignupFailed() {
-        Toast.makeText(getBaseContext(), "Signup failed", Toast.LENGTH_LONG).show();
+    public void onSignupFailed(String message) {
+        String errorMsg = "Signup failed";
+        if (!message.equals("success") || message.equals("")) {
+            errorMsg += " - " + message;
+        }
+        Toast.makeText(getBaseContext(), errorMsg, Toast.LENGTH_LONG).show();
         signupBtn.setEnabled(true);
     }
 
@@ -275,8 +312,6 @@ public class Signup extends AppCompatActivity {
         if (validateuserName.isEmpty() || validateuserName.length() < 5) {
             username.setError("at least 5 characters");
             valid = false;
-        } else if (UserDAO.checkUsernameExist(validateName)) {
-            username.setError("Username Exist");
         } else if (validateName.contains(" ")) {
             username.setError("Username cannot contain space");
         } else {
@@ -450,7 +485,7 @@ public class Signup extends AppCompatActivity {
     }
 
     private boolean checkPhoneNumber(String phoneNumber, String validateCountries) {
-        phoneNumber = countryCodes.get(validateCountries) + phoneNumber;
+        //phoneNumber = countryCodes.get(validateCountries) + phoneNumber;
         String regex = "^\\+(?:[0-9] ?){6,14}[0-9]$";
         return phoneNumber.matches(regex);
     }

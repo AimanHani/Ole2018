@@ -42,8 +42,11 @@ public class MatchDAO {
                     String team2 = matchObject.getString("team2");
                     int team1Score = matchObject.getInt("team1Score");
                     int team2Score = matchObject.getInt("team2Score");
+                    int team1Predition = matchObject.getInt("team1Predition");
+                    int team2Prediction = matchObject.getInt("team2Prediction");
+                    int points = matchObject.getInt("points");
 
-                    Match match = new Match(matchId, tournamentID, matchDate, matchTime, team1, team2, team1Score, team2Score);
+                    Match match = new Match(matchId, tournamentID, matchDate, matchTime, team1, team2, team1Score, team2Score, team1Predition, team2Prediction, points);
                     matches.add(match);
                 }
 

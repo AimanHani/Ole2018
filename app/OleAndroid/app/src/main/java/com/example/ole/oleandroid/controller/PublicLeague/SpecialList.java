@@ -86,7 +86,7 @@ public class SpecialList extends SideMenuBar {
                 final Dialog dialog = new Dialog(SpecialList.this);
                 dialog.setContentView(R.layout.confirmspecialspopout);
                 TextView msg = dialog.findViewById(R.id.confirmMessage);
-                msg.setText("Confirm Specials? You could earn up to " + totalPoints + " Ole points");
+                msg.setText("You could earn up to " + totalPoints + " Ole points! Confirm specials?");
 //                TextView cancel = dialog.findViewById(R.id.cancel);
 //                cancel.setOnClickListener(new View.OnClickListener() {
 //                    @Override
@@ -95,13 +95,13 @@ public class SpecialList extends SideMenuBar {
 //                    }
 //                });
 
-                ImageView closeWindow = dialog.findViewById(R.id.closeWindow);
-                closeWindow.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        dialog.dismiss();
-                    }
-                });
+//                ImageView closeWindow = dialog.findViewById(R.id.closeWindow);
+//                closeWindow.setOnClickListener(new View.OnClickListener() {
+//                    @Override
+//                    public void onClick(View v) {
+//                        dialog.dismiss();
+//                    }
+//                });
 
                 TextView end = dialog.findViewById(R.id.end);
                 end.setOnClickListener(new View.OnClickListener() {
@@ -120,7 +120,7 @@ public class SpecialList extends SideMenuBar {
                         } catch (Exception e) {
                             e.printStackTrace();
                         }
-                        Intent i = new Intent(SpecialList.this, SpecialList.class);
+                        Intent i = new Intent(SpecialList.this, PublicLeagueDetails.class);
                         Bundle bundle = new Bundle();
                         bundle.putInt("logId", logId);
                         bundle.putInt("leagueId", leagueId);

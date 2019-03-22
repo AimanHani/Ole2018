@@ -33,15 +33,13 @@ public class PrivateLeagueDetailsAdapter extends BaseAdapter {
     private ViewHolder viewHolder;
 
     private static class ViewHolder {
-        TextView pldusername;
+        TextView pldusername, mempoints, country;
     }
 
     public PrivateLeagueDetailsAdapter(Context context, ArrayList<PrivateMembers> memberslist) {
         this.context = context;
         this.memberslist = memberslist;
     }
-
-
 
     @Override
     public int getCount() {
@@ -67,7 +65,12 @@ public class PrivateLeagueDetailsAdapter extends BaseAdapter {
                     inflate(R.layout.activity_private_league_details_adapter, parent, false);
         }
         viewHolder.pldusername = convertView.findViewById(R.id.pldusername);
+        viewHolder.country = convertView.findViewById(R.id.country);
+        viewHolder.mempoints = convertView.findViewById(R.id.mempoints);
+
         viewHolder.pldusername.setText(memberslist.get(position).getUsername()+"");
+        viewHolder.country.setText(memberslist.get(position).getCountry()+"");
+        viewHolder.mempoints.setText(memberslist.get(position).getPoints()+" pts");
 
         return convertView;// returns the view for the current row
     }

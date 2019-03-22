@@ -22,6 +22,19 @@ public class PSpecials {
         this.prediction = prediction;
     }
 
+    public PSpecials(int specialsID, String description, int points, int doubleIt) {
+        this.specialsID = specialsID;
+        this.description = description;
+        this.points = points;
+        checked = false;
+        if(doubleIt==1){
+            this.doubleIt = true;
+        }else{
+            this.doubleIt = false;
+        }
+        this.prediction = null;
+    }
+
     public int getPoints() {
         return points;
     }

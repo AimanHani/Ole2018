@@ -17,8 +17,9 @@ public class UserDAO {
 
     public static User getUserInfo(String username) {
         User user = new User();
-        try (Connection conn = DBConnection.getConnection(); PreparedStatement stmt = conn.prepareStatement("Select * from user where username = ?");) {
+        try (Connection conn = DBConnection.getConnection(); PreparedStatement stmt = conn.prepareStatement("Select * from user where username = ? or email=?");) {
             stmt.setString(1, username);
+            stmt.setString(2, username);
             ResultSet rs = stmt.executeQuery();
             while (rs.next()) {
                 String username1 = rs.getString(1);

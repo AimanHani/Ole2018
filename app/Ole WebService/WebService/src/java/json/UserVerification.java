@@ -5,9 +5,8 @@
  */
 package json;
 
-import backgroundTask.SMSVerfication;
 import backgroundTask.Mailer;
-import backgroundTask.SMSVerfication;
+import backgroundTask.SMSVerification;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;
@@ -86,20 +85,34 @@ public class UserVerification extends HttpServlet {
 
         if (request.getParameter("email") != null) {
             String email = request.getParameter("email");
-            String verficationNumber = (int) (Math.random() * 9000) + 1000 + "";
-            Boolean smsStatus = Mailer.send("olegroup18@gmail.com","squadxole",email,"Your verification code:",verficationNumber);
-          
 
+            String verificationNumber = (int) (Math.random() * 9000) + 1000 + "";
+            //Boolean smsStatus = SMSVerification.send(userNumber, verificationNumber);
+            Boolean emailSentStatus = Mailer.send("olegroup18@gmail.com", "squadxole", email, "Confirm Your Sign Up", "Your Ole Verification Code: " + verificationNumber);
+
+            //System.out.println("sms: " + smsStatus);
+            System.out.println("email: " + emailSentStatus);
+
+//            String verficationNumber = (int) (Math.random() * 9000) + 1000 + "";
+//            Boolean smsStatus = Mailer.send("olegroup18@gmail.com","squadxole",email,"Your verification code:",verficationNumber);
             try {
 
                 JSONObject json = new JSONObject();
 
-                json.put("status", smsStatus);
-                json.put("verificationNumber", verficationNumber);
-                list.put(json);
+                if (emailSentStatus) {
+                    json.put("status", "successful");
+                    json.put("verificationNumber", verificationNumber);
+                } else {
+                    json.put("status", "failed");
+                }
+                //list.put(json);
 
-                parentJson.put("results", list);
-                out.print(parentJson);
+                //parentJson.put("results", json);
+//                userNumber = userNumber.replaceAll("\\s", "");
+//            if (!userNumber.substring(0, 0).equals("+")) {
+//                userNumber = "+" + userNumber;
+//            }
+                out.print(json);
                 out.flush();
 
             } catch (JSONException e) {
@@ -107,7 +120,7 @@ public class UserVerification extends HttpServlet {
             }
 
         } else {
-            
+
         }
     }
 

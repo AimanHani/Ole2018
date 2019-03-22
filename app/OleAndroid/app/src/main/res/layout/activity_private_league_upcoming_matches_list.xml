@@ -21,8 +21,10 @@
         android:layout_width="match_parent"
         android:layout_height="60dp"
         android:layout_alignParentStart="true"
+        android:layout_alignParentEnd="true"
         android:layout_alignParentBottom="true"
         android:layout_marginStart="0dp"
+        android:layout_marginEnd="0dp"
         android:orientation="horizontal"
         android:weightSum="2">
 
@@ -31,25 +33,24 @@
             style="?attr/buttonBarButtonStyle"
             android:layout_width="match_parent"
             android:layout_height="60dp"
-            android:layout_marginRight="1dp"
             android:layout_weight="1"
             android:background="@color/themeColor"
             android:baselineAligned="false"
-            android:text="Save Prediction"
+            android:text="SAVE PREDICTION"
             android:textColor="@color/white"
             android:textSize="20sp" />
 
         <!--<Button-->
-            <!--android:id="@+id/predictspecials"-->
-            <!--style="?attr/buttonBarButtonStyle"-->
-            <!--android:layout_width="match_parent"-->
-            <!--android:layout_height="60dp"-->
-            <!--android:layout_marginLeft="1dp"-->
-            <!--android:layout_weight="1"-->
-            <!--android:background="@color/themeColor"-->
-            <!--android:baselineAligned="false"-->
-            <!--android:text="Predict Specials"-->
-            <!--android:textColor="@color/white"-->
-            <!--android:textSize="20sp" />-->
+        <!--android:id="@+id/predictspecials"-->
+        <!--style="?attr/buttonBarButtonStyle"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="60dp"-->
+        <!--android:layout_marginLeft="1dp"-->
+        <!--android:layout_weight="1"-->
+        <!--android:background="@color/themeColor"-->
+        <!--android:baselineAligned="false"-->
+        <!--android:text="Predict Specials"-->
+        <!--android:textColor="@color/white"-->
+        <!--android:textSize="20sp" />-->
     </LinearLayout>
 </RelativeLayout>
