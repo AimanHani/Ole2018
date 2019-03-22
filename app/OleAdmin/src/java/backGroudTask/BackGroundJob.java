@@ -29,6 +29,8 @@ public class BackGroundJob implements ServletContextListener {
 //        scheduler.scheduleAtFixedRate(new SomeHourlyJob(), 0, 1, TimeUnit.HOURS);
         try {
             scheduler.scheduleAtFixedRate(new UpdateMatchTableByTimer(), 6, 24, TimeUnit.HOURS);
+            scheduler.scheduleAtFixedRate(new PointsAllocator(), 0, 1, TimeUnit.HOURS);
+            
         } catch (Exception e) {
             e.printStackTrace(); 
 
