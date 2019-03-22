@@ -16,10 +16,10 @@ import java.util.ArrayList;
 public class PublicLeagueDetailsAdapter extends BaseAdapter {
     private Context context; //context
     private ArrayList<Member> memberslist;//data source of the list adapter
-    private PublicLeagueDetailsAdapter.ViewHolder viewHolder;
+    private ViewHolder viewHolder;
 
     private static class ViewHolder {
-        TextView pldusername;
+        TextView pldusername, mempoints, country;
     }
 
     public PublicLeagueDetailsAdapter(Context context, ArrayList<Member> memberslist) {
@@ -50,10 +50,12 @@ public class PublicLeagueDetailsAdapter extends BaseAdapter {
                     inflate(R.layout.activity_public_league_details_adapter, parent, false);
         }
         viewHolder.pldusername = convertView.findViewById(R.id.pldusername);
-        viewHolder.pldusername.setText(memberslist.get(position).getUsername()+"");
+        viewHolder.country = convertView.findViewById(R.id.country);
+        viewHolder.mempoints = convertView.findViewById(R.id.mempoints);
 
+        viewHolder.pldusername.setText(memberslist.get(position).getUsername()+"");
+        viewHolder.country.setText(memberslist.get(position).getCountry()+"");
+        viewHolder.mempoints.setText(memberslist.get(position).getPoints()+" pts");
         return convertView;// returns the view for the current row
     }
-
-
 }

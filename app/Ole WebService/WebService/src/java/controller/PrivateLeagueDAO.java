@@ -168,7 +168,7 @@ public class PrivateLeagueDAO {
                         + leagueID + ")");
 
                 cs.addBatch("insert into log(username, leagueId, points) values ('admin', " + leagueID + ", -1)"); // insert admin log
-                cs.addBatch("insert into log(username, leagueId, points) values ('" + username + "', " + leagueID + ", -1)"); // insert user log
+                cs.addBatch("insert into log(username, leagueId, points) values ('" + username + "', " + leagueID + ", 0)"); // insert user log
                 String[] teamsList = teams.split(",");
                 for (String teamid : teamsList) {
                     cs.addBatch("insert into PrivateLeagueTeams(teamId, leagueId) values ('" + teamid + "', " + leagueID + ")"); // insert private league teams
@@ -212,7 +212,7 @@ public class PrivateLeagueDAO {
     public static String joinPrivateLeague(String username, String leagueId) {
         int rs = 0;
         System.out.println("Joining Private League: " + username + leagueId);
-        try (Connection c5 = DBConnection.getConnection(); PreparedStatement ps5 = c5.prepareStatement("insert into log(username, leagueId, points) values ('" + username + "', " + leagueId + ", -1)");) {
+        try (Connection c5 = DBConnection.getConnection(); PreparedStatement ps5 = c5.prepareStatement("insert into log(username, leagueId, points) values ('" + username + "', " + leagueId + ", 0)");) {
             rs = ps5.executeUpdate();
             if (rs > 0) {
                 return "successful";
@@ -255,8 +255,9 @@ public class PrivateLeagueDAO {
     public static ArrayList<model.PrivateMembers> getMembers(int leagueid) {
         ArrayList<model.PrivateMembers> memlist = new ArrayList<model.PrivateMembers>();
         PrivateMembers members = null;
-        try (Connection conn = DBConnection.getConnection(); PreparedStatement stmt = conn.prepareStatement("select *  from log where leagueId = ? and username != 'admin';");) {
+        try (Connection conn = DBConnection.getConnection(); PreparedStatement stmt = conn.prepareStatement("select l.logId, l.username, l.leagueId, l.points, u.country  from log l inner join user u on l.username = u.username where leagueId = ? and l.username != 'admin';");) {
             stmt.setInt(1, leagueid);
+            System.out.println(stmt);
             ResultSet rs = stmt.executeQuery();
 
             while (rs.next()) {
@@ -264,8 +265,9 @@ public class PrivateLeagueDAO {
                 String username = rs.getString(2);
                 int leagueId = rs.getInt(3);
                 int points = rs.getInt(4);
+                String country = rs.getString(5);
 
-                memlist.add(new PrivateMembers(logid, username, leagueId, points));
+                memlist.add(new PrivateMembers(logid, username, leagueId, points, country));
 
             }
             rs.close();

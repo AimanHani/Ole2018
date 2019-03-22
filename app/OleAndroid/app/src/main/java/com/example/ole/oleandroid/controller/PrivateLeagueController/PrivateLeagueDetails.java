@@ -44,7 +44,7 @@ public class PrivateLeagueDetails extends SideMenuBar implements View.OnClickLis
     Button button;
     PrivateLeagueDetailsAdapter privateLeagueDetailsAdapter;
     ListView privateLeagueListView;
-    TextView privatePrizeInput, leagueNameInput,creator, privatepoints;
+    TextView privatePrizeInput, leagueNameInput,creator, privatepoints, totalNoMembers;
     PrivateLeague privateleague = null;
     int logid = 0;
     LinearLayout blackoutimage;
@@ -52,6 +52,7 @@ public class PrivateLeagueDetails extends SideMenuBar implements View.OnClickLis
     Animation FoodFabOpen, FoodFabClose, FabRClockwise, FabRAntiClockwise, Fadein, Fadeout;
     TextView specialtext, matchtext, mainview;
     boolean isOpen = false;
+    int numMembers = 0;
 
 @Override
 protected void onCreate(Bundle savedInstanceState) {
@@ -99,7 +100,6 @@ protected void onCreate(Bundle savedInstanceState) {
                 String username = league.getString("userName");
                 String password = league.getString("password");
 
-
                 try {
                     privateleague = new PrivateLeague(leagueID, leagueName, prize, password, startDate, endDate, username, pointsAllocated, tournamentId, leagueKeyId);
                     PrivateLeague.setPrivateLeague(privateleague);
@@ -123,6 +123,7 @@ protected void onCreate(Bundle savedInstanceState) {
             JSONObject result = new JSONObject(response);
             JSONArray members = result.getJSONArray("results");
             PrivateMembersDAO.clearAllPrivateMembers();
+            numMembers = members.length();
             if (members.length() > 0) {
                 for (int i = 0; i < members.length(); i++) {
                     JSONObject membersObj = members.getJSONObject(i);
@@ -130,7 +131,8 @@ protected void onCreate(Bundle savedInstanceState) {
                             membersObj.getInt("logid"),
                             membersObj.getString("username"),
                             membersObj.getInt("leagueid"),
-                            membersObj.getInt("points")
+                            membersObj.getInt("points"),
+                            membersObj.getString("country")
                     );
                     PrivateMembersDAO.addPrivateMembers(privateMembers);
                 }
@@ -159,20 +161,19 @@ protected void onCreate(Bundle savedInstanceState) {
         System.out.println("error");
         e.printStackTrace();
     }
-
-    System.out.println("LOG ID" + logid);
-
-
+//    System.out.println("LOG ID" + logid);
             privatePrizeInput = findViewById(R.id.privatePrizeInput);
             leagueNameInput = findViewById(R.id.leagueNameInput);
             creator = findViewById(R.id.creator);
             privatepoints = findViewById(R.id.privatepoints);
+            totalNoMembers = findViewById(R.id.totalNoMembers);
 
         if (privateleague != null) {
             privatePrizeInput.setText(privateleague.getPrize());
             leagueNameInput.setText(privateleague.getLeagueName());
             creator.setText(privateleague.getUsername());
             privatepoints.setText(privateleague.getPointsAllocated()+"");
+            totalNoMembers.setText(numMembers+"");
         }
         privateLeagueListView = findViewById(R.id.privateLeagueListView);
         privateLeagueDetailsAdapter = new PrivateLeagueDetailsAdapter(PrivateLeagueDetails.this, PrivateMembersDAO.getAllPrivateMembers());

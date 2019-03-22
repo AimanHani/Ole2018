@@ -31,7 +31,7 @@ public class PublicLeagueDetails extends SideMenuBar implements View.OnClickList
     Button button, predict;
     PublicLeagueDetailsAdapter publicLeagueDetailsAdapter;
     ListView membersListView;
-    TextView prizeInput, leagueNameInput, publicPoints;
+    TextView prizeInput, leagueNameInput, publicPoints, totalNoMembers;
     PublicLeague publicLeague = null;
     int logId = 0;
     LinearLayout blackoutimage;
@@ -53,14 +53,23 @@ public class PublicLeagueDetails extends SideMenuBar implements View.OnClickList
         int leagueId = bundle.getInt("leagueId");
         publicLeague = PublicLeagueDAO.getOnePublicLeague(leagueId);
 
+        //PublicLeagueDAO.loadPublicMembers(leagueId);
+
+        membersListView = findViewById(R.id.membersListView);
+        publicLeagueDetailsAdapter = new PublicLeagueDetailsAdapter(PublicLeagueDetails.this, PublicLeagueDAO.loadPublicMembers(leagueId));
+        membersListView.setAdapter(publicLeagueDetailsAdapter);
+
         prizeInput = findViewById(R.id.publicPrizeInput);
         leagueNameInput = findViewById(R.id.leagueNameInput);
         publicPoints = findViewById(R.id.publicPoints);
+        totalNoMembers = findViewById(R.id.totalNoMembers);
+
 
         if (publicLeague != null) {
             prizeInput.setText(publicLeague.getPrize());
             leagueNameInput.setText(publicLeague.getLeagueName());
             publicPoints.setText(publicLeague.getPointsAllocated() + "");
+            totalNoMembers.setText(PublicLeagueDAO.getNumMembers()+"");
         }
 
         membersListView = findViewById(R.id.membersListView);

@@ -13,6 +13,10 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 
 public class PublicLeagueDAO {
+    private static int numMembers = 0;
+
+    public static int getNumMembers() {  return numMembers;    }
+
     private static ArrayList<PublicLeague> allPublicLeague = new ArrayList<>();
 
     public static ArrayList<PublicLeague> getAllPublicLeagueList() {
@@ -172,7 +176,7 @@ public class PublicLeagueDAO {
             System.out.println(response);
             JSONObject result = new JSONObject(response);
             JSONArray members = result.getJSONArray("results");
-
+            numMembers = members.length();
             if (members.length() > 0) {
                 for (int i = 0; i < members.length(); i++) {
                     JSONObject membersObj = members.getJSONObject(i);
@@ -180,8 +184,9 @@ public class PublicLeagueDAO {
                             membersObj.getInt("logid"),
                             membersObj.getString("username"),
                             membersObj.getInt("leagueid"),
-                            membersObj.getInt("points")
-                    );
+                            membersObj.getInt("points"),
+                            membersObj.getString("country")
+                            );
                     allMembers.add(member);
                 }
             }
