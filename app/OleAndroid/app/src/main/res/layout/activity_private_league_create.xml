@@ -8,25 +8,34 @@
     tools:context=".controller.PrivateLeagueController.PrivateLeagueCreate">
 
     <ImageView
+        android:id="@+id/imageView2"
         android:layout_width="wrap_content"
-        android:layout_height="150dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginLeft="8dp"
-        android:layout_marginRight="8dp"
-        app:srcCompat="@drawable/stepbar_1"/>
+        android:layout_height="120dp"
+        app:srcCompat="@drawable/stepbar_1"
+        tools:layout_editor_absoluteX="0dp" />
+
+    <TextView
+        android:id="@+id/textView4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        android:text="Step 1: Pick a name for your private competition and name a prize for the winner! The app will not accept monetary prizes. Next, choose a password so only your invitees can join!"
+        android:textSize="18sp"
+        app:layout_constraintTop_toBottomOf="@+id/imageView2"
+        tools:layout_editor_absoluteX="0dp" />
 
     <LinearLayout
         android:id="@+id/leagueNameLayout"
         android:layout_width="320dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="35dp"
+        android:layout_marginTop="20dp"
         android:layout_marginEnd="8dp"
         android:orientation="vertical"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView2">
+        app:layout_constraintTop_toBottomOf="@+id/textView4">
 
         <TextView
             android:id="@+id/leagueNameText"
@@ -43,9 +52,9 @@
             android:layout_height="match_parent"
             android:ems="10"
             android:hint="Your League Name"
-            android:textSize="16sp"
             android:inputType="textPersonName"
             android:textAlignment="textStart"
+            android:textSize="16sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="@+id/leagueNameText" />
 
@@ -154,15 +163,5 @@
         android:visibility="visible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent" />
-
-    <ImageView
-        android:id="@+id/imageView2"
-        android:layout_width="120dp"
-        android:layout_height="120dp"
-        android:adjustViewBounds="false"
-        android:visibility="invisible"
-        app:srcCompat="@drawable/trophy_profile_private_league"
-        tools:layout_editor_absoluteX="145dp"
-        tools:layout_editor_absoluteY="16dp" />
 
 </android.support.constraint.ConstraintLayout>

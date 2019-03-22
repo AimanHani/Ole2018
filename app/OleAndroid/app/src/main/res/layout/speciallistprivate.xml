@@ -9,20 +9,32 @@
     <ImageView
         android:id="@+id/stepbar"
         android:layout_width="wrap_content"
-        android:layout_height="150dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginLeft="8dp"
-        android:layout_marginRight="8dp"
-        app:srcCompat="@drawable/stepbar_4" />
+        android:layout_height="120dp"
+        app:srcCompat="@drawable/stepbar_4"
+        tools:layout_editor_absoluteX="0dp"/>
+
+    <TextView
+        android:id="@+id/textView4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        android:text="Step 3: Choose a start and end date for your private competition!"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toTopOf="@+id/startdateLayout"
+        app:layout_constraintTop_toBottomOf="@+id/stepbar"
+        app:layout_constraintVertical_bias="0.0"
+        tools:layout_editor_absoluteX="0dp" />
 
     <ListView
         android:id="@+id/specialListView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentStart="true"
-        android:layout_marginTop="0dp"
-        app:layout_constraintTop_toBottomOf="@+id/stepbar" />/>
+        android:layout_marginTop="20dp"
+        app:layout_constraintTop_toBottomOf="@+id/textView4"
+        tools:layout_editor_absoluteX="0dp" />
 
     <Button
         android:id="@+id/confirmspecialsbtn"
