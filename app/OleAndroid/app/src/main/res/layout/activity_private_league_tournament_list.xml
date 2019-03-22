@@ -9,25 +9,34 @@
     <ImageView
         android:id="@+id/stepbar"
         android:layout_width="wrap_content"
-        android:layout_height="150dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginLeft="8dp"
-        android:layout_marginRight="8dp"
-        app:srcCompat="@drawable/stepbar_2" />
+        android:layout_height="120dp"
+        app:srcCompat="@drawable/stepbar_2"
+        tools:layout_editor_absoluteX="0dp" />
+
+    <TextView
+        android:id="@+id/textView4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        android:text="Step 2: Select a league or tournament for your private group!"
+        android:textSize="18sp"
+        app:layout_constraintTop_toBottomOf="@+id/stepbar"
+        tools:layout_editor_absoluteX="0dp" />
 
     <ListView
         android:id="@+id/tournamentListView"
         android:layout_width="match_parent"
-        android:layout_height="690dp"
+        android:layout_height="689dp"
         android:layout_alignParentTop="true"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="20dp"
         android:cacheColorHint="#00000000"
         android:dividerHeight="1dp"
         android:footerDividersEnabled="true"
         android:headerDividersEnabled="true"
         android:visibility="visible"
-        app:layout_constraintTop_toBottomOf="@+id/stepbar" />
+        app:layout_constraintTop_toBottomOf="@+id/textView4"
+        tools:layout_editor_absoluteX="25dp" />
 
     <Button
         android:id="@+id/selectDateButton"
