@@ -16,7 +16,6 @@ public class Match {
     private int matchID;
     private int tournamentID;
     private Date matchDate;
-
     public Match(int matchID, Date matchDate, Time matchTime, String team1, String team2) {
         this.matchID = matchID;
         this.matchDate = matchDate;
@@ -28,6 +27,12 @@ public class Match {
     private String team1;
     private String team2;
     private int team1Score;
+
+    public Match(int matchID, int team1Score, int team2Score) {
+        this.matchID = matchID;
+        this.team1Score = team1Score;
+        this.team2Score = team2Score;
+    }
     private int team2Score;
 
     public Match() {
