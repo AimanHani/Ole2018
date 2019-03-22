@@ -16,6 +16,7 @@ public class PublicLeagueProfile implements Comparable {
     private String team2;
     private int totalPoints;
     private int rank;
+    private String country;
 
     public PublicLeagueProfile(String username, int leagueID, int totalPoints, int rank) {
         this.username = username;
@@ -23,6 +24,20 @@ public class PublicLeagueProfile implements Comparable {
         this.totalPoints = totalPoints;
         this.rank = rank;
     }
+
+    public PublicLeagueProfile(int logID, String username, int leagueID, String leagueName, int team1Prediction, int team2Prediction, Date matchDate, Time matchTime, String team1, String team2) {
+        this.logID = logID;
+        this.username = username;
+        this.leagueID = leagueID;
+        this.leagueName = leagueName;
+        this.team1Prediction = team1Prediction;
+        this.team2Prediction = team2Prediction;
+        this.matchDate = matchDate;
+        this.matchTime = matchTime;
+        this.team1 = team1;
+        this.team2 = team2;
+    }
+
 
     public int getTotalPoints() {
         return totalPoints;
@@ -123,20 +138,6 @@ public class PublicLeagueProfile implements Comparable {
     public void setRank(int rank) {
         this.rank = rank;
     }
-
-    public PublicLeagueProfile(int logID, String username, int leagueID, String leagueName, int team1Prediction, int team2Prediction, Date matchDate, Time matchTime, String team1, String team2) {
-        this.logID = logID;
-        this.username = username;
-        this.leagueID = leagueID;
-        this.leagueName = leagueName;
-        this.team1Prediction = team1Prediction;
-        this.team2Prediction = team2Prediction;
-        this.matchDate = matchDate;
-        this.matchTime = matchTime;
-        this.team1 = team1;
-        this.team2 = team2;
-    }
-
 
     @Override
     public int compareTo(Object o) {

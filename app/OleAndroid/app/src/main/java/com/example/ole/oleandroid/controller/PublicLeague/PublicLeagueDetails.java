@@ -15,14 +15,18 @@ import android.widget.TextView;
 
 import com.example.ole.oleandroid.R;
 
+import com.example.ole.oleandroid.controller.DAO.ScoreBoardDAO;
+import com.example.ole.oleandroid.controller.Leaderboard.LeaderboardPublicAdapter;
 import com.example.ole.oleandroid.controller.MatchesTabs;
 import com.example.ole.oleandroid.controller.PrivateLeagueController.PrivateLeagueDetails;
 import com.example.ole.oleandroid.controller.PrivateLeagueController.PrivateLeagueMatchesMain;
 import com.example.ole.oleandroid.controller.PrivateLeagueController.PrivateLeagueSpecialsList;
 import com.example.ole.oleandroid.controller.SideMenuBar;
 import com.example.ole.oleandroid.model.PublicLeague;
+import com.example.ole.oleandroid.model.PublicLeagueProfile;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 
 public class PublicLeagueDetails extends SideMenuBar implements View.OnClickListener, Serializable {
 
@@ -31,13 +35,12 @@ public class PublicLeagueDetails extends SideMenuBar implements View.OnClickList
     Button button, predict;
     PublicLeagueDetailsAdapter publicLeagueDetailsAdapter;
     ListView membersListView;
-    TextView prizeInput, leagueNameInput, publicPoints, totalNoMembers;
+    TextView prizeInput, leagueNameInput, publicPoints, totalNoMembers, specialtext, matchtext, mainview;
     PublicLeague publicLeague = null;
     int logId = 0;
     LinearLayout blackoutimage;
     FloatingActionButton main, predictSpecial, predictMatch;
     Animation FoodFabOpen, FoodFabClose, FabRClockwise, FabRAntiClockwise, Fadein, Fadeout;
-    TextView specialtext, matchtext, mainview;
     boolean isOpen = false;
 
     @Override
@@ -73,8 +76,12 @@ public class PublicLeagueDetails extends SideMenuBar implements View.OnClickList
         }
 
         membersListView = findViewById(R.id.membersListView);
-        publicLeagueDetailsAdapter = new PublicLeagueDetailsAdapter(PublicLeagueDetails.this, PublicLeagueDAO.loadPublicMembers(leagueId));
-        membersListView.setAdapter(publicLeagueDetailsAdapter);
+        ArrayList<PublicLeagueProfile> publicLeagueProfileList = ScoreBoardDAO.getPublicLeagueProfiles();
+        LeaderboardPublicAdapter lbPubAdapter = new LeaderboardPublicAdapter(PublicLeagueDetails.this, publicLeagueProfileList);
+        membersListView.setAdapter(lbPubAdapter);
+
+//        publicLeagueDetailsAdapter = new PublicLeagueDetailsAdapter(PublicLeagueDetails.this, PublicLeagueDAO.loadPublicMembers(leagueId));
+//        membersListView.setAdapter(publicLeagueDetailsAdapter);
 
 //        predict = findViewById(R.id.predict);
 //        predict.setOnClickListener(new View.OnClickListener() {
