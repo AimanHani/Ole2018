@@ -7,12 +7,21 @@ public class PrivateMembers {
     private String username;
     private int leagueId;
     private int points;
+    private String country;
 
-    public PrivateMembers(int logid, String username, int leagueId, int points) {
+//    public PrivateMembers(int logid, String username, int leagueId, int points) {
+//        this.logid = logid;
+//        this.username = username;
+//        this.leagueId = leagueId;
+//        this.points = points;
+//    }
+//    
+    public PrivateMembers(int logid, String username, int leagueId, int points, String country) {
         this.logid = logid;
         this.username = username;
         this.leagueId = leagueId;
         this.points = points;
+        this.country = country;
     }
 
     public int getLogid() {
@@ -46,7 +55,13 @@ public class PrivateMembers {
     public void setPoints(int points) {
         this.points = points;
     }
-    
-    
+
+    public String getCountry() {
+        return country;
+    }
+
+    public void setCountry(String country) {
+        this.country = country;
+    }   
     
 }

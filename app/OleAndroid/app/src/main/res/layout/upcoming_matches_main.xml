@@ -61,11 +61,10 @@
             style="?attr/buttonBarButtonStyle"
             android:layout_width="match_parent"
             android:layout_height="60dp"
-            android:layout_marginRight="1dp"
             android:layout_weight="1"
             android:background="@color/themeColor"
             android:baselineAligned="false"
-            android:text="Save Prediction"
+            android:text="SAVE PREDICTION"
             android:textColor="@color/white"
             android:textSize="20sp" />
 

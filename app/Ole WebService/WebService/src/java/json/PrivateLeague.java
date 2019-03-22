@@ -214,6 +214,7 @@ public class PrivateLeague extends HttpServlet {
                         json.put("username", members.getUsername());
                         json.put("leagueid", members.getLeagueId());
                         json.put("points", members.getPoints());
+                        json.put("country", members.getCountry());
                         list.put(json);
                     }
                     parentJson.put("results", list);

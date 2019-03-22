@@ -146,10 +146,13 @@ public class PrivateLeagueMatches extends HttpServlet {
                     json.put("team2", m.getTeam2());
                     json.put("team1Score", m.getTeam1Score());
                     json.put("team2Score", m.getTeam2Score());
+                    json.put("team1Predition", m.getTeam1Prediction());
+                    json.put("team2Prediction", m.getTeam2Prediction());
+                    json.put("points", m.getPoints());
                     it.remove(); // avoids a ConcurrentModificationException
                     list.put(json);
-
                 }
+                System.out.println("past" + list);
                 parentJson.put("results", list);
                 parentJson.put("status", "success");
                 parentJson.put("period", "past");

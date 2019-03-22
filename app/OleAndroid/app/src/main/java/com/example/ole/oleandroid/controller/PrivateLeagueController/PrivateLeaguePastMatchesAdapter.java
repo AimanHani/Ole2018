@@ -87,6 +87,50 @@ public class PrivateLeaguePastMatchesAdapter extends BaseAdapter {
         viewHolder.team2_photo.setImageResource(teamItemsList.get(matchList.get(position).getTeam2()).getmTeamImage());
 
         viewHolder.match_date.setText(matchList.get(position).getMatchDate()+" "+matchList.get(position).getMatchTime());
+
+        //get users prediction
+        if(matchList.get(position).getTeam1Prediction()==-1 || matchList.get(position).getTeam1Prediction()==-1){
+            viewHolder.userteam1_score.setText("-");
+            viewHolder.userteam2_score.setText("-");
+            viewHolder.points.setText("-");
+        }else{
+            viewHolder.userteam1_score.setText(matchList.get(position).getTeam1Prediction()+"");
+            viewHolder.userteam2_score.setText(matchList.get(position).getTeam2Prediction()+"");
+            viewHolder.points.setText("0");
+            Match m = matchList.get(position);
+            //setting the proper points
+
+            //team 1 wins
+            if(m.getTeam1Score()>m.getTeam2Score()){
+                if(m.getTeam1Prediction()>m.getTeam2Prediction()){
+                    viewHolder.points.setText(m.getPoints()+"");
+                    if(m.getTeam1Score()==m.getTeam1Prediction() && m.getTeam2Score()==m.getTeam2Prediction()){
+                        viewHolder.points.setText(m.getPoints()*2 + "");
+                    }
+                }
+            }
+            //team 2 wins
+            else if(m.getTeam2Score()>m.getTeam1Score()){
+                if(m.getTeam2Prediction()>m.getTeam1Prediction()){
+                    viewHolder.points.setText(m.getPoints()+"");
+                    if(m.getTeam1Score()==m.getTeam1Prediction() && m.getTeam2Score()==m.getTeam2Prediction()){
+                        viewHolder.points.setText(m.getPoints()*2 + "");
+                    }
+                }
+            }
+            //draw
+            else if(m.getTeam1Score() == m.getTeam2Score()){
+                if(m.getTeam1Prediction() == m.getTeam2Prediction()){
+                    viewHolder.points.setText(m.getPoints()+"");
+                    if(m.getTeam1Score()==m.getTeam1Prediction() && m.getTeam2Score()==m.getTeam2Prediction()){
+                        viewHolder.points.setText(m.getPoints()*2 + "");
+                    }
+                }
+            }else{
+                viewHolder.points.setText("0");
+            }
+
+        }
         return convertView;// returns the view for the current row
     }
 }

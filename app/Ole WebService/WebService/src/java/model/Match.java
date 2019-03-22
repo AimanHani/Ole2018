@@ -16,7 +16,6 @@ public class Match {
     private int matchID;
     private int tournamentID;
     private Date matchDate;
-
     public Match(int matchID, Date matchDate, Time matchTime, String team1, String team2) {
         this.matchID = matchID;
         this.matchDate = matchDate;
@@ -28,7 +27,16 @@ public class Match {
     private String team1;
     private String team2;
     private int team1Score;
+
+    public Match(int matchID, int team1Score, int team2Score) {
+        this.matchID = matchID;
+        this.team1Score = team1Score;
+        this.team2Score = team2Score;
+    }
     private int team2Score;
+    private int team1Prediction;
+    private int team2Prediction;
+    private int points;
 
     public Match() {
     }
@@ -42,6 +50,20 @@ public class Match {
         this.team2 = team2;
         this.team1Score = team1Score;
         this.team2Score = team2Score;
+    }
+    
+    public Match(int matchID, int tournamentID, Date matchDate, Time matchTime, String team1, String team2, int team1Score, int team2Score, int team1Prediction, int team2Prediction, int points) {
+        this.matchID = matchID;
+        this.tournamentID = tournamentID;
+        this.matchDate = matchDate;
+        this.matchTime = matchTime;
+        this.team1 = team1;
+        this.team2 = team2;
+        this.team1Score = team1Score;
+        this.team2Score = team2Score;
+        this.team1Prediction = team1Prediction;
+        this.team2Prediction = team2Prediction;
+        this.points = points;
     }
 
     public int getMatchID() {
@@ -107,4 +129,30 @@ public class Match {
     public void setTeam2Score(int team2Score) {
         this.team2Score = team2Score;
     }
+
+    public int getTeam1Prediction() {
+        return team1Prediction;
+    }
+
+    public void setTeam1Prediction(int team1Prediction) {
+        this.team1Prediction = team1Prediction;
+    }
+
+    public int getTeam2Prediction() {
+        return team2Prediction;
+    }
+
+    public void setTeam2Prediction(int team2Prediction) {
+        this.team2Prediction = team2Prediction;
+    }
+
+    public int getPoints() {
+        return points;
+    }
+
+    public void setPoints(int points) {
+        this.points = points;
+    }
+    
+    
 }

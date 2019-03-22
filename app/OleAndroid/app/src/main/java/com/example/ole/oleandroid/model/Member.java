@@ -6,12 +6,14 @@ public class Member {
     private String username;
     private int leagueId;
     private int points;
+    private String country;
 
-    public Member(int logid, String username, int leagueId, int points) {
+    public Member(int logid, String username, int leagueId, int points, String country) {
         this.logid = logid;
         this.username = username;
         this.leagueId = leagueId;
         this.points = points;
+        this.country = country;
     }
 
     public int getLogid() {
@@ -47,5 +49,8 @@ public class Member {
     }
 
 
+    public String getCountry() {        return country;   }
+
+    public void setCountry(String country) {        this.country = country;    }
 
 }

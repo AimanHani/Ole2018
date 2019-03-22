@@ -229,7 +229,7 @@ public class SpecialListAdapter extends BaseAdapter {
         players.add("Zlatan Ibrahimovic");
         players.add("Andrea Pirlo");
         players.add("Lionel Messi");
-        players.add("Lionel Messi");
+        players.add("Paul Pogba");
 
         return players;
     }

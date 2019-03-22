@@ -142,6 +142,9 @@ public class GetMatches extends HttpServlet {
                     json.put("team2", m.getTeam2());
                     json.put("team1Score", m.getTeam1Score());
                     json.put("team2Score", m.getTeam2Score());
+                    json.put("team1Predition", m.getTeam1Prediction());
+                    json.put("team2Prediction", m.getTeam2Prediction());
+                    json.put("points", m.getPoints());
                     it.remove(); // avoids a ConcurrentModificationException
                     list.put(json);
 

@@ -25,7 +25,7 @@
         android:layout_marginStart="0dp"
         android:background="@color/themeColor"
         android:baselineAligned="false"
-        android:text="Predict Specials"
+        android:text="SAVE MY SPECIALS"
         android:textColor="@color/white"
         android:textSize="20sp" />
 
