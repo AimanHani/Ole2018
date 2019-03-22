@@ -2,6 +2,7 @@ package com.example.ole.oleandroid.controller;
 
 import android.app.Dialog;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.os.StrictMode;
@@ -51,20 +52,9 @@ public class Login extends AppCompatActivity {
         signup = findViewById(R.id.signup);
         checksmth = findViewById(R.id.checksmth);
         forgotPwd = findViewById(R.id.forgotPwd);
-        //facebookButton = findViewById(R.id.facebookButton);
 
         StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
         StrictMode.setThreadPolicy(policy);
-        //result = (TextView) findViewById(R.id.result);
-        //setContentView(R.layout.activity_loading_page);
-
-/*        facebookButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(Login.this, PastMatchesTab.class);
-                startActivity(intent);
-            }
-        });*/
 
         forgotPwd.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -78,26 +68,32 @@ public class Login extends AppCompatActivity {
         signin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (username.getText().toString().equals("") || password.getText().toString().equals("")) {
-                    Toast.makeText(getBaseContext(), "Login failed", Toast.LENGTH_LONG).show();
+                final String usernameInput = username.getText().toString();
+                final String passwordInput = password.getText().toString();
+
+                if (usernameInput.equals("") || passwordInput.equals("")) {
+                    showToast();
                 } else {
                     final Dialog load = loadingDialog();
                     new android.os.Handler().postDelayed(
                             new Runnable() {
                                 public void run() {
-                                    System.out.println("Signing In " + username.getText().toString());
-                                    String status = "error";
+                                    System.out.println("Signing In " + usernameInput);
 
-                                    String send = concatUsernamePwd(username.getText().toString(), password.getText().toString());
-
+                                    String send = concatUsernamePwd(usernameInput, passwordInput);
                                     Boolean valid = LoginDAO.validate(send);
                                     load.dismiss();
 
                                     if (valid) {
+                                        SharedPreferences preferences = getSharedPreferences("logged",MODE_PRIVATE);
+                                        preferences.edit().putBoolean("login", true).apply();
+                                        preferences.edit().putString("username", usernameInput).apply();
+                                        preferences.edit().putString("password", passwordInput).apply();
+
                                         Intent intent = new Intent(Login.this, HomeLeague.class);
                                         startActivity(intent);
                                     } else {
-                                        Toast.makeText(getBaseContext(), "Login failed", Toast.LENGTH_LONG).show();
+                                        showToast();
                                     }
                                 }
                             }, 3000);
@@ -125,6 +121,10 @@ public class Login extends AppCompatActivity {
 
     }
 
+    public void showToast() {
+        Toast.makeText(getBaseContext(), "Login failed", Toast.LENGTH_LONG).show();
+    }
+
     public Dialog loadingDialog() {
         System.out.println("loading pop");
         Dialog dialog2 = new Dialog(Login.this);
@@ -136,13 +136,7 @@ public class Login extends AppCompatActivity {
         return dialog2;
     }
 
-
-    public void loadSamePage() {
-        Intent intent = new Intent(Login.this, Login.class);
-        startActivity(intent);
-    }
-
-    public String concatUsernamePwd(String username, String pwd) {
+    public static String concatUsernamePwd(String username, String pwd) {
         return "username=" + username + "&password=" + pwd;
     }
 }

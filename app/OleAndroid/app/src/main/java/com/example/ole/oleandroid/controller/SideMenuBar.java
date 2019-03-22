@@ -2,6 +2,7 @@ package com.example.ole.oleandroid.controller;
 
 import android.app.Dialog;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
@@ -102,6 +103,10 @@ public class SideMenuBar extends AppCompatActivity implements NavigationView.OnN
                 break;
             case R.id.menu_list_logout:
                 UserDAO.setLoginUser(null);
+                SharedPreferences preferences = getSharedPreferences("logged",MODE_PRIVATE);
+                preferences.edit().remove("username").apply(); //clear all stored data
+                preferences.edit().remove("password").apply();
+                preferences.edit().remove("login").apply();;
                 successfulAlertDialog();
                 break;
         }
@@ -137,6 +142,8 @@ public class SideMenuBar extends AppCompatActivity implements NavigationView.OnN
         final Dialog dialog = new Dialog(SideMenuBar.this);
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
         dialog.setContentView(R.layout.successful_pop_up);
+        dialog.setCancelable(false);
+        dialog.setCanceledOnTouchOutside(false);
 
         TextView close = dialog.findViewById(R.id.confirm);
         close.setText("Ok");
