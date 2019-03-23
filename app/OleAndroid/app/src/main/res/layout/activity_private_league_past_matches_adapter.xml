@@ -221,8 +221,7 @@
                 android:layout_height="100dp"
                 android:gravity="center"
                 android:orientation="vertical"
-                android:layout_weight="1"
-                android:background="@color/lightGrey">
+                android:layout_weight="1">
 
                 <!--<Button
                     android:layout_width="wrap_content"
@@ -248,18 +247,40 @@
             </LinearLayout>
 
             <LinearLayout
+
                 android:layout_width="0dp"
-                android:layout_height="100dp"
+                android:layout_height="85dp"
                 android:gravity="center"
                 android:orientation="vertical"
-                android:layout_weight="1"
-                android:background="@color/lightGrey">
+                android:layout_weight="1">
+
+                <android.support.constraint.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="35dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="8dp"
+                        android:layout_marginTop="18dp"
+                        android:gravity="center"
+                        android:text="Score"
+                        android:textColor="@color/dimgrey"
+                        android:textSize="18sp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+
+                </android.support.constraint.ConstraintLayout>
 
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
+                    android:layout_height="45dp"
                     android:orientation="horizontal"
                     android:weightSum="3">
+
 
                     <LinearLayout
                         android:layout_width="match_parent"
@@ -273,7 +294,7 @@
                             android:layout_height="wrap_content"
                             android:text="0"
                             android:textColor="@color/black"
-                            android:textSize="40sp" />
+                            android:textSize="35sp" />
 
                     </LinearLayout>
 
@@ -288,7 +309,7 @@
                             android:layout_height="wrap_content"
                             android:text=":"
                             android:textColor="@color/black"
-                            android:textSize="40sp" />
+                            android:textSize="35sp" />
 
                     </LinearLayout>
 
@@ -304,10 +325,8 @@
                             android:layout_height="wrap_content"
                             android:text="2"
                             android:textColor="@color/black"
-                            android:textSize="40sp" />
-
+                            android:textSize="35sp" />
                     </LinearLayout>
-
                 </LinearLayout>
             </LinearLayout>
 
@@ -316,8 +335,12 @@
                 android:layout_height="100dp"
                 android:gravity="center"
                 android:orientation="vertical"
-                android:layout_weight="1"
-                android:background="@color/lightGrey">
+                android:layout_weight="1">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Points"
+                    android:textSize="18sp" />
 
                 <TextView
                     android:id="@+id/points"
@@ -325,12 +348,8 @@
                     android:layout_height="wrap_content"
                     android:text="0"
                     android:textColor="@color/black"
-                    android:textSize="40sp" />
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="pts"
-                    android:textSize="30sp" />
+                    android:textSize="35sp" />
+
             </LinearLayout>
 
         </LinearLayout>
