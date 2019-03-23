@@ -20,7 +20,7 @@
         <ImageView xmlns:app="http://schemas.android.com/apk/res-auto"
             android:id="@+id/leaguelogo"
             android:layout_width="85dp"
-            android:layout_height="80dp"
+            android:layout_height="70dp"
             android:layout_gravity="center"
             android:layout_marginStart="5dp"
             android:layout_marginTop="5dp"

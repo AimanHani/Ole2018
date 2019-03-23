@@ -6,7 +6,7 @@
         android:icon="@drawable/icon_profile"/>
 
     <item android:id="@+id/menu_list_leagues"
-        android:title="Leagues"
+        android:title="Competitions"
         android:icon="@drawable/icon_leagues"/>
 
     <item android:id="@+id/menu_list_leaderboard"

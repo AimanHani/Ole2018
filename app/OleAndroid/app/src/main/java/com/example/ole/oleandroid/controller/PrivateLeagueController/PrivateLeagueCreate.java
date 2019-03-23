@@ -235,12 +235,29 @@ public void validationOnTextView() {
                     PrivateLeagueCreate.this.runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
-                            if (s.toString().isEmpty() || s.toString().length() < 3 || s.toString().contains("$")|| s.toString().contains("money")|| s.toString().contains("dollars") || s.toString().contains("bucks")) {
-                                prize.setError("invalid input");
+
+                            try{
+                                Integer.parseInt(s.toString().trim());
+                                //System.out.println(Integer.parseInt(s.toString().trim()));
+                                prize.setError("Invalid input");
                                 prizeOk = false;
-                            } else {
-                                prize.setError("Good", tickDone);
-                                prizeOk = true;
+                            }catch(Exception e){
+                                if (s.toString().isEmpty() || s.toString().length() < 3 || s.toString().contains("$")|| s.toString().contains("money")|| s.toString().contains("dollar") || s.toString().contains("thousand")
+                                        || s.toString().contains("bucks") || s.toString().contains("euro") || s.toString().contains("rupee") || s.toString().contains("rupiah") || s.toString().contains("million")
+                                        || s.toString().contains("rial") || s.toString().contains("yen") || s.toString().contains("pound") || s.toString().contains("ringgit") || s.toString().contains("cent")
+                                        || s.toString().contains("won") || s.toString().contains("peso") || s.toString().contains("baht") || s.toString().contains("dong") || s.toString().contains("bdt")
+                                        || s.toString().contains("USD") || s.toString().contains("BND") || s.toString().contains("KHR") || s.toString().contains("CNY") || s.toString().contains("AUD")
+                                        || s.toString().contains("EUR") || s.toString().contains("HKD") || s.toString().contains("INR") || s.toString().contains("IDR") || s.toString().contains("JPY")
+                                        || s.toString().contains("MYR") || s.toString().contains("MMK") || s.toString().contains("KPW") || s.toString().contains("PKR") || s.toString().contains("PHP")
+                                        || s.toString().contains("QAR") || s.toString().contains("THB") || s.toString().contains("USD") || s.toString().contains("SGD") || s.toString().contains("KRW")
+                                        || s.toString().contains("TWD") || s.toString().contains("VND") || s.toString().contains("€") || s.toString().contains("£") || s.toString().contains("฿")
+                                        || s.toString().contains("Rp")|| s.toString().contains("₩") || s.toString().contains("¥")){
+                                    prize.setError("Invalid input");
+                                    prizeOk = false;
+                                }else {
+                                    prize.setError("Good", tickDone);
+                                    prizeOk = true;
+                                }
                             }
                         }
                     });

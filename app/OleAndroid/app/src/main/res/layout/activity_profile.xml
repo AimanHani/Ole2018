@@ -337,7 +337,7 @@
                             android:id="@+id/totPlay"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:text="Leagues Joined"
+                            android:text="Competitions Joined"
                             android:textAlignment="center"
                             android:textColor="@color/black"
                             android:textSize="18dp"

@@ -10,7 +10,7 @@
 
     <LinearLayout
         android:orientation="horizontal"
-        android:layout_height="43dp"
+        android:layout_height="45dp"
         android:layout_width="match_parent"
         android:weightSum="8">
 
@@ -53,7 +53,7 @@
         android:textColor="@color/black"
         android:text="Username"
         android:gravity="left|center"
-        android:layout_weight="2"
+        android:layout_weight="3.5"
         android:layout_gravity="center"
         android:id="@+id/username"
         app:layout_constraintStart_toStartOf="parent"
@@ -68,26 +68,27 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
-        android:layout_weight="1.5"
+        android:layout_weight="1"
+        android:gravity="right"
         android:id="@+id/countryImage"
         app:srcCompat="@drawable/singapore"
         app:layout_constraintStart_toStartOf="parent"/>
 
-    <TextView
-        android:layout_height="match_parent"
-        android:layout_width="wrap_content"
-        android:textSize="20sp"
-        android:textColor="@color/black"
-        android:text="1"
-        android:gravity="left"
-        android:layout_weight="2.5"
-        android:layout_gravity="center"
-        android:id="@+id/score"
-        android:layout_marginBottom="5dp"
-        android:layout_marginEnd="5dp"
-        android:layout_marginTop="5dp"
-        android:layout_marginStart="5dp"
-        android:paddingLeft="5dp"/>
+        <TextView
+            android:id="@+id/score"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_gravity="center_vertical"
+            android:layout_marginStart="5dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginEnd="5dp"
+            android:layout_marginBottom="5dp"
+            android:layout_weight="1.5"
+            android:gravity="right"
+            android:paddingLeft="5dp"
+            android:text="1"
+            android:textColor="@color/black"
+            android:textSize="18sp" />
 
     </LinearLayout>
 </LinearLayout>

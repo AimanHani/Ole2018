@@ -41,7 +41,7 @@
             android:id="@+id/leagueNameText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text=" Choose a League Name:"
+            android:text=" Choose a Competition Name:"
             android:textSize="18sp"
             tools:layout_editor_absoluteX="16dp"
             tools:layout_editor_absoluteY="115dp" />
@@ -51,7 +51,7 @@
             android:layout_width="320dp"
             android:layout_height="match_parent"
             android:ems="10"
-            android:hint="Your League Name"
+            android:hint="Your Competition Name"
             android:inputType="textPersonName"
             android:textAlignment="textStart"
             android:textSize="16sp"

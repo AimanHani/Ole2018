@@ -71,7 +71,7 @@ public class PublicLeagueDetails extends SideMenuBar implements View.OnClickList
         if (publicLeague != null) {
             prizeInput.setText(publicLeague.getPrize());
             leagueNameInput.setText(publicLeague.getLeagueName());
-            publicPoints.setText(publicLeague.getPointsAllocated() + "pts");
+            publicPoints.setText(publicLeague.getPointsAllocated() + " pts");
             totalNoMembers.setText(PublicLeagueDAO.getNumMembers()+ "");
         }
 
