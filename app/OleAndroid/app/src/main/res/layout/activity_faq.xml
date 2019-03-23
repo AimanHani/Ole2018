@@ -38,7 +38,7 @@
     <GridLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="4"
+        android:layout_weight="10"
         android:alignmentMode="alignMargins"
         android:columnCount="2"
         android:columnOrderPreserved="false"
@@ -63,8 +63,8 @@
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center_vertical|center_horizontal"
-                android:layout_margin="16dp"
+                android:layout_gravity="center"
+                android:layout_margin="10dp"
                 android:orientation="vertical">
 
                 <ImageView
@@ -138,15 +138,15 @@
             android:layout_marginTop="16dp"
             android:layout_marginRight="16dp"
             android:layout_marginBottom="16dp"
+            android:alpha="0.8"
             app:cardCornerRadius="8dp"
-            app:cardElevation="8dp"
-            android:alpha="0.8">
+            app:cardElevation="8dp">
 
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical|center_horizontal"
-                android:layout_margin="16dp"
+                android:layout_margin="5dp"
                 android:orientation="vertical">
 
                 <ImageView
@@ -159,11 +159,12 @@
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_weight="0"
                     android:gravity="center"
-                    android:text=" Public League"
+                    android:text=" Public Competition"
                     android:textAlignment="center"
                     android:textColor="@color/black"
-                    android:textSize="18dp"
+                    android:textSize="16sp"
                     android:textStyle="bold" />
             </LinearLayout>
 
@@ -176,19 +177,19 @@
             android:layout_height="0dp"
             android:layout_rowWeight="1"
             android:layout_columnWeight="1"
-            android:layout_marginLeft="10dp"
-            android:layout_marginTop="10dp"
-            android:layout_marginRight="10dp"
-            android:layout_marginBottom="10dp"
+            android:layout_marginLeft="16dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginRight="16dp"
+            android:layout_marginBottom="16dp"
+            android:alpha="0.8"
             app:cardCornerRadius="8dp"
-            app:cardElevation="8dp"
-            android:alpha="0.8">
+            app:cardElevation="8dp">
 
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical|center_horizontal"
-                android:layout_margin="16dp"
+                android:layout_margin="4dp"
                 android:orientation="vertical">
 
                 <ImageView
@@ -201,11 +202,10 @@
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_weight="0"
-                    android:text="Private League"
+                    android:text="Private Competition"
                     android:textAlignment="center"
                     android:textColor="@color/black"
-                    android:textSize="18sp"
+                    android:textSize="16sp"
                     android:textStyle="bold" />
             </LinearLayout>
 
