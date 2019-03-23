@@ -9,14 +9,18 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.ole.oleandroid.R;
+import com.example.ole.oleandroid.controller.DAO.TeamCountryItemDAO;
+import com.example.ole.oleandroid.model.CountryItem;
 import com.example.ole.oleandroid.model.PublicLeagueProfile;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public class LeaderboardPublicAdapter extends BaseAdapter{
     private Context context; //context
     private ArrayList<PublicLeagueProfile> pubLeagList;//data source of the list adapter
     private ViewHolder viewHolder;
+    HashMap<String, CountryItem> countryItemsList = TeamCountryItemDAO.countryItemsList;
 
     private static class ViewHolder {
         TextView userposition,username,score;
@@ -63,9 +67,10 @@ public class LeaderboardPublicAdapter extends BaseAdapter{
         viewHolder.userProfilePicture = convertView.findViewById(R.id.userProfilePicture);
         viewHolder.countryImage = convertView.findViewById(R.id.countryImage);
 
-        viewHolder.userposition.setText(pubLeagList.get(position).getRank()+"");
+        viewHolder.userposition.setText("#"+ pubLeagList.get(position).getRank()+"");
         viewHolder.username.setText(pubLeagList.get(position).getUsername());
-        viewHolder.score.setText(pubLeagList.get(position).getTotalPoints()+"");
+        viewHolder.score.setText(pubLeagList.get(position).getTotalPoints()+" pts");
+        viewHolder.countryImage.setImageResource(countryItemsList.get(pubLeagList.get(position).getCountry()).getmFlagImage());
 
         return convertView;// returns the view for the current row
     }

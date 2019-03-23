@@ -12,8 +12,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.ole.oleandroid.R;
-import com.example.ole.oleandroid.controller.DAO.MatchDAO;
-import com.example.ole.oleandroid.controller.DAO.TeamItemDAO;
+import com.example.ole.oleandroid.controller.DAO.TeamCountryItemDAO;
 import com.example.ole.oleandroid.model.Match;
 import com.example.ole.oleandroid.model.TeamItems;
 
@@ -74,7 +73,7 @@ public class UpcomingMatchListAdapter extends BaseAdapter {
             viewHolder.team2_photo = convertView.findViewById(R.id.team2_photo);
 
             final Match m = (Match) getItem(position);
-            HashMap<String, TeamItems> teamItemsList = TeamItemDAO.initiateTeamList();
+            HashMap<String, TeamItems> teamItemsList = TeamCountryItemDAO.initiateTeamList();
             //System.out.println(viewHolder.team1_name.getText().toString());
             viewHolder.team1_name.setText(m.getTeam1());
             viewHolder.team1_photo.setImageResource(teamItemsList.get(m.getTeam1()).getmTeamImage());

@@ -1,13 +1,14 @@
 package com.example.ole.oleandroid.controller.DAO;
 
 import com.example.ole.oleandroid.R;
+import com.example.ole.oleandroid.model.CountryItem;
 import com.example.ole.oleandroid.model.TeamItems;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 
-public class TeamItemDAO {
+public class TeamCountryItemDAO {
     public static HashMap<String, TeamItems> teamItemsList = initiateTeamList();
+    public static HashMap<String, CountryItem> countryItemsList = initiateCountryList();
 
     public static HashMap<String, TeamItems> initiateTeamList(){
         HashMap<String, TeamItems> teamItemsList = new HashMap<>();
@@ -32,6 +33,13 @@ public class TeamItemDAO {
         teamItemsList.put("West Ham", new TeamItems("West Ham", R.drawable.west_ham));
         teamItemsList.put("Wolves", new TeamItems("Wolves", R.drawable.wolverhampton));
         return teamItemsList;
+    }
+
+    public static HashMap<String, CountryItem> initiateCountryList(){
+        HashMap<String, CountryItem> countryItemsList = new HashMap<>();
+        countryItemsList.put("Singapore", new CountryItem("Singapore", R.drawable.singapore));
+        countryItemsList.put("Malaysia", new CountryItem("Malaysia", R.drawable.malaysia));
+        return countryItemsList;
     }
 
 

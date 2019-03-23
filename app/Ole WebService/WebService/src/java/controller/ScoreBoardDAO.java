@@ -80,9 +80,10 @@ public class ScoreBoardDAO {
 
     public static ArrayList<String> getAllUsers(int leagueID) {
         ArrayList<String> usernames = new ArrayList();
-        try (Connection conn = DBConnection.getConnection(); PreparedStatement stmt = conn.prepareStatement("select distinct username from log where leagueId = ?");) {
+        try (Connection conn = DBConnection.getConnection(); PreparedStatement stmt = conn.prepareStatement("select distinct username from log where leagueId = ? and username != ?");) {
 
             stmt.setInt(1, leagueID);
+            stmt.setString(2, "admin");
             ResultSet rs = stmt.executeQuery();
 
             while (rs.next()) {
@@ -140,7 +141,7 @@ public class ScoreBoardDAO {
                         totalPoints += rs.getInt(1);
                         leagueName = rs.getString(2);
                     }
-                    
+
                     plf = new PrivateLeagueProfile(usernames.get(i), leagueID, leagueName, totalPoints);
                     rs.close();
                     conn.close();
@@ -178,6 +179,26 @@ public class ScoreBoardDAO {
         }
         //}
         return privateLeaguesIDsOfTheUserJoined;
+    }
+
+    public static String getUserCountry(String username) {
+        try (Connection conn = DBConnection.getConnection(); PreparedStatement stmt = conn.prepareStatement("select country from user where username = ?");) {
+            stmt.setString(1, username);
+            ResultSet rs = stmt.executeQuery();
+
+            while (rs.next()) {
+                return rs.getString(1);
+            }
+
+            rs.close();
+            conn.close();
+
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        } catch (ClassNotFoundException ex) {
+            ex.printStackTrace();
+        }
+        return null;
     }
 
 }

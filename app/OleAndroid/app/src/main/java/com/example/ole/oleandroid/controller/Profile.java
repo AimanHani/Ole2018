@@ -9,7 +9,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.ole.oleandroid.R;
-import com.example.ole.oleandroid.controller.DAO.TeamItemDAO;
+import com.example.ole.oleandroid.controller.DAO.TeamCountryItemDAO;
 import com.example.ole.oleandroid.controller.DAO.UserDAO;
 import com.example.ole.oleandroid.model.User;
 
@@ -65,7 +65,7 @@ public class Profile extends SideMenuBar {
         if (numLeaguesJoined != null){
             playQty.setText(numLeaguesJoined);
         }
-        teamImage.setImageResource(TeamItemDAO.teamItemsList.get(loginUser.getFavoriteTeam()).getmTeamImage());
+        teamImage.setImageResource(TeamCountryItemDAO.teamItemsList.get(loginUser.getFavoriteTeam()).getmTeamImage());
 
 
     }

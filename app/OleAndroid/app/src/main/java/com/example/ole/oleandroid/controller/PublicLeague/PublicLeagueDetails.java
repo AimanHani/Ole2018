@@ -16,17 +16,20 @@ import android.widget.TextView;
 import com.example.ole.oleandroid.R;
 
 import com.example.ole.oleandroid.controller.DAO.ScoreBoardDAO;
+import com.example.ole.oleandroid.controller.DAO.TeamCountryItemDAO;
 import com.example.ole.oleandroid.controller.Leaderboard.LeaderboardPublicAdapter;
 import com.example.ole.oleandroid.controller.MatchesTabs;
 import com.example.ole.oleandroid.controller.PrivateLeagueController.PrivateLeagueDetails;
 import com.example.ole.oleandroid.controller.PrivateLeagueController.PrivateLeagueMatchesMain;
 import com.example.ole.oleandroid.controller.PrivateLeagueController.PrivateLeagueSpecialsList;
 import com.example.ole.oleandroid.controller.SideMenuBar;
+import com.example.ole.oleandroid.model.CountryItem;
 import com.example.ole.oleandroid.model.PublicLeague;
 import com.example.ole.oleandroid.model.PublicLeagueProfile;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public class PublicLeagueDetails extends SideMenuBar implements View.OnClickListener, Serializable {
     View view;
@@ -34,9 +37,8 @@ public class PublicLeagueDetails extends SideMenuBar implements View.OnClickList
     PublicLeagueDetailsAdapter publicLeagueDetailsAdapter;
     ListView membersListView;
     TextView prizeInput, leagueNameInput, publicPoints, totalNoMembers, specialtext, matchtext, mainview;
-    PublicLeague publicLeague = null;
-    int logId = 0;
     LinearLayout blackoutimage;
+    PublicLeague publicLeague;
     FloatingActionButton main, predictSpecial, predictMatch;
     Animation FoodFabOpen, FoodFabClose, FabRClockwise, FabRAntiClockwise, Fadein, Fadeout;
     boolean isOpen = false;
@@ -50,51 +52,25 @@ public class PublicLeagueDetails extends SideMenuBar implements View.OnClickList
         super.mDrawerlayout.addView(contentView, 0);
 
         Bundle bundle = getIntent().getExtras();
-        logId = bundle.getInt("logId");
+        final int logId = bundle.getInt("logId");
         int leagueId = bundle.getInt("leagueId");
+
         publicLeague = PublicLeagueDAO.getOnePublicLeague(leagueId);
-
-        //PublicLeagueDAO.loadPublicMembers(leagueId);
-
-        membersListView = findViewById(R.id.membersListView);
-        publicLeagueDetailsAdapter = new PublicLeagueDetailsAdapter(PublicLeagueDetails.this, PublicLeagueDAO.loadPublicMembers(leagueId));
-        membersListView.setAdapter(publicLeagueDetailsAdapter);
+        ArrayList<PublicLeagueProfile> publicLeagueProfileList = ScoreBoardDAO.getPublicLeagueProfiles();
 
         prizeInput = findViewById(R.id.publicPrizeInput);
         leagueNameInput = findViewById(R.id.leagueNameInput);
         publicPoints = findViewById(R.id.publicPoints);
         totalNoMembers = findViewById(R.id.totalNoMembers);
-
-
-        if (publicLeague != null) {
-            prizeInput.setText(publicLeague.getPrize());
-            leagueNameInput.setText(publicLeague.getLeagueName());
-            publicPoints.setText(publicLeague.getPointsAllocated() + "pts");
-            totalNoMembers.setText(PublicLeagueDAO.getNumMembers() + "");
-        }
-
         membersListView = findViewById(R.id.membersListView);
-        ArrayList<PublicLeagueProfile> publicLeagueProfileList = ScoreBoardDAO.getPublicLeagueProfiles();
+
+
+        prizeInput.setText(publicLeague.getPrize());
+        leagueNameInput.setText(publicLeague.getLeagueName());
+        totalNoMembers.setText(publicLeagueProfileList.size() + " members");
+
         LeaderboardPublicAdapter lbPubAdapter = new LeaderboardPublicAdapter(PublicLeagueDetails.this, publicLeagueProfileList);
         membersListView.setAdapter(lbPubAdapter);
-
-//        publicLeagueDetailsAdapter = new PublicLeagueDetailsAdapter(PublicLeagueDetails.this, PublicLeagueDAO.loadPublicMembers(leagueId));
-//        membersListView.setAdapter(publicLeagueDetailsAdapter);
-
-//        predict = findViewById(R.id.predict);
-//        predict.setOnClickListener(new View.OnClickListener() {
-//
-//            @Override
-//            public void onClick(View view) {
-//                Intent intent = new Intent(PublicLeagueDetails.this, MatchesTabs.class);
-//                Bundle bundle = new Bundle();
-//                bundle.putInt("logId", publicLeague.getLogId());
-//                bundle.putInt("leagueId", publicLeague.getLeagueId());
-//                intent.putExtras(bundle);
-//                PublicLeagueDetails.this.startActivity(intent);
-//            }
-//
-//        });
 
         blackoutimage = findViewById(R.id.blackoutimage);
         main = findViewById(R.id.floatingActionButton);
@@ -140,6 +116,8 @@ public class PublicLeagueDetails extends SideMenuBar implements View.OnClickList
                     predictMatch.setClickable(true);
                     specialtext.setVisibility(View.VISIBLE);
                     matchtext.setVisibility(View.VISIBLE);
+                    specialtext.bringToFront();
+                    matchtext.bringToFront();
                     isOpen = true;
 
                     predictMatch.setOnClickListener(new View.OnClickListener() {
@@ -225,6 +203,8 @@ public class PublicLeagueDetails extends SideMenuBar implements View.OnClickList
                     predictMatch.setClickable(true);
                     specialtext.setVisibility(View.VISIBLE);
                     matchtext.setVisibility(View.VISIBLE);
+                    specialtext.bringToFront();
+                    matchtext.bringToFront();
                     isOpen = true;
 
                     predictMatch.setOnClickListener(this);

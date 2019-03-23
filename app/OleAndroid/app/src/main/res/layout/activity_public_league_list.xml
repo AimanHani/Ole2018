@@ -6,18 +6,16 @@
     android:layout_width="match_parent"
     android:orientation="vertical"
     android:layout_height="match_parent">
-    //tools:context=".controller.PublicLeagueList"
-    //<!-- THIS LINE WAS ADDED TO CONNECT TO PublicLeagueList.java -->
 
     <LinearLayout
-        android:id="@+id/joinleaguebtn"
+        android:id="@+id/publicLeagueRow"
+        android:clickable="true"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:weightSum="5">
+        android:weightSum="6">
 
-        <ImageView
-            xmlns:app="http://schemas.android.com/apk/res-auto"
+        <ImageView xmlns:app="http://schemas.android.com/apk/res-auto"
             android:id="@+id/leaguelogo"
             android:layout_width="match_parent"
             android:layout_height="80dp"
@@ -26,12 +24,13 @@
             android:layout_marginTop="5dp"
             android:layout_marginEnd="5dp"
             android:layout_marginBottom="5dp"
-            android:layout_weight="3.6"
+            android:layout_weight="2.1"
             android:src="@drawable/englishpremierleague"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/clubleftname"
             app:layout_constraintStart_toEndOf="@+id/currentscore"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            android:clickable="false"/>
 
         <TextView
             android:id="@+id/leaguename"
@@ -49,11 +48,81 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            android:clickable="false"/>
+
+        <Button
+            android:id="@+id/joinleaguebtn"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginStart="5dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginEnd="5dp"
+            android:layout_marginBottom="5dp"
+            android:layout_weight="2.5"
+            android:text="Join"
+            android:clickable="false"/>
 
     </LinearLayout>
 </LinearLayout>
 
+
+<!--    <?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+xmlns:android="http://schemas.android.com/apk/res/android"
+xmlns:app="http://schemas.android.com/apk/res-auto"
+xmlns:tools="http://schemas.android.com/tools"
+android:layout_width="match_parent"
+android:orientation="vertical"
+android:layout_height="match_parent">
+//tools:context=".controller.PublicLeagueList"
+//&lt;!&ndash; THIS LINE WAS ADDED TO CONNECT TO PublicLeagueList.java &ndash;&gt;
+
+<LinearLayout
+    android:id="@+id/joinleaguebtn"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:weightSum="">
+
+    <ImageView
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/leaguelogo"
+        android:layout_width="match_parent"
+        android:layout_height="80dp"
+        android:layout_gravity="center"
+        android:layout_marginStart="5dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginEnd="5dp"
+        android:layout_marginBottom="5dp"
+        android:layout_weight="3.6"
+        android:src="@drawable/englishpremierleague"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/clubleftname"
+        app:layout_constraintStart_toEndOf="@+id/currentscore"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/leaguename"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginStart="5dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginEnd="5dp"
+        android:layout_marginBottom="5dp"
+        android:layout_weight="1.4"
+        android:gravity="left"
+        android:text="English Premier League"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+</LinearLayout>
+</LinearLayout>-->
 
     <!--            <Button
                     android:id="@+id/joinleaguebtn"

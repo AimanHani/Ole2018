@@ -73,9 +73,7 @@ public class PrivateLeagueDetails extends SideMenuBar implements View.OnClickLis
 
         PrivateLeagueDAO.clearAllPrivateLeague();
         privateleague = PrivateLeagueDAO.getPrivateLeague(leagueid);
-
-        ArrayList<Member> allPrivateMembers = PrivateMembersDAO.getPrivateMembers(leagueid);
-        numMembers = allPrivateMembers.size();
+        ArrayList<PrivateLeagueProfile> privateLeagueProfileList = ScoreBoardDAO.getOnePrivateLeagueProfiles(Integer.parseInt(leagueid));
         logid = PrivateLeagueDAO.getAdminLogId(leagueid);
 
 
@@ -85,15 +83,11 @@ public class PrivateLeagueDetails extends SideMenuBar implements View.OnClickLis
         privatepoints = findViewById(R.id.privatepoints);
         totalNoMembers = findViewById(R.id.totalNoMembers);
 
-        if (privateleague != null) {
-            privatePrizeInput.setText(privateleague.getPrize());
-            leagueNameInput.setText(privateleague.getLeagueName());
-            creator.setText(privateleague.getUsername());
-            privatepoints.setText(privateleague.getPointsAllocated() + "");
-            totalNoMembers.setText(numMembers + "");
-        }
-
-        ArrayList<PrivateLeagueProfile> privateLeagueProfileList = ScoreBoardDAO.getOnePrivateLeagueProfiles(Integer.parseInt(leagueid));
+        privatePrizeInput.setText(privateleague.getPrize());
+        leagueNameInput.setText(privateleague.getLeagueName());
+        creator.setText(privateleague.getUsername());
+        privatepoints.setText(privateleague.getPointsAllocated() + "");
+        totalNoMembers.setText(privateLeagueProfileList.size() + "");
 
         privateLeagueListView = findViewById(R.id.privateLeagueListView);
         LeaderboardPrivateAdapter leaderboardPrivateAdapter = new LeaderboardPrivateAdapter(PrivateLeagueDetails.this, privateLeagueProfileList);
@@ -218,6 +212,8 @@ public class PrivateLeagueDetails extends SideMenuBar implements View.OnClickLis
                     predictMatch.setClickable(true);
                     specialtext.setVisibility(View.VISIBLE);
                     matchtext.setVisibility(View.VISIBLE);
+                    specialtext.bringToFront();
+                    matchtext.bringToFront();
                     isOpen = true;
                     predictMatch.setOnClickListener(this);
                     predictSpecial.setOnClickListener(this);

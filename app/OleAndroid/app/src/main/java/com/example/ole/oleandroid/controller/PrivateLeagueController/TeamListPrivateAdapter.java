@@ -9,10 +9,8 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import com.example.ole.oleandroid.controller.DAO.TeamItemDAO;
-import com.example.ole.oleandroid.model.Match;
+import com.example.ole.oleandroid.controller.DAO.TeamCountryItemDAO;
 import com.example.ole.oleandroid.model.TeamItems;
 import com.example.ole.oleandroid.model.Teams;
 
@@ -30,7 +28,7 @@ public class TeamListPrivateAdapter extends BaseAdapter {
     private Button confirmspecialsbtn;
     private CheckBox checkPrivateTeam;
     private ImageView profile_image;
-//    HashMap<String, TeamItems> teamItemsList = TeamItemDAO.teamItemsList;
+//    HashMap<String, TeamItems> teamItemsList = TeamCountryItemDAO.teamItemsList;
 
     private static class ViewHolder {
         ImageView profile_image;
@@ -73,7 +71,7 @@ public class TeamListPrivateAdapter extends BaseAdapter {
     public View getView(int position, View convertView, ViewGroup parent) {
         // inflate the layout for each list row
         final Teams tt = (Teams) getItem(position);
-        HashMap<String, TeamItems> teamItemsList = TeamItemDAO.initiateTeamList();
+        HashMap<String, TeamItems> teamItemsList = TeamCountryItemDAO.initiateTeamList();
 
         if (convertView == null) {
             viewHolder = new ViewHolder();

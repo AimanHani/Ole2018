@@ -100,6 +100,7 @@ public class ScoreBoard extends HttpServlet {
                         json.put("leagueId", plf.getLeagueID());
                         json.put("league", "public league");
                         json.put("username", plf.getUsername());
+                        json.put("country", ScoreBoardDAO.getUserCountry(plf.getUsername()));
                         json.put("totalPoints", plf.getTotalPoints());
                         if (previousPoints != plf.getTotalPoints() && i > 0) {
                             rank++;
@@ -152,6 +153,7 @@ public class ScoreBoard extends HttpServlet {
                                 json.put("leagueId", plf.getLeagueID());
                                 json.put("leagueName", plf.getLeagueName());
                                 json.put("league", "private league");
+                                json.put("country", ScoreBoardDAO.getUserCountry(username));
                                 json.put("username", plf.getUsername());
                                 json.put("totalPoints", plf.getTotalPoints());
                                 if (previousPoints != plf.getTotalPoints() && j > 0) {

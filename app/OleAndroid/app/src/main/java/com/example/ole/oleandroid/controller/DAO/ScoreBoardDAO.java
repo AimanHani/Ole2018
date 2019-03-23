@@ -44,13 +44,15 @@ public class ScoreBoardDAO {
             if (publicLeagueProfile.length() > 0) {
                 for (int i = 0; i < publicLeagueProfile.length(); i++) {
                     JSONObject matchObject = publicLeagueProfile.getJSONObject(i);
-
-                    int leagueID = matchObject.getInt("leagueId");
-                    int totalPoints = matchObject.getInt("totalPoints");
                     String username = matchObject.getString("username");
-                    int rank = matchObject.getInt("rank");
-                    PublicLeagueProfile plp = new PublicLeagueProfile(username, leagueID, totalPoints, rank);
-                    publicLeagueProfileList.add(plp);
+                    if (!username.equals("admin")) {
+                        int leagueID = matchObject.getInt("leagueId");
+                        int totalPoints = matchObject.getInt("totalPoints");
+                        String country = matchObject.getString("country");
+                        int rank = matchObject.getInt("rank");
+                        PublicLeagueProfile plp = new PublicLeagueProfile(username, leagueID, totalPoints, rank, country);
+                        publicLeagueProfileList.add(plp);
+                    }
                 }
 
             } else {

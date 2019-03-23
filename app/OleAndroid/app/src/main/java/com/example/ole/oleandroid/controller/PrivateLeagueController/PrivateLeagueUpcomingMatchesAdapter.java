@@ -1,8 +1,6 @@
 package com.example.ole.oleandroid.controller.PrivateLeagueController;
 
 import android.content.Context;
-import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.LayoutInflater;
@@ -14,8 +12,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.ole.oleandroid.R;
-import com.example.ole.oleandroid.controller.DAO.TeamItemDAO;
-import com.example.ole.oleandroid.controller.PublicLeague.UpcomingMatchListAdapter;
+import com.example.ole.oleandroid.controller.DAO.TeamCountryItemDAO;
 import com.example.ole.oleandroid.model.Match;
 import com.example.ole.oleandroid.model.TeamItems;
 
@@ -75,7 +72,7 @@ public class PrivateLeagueUpcomingMatchesAdapter extends BaseAdapter {
         viewHolder.team2_photo = convertView.findViewById(R.id.team2_photo);
 
         final Match m = (Match) getItem(position);
-        HashMap<String, TeamItems> teamItemsList = TeamItemDAO.initiateTeamList();
+        HashMap<String, TeamItems> teamItemsList = TeamCountryItemDAO.initiateTeamList();
         //System.out.println(viewHolder.team1_name.getText().toString());
         viewHolder.team1_name.setText(m.getTeam1());
         viewHolder.team1_photo.setImageResource(teamItemsList.get(m.getTeam1()).getmTeamImage());

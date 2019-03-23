@@ -1,8 +1,6 @@
 package com.example.ole.oleandroid.controller.PrivateLeagueController;
 
 import android.content.Context;
-import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,8 +8,7 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 import com.example.ole.oleandroid.R;
-import com.example.ole.oleandroid.controller.DAO.TeamItemDAO;
-import com.example.ole.oleandroid.controller.PublicLeague.PastMatchListAdapter;
+import com.example.ole.oleandroid.controller.DAO.TeamCountryItemDAO;
 import com.example.ole.oleandroid.model.Match;
 import com.example.ole.oleandroid.model.TeamItems;
 
@@ -76,7 +73,7 @@ public class PrivateLeaguePastMatchesAdapter extends BaseAdapter {
         viewHolder.userteam2_score = convertView.findViewById(R.id.userteam2_score);
         viewHolder.points = convertView.findViewById(R.id.points);
 
-        HashMap<String, TeamItems> teamItemsList = TeamItemDAO.teamItemsList;
+        HashMap<String, TeamItems> teamItemsList = TeamCountryItemDAO.teamItemsList;
         //System.out.println(viewHolder.team1_name.getText().toString());
         viewHolder.team1_name.setText(matchList.get(position).getTeam1());
         viewHolder.team1_score.setText(matchList.get(position).getTeam1Score()+"");

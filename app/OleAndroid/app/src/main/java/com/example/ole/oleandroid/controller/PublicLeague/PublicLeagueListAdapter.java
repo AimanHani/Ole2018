@@ -8,7 +8,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.ole.oleandroid.R;
 import com.example.ole.oleandroid.controller.DAO.UserDAO;
@@ -25,6 +27,7 @@ public class PublicLeagueListAdapter extends BaseAdapter implements View.OnClick
     private static class ViewHolder {
         TextView league;
         Button joinleaguebtn;
+        LinearLayout publicLeagueRow;
     }
 
     //public constructor
@@ -63,15 +66,17 @@ public class PublicLeagueListAdapter extends BaseAdapter implements View.OnClick
          */
         viewHolder.league = convertView.findViewById(R.id.leaguename);
         viewHolder.joinleaguebtn = convertView.findViewById(R.id.joinleaguebtn);
+        viewHolder.publicLeagueRow = convertView.findViewById(R.id.publicLeagueRow);
+
         //this will get each point from the arraylist
         viewHolder.league.setText(leaguelist.get(position).getLeagueName());
-        viewHolder.joinleaguebtn.setTag(new ArrayList<>(Arrays.asList(position + "", leaguelist.get(position).getUserJoin().toString()))); //label the first item on the list
+        viewHolder.publicLeagueRow.setTag(new ArrayList<>(Arrays.asList(position + "", leaguelist.get(position).getUserJoin().toString()))); //label the first item on the list
         //viewHolder.joinleaguebtn.setTag(2, leaguelist.get(position).getLogId());
         if (leaguelist.get(position).getUserJoin()) {
             viewHolder.joinleaguebtn.setText("View");
         }
         //viewHolder.joinleaguebtn.setTag(2, leaguelist.get(position).getUserJoin().toString());
-        viewHolder.joinleaguebtn.setOnClickListener(this);
+        viewHolder.publicLeagueRow.setOnClickListener(this);
 
         /*
         // get current item to be displayed
@@ -93,6 +98,7 @@ public class PublicLeagueListAdapter extends BaseAdapter implements View.OnClick
         ArrayList<String> tags = (ArrayList<String>) view.getTag();
         int position = Integer.parseInt(tags.get(0));
         Boolean userJoin = Boolean.parseBoolean(tags.get(1));
+        System.out.println(userJoin);
 
         if (!userJoin) {
 //            int leagueId = leaguelist.get(position).getLeagueId();
@@ -122,18 +128,26 @@ public class PublicLeagueListAdapter extends BaseAdapter implements View.OnClick
 
 
     private void loadNextPage(View view, Context ctx, PublicLeague pl) {
-        switch (view.getId()) {
-            case R.id.joinleaguebtn:
+        Intent intent = new Intent(ctx, PublicLeagueDetails.class);
+        Bundle bundle = new Bundle();
+        bundle.putInt("logId", pl.getLogId());
+        bundle.putInt("leagueId", pl.getLeagueId());
+        intent.putExtras(bundle);
+        ctx.startActivity(intent);
+
+
+//        switch (view.getId()) {
+//            case R.id.joinleaguebtn:
+////                Intent intent = new Intent(ctx, PublicLeagueDetails.class);
+////                context.startActivity(intent);
+//
 //                Intent intent = new Intent(ctx, PublicLeagueDetails.class);
-//                context.startActivity(intent);
-
-                Intent intent = new Intent(ctx, PublicLeagueDetails.class);
-                Bundle bundle = new Bundle();
-                bundle.putInt("logId", pl.getLogId());
-                bundle.putInt("leagueId", pl.getLeagueId());
-                intent.putExtras(bundle);
-                ctx.startActivity(intent);
-
-        }
+//                Bundle bundle = new Bundle();
+//                bundle.putInt("logId", pl.getLogId());
+//                bundle.putInt("leagueId", pl.getLeagueId());
+//                intent.putExtras(bundle);
+//                ctx.startActivity(intent);
+//
+//        }
     }
 }

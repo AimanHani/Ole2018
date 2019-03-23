@@ -24,7 +24,7 @@
     <TextView
         android:id="@+id/textView2"
         android:layout_width="wrap_content"
-        android:layout_height="28dp"
+        android:layout_height="24dp"
         android:text="@string/loadingPage_copyright_row1"
         android:textColor="@color/black"
         app:layout_constraintBottom_toBottomOf="parent"

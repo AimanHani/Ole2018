@@ -18,11 +18,20 @@ public class PublicLeagueProfile implements Comparable {
     private int rank;
     private String country;
 
-    public PublicLeagueProfile(String username, int leagueID, int totalPoints, int rank) {
+    public PublicLeagueProfile(String username, int leagueID, int totalPoints, int rank, String country) {
         this.username = username;
         this.leagueID = leagueID;
         this.totalPoints = totalPoints;
         this.rank = rank;
+        this.country = country;
+    }
+
+    public String getCountry() {
+        return country;
+    }
+
+    public void setCountry(String country) {
+        this.country = country;
     }
 
     public PublicLeagueProfile(int logID, String username, int leagueID, String leagueName, int team1Prediction, int team2Prediction, Date matchDate, Time matchTime, String team1, String team2) {
