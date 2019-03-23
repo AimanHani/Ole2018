@@ -206,7 +206,7 @@
         android:layout_marginRight="16dp"
         android:layout_marginTop="8dp"
         android:text="Predict Matches"
-        android:textColor="@color/black"
+        android:textColor="@color/white"
         android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="@+id/predictMatch"
         app:layout_constraintEnd_toStartOf="@+id/predictMatch"
@@ -221,7 +221,7 @@
         android:layout_marginRight="16dp"
         android:layout_marginTop="8dp"
         android:text="Predict Specials"
-        android:textColor="@color/black"
+        android:textColor="@color/white"
         android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="@+id/predictSpecial"
         app:layout_constraintEnd_toStartOf="@+id/predictSpecial"
@@ -240,6 +240,7 @@
         android:src="@drawable/scoreboard2"
         android:visibility="invisible"
         app:backgroundTint="@color/white"
+        android:accessibilityPaneTitle="Predict Match"
         app:layout_constraintBottom_toTopOf="@+id/predictSpecial"
         app:layout_constraintEnd_toEndOf="parent"
         app:pressedTranslationZ="12dp" />
@@ -259,6 +260,7 @@
         android:src="@drawable/soccerplayer2"
         android:visibility="invisible"
         app:backgroundTint="@color/white"
+        android:accessibilityPaneTitle="Predict Specials"
         app:layout_constraintBottom_toTopOf="@+id/floatingActionButton"
         app:layout_constraintEnd_toEndOf="parent"
         app:pressedTranslationZ="12dp" />
@@ -291,7 +293,7 @@
         android:id="@+id/blackoutimage"
         android:scaleType="fitXY"
         android:background="@drawable/blackoverlay"
-        android:alpha="0.8"
+        android:alpha="0.95"
         android:layout_height="match_parent" />
 
 </android.support.constraint.ConstraintLayout>

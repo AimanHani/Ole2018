@@ -72,7 +72,7 @@ public class PublicLeagueDetails extends SideMenuBar implements View.OnClickList
             prizeInput.setText(publicLeague.getPrize());
             leagueNameInput.setText(publicLeague.getLeagueName());
             publicPoints.setText(publicLeague.getPointsAllocated() + " pts");
-            totalNoMembers.setText(PublicLeagueDAO.getNumMembers()+ "");
+            totalNoMembers.setText(PublicLeagueDAO.getNumMembers()+ " members");
         }
 
         membersListView = findViewById(R.id.membersListView);
@@ -142,6 +142,8 @@ public class PublicLeagueDetails extends SideMenuBar implements View.OnClickList
                     predictMatch.setClickable(true);
                     specialtext.setVisibility(View.VISIBLE);
                     matchtext.setVisibility(View.VISIBLE);
+                    specialtext.bringToFront();
+                    matchtext.bringToFront();
                     isOpen = true;
 
                     predictMatch.setOnClickListener(new View.OnClickListener() {
@@ -228,6 +230,8 @@ public class PublicLeagueDetails extends SideMenuBar implements View.OnClickList
                     predictMatch.setClickable(true);
                     specialtext.setVisibility(View.VISIBLE);
                     matchtext.setVisibility(View.VISIBLE);
+                    specialtext.bringToFront();
+                    matchtext.bringToFront();
                     isOpen = true;
 
                     predictMatch.setOnClickListener(this);

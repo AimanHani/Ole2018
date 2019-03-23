@@ -223,6 +223,8 @@ protected void onCreate(Bundle savedInstanceState) {
                 predictMatch.setClickable(true);
                 specialtext.setVisibility(View.VISIBLE);
                 matchtext.setVisibility(View.VISIBLE);
+                specialtext.bringToFront();
+                matchtext.bringToFront();
                 isOpen = true;
 
                 predictMatch.setOnClickListener(new View.OnClickListener() {
@@ -295,6 +297,8 @@ protected void onCreate(Bundle savedInstanceState) {
                     predictMatch.setClickable(true);
                     specialtext.setVisibility(View.VISIBLE);
                     matchtext.setVisibility(View.VISIBLE);
+                    specialtext.bringToFront();
+                    matchtext.bringToFront();
                     isOpen = true;
                     predictMatch.setOnClickListener(this);
                     predictSpecial.setOnClickListener(this);
