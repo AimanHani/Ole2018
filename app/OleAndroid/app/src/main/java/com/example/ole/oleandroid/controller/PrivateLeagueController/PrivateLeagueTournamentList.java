@@ -42,7 +42,7 @@ public class PrivateLeagueTournamentList extends SideMenuBar implements View.OnC
         leaguelist = new ArrayList<>();
         tournamentListView = findViewById(R.id.tournamentListView);
         TournamentDAO.clearAllTournamentLeague();
-        String url = DBConnection.insertPrivateLeagueUrl()+"?method=retrieveTournament";
+        String url = DBConnection.privateLeagueUrl()+"?method=retrieveTournament";
         System.out.println("Getting tournament list");
 
         GetHttp getConnection = new GetHttp();

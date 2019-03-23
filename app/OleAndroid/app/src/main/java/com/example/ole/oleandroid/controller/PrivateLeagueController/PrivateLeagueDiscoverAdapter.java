@@ -133,7 +133,7 @@ public class PrivateLeagueDiscoverAdapter extends BaseAdapter implements View.On
                                             json.put("username", UserDAO.getLoginUser().getUsername()+"");
                                             json.put("leagueid", s.getLeagueId()+"");
 
-                                    String url = DBConnection.insertPrivateLeagueUrl();
+                                    String url = DBConnection.privateLeagueUrl();
 
                                     PostHttp connection = new PostHttp();
                                     String response = null;

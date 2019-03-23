@@ -40,8 +40,9 @@ public class TeamListPrivate extends SideMenuBar {
     TeamListPrivateAdapter teamListPrivateAdapter;
     ListView teamListView;
     Button confirmteambtn;
-    String teams="";
+    String teams = "";
     ArrayList<Teams> teamsList = new ArrayList<>();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
@@ -128,80 +129,79 @@ public class TeamListPrivate extends SideMenuBar {
                 });
 
 
-
                 try {
-                teams = "";
-                for (Teams t : teamsList) {
-                    if (t.getChecked()) {
-                        teams += t.getTeamId() + ",";
-                    }
-                }
-                //System.out.println("HI"+teams.substring(0, teams.length() - 1));
-                teams = teams.substring(0, teams.length() - 1);
-
-                if (!teams.equals("")) {
-
-                    Intent intent = getIntent();
-                    User loginUser = UserDAO.getLoginUser();
-
-                    //Bundle extras = getIntent().getExtras();
-                    System.out.println("Creating Private League");
-                    //final Dialog load = loadingDialog();
-            //        Toast.makeText(TeamListPrivate.this,
-            //                "Creating private league", Toast.LENGTH_LONG).show();
-
-                    final String[] status = {"error"};
-                    JSONObject json = new JSONObject();
-                    try {
-                        Bundle extras = getIntent().getExtras();
-                        if (extras != null) {
-                            json.put("method", "insertNew");
-                            json.put("username", loginUser.getUsername());
-                            json.put("password", extras.getString("password"));
-                            json.put("prize", extras.getString("prize"));
-                            json.put("leagueName", extras.getString("leaguename"));
-                            json.put("tournamentId", extras.getString("leagueid"));
-                            json.put("pointsAllocated", extras.getString("pointsAllocated"));
-                            json.put("startDate", extras.getString("startdate"));
-                            json.put("endDate", extras.getString("enddate"));
-                            json.put("specials", extras.getString("specials"));
-                            json.put("teams", teams);
+                    teams = "";
+                    for (Teams t : teamsList) {
+                        if (t.getChecked()) {
+                            teams += t.getTeamId() + ",";
                         }
-                    } catch (Exception e) {
-                        e.printStackTrace();
                     }
-                    String url = DBConnection.insertPrivateLeagueUrl();
+                    //System.out.println("HI"+teams.substring(0, teams.length() - 1));
+                    teams = teams.substring(0, teams.length() - 1);
 
-                    PostHttp connection = new PostHttp();
-                    String response = null;
-                    //System.out.println("HAHAHAHHA" + json.toString());
+                    if (!teams.equals("")) {
+
+                        Intent intent = getIntent();
+                        User loginUser = UserDAO.getLoginUser();
+
+                        //Bundle extras = getIntent().getExtras();
+                        System.out.println("Creating Private League");
+                        //final Dialog load = loadingDialog();
+                        //        Toast.makeText(TeamListPrivate.this,
+                        //                "Creating private league", Toast.LENGTH_LONG).show();
+
+                        final String[] status = {"error"};
+                        JSONObject json = new JSONObject();
+                        try {
+                            Bundle extras = getIntent().getExtras();
+                            if (extras != null) {
+                                json.put("method", "insertNew");
+                                json.put("username", loginUser.getUsername());
+                                json.put("password", extras.getString("password"));
+                                json.put("prize", extras.getString("prize"));
+                                json.put("leagueName", extras.getString("leaguename"));
+                                json.put("tournamentId", extras.getString("leagueid"));
+                                json.put("pointsAllocated", extras.getString("pointsAllocated"));
+                                json.put("startDate", extras.getString("startdate"));
+                                json.put("endDate", extras.getString("enddate"));
+                                json.put("specials", extras.getString("specials"));
+                                json.put("teams", teams);
+                            }
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+                        String url = DBConnection.privateLeagueUrl();
+
+                        PostHttp connection = new PostHttp();
+                        String response = null;
+                        //System.out.println("HAHAHAHHA" + json.toString());
 
                         response = connection.post(url, json.toString());
                         JSONObject result = new JSONObject(response);
                         status[0] = result.getString("status");
 
-            //                Toast.makeText(TeamListPrivate.this,
-            //                        "Creating private league", Toast.LENGTH_LONG).show();
+                        //                Toast.makeText(TeamListPrivate.this,
+                        //                        "Creating private league", Toast.LENGTH_LONG).show();
 
-                    System.out.println(response);
+                        System.out.println(response);
 
 
-                    //load.dismiss();
-                    intent = new Intent(TeamListPrivate.this, PrivateLeagueMain.class);
-                    startActivity(intent);
+                        //load.dismiss();
+                        intent = new Intent(TeamListPrivate.this, PrivateLeagueMain.class);
+                        startActivity(intent);
 
-                } else {
-                    Toast.makeText(TeamListPrivate.this,
-                            "Please select at least 1", Toast.LENGTH_LONG).show();
+                    } else {
+                        Toast.makeText(TeamListPrivate.this,
+                                "Please select at least 1", Toast.LENGTH_LONG).show();
 
+                    }
+                } catch (Exception e) {
+                    //Toast.makeText(TeamListPrivate.this,
+                    //      "Please select at least 1", Toast.LENGTH_LONG).show();
                 }
-            }catch(Exception e){
-                //Toast.makeText(TeamListPrivate.this,
-                  //      "Please select at least 1", Toast.LENGTH_LONG).show();
-            }
 
-                       }
-                    });
+            }
+        });
 
     }
     /*public Dialog loadingDialog() {

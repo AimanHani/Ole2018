@@ -43,7 +43,7 @@ public class TournamentDAO {
 
     public static void loadAllTournaments() {
         TournamentDAO.clearAllTournamentLeague();
-        String url = DBConnection.insertPrivateLeagueUrl() + "?method=retrieveTournament";
+        String url = DBConnection.privateLeagueUrl() + "?method=retrieveTournament";
         System.out.println("Getting tournament list");
 
         GetHttp getConnection = new GetHttp();

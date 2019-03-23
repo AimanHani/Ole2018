@@ -69,7 +69,7 @@ public class ScoreBoardDAO {
 
     public static ArrayList<PrivateLeagueProfile> getPrivateLeagueProfiles() {
         ArrayList<PrivateLeagueProfile> privateLeagueProfileList = new ArrayList<>();
-        String url = DBConnection.getScoreBoardUrl() + "?league=private&username="+UserDAO.getLoginUser().getUsername();
+        String url = DBConnection.getScoreBoardUrl() + "?league=private&username=" + UserDAO.getLoginUser().getUsername();
         System.out.println("Getting private league scoreboard");
 
         GetHttp getConnection = new GetHttp();
@@ -112,6 +112,44 @@ public class ScoreBoardDAO {
         //System.out.println(privateLeagueProfileList.toString());
         privateLeagueProfiles = privateLeagueProfileList;
         return privateLeagueProfileList;
+    }
+
+    public static ArrayList<PrivateLeagueProfile> getOnePrivateLeagueProfiles(int leagueIdParameter) {
+        ArrayList<PrivateLeagueProfile> privateLeagueProfileList = new ArrayList<>();
+        String url = DBConnection.getScoreBoardUrl() + "?league=private&username=" + UserDAO.getLoginUser().getUsername();
+        System.out.println("Getting private league scoreboard");
+
+        GetHttp getConnection = new GetHttp();
+        String response = null;
+        try {
+            response = getConnection.run(url);
+            System.out.println(response);
+            JSONObject result = new JSONObject(response);
+            JSONArray privateLeagueProfileArray = result.getJSONArray("results");
+
+            if (privateLeagueProfileArray.length() > 0) {
+                for (int i = 0; i < privateLeagueProfileArray.length(); i++) {
+                    //for (league)
+                    JSONObject matchObject = privateLeagueProfileArray.getJSONObject(i);
+                    int leagueID = matchObject.getInt("leagueId");
+
+                    if (leagueID == leagueIdParameter) {
+                        int totalPoints = matchObject.getInt("totalPoints");
+                        String username = matchObject.getString("username");
+                        String leagueName = matchObject.getString("leagueName");
+                        int rank = matchObject.getInt("rank");
+                        PrivateLeagueProfile plp = new PrivateLeagueProfile(username, leagueID, leagueName, totalPoints, rank);
+                        privateLeagueProfileList.add(plp);
+                    }
+                }
+                return privateLeagueProfileList;
+            }
+        } catch (Exception e) {
+            System.out.println("error");
+            e.printStackTrace();
+            return null;
+        }
+        return null;
     }
 
     public static int getUserPositionPublic(String username, ArrayList<PublicLeagueProfile> list) {

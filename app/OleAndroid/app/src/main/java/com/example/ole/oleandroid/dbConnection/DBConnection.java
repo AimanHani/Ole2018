@@ -53,7 +53,7 @@ public class DBConnection {
         return url;
     }
 
-    public static String insertPrivateLeagueUrl() {
+    public static String privateLeagueUrl() {
         String url = mainUrl + "/json/privateLeague";
         return url;
     }

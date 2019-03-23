@@ -29,8 +29,6 @@ import java.io.Serializable;
 import java.util.ArrayList;
 
 public class PublicLeagueDetails extends SideMenuBar implements View.OnClickListener, Serializable {
-
-
     View view;
     Button button, predict;
     PublicLeagueDetailsAdapter publicLeagueDetailsAdapter;
@@ -72,7 +70,7 @@ public class PublicLeagueDetails extends SideMenuBar implements View.OnClickList
             prizeInput.setText(publicLeague.getPrize());
             leagueNameInput.setText(publicLeague.getLeagueName());
             publicPoints.setText(publicLeague.getPointsAllocated() + "pts");
-            totalNoMembers.setText(PublicLeagueDAO.getNumMembers()+ "");
+            totalNoMembers.setText(PublicLeagueDAO.getNumMembers() + "");
         }
 
         membersListView = findViewById(R.id.membersListView);
@@ -170,7 +168,6 @@ public class PublicLeagueDetails extends SideMenuBar implements View.OnClickList
         });
 
     }
-
 
 
     public void onClick(View v) {

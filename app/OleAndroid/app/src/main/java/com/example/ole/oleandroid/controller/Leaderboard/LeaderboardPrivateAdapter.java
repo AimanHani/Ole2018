@@ -8,13 +8,9 @@ import android.widget.BaseAdapter;
 import android.widget.TextView;
 
 import com.example.ole.oleandroid.R;
-import com.example.ole.oleandroid.controller.DAO.ScoreBoardDAO;
-import com.example.ole.oleandroid.controller.DAO.UserDAO;
 import com.example.ole.oleandroid.model.PrivateLeagueProfile;
-import com.example.ole.oleandroid.model.PublicLeague;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 
 public class LeaderboardPrivateAdapter extends BaseAdapter {
     private Context context; //context
@@ -55,7 +51,7 @@ public class LeaderboardPrivateAdapter extends BaseAdapter {
         if (convertView == null) {
             viewHolder = new ViewHolder();
             convertView = LayoutInflater.from(context).
-                    inflate(R.layout.leaderboard_publiclist, parent, false);
+                    inflate(R.layout.leaderboard_user, parent, false);
         }
 
         /**

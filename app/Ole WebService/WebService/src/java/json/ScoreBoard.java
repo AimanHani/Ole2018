@@ -91,7 +91,7 @@ public class ScoreBoard extends HttpServlet {
                 if (pList.size() != 0) {
                     Collections.sort(pList);
                     JSONObject json = new JSONObject();
-                    int rank = 0;
+                    int rank = 1;
                     int previousPoints = 0;
                     for (int i = 0; i < pList.size(); i++) {
                         json = new JSONObject();
@@ -101,7 +101,7 @@ public class ScoreBoard extends HttpServlet {
                         json.put("league", "public league");
                         json.put("username", plf.getUsername());
                         json.put("totalPoints", plf.getTotalPoints());
-                        if (previousPoints != plf.getTotalPoints()) {
+                        if (previousPoints != plf.getTotalPoints() && i > 0) {
                             rank++;
                         }
                         json.put("rank", rank);
@@ -141,7 +141,7 @@ public class ScoreBoard extends HttpServlet {
                         pList = ScoreBoardDAO.getUsersAndTheirTotalPointsPrivate(privateLeagueIDs.get(i));
                         if (!pList.isEmpty()) {
                             Collections.sort(pList);
-                            int rank = 0;
+                            int rank = 1;
                             int previousPoints = 0;
                             JSONObject json = new JSONObject();
                             for (int j = 0; j < pList.size(); j++) {
@@ -154,7 +154,7 @@ public class ScoreBoard extends HttpServlet {
                                 json.put("league", "private league");
                                 json.put("username", plf.getUsername());
                                 json.put("totalPoints", plf.getTotalPoints());
-                                if (previousPoints != plf.getTotalPoints()) {
+                                if (previousPoints != plf.getTotalPoints() && j > 0) {
                                     rank++;
                                 }
                                 json.put("rank", rank);

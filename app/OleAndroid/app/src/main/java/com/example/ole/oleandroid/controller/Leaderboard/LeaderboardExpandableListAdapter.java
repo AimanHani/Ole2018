@@ -102,7 +102,7 @@ public class LeaderboardExpandableListAdapter extends BaseExpandableListAdapter 
 //        View childView1, childView2;
 //        LayoutInflater inflater = (LayoutInflater)context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 //        childView1 = inflater.inflate(R.layout.leaderboard_privateusercard, null);
-//        childView2 = inflater.inflate(R.layout.leaderboard_publiclist, null);
+//        childView2 = inflater.inflate(R.layout.leaderboard_user, null);
 //        viewGroup.addView(childView1);
 //        viewGroup.addView(childView2);
         ArrayList<PrivateLeagueProfile> listUsersInLeagues = getChild(i, j);
@@ -157,7 +157,7 @@ public class LeaderboardExpandableListAdapter extends BaseExpandableListAdapter 
             if (view == null || view.getTag() instanceof ViewHolder) {
                 rowViewHolder = new RowViewHolder();
                 view = LayoutInflater.from(context).
-                        inflate(R.layout.leaderboard_publiclist, viewGroup, false);
+                        inflate(R.layout.leaderboard_user, viewGroup, false);
                 view.setTag(rowViewHolder);
             }
 

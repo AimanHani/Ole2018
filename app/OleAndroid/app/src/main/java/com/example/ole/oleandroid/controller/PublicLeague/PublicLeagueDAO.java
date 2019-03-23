@@ -166,7 +166,7 @@ public class PublicLeagueDAO {
         PublicLeague pl = getOnePublicLeague(leagueId);
         ArrayList<Member> allMembers = new ArrayList<>();
 
-        String url2 = DBConnection.insertPrivateLeagueUrl() + "?method=retrieveMembers&leagueid=" + leagueId;
+        String url2 = DBConnection.privateLeagueUrl() + "?method=retrieveMembers&leagueid=" + leagueId;
 
         System.out.println("Getting public league members");
         GetHttp getConnection = new GetHttp();

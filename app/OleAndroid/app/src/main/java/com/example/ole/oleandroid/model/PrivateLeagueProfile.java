@@ -8,14 +8,13 @@ public class PrivateLeagueProfile implements Comparable {
     private String leagueName;
     private int totalPoints;
     private int rank;
+    private String country;
+    private String profilePhoto;
 
     public PrivateLeagueProfile(String username, int leagueID, int totalPoints) {
         this.username = username;
         this.leagueID = leagueID;
         this.totalPoints = totalPoints;
-    }
-
-    public PrivateLeagueProfile() {
     }
 
     public PrivateLeagueProfile(String username, int leagueID, String leagueName, int totalPoints, int rank) {
@@ -24,6 +23,17 @@ public class PrivateLeagueProfile implements Comparable {
         this.leagueName = leagueName;
         this.totalPoints = totalPoints;
         this.rank = rank;
+    }
+
+    public PrivateLeagueProfile(int logID, String username, int leagueID, String leagueName, int totalPoints, int rank, String country, String profilePhoto) {
+        this.logID = logID;
+        this.username = username;
+        this.leagueID = leagueID;
+        this.leagueName = leagueName;
+        this.totalPoints = totalPoints;
+        this.rank = rank;
+        this.country = country;
+        this.profilePhoto = profilePhoto;
     }
 
     public int getLogID() {

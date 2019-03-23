@@ -9,12 +9,9 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.ole.oleandroid.R;
-import com.example.ole.oleandroid.controller.DAO.ScoreBoardDAO;
 import com.example.ole.oleandroid.model.PublicLeagueProfile;
-import com.example.ole.oleandroid.model.PublicLeague;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 
 public class LeaderboardPublicAdapter extends BaseAdapter{
     private Context context; //context
@@ -23,6 +20,7 @@ public class LeaderboardPublicAdapter extends BaseAdapter{
 
     private static class ViewHolder {
         TextView userposition,username,score;
+        ImageView userProfilePicture, countryImage;
     }
 
     //public constructor
@@ -53,7 +51,7 @@ public class LeaderboardPublicAdapter extends BaseAdapter{
         if (convertView == null) {
             viewHolder = new ViewHolder();
             convertView = LayoutInflater.from(context).
-                    inflate(R.layout.leaderboard_publiclist, parent, false);
+                    inflate(R.layout.leaderboard_user, parent, false);
         }
 
         /**
@@ -62,6 +60,8 @@ public class LeaderboardPublicAdapter extends BaseAdapter{
         viewHolder.userposition = convertView.findViewById(R.id.userposition);
         viewHolder.username = convertView.findViewById(R.id.username);
         viewHolder.score = convertView.findViewById(R.id.score);
+        viewHolder.userProfilePicture = convertView.findViewById(R.id.userProfilePicture);
+        viewHolder.countryImage = convertView.findViewById(R.id.countryImage);
 
         viewHolder.userposition.setText(pubLeagList.get(position).getRank()+"");
         viewHolder.username.setText(pubLeagList.get(position).getUsername());

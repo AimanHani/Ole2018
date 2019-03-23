@@ -57,7 +57,7 @@ public class PrivateLeagueList extends SideMenuBar implements View.OnClickListen
         leaguelist = new ArrayList<>();
         privateLeagueListView = findViewById(R.id.privateLeagueListView);
         PrivateLeagueDAO.clearAllPrivateLeague();
-        String url = DBConnection.insertPrivateLeagueUrl()+"?method=retrievePrivateLeague&username="+UserDAO.getLoginUser().getUsername();
+        String url = DBConnection.privateLeagueUrl()+"?method=retrievePrivateLeague&username="+UserDAO.getLoginUser().getUsername();
 
 
         Thread thread = new Thread(){
@@ -119,7 +119,7 @@ public class PrivateLeagueList extends SideMenuBar implements View.OnClickListen
     }
 
     public void retrieveAll(){
-        String url2 = DBConnection.insertPrivateLeagueUrl()+"?method=retrieveAllPrivateLeague";
+        String url2 = DBConnection.privateLeagueUrl()+"?method=retrieveAllPrivateLeague";
         System.out.println("Getting private league list");
 
         GetHttp getConnection = new GetHttp();

@@ -67,7 +67,7 @@ public class PrivateLeagueHome extends SideMenuBar {
                         e.printStackTrace();
                     }
 
-                    String url = DBConnection.insertPrivateLeagueUrl();
+                    String url = DBConnection.privateLeagueUrl();
 
                     PostHttp connection = new PostHttp();
                     String response = null;

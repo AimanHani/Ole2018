@@ -31,7 +31,7 @@ public class Discover extends Fragment {
         leaguelist = new ArrayList<>();
         privateLeagueListView = view.findViewById(R.id.privateLeagueListView);
         PrivateLeagueDAO.clearAllPrivateLeague();
-        String url = DBConnection.insertPrivateLeagueUrl()+"?method=retrieveAllNotInPrivateLeague&username="+UserDAO.getLoginUser().getUsername();
+        String url = DBConnection.privateLeagueUrl()+"?method=retrieveAllNotInPrivateLeague&username="+UserDAO.getLoginUser().getUsername();
 
 //        Thread thread = new Thread(){
 //            public void run(){
