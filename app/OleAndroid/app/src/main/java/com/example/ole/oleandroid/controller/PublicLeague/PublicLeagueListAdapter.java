@@ -14,6 +14,7 @@ import android.widget.Toast;
 
 import com.example.ole.oleandroid.R;
 import com.example.ole.oleandroid.controller.DAO.UserDAO;
+import com.example.ole.oleandroid.controller.Signup;
 import com.example.ole.oleandroid.model.PublicLeague;
 
 import java.util.ArrayList;
@@ -25,7 +26,7 @@ public class PublicLeagueListAdapter extends BaseAdapter implements View.OnClick
     private ViewHolder viewHolder;
 
     private static class ViewHolder {
-        TextView league;
+        TextView leagueName;
         Button joinleaguebtn;
         LinearLayout publicLeagueRow;
     }
@@ -64,32 +65,22 @@ public class PublicLeagueListAdapter extends BaseAdapter implements View.OnClick
         /**
          * This will tell initialize the textview element in publicleaguelistlayout
          */
-        viewHolder.league = convertView.findViewById(R.id.leaguename);
+        viewHolder.leagueName = convertView.findViewById(R.id.leaguename);
         viewHolder.joinleaguebtn = convertView.findViewById(R.id.joinleaguebtn);
         viewHolder.publicLeagueRow = convertView.findViewById(R.id.publicLeagueRow);
 
         //this will get each point from the arraylist
-        viewHolder.league.setText(leaguelist.get(position).getLeagueName());
+        viewHolder.leagueName.setText(leaguelist.get(position).getLeagueName());
         viewHolder.publicLeagueRow.setTag(new ArrayList<>(Arrays.asList(position + "", leaguelist.get(position).getUserJoin().toString()))); //label the first item on the list
         //viewHolder.joinleaguebtn.setTag(2, leaguelist.get(position).getLogId());
-        if (leaguelist.get(position).getUserJoin()) {
-            viewHolder.joinleaguebtn.setText("View");
+        if (!leaguelist.get(position).getUserJoin()) {
+            viewHolder.joinleaguebtn.setVisibility(View.VISIBLE);
+            viewHolder.leagueName.setClickable(false);
+            viewHolder.publicLeagueRow.setClickable(false);
         }
-        //viewHolder.joinleaguebtn.setTag(2, leaguelist.get(position).getUserJoin().toString());
+
+        viewHolder.joinleaguebtn.setOnClickListener(this);
         viewHolder.publicLeagueRow.setOnClickListener(this);
-
-        /*
-        // get current item to be displayed
-        Item currentItem = (Item) getItem(position);
-
-        // get the TextView for item name and item description
-        TextView points = (TextView)
-                convertView.findViewById(R.id.text_view_item_name);
-
-        //sets the text for item name and item description from the current item object
-        textViewItemName.setText(currentItem.getItemName());
-        textViewItemDescription.setText(currentItem.getItemDescription());
-        */
 
         return convertView;// returns the view for the current row
     }
@@ -99,39 +90,32 @@ public class PublicLeagueListAdapter extends BaseAdapter implements View.OnClick
         int position = Integer.parseInt(tags.get(0));
         Boolean userJoin = Boolean.parseBoolean(tags.get(1));
         System.out.println(userJoin);
+        PublicLeague pubLeague = leaguelist.get(position);
+        int logId = pubLeague.getLogId();
 
-        if (!userJoin) {
-//            int leagueId = leaguelist.get(position).getLeagueId();
-//            String username = UserDAO.getLoginUser().getUsername();
-            int joinLogId = PublicLeagueDAO.joinPublicLeague(leaguelist.get(position).getLeagueId(), UserDAO.getLoginUser().getUsername());
+        if (!userJoin && view.getId() == R.id.joinleaguebtn) {
+            int joinLogId = PublicLeagueDAO.joinPublicLeague(pubLeague.getLeagueId(), UserDAO.getLoginUser().getUsername());
             System.out.println("Join Public League: " + joinLogId);
+            Toast.makeText(context, "Joining " + pubLeague.getLeagueName(), Toast.LENGTH_SHORT).show();
 
-            if (joinLogId != 0) {
+            if (joinLogId == 0) {
                 //loadNextPage(view, context, joinLogId, leaguelist.get(position).getLeagueId());
-                loadNextPage(view, context, leaguelist.get(position));
+                //loadNextPage(view, context, leaguelist.get(position));
+                Toast.makeText(context, "Failed to join " + pubLeague.getLeagueName(), Toast.LENGTH_SHORT).show();
+            } else {
+                loadNextPage(context, joinLogId, pubLeague.getLeagueId());
             }
         } else {
-            //loadNextPage(view, context, leaguelist.get(position).getLogId(), leaguelist.get(position).getLeagueId());
-            loadNextPage(view, context, leaguelist.get(position));
+            loadNextPage(context, logId, pubLeague.getLeagueId());
         }
-
-//        if (view.getId() == R.id.joinleaguebtn) {
-//            Intent intent = new Intent(context, MatchesTabs.class);
-//            Bundle bundle = new Bundle();
-//            bundle.putInt("logId", leaguelist.get(position).getLogId());
-//            intent.putExtras(bundle);
-//            context.startActivity(intent);
-//        }
-
-
     }
 
 
-    private void loadNextPage(View view, Context ctx, PublicLeague pl) {
+    private void loadNextPage(Context ctx, int logId, int leagueId) {
         Intent intent = new Intent(ctx, PublicLeagueDetails.class);
         Bundle bundle = new Bundle();
-        bundle.putInt("logId", pl.getLogId());
-        bundle.putInt("leagueId", pl.getLeagueId());
+        bundle.putInt("logId", logId); //pl.getLogId()
+        bundle.putInt("leagueId", leagueId); //pl.getLeagueId()
         intent.putExtras(bundle);
         ctx.startActivity(intent);
 
