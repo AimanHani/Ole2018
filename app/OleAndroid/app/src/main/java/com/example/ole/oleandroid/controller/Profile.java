@@ -1,35 +1,29 @@
 package com.example.ole.oleandroid.controller;
 
+import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.Window;
+import android.widget.AdapterView;
+import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.ole.oleandroid.R;
+import com.example.ole.oleandroid.controller.DAO.SignupDAO;
 import com.example.ole.oleandroid.controller.DAO.TeamCountryItemDAO;
 import com.example.ole.oleandroid.controller.DAO.UserDAO;
+import com.example.ole.oleandroid.model.TeamItems;
 import com.example.ole.oleandroid.model.User;
 
 public class Profile extends SideMenuBar {
-//    TextView details;
-
-    TextView pointsGotten;
-    TextView userName;
-    TextView userCountry;
-    TextView userFavTeam;
-    TextView wonQty;
-    TextView lostQty;
-    TextView playQty;
-    TextView accQty;
-    ImageView teamImage;
-
-    /*String matchId;
-    String logId;
-    String username;
-    String finalResults;*/
+    TextView userName, userCountry, userFavTeam, matchAccValue, specialsAccValue, playQty, accQty, changeTeam;
+    ImageView teamImage, countryImage;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,30 +37,89 @@ public class Profile extends SideMenuBar {
 
         //get user object
         Intent i = getIntent();
-        //final User u = (User)i.getSerializableExtra("User");
         User loginUser = UserDAO.getLoginUser();
         String numLeaguesJoined = UserDAO.getProfileStatistics();
 
-//        details = findViewById(R.id.details);
-        pointsGotten = findViewById(R.id.pointsGotten);
         userName = findViewById(R.id.userName);
         userCountry = findViewById(R.id.userCountry);
         userFavTeam = findViewById(R.id.userFavTeam);
-        userFavTeam = findViewById(R.id.userFavTeam);
-        wonQty = findViewById(R.id.wonQty);
-        lostQty = findViewById(R.id.lostQty);
-        playQty = findViewById(R.id.playQty);
-        accQty = findViewById(R.id.accQty);
         teamImage = findViewById(R.id.teamImage);
+        countryImage = findViewById(R.id.countryImage);
+        changeTeam = findViewById(R.id.changeTeam);
 
         userName.setText(loginUser.getUsername());
         userCountry.setText(loginUser.getCountry());
+        countryImage.setImageResource(TeamCountryItemDAO.getCountryImageResource(loginUser.getCountry()));
         userFavTeam.setText(loginUser.getFavoriteTeam());
-        if (numLeaguesJoined != null){
+        teamImage.setImageResource(TeamCountryItemDAO.getTeamImageResource(loginUser.getFavoriteTeam()));
+        changeTeam.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //something
+                changeTeamDialog();
+            }
+        });
+
+        matchAccValue = findViewById(R.id.matchAccValue);
+        specialsAccValue = findViewById(R.id.specialsAccValue);
+        playQty = findViewById(R.id.playQty);
+        accQty = findViewById(R.id.accQty);
+        if (numLeaguesJoined != null) {
             playQty.setText(numLeaguesJoined);
         }
-        teamImage.setImageResource(TeamCountryItemDAO.teamItemsList.get(loginUser.getFavoriteTeam()).getmTeamImage());
+    }
 
 
+    public Dialog changeTeamDialog() {
+        final Dialog dialog = new Dialog(Profile.this);
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        dialog.setContentView(R.layout.change_team_popup);
+        dialog.show();
+        dialog.setCancelable(false);
+        dialog.setCanceledOnTouchOutside(false);
+
+        final Spinner favouriteTeamSpinner = dialog.findViewById(R.id.favouriteTeamSpinner);
+        TeamAdapter mAdapter2 = new TeamAdapter(this, TeamCountryItemDAO.initiateTeamArrayList());
+        favouriteTeamSpinner.setAdapter(mAdapter2);
+        final String[] clickedTeamName = {null};
+
+        favouriteTeamSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                TeamItems clickedItem = (TeamItems) parent.getItemAtPosition(position);
+                clickedTeamName[0] = clickedItem.getmTeamName();
+                Toast.makeText(Profile.this, clickedTeamName[0] + " selected", Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+
+        });
+
+        TextView cancel = dialog.findViewById(R.id.cancel);
+        TextView confirm = dialog.findViewById(R.id.confirm);
+
+        confirm.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //something
+                if (clickedTeamName[0] != null) {
+                    //Toast.makeText(Profile.this, clickedTeamName[0] + " update DB", Toast.LENGTH_SHORT).show();
+                    String status = UserDAO.updateFavoriteTeam(clickedTeamName[0]);
+                    Toast.makeText(Profile.this, clickedTeamName[0] + " change "+ status, Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+
+        cancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.dismiss();
+            }
+        });
+
+        return dialog;
     }
 }
