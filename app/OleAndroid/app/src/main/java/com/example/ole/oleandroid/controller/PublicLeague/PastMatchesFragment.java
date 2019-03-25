@@ -28,8 +28,14 @@ public class PastMatchesFragment extends Fragment {
         matches = MatchDAO.getPastMatches();
         matchListView = view.findViewById(R.id.matchListView);
 
-        pmListAdapter = new PastMatchListAdapter(getContext(), matches);
-        matchListView.setAdapter(pmListAdapter);
+        if (matches!=null){
+            pmListAdapter = new PastMatchListAdapter(getContext(), matches);
+            matchListView.setAdapter(pmListAdapter);
+        }else{
+            android.support.constraint.ConstraintLayout football;
+            football = view.findViewById(R.id.football);
+            football.setVisibility(View.VISIBLE);
+        }
 
         return view;
     }
