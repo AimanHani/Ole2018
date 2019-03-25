@@ -2,6 +2,7 @@ package com.example.ole.oleandroid.controller.PrivateLeagueController;
 
 import android.app.Dialog;
 import android.content.Intent;
+import android.support.constraint.ConstraintLayout;
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -15,6 +16,7 @@ import android.widget.TextView;
 import com.example.ole.oleandroid.R;
 import com.example.ole.oleandroid.controller.DAO.MatchDAO;
 import com.example.ole.oleandroid.controller.DAO.PrivateMatchDAO;
+import com.example.ole.oleandroid.controller.PublicLeague.PastMatchListAdapter;
 import com.example.ole.oleandroid.controller.PublicLeague.SpecialList;
 import com.example.ole.oleandroid.model.Match;
 
@@ -47,10 +49,17 @@ public class PrivateLeagueUpcomingMatchesList extends Fragment implements View.O
         matches = PrivateMatchDAO.getFutureMatches(leagueId);
         matchListView = view.findViewById(R.id.matchListView);
 
-        System.out.println("Matches: " + matches.size());
-        pmListAdapter = new PrivateLeagueUpcomingMatchesAdapter(getActivity(), matches);
-        matchListView.setAdapter(pmListAdapter);
-
+//        System.out.println("Matches: " + matches.size());
+//        pmListAdapter = new PrivateLeagueUpcomingMatchesAdapter(getActivity(), matches);
+//        matchListView.setAdapter(pmListAdapter);
+        if (matches!=null){
+            pmListAdapter = new PrivateLeagueUpcomingMatchesAdapter(getActivity(), matches);
+            matchListView.setAdapter(pmListAdapter);
+        }else{
+            android.support.constraint.ConstraintLayout football;
+            football = view.findViewById(R.id.football);
+            football.setVisibility(View.VISIBLE);
+        }
         return view;
     }
 

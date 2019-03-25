@@ -29,9 +29,10 @@ public class PrivateLeagueMatchesDAO {
 
     public static HashMap<Integer, Match> getRecentMatches(int leagueId) {
         HashMap<Integer, Match> recentMatches = new HashMap<Integer, Match>();
-
-        try (Connection conn = DBConnection.getConnection(); PreparedStatement stmt = conn.prepareStatement("select m.matchId,m.tournamentId, m.date, m.time, (SELECT t.teamName FROM team t where t.teamId = m.team1 ) AS team1, (SELECT t.teamName FROM team t where t.teamId = m.team2 ) AS team2, m.team1_score,m.team2_score from `match` m where date > DATE(NOW()) AND (team1 IN (SELECT teamId from privateleagueteams where leagueId = "+leagueId+") OR team2 IN (SELECT teamId from privateleagueteams where leagueId = "+leagueId+"))");) {
+        try (Connection conn = DBConnection.getConnection(); PreparedStatement stmt = conn.prepareStatement("select m.matchId,m.tournamentId, m.date, m.time, (SELECT t.teamName FROM team t where t.teamId = m.team1 ) AS team1, (SELECT t.teamName FROM team t where t.teamId = m.team2 ) AS team2, m.team1_score,m.team2_score from `match` m where date > DATE(NOW()) AND (date >= (SELECT startDate FROM `privateleague` where leagueKeyId = " + leagueId + ") AND date <= (SELECT endDate FROM `privateleague` where leagueKeyId = " + leagueId + ")) AND (team1 IN (SELECT teamId from privateleagueteams where leagueId = " + leagueId + ") OR team2 IN (SELECT teamId from privateleagueteams where leagueId = " + leagueId + "))");) {
+//        try (Connection conn = DBConnection.getConnection(); PreparedStatement stmt = conn.prepareStatement("select m.matchId,m.tournamentId, m.date, m.time, (SELECT t.teamName FROM team t where t.teamId = m.team1 ) AS team1, (SELECT t.teamName FROM team t where t.teamId = m.team2 ) AS team2, m.team1_score,m.team2_score from `match` m where date > DATE(NOW()) AND (team1 IN (SELECT teamId from privateleagueteams where leagueId = "+leagueId+") OR team2 IN (SELECT teamId from privateleagueteams where leagueId = "+leagueId+"))");) {
             ResultSet rs = stmt.executeQuery();
+            System.out.println("HERE");
 
             System.out.println(stmt);
             while (rs.next()) {
@@ -60,6 +61,8 @@ public class PrivateLeagueMatchesDAO {
 
     public static Match getOneMatch(int id) {
         Match m = new Match();
+//        try (Connection conn = DBConnection.getConnection(); PreparedStatement stmt = conn.prepareStatement("select m.matchId, m.date, m.time, (SELECT t.teamName FROM team t where t.teamId = m.team1 ) AS team1, (SELECT t.teamName FROM team t where t.teamId = m.team2 ) AS team2 from `match` m where m.matchId = ?");) {
+
         try (Connection conn = DBConnection.getConnection(); PreparedStatement stmt = conn.prepareStatement("select m.matchId, m.date, m.time, (SELECT t.teamName FROM team t where t.teamId = m.team1 ) AS team1, (SELECT t.teamName FROM team t where t.teamId = m.team2 ) AS team2 from `match` m where m.matchId = ?");) {
             stmt.setInt(1, id);
             ResultSet rs = stmt.executeQuery();
@@ -89,7 +92,7 @@ public class PrivateLeagueMatchesDAO {
 //and TIMESTAMPDIFF(day, date, date(NOW())) <= 7 
         //try (Connection conn = DBConnection.getConnection(); PreparedStatement stmt = conn.prepareStatement("select m.matchId,m.tournamentId, m.date, m.time, (SELECT t.teamName FROM team t where t.teamId = m.team1 ) AS team1, (SELECT t.teamName FROM team t where t.teamId = m.team2 ) AS team2, m.team1_score,m.team2_score from `match` m where date < DATE(NOW()) AND (team1 IN (SELECT teamId from privateleagueteams where leagueId = "+leagueId+") OR team2 IN (SELECT teamId from privateleagueteams where leagueId = "+leagueId+")) AND (m.team1_score != -1 OR m.team2_score != -1) order by m.date desc LIMIT 10");) {
         //try (Connection conn = DBConnection.getConnection(); PreparedStatement stmt = conn.prepareStatement("select m.matchId,m.tournamentId, m.date, m.time, (SELECT t.teamName FROM team t where t.teamId = m.team1 ) AS team1, (SELECT t.teamName FROM team t where t.teamId = m.team2 ) AS team2, m.team1_score,m.team2_score, coalesce(ml.team1_prediction,-1), coalesce(ml.team2_prediction,-1) from `match` m left outer join matcheslog ml on m.matchId = ml.matchId where date < DATE(NOW()) AND (team1 IN (SELECT teamId from privateleagueteams where leagueId = "+leagueId+") OR team2 IN (SELECT teamId from privateleagueteams where leagueId = "+leagueId+")) AND (m.team1_score != -1 OR m.team2_score != -1) order by m.date desc limit 10 ");) {
-        try (Connection conn = DBConnection.getConnection(); PreparedStatement stmt = conn.prepareStatement("select m.matchId,m.tournamentId, m.date, m.time, (SELECT t.teamName FROM team t where t.teamId = m.team1 ) AS team1, (SELECT t.teamName FROM team t where t.teamId = m.team2 ) AS team2, m.team1_score,m.team2_score, coalesce(ml.team1_prediction,-1), coalesce(ml.team2_prediction,-1), (SELECT l.pointsAllocated FROM league l where leagueId = "+leagueId+" ) AS points from `match` m left outer join matcheslog ml on m.matchId = ml.matchId where date < DATE(NOW()) AND (team1 IN (SELECT teamId from privateleagueteams where leagueId = "+leagueId+") OR team2 IN (SELECT teamId from privateleagueteams where leagueId = "+leagueId+")) AND (m.team1_score != -1 OR m.team2_score != -1) order by m.date desc limit 10 ");) {
+        try (Connection conn = DBConnection.getConnection(); PreparedStatement stmt = conn.prepareStatement("select m.matchId,m.tournamentId, m.date, m.time, (SELECT t.teamName FROM team t where t.teamId = m.team1 ) AS team1, (SELECT t.teamName FROM team t where t.teamId = m.team2 ) AS team2, m.team1_score,m.team2_score, coalesce(ml.team1_prediction,-1), coalesce(ml.team2_prediction,-1), (SELECT l.pointsAllocated FROM league l where leagueId = " + leagueId + " ) AS points from `match` m left outer join matcheslog ml on m.matchId = ml.matchId where date < DATE(NOW()) AND (date >= (SELECT startDate FROM `privateleague` where leagueKeyId = " + leagueId + ") AND date <= (SELECT endDate FROM `privateleague` where leagueKeyId = " + leagueId + ")) AND (team1 IN (SELECT teamId from privateleagueteams where leagueId = " + leagueId + ") OR team2 IN (SELECT teamId from privateleagueteams where leagueId = " + leagueId + ")) AND (m.team1_score != -1 OR m.team2_score != -1) order by m.date desc limit 10 ");) {
             ResultSet rs = stmt.executeQuery();
             System.out.println(stmt);
             while (rs.next()) {
@@ -132,7 +135,7 @@ public class PrivateLeagueMatchesDAO {
                     json.put("team1_prediction", rs.getInt(2));
                     json.put("team2_prediction", rs.getInt(3));
                     existingMatches.put(matchId, json);
-                } catch (Exception e){
+                } catch (Exception e) {
                     e.printStackTrace();
                 }
             }

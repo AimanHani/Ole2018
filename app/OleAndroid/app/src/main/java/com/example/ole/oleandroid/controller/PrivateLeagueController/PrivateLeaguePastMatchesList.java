@@ -1,5 +1,6 @@
 package com.example.ole.oleandroid.controller.PrivateLeagueController;
 
+import android.support.constraint.ConstraintLayout;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -30,9 +31,14 @@ public class PrivateLeaguePastMatchesList extends Fragment {
         matches = PrivateMatchDAO.getPastMatches(leagueId);
         matchListView = view.findViewById(R.id.matchListView);
 
-        pmListAdapter = new PrivateLeaguePastMatchesAdapter(getContext(), matches);
-        matchListView.setAdapter(pmListAdapter);
-
+        if (matches!=null){
+            pmListAdapter = new PrivateLeaguePastMatchesAdapter(getContext(), matches);
+            matchListView.setAdapter(pmListAdapter);
+        }else{
+            android.support.constraint.ConstraintLayout football;
+            football = view.findViewById(R.id.football);
+            football.setVisibility(View.VISIBLE);
+        }
         return view;
     }
     public static void setLogId(int id) {

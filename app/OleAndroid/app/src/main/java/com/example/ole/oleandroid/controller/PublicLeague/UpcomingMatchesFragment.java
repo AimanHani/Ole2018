@@ -51,8 +51,17 @@ public class UpcomingMatchesFragment extends Fragment implements View.OnClickLis
         matches = MatchDAO.getFutureMatches(leagueId);
         matchListView = view.findViewById(R.id.matchListView);
 
-        pmListAdapter = new UpcomingMatchListAdapter(getActivity(), matches);
-        matchListView.setAdapter(pmListAdapter);
+        if (matches!=null){
+            pmListAdapter = new UpcomingMatchListAdapter(getActivity(), matches);
+            matchListView.setAdapter(pmListAdapter);
+        }else{
+            android.support.constraint.ConstraintLayout football;
+            football = view.findViewById(R.id.football);
+            football.setVisibility(View.VISIBLE);
+        }
+
+//        pmListAdapter = new UpcomingMatchListAdapter(getActivity(), matches);
+//        matchListView.setAdapter(pmListAdapter);
 
         return view;
     }
