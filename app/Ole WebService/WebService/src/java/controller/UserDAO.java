@@ -96,11 +96,10 @@ public class UserDAO {
         }
         return totalNumberOfLeagues;
     }
-    
-    
+
     public static int getLogId(String username, int leagueId) {
         int retrievedLeagueId = 0;
-        
+
         try (Connection conn = DBConnection.getConnection(); PreparedStatement stmt = conn.prepareStatement("SELECT logId from log where username = ? and leagueId = ?");) {
             stmt.setString(1, username);
             stmt.setInt(2, leagueId);
@@ -116,8 +115,29 @@ public class UserDAO {
         } catch (ClassNotFoundException ex) {
             Logger.getLogger(UserDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
+
         return retrievedLeagueId;
+    }
+
+    public static boolean updateTeam(String username, String teamName) {
+
+        try (Connection conn = DBConnection.getConnection(); PreparedStatement stmt = conn.prepareStatement("Update user SET favoriteTeam = ? where username = ?");) {
+            stmt.setString(1, teamName);
+            stmt.setString(2, username);
+            int count = stmt.executeUpdate();
+
+            if (count == 1) {
+                return true;
+            }
+            conn.close();
+
+        } catch (SQLException ex) {
+            Logger.getLogger(UserDAO.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(UserDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        return false;
     }
 
 }

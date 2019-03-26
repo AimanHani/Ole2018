@@ -67,7 +67,7 @@ public class UserDAO {
         return false;
     }
 
-    public static String getProfileStatistics(){
+    public static String getProfileStatistics() {
         PostHttp connection = new PostHttp();
         String response = null;
         String url = DBConnection.getProfileStats();
@@ -75,15 +75,38 @@ public class UserDAO {
         Boolean valid = false;
 
         try {
-            response = connection.postForm(url, "username="+loginUser.getUsername());
+            response = connection.postForm(url, "username=" + loginUser.getUsername());
             System.out.println(response);
 
             JSONObject result = new JSONObject(response);
             username = result.getString("username");
 
             if (username.equals(loginUser.getUsername())) {
-                return result.getInt("totalNumbersOfLeaguesJoined")+"";
+                return result.getInt("totalNumbersOfLeaguesJoined") + "";
             }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return null;
+    }
+
+
+    public static String updateFavoriteTeam(String teamName) {
+        PostHttp connection = new PostHttp();
+        String response = null;
+        String url = DBConnection.getMainUrl() + "/json/ChangeFavoriteTeam";
+        String username = "error";
+        Boolean valid = false;
+
+        try {
+            response = connection.postForm(url, "username=" + loginUser.getUsername() + "&teamName=" + teamName);
+            System.out.println(response);
+
+            JSONObject result = new JSONObject(response);
+
+            return result.getString("status");
 
         } catch (Exception e) {
             e.printStackTrace();
