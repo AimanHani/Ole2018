@@ -67,7 +67,7 @@ public class PublicLeagueDetails extends SideMenuBar implements View.OnClickList
 
         prizeInput.setText(publicLeague.getPrize());
         leagueNameInput.setText(publicLeague.getLeagueName());
-        totalNoMembers.setText(publicLeagueProfileList.size() + " members");
+        totalNoMembers.setText(publicLeagueProfileList.size());
 
         LeaderboardPublicAdapter lbPubAdapter = new LeaderboardPublicAdapter(PublicLeagueDetails.this, publicLeagueProfileList);
         membersListView.setAdapter(lbPubAdapter);

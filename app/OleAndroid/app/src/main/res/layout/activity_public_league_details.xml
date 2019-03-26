@@ -8,181 +8,188 @@
     tools:context=".controller.PublicLeague.PublicLeagueDetails">
 
     <LinearLayout
-        android:id="@+id/linearLayout2"
+        android:id="@+id/linearLayout_leaguename"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="120dp"
         android:orientation="vertical"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:layout_editor_absoluteX="0dp">
+        android:background="@drawable/detail_background">
 
-        <LinearLayout
-            android:id="@+id/leagueNameLayout"
+<!--        <android.support.v7.widget.CardView
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_alignParentTop="true"
-            android:layout_marginTop="5dp"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintTop_toBottomOf="parent">
+            android:layout_height="60dp"
+            android:layout_marginTop="65dp"
+            android:layout_marginLeft="30dp"
+            android:layout_marginRight="30dp"
+            app:cardCornerRadius="30dp">-->
 
-            <TextView
-                android:id="@+id/leagueNameInput"
-                style="@android:style/Widget.DeviceDefault.Light.AutoCompleteTextView"
+            <LinearLayout
+                android:id="@+id/leagueNameLayout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:ems="10"
-                android:focusable="false"
-                android:text="League name"
-                android:textStyle="bold"
-                android:textSize="18sp"
-                android:gravity="center"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent" />
-        </LinearLayout>
+                android:layout_alignParentTop="true"
+                android:orientation="vertical"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toBottomOf="parent">
+
+                <TextView
+                    android:id="@+id/leagueNameInput"
+                    android:layout_width="match_parent"
+                    android:layout_height="120dp"
+                    android:paddingTop="70dp"
+                    android:layout_gravity="center_horizontal"
+                    android:ems="10"
+                    android:focusable="false"
+                    android:gravity="center"
+                    android:text="League name"
+                    android:textColor="@color/themeColor"
+                    android:textSize="20sp"
+                    android:textStyle="bold"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent" />
+            </LinearLayout>
+        <!--</android.support.v7.widget.CardView>-->
     </LinearLayout>
 
     <LinearLayout
-        android:id="@+id/linearLayout3"
+        android:id="@+id/linearLayout_prize"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="5dp"
+        android:orientation="horizontal"
+        android:layout_marginTop="10dp"
+        android:weightSum="3"
+        app:layout_constraintEnd_toEndOf="@+id/linearLayout_leaguename"
+        app:layout_constraintStart_toStartOf="@+id/linearLayout_leaguename"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout_leaguename">
+
+    <ImageView
+        android:id="@+id/icon_prize"
+        android:layout_width="match_parent"
+        android:layout_height="65dp"
+        android:layout_weight="1.1"
+        android:layout_marginBottom="5dp"
+        android:src="@drawable/prize" />
+
+    <TextView
+        android:id="@+id/prize_text"
+        android:layout_width="match_parent"
+        android:layout_height="65dp"
+        android:layout_marginBottom="5dp"
+        android:paddingStart="10dp"
+        android:layout_weight="1.2"
+        android:text="Prize:"
+        android:textStyle="bold"
+        android:gravity="center_vertical"
+        android:textSize="15sp" />
+
+    <TextView
+        android:id="@+id/prizename"
+        android:layout_width="match_parent"
+        android:layout_height="65dp"
+        android:layout_weight="0.7"
+        android:paddingStart="10dp"
+        android:ems="10"
+        android:focusable="false"
+        android:text="1 seafood buffet voucher"
+        android:gravity="center_vertical"
+        android:textSize="15sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+
+</LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/linearLayout_members"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:layout_marginTop="5dp"
-        android:layout_marginEnd="5dp"
+        android:orientation="horizontal"
+        android:weightSum="3"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout_prize">
+
+        <ImageView
+            android:id="@+id/icon_members"
+            android:layout_width="match_parent"
+            android:layout_height="65dp"
+            android:layout_weight="1.1"
+            android:layout_marginBottom="5dp"
+            android:src="@drawable/members" />
+
+        <TextView
+            android:id="@+id/member_text"
+            android:layout_width="match_parent"
+            android:layout_height="65dp"
+            android:layout_marginBottom="5dp"
+            android:paddingStart="10dp"
+            android:layout_weight="1"
+            android:text="Total members:"
+            android:textStyle="bold"
+            android:gravity="center_vertical"
+            android:textSize="15sp" />
+
+        <TextView
+            android:id="@+id/totalNoMembers"
+            android:layout_width="match_parent"
+            android:layout_height="65dp"
+            android:layout_weight="0.9"
+            android:paddingStart="10dp"
+            android:ems="10"
+            android:focusable="false"
+            android:text="25"
+            android:gravity="center_vertical"
+            android:textSize="15sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"/>
+
+    </LinearLayout>
+
+    <!--add this part for private only (creator name)-->
+ <!--   <LinearLayout
+        android:id="@+id/linearLayout_creator"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:weightSum="3"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/linearLayout2">
-
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:orientation="vertical"
-            android:weightSum="3">
-
-            <ImageView
-                android:id="@+id/icon_prize"
-                android:layout_width="match_parent"
-                android:layout_height="65dp"
-                android:layout_marginBottom="5dp"
-                android:layout_weight="1.5"
-                android:src="@drawable/prize" />
-
-
-            <TextView
-                android:id="@+id/publicPrizeInput"
-                android:layout_width="match_parent"
-                android:layout_height="55dp"
-                android:layout_weight="1.5"
-                android:ems="10"
-                android:focusable="false"
-                android:text="KFC Big Bucket"
-                android:textStyle="bold"
-                android:gravity="center"
-                android:textSize="15sp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent" />
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:orientation="vertical"
-            android:weightSum="3">
-
-            <ImageView
-                android:id="@+id/icon_points"
-                android:layout_width="match_parent"
-                android:layout_height="65dp"
-                android:layout_marginBottom="5dp"
-                android:layout_weight="1.5"
-                android:src="@drawable/points" />
-
-            <TextView
-                android:id="@+id/publicPoints"
-                android:layout_width="match_parent"
-                android:layout_height="55dp"
-                android:layout_weight="1.5"
-                android:ems="10"
-                android:text="0 pts"
-                android:textStyle="bold"
-                android:gravity="center"
-                android:textSize="15sp"
-                android:focusable="false"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent" />
-
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:orientation="vertical"
-            android:weightSum="3">
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout_prize">
 
             <ImageView
                 android:id="@+id/icon_creator"
                 android:layout_width="match_parent"
                 android:layout_height="65dp"
+                android:layout_weight="1.1"
                 android:layout_marginBottom="5dp"
-                android:layout_weight="1.5"
                 android:src="@drawable/referee" />
 
+            <TextView
+                android:id="@+id/creator_text"
+                android:layout_width="match_parent"
+                android:layout_height="65dp"
+                android:layout_marginBottom="5dp"
+                android:paddingStart="10dp"
+                android:layout_weight="1.2"
+                android:text="Creator:"
+                android:textStyle="bold"
+                android:gravity="center_vertical"
+                android:textSize="15sp" />
 
             <TextView
                 android:id="@+id/creatorname"
                 android:layout_width="match_parent"
-                android:layout_height="55dp"
-                android:layout_weight="1.5"
+                android:layout_height="65dp"
+                android:layout_weight="0.7"
+                android:paddingStart="10dp"
                 android:ems="10"
                 android:focusable="false"
-                android:text="Ole"
-                android:textStyle="bold"
-                android:gravity="center"
+                android:text="Yiting"
+                android:gravity="center_vertical"
                 android:textSize="15sp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent" />
 
-        </LinearLayout>
-
     </LinearLayout>
-
-
-    <LinearLayout
-        android:id="@+id/linearLayout4"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="5dp"
-        android:orientation="horizontal"
-        app:layout_constraintTop_toBottomOf="@+id/linearLayout3"
-        tools:layout_editor_absoluteX="0dp">
-
-        <ImageView
-            android:id="@+id/icon_members"
-            android:layout_width="100dp"
-            android:layout_height="65dp"
-            android:layout_marginBottom="5dp"
-            android:src="@drawable/members" />
-
-        <TextView
-            android:id="@+id/totalNoMembers"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_marginStart="10dp"
-            android:ems="10"
-            android:focusable="false"
-            android:gravity="center_vertical"
-            android:text="0 members"
-            android:textSize="15sp"
-            android:textStyle="bold"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent" />
-
-    </LinearLayout>
+    &lt;!&ndash;end here&ndash;&gt;-->
 
 
     <ListView
@@ -190,7 +197,7 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/linearLayout4"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout_members"
         app:layout_constraintVertical_bias="1.0"
         tools:layout_editor_absoluteX="0dp" />
 
@@ -210,7 +217,7 @@
         <!--app:layout_constraintBottom_toBottomOf="parent"-->
         <!--app:layout_constraintLeft_toLeftOf="parent" />-->
 
-    <TextView
+    <!--<TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/mainview" />
@@ -267,21 +274,19 @@
         android:id="@+id/predictSpecial"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginRight="30dp"
-        android:layout_marginEnd="30dp"
         android:layout_marginBottom="30dp"
-        app:fabCustomSize="60dp"
-        app:maxImageSize="45dp"
-        android:scaleType="fitCenter"
         android:clickable="true"
+        android:scaleType="fitCenter"
         android:src="@drawable/soccerplayer2"
         android:visibility="invisible"
         app:backgroundTint="@color/white"
+        app:fabCustomSize="60dp"
         app:layout_constraintBottom_toTopOf="@+id/floatingActionButton"
         app:layout_constraintEnd_toEndOf="parent"
-        app:pressedTranslationZ="12dp" />
+        app:maxImageSize="45dp"
+        app:pressedTranslationZ="12dp" />-->
 
-    <android.support.design.widget.FloatingActionButton
+    <!--<android.support.design.widget.FloatingActionButton
         android:id="@+id/floatingActionButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -299,7 +304,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_anchorGravity="bottom|right|end"
-        app:pressedTranslationZ="12dp" />
+        app:pressedTranslationZ="12dp" />-->
 
     <LinearLayout
         android:orientation="vertical"
@@ -314,3 +319,290 @@
 
 
 </android.support.constraint.ConstraintLayout>
+
+
+
+
+
+<!--for yt-->
+<!--
+    <?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout
+xmlns:android="http://schemas.android.com/apk/res/android"
+xmlns:app="http://schemas.android.com/apk/res-auto"
+xmlns:tools="http://schemas.android.com/tools"
+android:layout_width="match_parent"
+android:layout_height="match_parent"
+tools:context=".controller.PublicLeague.PublicLeagueDetails">
+
+<LinearLayout
+    android:id="@+id/linearLayout2"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    app:layout_constraintTop_toTopOf="parent"
+    tools:layout_editor_absoluteX="0dp">
+
+    <LinearLayout
+        android:id="@+id/leagueNameLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="5dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="parent">
+
+        <TextView
+            android:id="@+id/leagueNameInput"
+            style="@android:style/Widget.DeviceDefault.Light.AutoCompleteTextView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:focusable="false"
+            android:text="League name"
+            android:textStyle="bold"
+            android:textSize="18sp"
+            android:gravity="center"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+    </LinearLayout>
+</LinearLayout>
+
+<LinearLayout
+    android:id="@+id/linearLayout3"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:weightSum="2"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toBottomOf="@+id/linearLayout2">
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:orientation="vertical"
+        android:weightSum="3">
+
+        <ImageView
+            android:id="@+id/icon_prize"
+            android:layout_width="match_parent"
+            android:layout_height="65dp"
+            android:layout_marginBottom="5dp"
+            android:layout_weight="1.5"
+            android:src="@drawable/prize" />
+
+
+
+        <TextView
+            android:id="@+id/publicPrizeInput"
+            android:layout_width="match_parent"
+            android:layout_height="55dp"
+            android:layout_weight="1.5"
+            android:ems="10"
+            android:focusable="false"
+            android:text="KFC Big Bucket"
+            android:textStyle="bold"
+            android:gravity="center"
+            android:textSize="15sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:orientation="vertical"
+        android:weightSum="3">
+
+        <ImageView
+            android:id="@+id/icon_creator"
+            android:layout_width="match_parent"
+            android:layout_height="65dp"
+            android:layout_marginBottom="5dp"
+            android:layout_weight="1.5"
+            android:src="@drawable/referee" />
+
+
+        <TextView
+            android:id="@+id/creatorname"
+            android:layout_width="match_parent"
+            android:layout_height="55dp"
+            android:layout_weight="1.5"
+            android:ems="10"
+            android:focusable="false"
+            android:text="Ole"
+            android:textStyle="bold"
+            android:gravity="center"
+            android:textSize="15sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+    </LinearLayout>
+
+</LinearLayout>
+
+
+<LinearLayout
+    android:id="@+id/linearLayout4"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="5dp"
+    android:orientation="horizontal"
+    app:layout_constraintTop_toBottomOf="@+id/linearLayout3"
+    tools:layout_editor_absoluteX="0dp">
+
+    <ImageView
+        android:id="@+id/icon_members"
+        android:layout_width="100dp"
+        android:layout_height="65dp"
+        android:layout_marginBottom="5dp"
+        android:src="@drawable/members" />
+
+    <TextView
+        android:id="@+id/totalNoMembers"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_marginStart="10dp"
+        android:ems="10"
+        android:focusable="false"
+        android:gravity="center_vertical"
+        android:text="0 members"
+        android:textSize="15sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+</LinearLayout>
+
+
+<ListView
+    android:id="@+id/membersListView"
+    android:layout_width="match_parent"
+    android:layout_height="0dp"
+    app:layout_constraintBottom_toBottomOf="parent"
+    app:layout_constraintTop_toBottomOf="@+id/linearLayout4"
+    app:layout_constraintVertical_bias="1.0"
+    tools:layout_editor_absoluteX="0dp" />
+
+
+&lt;!&ndash;<Button&ndash;&gt;
+&lt;!&ndash;android:id="@+id/predict"&ndash;&gt;
+&lt;!&ndash;android:layout_width="match_parent"&ndash;&gt;
+&lt;!&ndash;android:layout_height="63dp"&ndash;&gt;
+&lt;!&ndash;android:layout_alignParentLeft="true"&ndash;&gt;
+&lt;!&ndash;android:layout_alignParentBottom="true"&ndash;&gt;
+&lt;!&ndash;android:background="@color/themeColor"&ndash;&gt;
+&lt;!&ndash;android:text="PREDICT MATCH"&ndash;&gt;
+&lt;!&ndash;android:textColor="@color/white"&ndash;&gt;
+&lt;!&ndash;android:textSize="18sp"&ndash;&gt;
+&lt;!&ndash;android:textStyle="bold"&ndash;&gt;
+&lt;!&ndash;android:visibility="visible"&ndash;&gt;
+&lt;!&ndash;app:layout_constraintBottom_toBottomOf="parent"&ndash;&gt;
+&lt;!&ndash;app:layout_constraintLeft_toLeftOf="parent" />&ndash;&gt;
+
+<TextView
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:id="@+id/mainview" />
+
+<TextView
+    android:id="@+id/matchtext"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="8dp"
+    android:layout_marginEnd="16dp"
+    android:layout_marginRight="16dp"
+    android:layout_marginTop="8dp"
+    android:text="Predict Matches"
+    android:textColor="@color/white"
+    android:visibility="gone"
+    app:layout_constraintBottom_toBottomOf="@+id/predictMatch"
+    app:layout_constraintEnd_toStartOf="@+id/predictMatch"
+    app:layout_constraintTop_toTopOf="@+id/predictMatch" />
+
+<TextView
+    android:id="@+id/specialtext"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="8dp"
+    android:layout_marginEnd="16dp"
+    android:layout_marginRight="16dp"
+    android:layout_marginTop="8dp"
+    android:text="Predict Specials"
+    android:textColor="@color/white"
+    android:visibility="gone"
+    app:layout_constraintBottom_toBottomOf="@+id/predictSpecial"
+    app:layout_constraintEnd_toStartOf="@+id/predictSpecial"
+    app:layout_constraintTop_toTopOf="@+id/predictSpecial" />
+
+<android.support.design.widget.FloatingActionButton
+    android:id="@+id/predictMatch"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_marginRight="30dp"
+    android:layout_marginEnd="30dp"
+    android:layout_marginBottom="30dp"
+    app:fabCustomSize="60dp"
+    app:maxImageSize="45dp"
+    android:scaleType="fitCenter"
+    android:src="@drawable/scoreboard2"
+    android:visibility="invisible"
+    app:backgroundTint="@color/white"
+    app:layout_constraintBottom_toTopOf="@+id/predictSpecial"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:pressedTranslationZ="12dp" />
+
+
+<android.support.design.widget.FloatingActionButton
+    android:id="@+id/predictSpecial"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="30dp"
+    android:clickable="true"
+    android:scaleType="fitCenter"
+    android:src="@drawable/soccerplayer2"
+    android:visibility="invisible"
+    app:backgroundTint="@color/white"
+    app:fabCustomSize="60dp"
+    app:layout_constraintBottom_toTopOf="@+id/floatingActionButton"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:maxImageSize="45dp"
+    app:pressedTranslationZ="12dp" />
+
+&lt;!&ndash;<android.support.design.widget.FloatingActionButton
+    android:id="@+id/floatingActionButton"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_marginRight="30dp"
+    android:layout_marginEnd="30dp"
+    android:layout_marginBottom="30dp"
+    app:fabCustomSize="60dp"
+    app:maxImageSize="25dp"
+    android:scaleType="fitCenter"
+    android:clickable="true"
+    app:layout_behavior="com.eventizon.behavior.ScrollAwareFABBehavior"
+    android:src="@drawable/add"
+    app:fabSize="mini"
+    app:backgroundTint="@color/white"
+    app:layout_constraintBottom_toBottomOf="parent"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_anchorGravity="bottom|right|end"
+    app:pressedTranslationZ="12dp" />&ndash;&gt;
+
+<LinearLayout
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:visibility="gone"
+    android:clickable="true"
+    android:id="@+id/blackoutimage"
+    android:scaleType="fitXY"
+    android:background="@drawable/blackoverlay"
+    android:alpha="0.95"
+    android:layout_height="match_parent" />
+
+
+</android.support.constraint.ConstraintLayout>-->
