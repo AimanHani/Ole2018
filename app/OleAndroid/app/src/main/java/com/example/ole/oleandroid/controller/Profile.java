@@ -88,7 +88,7 @@ public class Profile extends SideMenuBar {
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 TeamItems clickedItem = (TeamItems) parent.getItemAtPosition(position);
                 clickedTeamName[0] = clickedItem.getmTeamName();
-                Toast.makeText(Profile.this, clickedTeamName[0] + " selected", Toast.LENGTH_SHORT).show();
+                //Toast.makeText(Profile.this, clickedTeamName[0] + " selected", Toast.LENGTH_SHORT).show();
             }
 
             @Override
@@ -108,7 +108,11 @@ public class Profile extends SideMenuBar {
                 if (clickedTeamName[0] != null) {
                     //Toast.makeText(Profile.this, clickedTeamName[0] + " update DB", Toast.LENGTH_SHORT).show();
                     String status = UserDAO.updateFavoriteTeam(clickedTeamName[0]);
+                    if (status.equals("successful")){
+                        dialog.dismiss();
+                    }
                     Toast.makeText(Profile.this, clickedTeamName[0] + " change "+ status, Toast.LENGTH_SHORT).show();
+
                 }
             }
         });
