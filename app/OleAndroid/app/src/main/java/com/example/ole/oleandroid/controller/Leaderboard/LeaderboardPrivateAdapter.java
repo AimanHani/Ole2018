@@ -62,9 +62,9 @@ public class LeaderboardPrivateAdapter extends BaseAdapter {
         viewHolder.username = convertView.findViewById(R.id.username);
         viewHolder.score = convertView.findViewById(R.id.score);
 
-        viewHolder.userposition.setText(privLeagList.get(position).getRank()+"");
+        viewHolder.userposition.setText("#"+privLeagList.get(position).getRank()+"");
         viewHolder.username.setText(privLeagList.get(position).getUsername());
-        viewHolder.score.setText(privLeagList.get(position).getTotalPoints()+"");
+        viewHolder.score.setText(privLeagList.get(position).getTotalPoints()+" pts");
 
         return convertView;// returns the view for the current row
     }

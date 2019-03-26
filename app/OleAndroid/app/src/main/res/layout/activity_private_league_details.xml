@@ -5,192 +5,193 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".controller.PrivateLeagueController.PrivateLeagueDetails">
+    tools:context=".controller.PublicLeague.PublicLeagueDetails">
 
     <LinearLayout
+        android:id="@+id/linearLayout_leaguename"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical">
-        <LinearLayout
-            android:id="@+id/leagueNameLayout"
-            android:layout_width="320dp"
-            android:layout_height="50dp"
-            android:layout_marginLeft="32dp"
-            android:layout_marginTop="16dp"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/matchScoreDisplay">
+        android:layout_height="120dp"
+        android:orientation="vertical"
+        android:background="@drawable/detail_background">
 
-            <TextView
-                android:id="@+id/leagueName"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="League Name: "
-                tools:layout_editor_absoluteX="16dp"
-                tools:layout_editor_absoluteY="116dp" />
+        <android.support.v7.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:layout_marginTop="65dp"
+            android:alpha="0.6">
 
-            <TextView
-                android:id="@+id/leagueNameInput"
-                style="@android:style/Widget.DeviceDefault.Light.AutoCompleteTextView"
+            <LinearLayout
+                android:id="@+id/leagueNameLayout"
                 android:layout_width="match_parent"
-                android:layout_height="55dp"
-                android:layout_marginStart="16dp"
-                android:layout_marginEnd="16dp"
-                android:layout_marginBottom="8dp"
-                android:ems="10"
-                android:text="Big Bucket"
-                android:textSize="14sp"
-                android:focusable="false"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:id="@+id/prizeLayout"
-            android:layout_width="320dp"
-            android:layout_height="50dp"
-            android:layout_marginLeft="32dp"
-            android:orientation="horizontal"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/leagueNameLayout">
-
-            <TextView
-                android:id="@+id/privatePrize"
-                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Winning Prize: "
-                tools:layout_editor_absoluteX="16dp"
-                tools:layout_editor_absoluteY="155dp" />
+                android:layout_alignParentTop="true"
+                android:orientation="vertical"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toBottomOf="parent">
 
-            <TextView
-                android:id="@+id/privatePrizeInput"
-                style="@android:style/Widget.DeviceDefault.Light.AutoCompleteTextView"
-                android:layout_width="match_parent"
-                android:layout_height="55dp"
-                android:layout_marginStart="16dp"
-                android:layout_marginEnd="16dp"
-                android:layout_marginBottom="8dp"
-                android:ems="10"
-                android:text="KFC Big Bucket"
-                android:textSize="14sp"
-                android:focusable="false"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent" />
+                <TextView
+                    android:id="@+id/leagueNameInput"
+                    android:layout_width="match_parent"
+                    android:layout_height="60dp"
+                    android:layout_gravity="center_horizontal"
+                    android:ems="10"
+                    android:focusable="false"
+                    android:gravity="center"
+                    android:text="League name"
+                    android:textColor="@color/themeColor"
+                    android:textSize="20sp"
+                    android:textStyle="bold"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent" />
+            </LinearLayout>
+        </android.support.v7.widget.CardView>
+    </LinearLayout>
 
+    <LinearLayout
+        android:id="@+id/linearLayout_prize"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginTop="10dp"
+        android:weightSum="3"
+        app:layout_constraintEnd_toEndOf="@+id/linearLayout_leaguename"
+        app:layout_constraintStart_toStartOf="@+id/linearLayout_leaguename"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout_leaguename">
 
-        </LinearLayout>
-
-        <LinearLayout
-            android:id="@+id/pointsalloc"
-            android:layout_width="320dp"
-            android:layout_height="50dp"
-            android:layout_marginLeft="32dp"
-            android:orientation="horizontal"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/prizeLayout">
-
-            <TextView
-                android:id="@+id/pointsprivate"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Points: "
-                tools:layout_editor_absoluteX="43dp"
-                tools:layout_editor_absoluteY="231dp" />
-
-            <TextView
-                android:id="@+id/privatepoints"
-                style="@android:style/Widget.DeviceDefault.Light.AutoCompleteTextView"
-                android:layout_width="match_parent"
-                android:layout_height="55dp"
-                android:layout_marginStart="16dp"
-                android:layout_marginEnd="16dp"
-                android:layout_marginBottom="8dp"
-                android:ems="10"
-                android:text="ReginaPhalange999"
-                android:textSize="14sp"
-                android:focusable="false"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:id="@+id/CreatedBy"
-            android:layout_width="320dp"
-            android:layout_height="50dp"
-            android:layout_marginLeft="32dp"
-            android:orientation="horizontal"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/prizeLayout">
-
-            <TextView
-                android:id="@+id/friendList"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Created By: "
-                tools:layout_editor_absoluteX="43dp"
-                tools:layout_editor_absoluteY="231dp" />
-
-            <TextView
-                android:id="@+id/creator"
-                style="@android:style/Widget.DeviceDefault.Light.AutoCompleteTextView"
-                android:layout_width="match_parent"
-                android:layout_height="55dp"
-                android:layout_marginStart="16dp"
-                android:layout_marginEnd="16dp"
-                android:layout_marginBottom="8dp"
-                android:ems="10"
-                android:text="ReginaPhalange999"
-                android:textSize="14sp"
-                android:focusable="false"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:id="@+id/totalmembers"
-            android:layout_width="320dp"
-            android:layout_height="50dp"
-            android:layout_marginLeft="32dp"
-            android:orientation="horizontal"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/prizeLayout">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Total Members: "
-                tools:layout_editor_absoluteX="43dp"
-                tools:layout_editor_absoluteY="231dp" />
-
-            <TextView
-                android:id="@+id/totalNoMembers"
-                style="@android:style/Widget.DeviceDefault.Light.AutoCompleteTextView"
-                android:layout_width="match_parent"
-                android:layout_height="55dp"
-                android:layout_marginStart="16dp"
-                android:layout_marginEnd="16dp"
-                android:layout_marginBottom="8dp"
-                android:ems="10"
-                android:text="0"
-                android:textSize="14sp"
-                android:focusable="false"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent" />
-        </LinearLayout>
+        <ImageView
+            android:id="@+id/icon_prize"
+            android:layout_width="match_parent"
+            android:layout_height="65dp"
+            android:layout_weight="1.1"
+            android:layout_marginBottom="5dp"
+            android:src="@drawable/prize" />
 
         <TextView
-            android:id="@+id/membersNames"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Members: "
-            android:textSize="14sp"
-            tools:layout_editor_absoluteX="43dp"
-            tools:layout_editor_absoluteY="231dp" />
-
-        <ListView
-            android:id="@+id/privateLeagueListView"
+            android:id="@+id/prize_text"
             android:layout_width="match_parent"
-            android:layout_height="match_parent" />
+            android:layout_height="65dp"
+            android:layout_marginBottom="5dp"
+            android:paddingStart="10dp"
+            android:layout_weight="1.2"
+            android:text="Prize:"
+            android:textStyle="bold"
+            android:gravity="center_vertical"
+            android:textSize="15sp" />
+
+        <TextView
+            android:id="@+id/privatePrizeInput"
+            android:layout_width="match_parent"
+            android:layout_height="65dp"
+            android:layout_weight="0.7"
+            android:paddingStart="10dp"
+            android:ems="10"
+            android:focusable="false"
+            android:text="1 seafood buffet voucher"
+            android:gravity="center_vertical"
+            android:textSize="15sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+
     </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/linearLayout_members"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:orientation="horizontal"
+        android:weightSum="3"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout_creator">
+
+        <ImageView
+            android:id="@+id/icon_members"
+            android:layout_width="match_parent"
+            android:layout_height="65dp"
+            android:layout_weight="1.1"
+            android:layout_marginBottom="5dp"
+            android:src="@drawable/members" />
+
+        <TextView
+            android:id="@+id/member_text"
+            android:layout_width="match_parent"
+            android:layout_height="65dp"
+            android:layout_marginBottom="5dp"
+            android:paddingStart="10dp"
+            android:layout_weight="1"
+            android:text="Total members:"
+            android:textStyle="bold"
+            android:gravity="center_vertical"
+            android:textSize="15sp" />
+
+        <TextView
+            android:id="@+id/totalNoMembers"
+            android:layout_width="match_parent"
+            android:layout_height="65dp"
+            android:layout_weight="0.9"
+            android:paddingStart="10dp"
+            android:ems="10"
+            android:focusable="false"
+            android:text="25"
+            android:gravity="center_vertical"
+            android:textSize="15sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+           android:id="@+id/linearLayout_creator"
+           android:layout_width="match_parent"
+           android:layout_height="wrap_content"
+           android:orientation="horizontal"
+           android:weightSum="3"
+           app:layout_constraintEnd_toEndOf="parent"
+           app:layout_constraintStart_toStartOf="parent"
+           app:layout_constraintTop_toBottomOf="@+id/linearLayout_prize">
+
+               <ImageView
+                   android:id="@+id/icon_creator"
+                   android:layout_width="match_parent"
+                   android:layout_height="65dp"
+                   android:layout_weight="1.1"
+                   android:src="@drawable/referee" />
+
+               <TextView
+                   android:id="@+id/creator_text"
+                   android:layout_width="match_parent"
+                   android:layout_height="65dp"
+                   android:paddingStart="10dp"
+                   android:layout_weight="1.2"
+                   android:text="Creator:"
+                   android:textStyle="bold"
+                   android:gravity="center_vertical"
+                   android:textSize="15sp" />
+
+               <TextView
+                   android:id="@+id/creator"
+                   android:layout_width="match_parent"
+                   android:layout_height="65dp"
+                   android:layout_weight="0.7"
+                   android:paddingStart="10dp"
+                   android:ems="10"
+                   android:focusable="false"
+                   android:text="Yiting"
+                   android:gravity="center_vertical"
+                   android:textSize="15sp"
+                   app:layout_constraintEnd_toEndOf="parent"
+                   app:layout_constraintStart_toStartOf="parent" />
+
+       </LinearLayout>
+
+    <ListView
+        android:id="@+id/privateLeagueListView"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout_members"
+        app:layout_constraintVertical_bias="1.0"
+        tools:layout_editor_absoluteX="0dp" />
 
     <TextView
         android:layout_width="wrap_content"

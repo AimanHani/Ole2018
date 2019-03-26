@@ -14,13 +14,11 @@
         android:orientation="vertical"
         android:background="@drawable/detail_background">
 
-<!--        <android.support.v7.widget.CardView
+<android.support.v7.widget.CardView
             android:layout_width="match_parent"
             android:layout_height="60dp"
             android:layout_marginTop="65dp"
-            android:layout_marginLeft="30dp"
-            android:layout_marginRight="30dp"
-            app:cardCornerRadius="30dp">-->
+            android:alpha="0.6">
 
             <LinearLayout
                 android:id="@+id/leagueNameLayout"
@@ -34,8 +32,7 @@
                 <TextView
                     android:id="@+id/leagueNameInput"
                     android:layout_width="match_parent"
-                    android:layout_height="120dp"
-                    android:paddingTop="70dp"
+                    android:layout_height="60dp"
                     android:layout_gravity="center_horizontal"
                     android:ems="10"
                     android:focusable="false"
@@ -47,7 +44,7 @@
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent" />
             </LinearLayout>
-        <!--</android.support.v7.widget.CardView>-->
+        </android.support.v7.widget.CardView>
     </LinearLayout>
 
     <LinearLayout
@@ -82,7 +79,7 @@
         android:textSize="15sp" />
 
     <TextView
-        android:id="@+id/prizename"
+        android:id="@+id/publicPrizeInput"
         android:layout_width="match_parent"
         android:layout_height="65dp"
         android:layout_weight="0.7"
@@ -143,55 +140,6 @@
 
     </LinearLayout>
 
-    <!--add this part for private only (creator name)-->
- <!--   <LinearLayout
-        android:id="@+id/linearLayout_creator"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:weightSum="3"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/linearLayout_prize">
-
-            <ImageView
-                android:id="@+id/icon_creator"
-                android:layout_width="match_parent"
-                android:layout_height="65dp"
-                android:layout_weight="1.1"
-                android:layout_marginBottom="5dp"
-                android:src="@drawable/referee" />
-
-            <TextView
-                android:id="@+id/creator_text"
-                android:layout_width="match_parent"
-                android:layout_height="65dp"
-                android:layout_marginBottom="5dp"
-                android:paddingStart="10dp"
-                android:layout_weight="1.2"
-                android:text="Creator:"
-                android:textStyle="bold"
-                android:gravity="center_vertical"
-                android:textSize="15sp" />
-
-            <TextView
-                android:id="@+id/creatorname"
-                android:layout_width="match_parent"
-                android:layout_height="65dp"
-                android:layout_weight="0.7"
-                android:paddingStart="10dp"
-                android:ems="10"
-                android:focusable="false"
-                android:text="Yiting"
-                android:gravity="center_vertical"
-                android:textSize="15sp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent" />
-
-    </LinearLayout>
-    &lt;!&ndash;end here&ndash;&gt;-->
-
-
     <ListView
         android:id="@+id/membersListView"
         android:layout_width="match_parent"
@@ -201,23 +149,7 @@
         app:layout_constraintVertical_bias="1.0"
         tools:layout_editor_absoluteX="0dp" />
 
-
-    <!--<Button-->
-        <!--android:id="@+id/predict"-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="63dp"-->
-        <!--android:layout_alignParentLeft="true"-->
-        <!--android:layout_alignParentBottom="true"-->
-        <!--android:background="@color/themeColor"-->
-        <!--android:text="PREDICT MATCH"-->
-        <!--android:textColor="@color/white"-->
-        <!--android:textSize="18sp"-->
-        <!--android:textStyle="bold"-->
-        <!--android:visibility="visible"-->
-        <!--app:layout_constraintBottom_toBottomOf="parent"-->
-        <!--app:layout_constraintLeft_toLeftOf="parent" />-->
-
-    <!--<TextView
+    <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/mainview" />
@@ -274,7 +206,8 @@
         android:id="@+id/predictSpecial"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="30dp"
+        android:layout_marginEnd="28dp"
+        android:layout_marginBottom="32dp"
         android:clickable="true"
         android:scaleType="fitCenter"
         android:src="@drawable/soccerplayer2"
@@ -286,7 +219,7 @@
         app:maxImageSize="45dp"
         app:pressedTranslationZ="12dp" />-->
 
-    <!--<android.support.design.widget.FloatingActionButton
+    <android.support.design.widget.FloatingActionButton
         android:id="@+id/floatingActionButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -304,7 +237,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_anchorGravity="bottom|right|end"
-        app:pressedTranslationZ="12dp" />-->
+        app:pressedTranslationZ="12dp" />
 
     <LinearLayout
         android:orientation="vertical"

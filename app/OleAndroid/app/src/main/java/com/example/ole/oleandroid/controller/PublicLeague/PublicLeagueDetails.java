@@ -36,7 +36,7 @@ public class PublicLeagueDetails extends SideMenuBar implements View.OnClickList
     Button button, predict;
     PublicLeagueDetailsAdapter publicLeagueDetailsAdapter;
     ListView membersListView;
-    TextView prizeInput, leagueNameInput, publicPoints, totalNoMembers, specialtext, matchtext, mainview;
+    TextView prizeInput, leagueNameInput, totalNoMembers, specialtext, matchtext, mainview;
     LinearLayout blackoutimage;
     PublicLeague publicLeague;
     FloatingActionButton main, predictSpecial, predictMatch;
@@ -60,14 +60,14 @@ public class PublicLeagueDetails extends SideMenuBar implements View.OnClickList
 
         prizeInput = findViewById(R.id.publicPrizeInput);
         leagueNameInput = findViewById(R.id.leagueNameInput);
-        publicPoints = findViewById(R.id.publicPoints);
+        //publicPoints = findViewById(R.id.publicPoints);
         totalNoMembers = findViewById(R.id.totalNoMembers);
         membersListView = findViewById(R.id.membersListView);
 
 
         prizeInput.setText(publicLeague.getPrize());
         leagueNameInput.setText(publicLeague.getLeagueName());
-        totalNoMembers.setText(publicLeagueProfileList.size());
+        totalNoMembers.setText(publicLeagueProfileList.size()+"");
 
         LeaderboardPublicAdapter lbPubAdapter = new LeaderboardPublicAdapter(PublicLeagueDetails.this, publicLeagueProfileList);
         membersListView.setAdapter(lbPubAdapter);

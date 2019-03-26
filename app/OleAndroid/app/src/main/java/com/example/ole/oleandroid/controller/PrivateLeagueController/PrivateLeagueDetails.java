@@ -48,7 +48,7 @@ public class PrivateLeagueDetails extends SideMenuBar implements View.OnClickLis
     Button button;
     PrivateLeagueDetailsAdapter privateLeagueDetailsAdapter;
     ListView privateLeagueListView;
-    TextView privatePrizeInput, leagueNameInput, creator, privatepoints, totalNoMembers;
+    TextView privatePrizeInput, leagueNameInput, creator, totalNoMembers;
     PrivateLeague privateleague = null;
     int logid = 0;
     LinearLayout blackoutimage;
@@ -80,13 +80,13 @@ public class PrivateLeagueDetails extends SideMenuBar implements View.OnClickLis
         privatePrizeInput = findViewById(R.id.privatePrizeInput);
         leagueNameInput = findViewById(R.id.leagueNameInput);
         creator = findViewById(R.id.creator);
-        privatepoints = findViewById(R.id.privatepoints);
+//        privatepoints = findViewById(R.id.privatepoints);
         totalNoMembers = findViewById(R.id.totalNoMembers);
 
         privatePrizeInput.setText(privateleague.getPrize());
         leagueNameInput.setText(privateleague.getLeagueName());
         creator.setText(privateleague.getUsername());
-        privatepoints.setText(privateleague.getPointsAllocated() + "");
+//        privatepoints.setText(privateleague.getPointsAllocated() + "");
         totalNoMembers.setText(privateLeagueProfileList.size() + "");
 
         privateLeagueListView = findViewById(R.id.privateLeagueListView);
@@ -139,6 +139,8 @@ public class PrivateLeagueDetails extends SideMenuBar implements View.OnClickLis
                     predictMatch.setClickable(true);
                     specialtext.setVisibility(View.VISIBLE);
                     matchtext.setVisibility(View.VISIBLE);
+                    specialtext.bringToFront();
+                    matchtext.bringToFront();
                     isOpen = true;
 
                     predictMatch.setOnClickListener(new View.OnClickListener() {
