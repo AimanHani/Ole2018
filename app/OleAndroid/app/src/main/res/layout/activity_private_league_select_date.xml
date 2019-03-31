@@ -20,7 +20,7 @@
         android:layout_height="wrap_content"
         android:paddingLeft="10dp"
         android:paddingRight="10dp"
-        android:text="Step 4: Select a list of specials that you and your friends would like to predict throughout the competition!"
+        android:text="Step 3: Choose a start and end date for your private competition!"
         android:textSize="18sp"
         app:layout_constraintTop_toBottomOf="@+id/stepbar"
         tools:layout_editor_absoluteX="0dp" />

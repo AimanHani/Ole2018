@@ -16,7 +16,12 @@ import com.example.ole.oleandroid.controller.DAO.TeamCountryItemDAO;
 import com.example.ole.oleandroid.model.Match;
 import com.example.ole.oleandroid.model.TeamItems;
 
+import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -90,6 +95,23 @@ public class PrivateLeagueUpcomingMatchesAdapter extends BaseAdapter {
         viewHolder.team2_photo.setImageResource(teamItemsList.get(m.getTeam2()).getmTeamImage());
         viewHolder.match_date.setTag(m.getMatchID());
         viewHolder.match_date.setText(m.getMatchDate() + " " + m.getMatchTime());
+
+//        Calendar c = Calendar.getInstance();
+//        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+//        String strDate = sdf.format(c.getTime());
+//        try{
+//            Date currDate = sdf.parse(strDate);
+//            Date matchDate = (sdf).parse(m.getMatchDate() + " " + m.getMatchTime());
+//            System.out.println("Current " + currDate);
+//            System.out.println("Match " + matchDate);
+//            if(currDate.after(matchDate)){
+//                System.out.println("I NEED TO DISABLE");
+//            }
+//            System.out.println("ENABLE");
+//        }catch(Exception e){}
+
+
+
 
         viewHolder.team1_scoreinput.addTextChangedListener(new TextWatcher() {
             @Override
