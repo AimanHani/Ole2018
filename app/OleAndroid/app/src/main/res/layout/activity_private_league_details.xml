@@ -199,6 +199,22 @@
         android:id="@+id/mainview" />
 
     <TextView
+        android:id="@+id/sharetext"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginRight="16dp"
+        android:layout_marginTop="8dp"
+        android:text="Share Via WhatsApp"
+        android:textColor="@color/white"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="@+id/shareLeague"
+        app:layout_constraintEnd_toStartOf="@+id/shareLeague"
+        app:layout_constraintTop_toTopOf="@+id/shareLeague" />
+
+
+    <TextView
         android:id="@+id/matchtext"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -227,6 +243,23 @@
         app:layout_constraintBottom_toBottomOf="@+id/predictSpecial"
         app:layout_constraintEnd_toStartOf="@+id/predictSpecial"
         app:layout_constraintTop_toTopOf="@+id/predictSpecial" />
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/shareLeague"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="30dp"
+        android:layout_marginBottom="30dp"
+        android:accessibilityPaneTitle="Share League"
+        android:scaleType="fitCenter"
+        android:src="@drawable/whatsapp"
+        android:visibility="invisible"
+        app:backgroundTint="@color/white"
+        app:fabCustomSize="60dp"
+        app:layout_constraintBottom_toTopOf="@+id/predictMatch"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:maxImageSize="45dp"
+        app:pressedTranslationZ="12dp" />
 
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/predictMatch"

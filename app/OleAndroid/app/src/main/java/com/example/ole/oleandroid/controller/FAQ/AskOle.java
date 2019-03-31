@@ -108,8 +108,8 @@ public class AskOle extends SideMenuBar {
                 dialog.setContentView(R.layout.activity_askole_confirm);
                 dialog.show();
 
-                TextView end = (TextView) dialog.findViewById(R.id.end);
-                end.setOnClickListener(new View.OnClickListener() {
+                TextView confirm = (TextView) dialog.findViewById(R.id.confirm);
+                confirm.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
                         Intent i = new Intent(AskOle.this, FAQ.class);

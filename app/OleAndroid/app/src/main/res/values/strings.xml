@@ -1,9 +1,9 @@
 <resources>
-    <string name="app_name">Ole</string>
+    <string name="app_name">Olé </string>
 
     <!-- Loading Page -->
     <string name="ole_slogan">Football. Friends. Fun</string>
-    <string name="loadingPage_copyright_row1">© 2019 Ole Football. Friends Fun.</string>
+    <string name="loadingPage_copyright_row1">© 2019 Olé  Football. Friends Fun.</string>
     <string name="loadingPage_copyright_row2">All Rights Reserved.</string>
 
     <!-- OnBoard Screen. -->
