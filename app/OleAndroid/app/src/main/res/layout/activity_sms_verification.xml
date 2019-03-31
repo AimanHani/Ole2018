@@ -61,7 +61,7 @@
         android:layout_marginStart="8dp"
         android:layout_marginEnd="8dp"
         android:gravity="center_vertical"
-        android:hint="Enter 4 Digit Verification Code Sent to Your Number"
+        android:hint="Enter 4 Digit Verification Code Sent to Your Email"
         android:textAlignment="center"
         android:textColor="@color/black"
         android:textSize="18sp"

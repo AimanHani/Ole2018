@@ -81,4 +81,8 @@
         <servlet-name>ChangeFavoriteTeam</servlet-name>
         <url-pattern>/json/ChangeFavoriteTeam</url-pattern>
     </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>GetTeamJson</servlet-name>
+        <url-pattern>/json/getTeam</url-pattern>
+    </servlet-mapping>
 </web-app>

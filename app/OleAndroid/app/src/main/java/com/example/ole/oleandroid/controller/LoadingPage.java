@@ -38,6 +38,7 @@ public class LoadingPage extends AppCompatActivity {
                         startActivity(i);
                     } else if (ifLoggedBefore()) {
                         Intent intent = new Intent(LoadingPage.this, HomeLeague.class);
+                        intent.putExtra("FROM_ACTIVITY", "Login");
                         startActivity(intent);
                     } else {
                         Intent j = new Intent(getBaseContext(), Login.class);

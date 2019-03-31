@@ -85,12 +85,13 @@ public class Login extends AppCompatActivity {
                                     load.dismiss();
 
                                     if (valid) {
-                                        SharedPreferences preferences = getSharedPreferences("logged",MODE_PRIVATE);
+                                        SharedPreferences preferences = getSharedPreferences("logged", MODE_PRIVATE);
                                         preferences.edit().putBoolean("login", true).apply();
                                         preferences.edit().putString("username", usernameInput).apply();
                                         preferences.edit().putString("password", passwordInput).apply();
 
                                         Intent intent = new Intent(Login.this, HomeLeague.class);
+                                        intent.putExtra("FROM_ACTIVITY", "Login");
                                         startActivity(intent);
                                     } else {
                                         showToast();
@@ -114,8 +115,18 @@ public class Login extends AppCompatActivity {
 
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(Login.this, PredictMainPage.class);
-                startActivity(intent);
+
+                try {
+                    Intent sendIntent = new Intent();
+                    sendIntent.setAction(Intent.ACTION_SEND);
+                    sendIntent.putExtra(Intent.EXTRA_TEXT, "This is my text to send.");
+                    sendIntent.setType("text/plain");
+                    sendIntent.setPackage("com.whatsapp");
+                    startActivity(sendIntent);
+
+                } catch (android.content.ActivityNotFoundException ex) {
+                    Toast.makeText(getBaseContext(), "Whatsapp have not been installed.", Toast.LENGTH_LONG).show();
+                }
             }
         });
 
@@ -139,5 +150,17 @@ public class Login extends AppCompatActivity {
     public static String concatUsernamePwd(String username, String pwd) {
         return "username=" + username + "&password=" + pwd;
     }
+
+
+    @Override
+    public void onBackPressed() {
+        //do nothing
+    }
+
+//    @Override
+//    public boolean onSupportNavigateUp(){
+//        finish();
+//        return true;
+//    }
 }
 

@@ -5,7 +5,9 @@ import com.example.ole.oleandroid.model.CountryItem;
 import com.example.ole.oleandroid.model.TeamItems;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
+import java.util.Iterator;
 
 public class TeamCountryItemDAO {
     public static HashMap<String, TeamItems> teamItemsList = initiateTeamList();
@@ -45,31 +47,50 @@ public class TeamCountryItemDAO {
         return countryItemsList;
     }
 
+    public static ArrayList<CountryItem> initiateCountryArrayList() {
+        ArrayList<CountryItem> countryArrayItemsList = new ArrayList<>();
+
+        Iterator it = countryItemsList.values().iterator();
+
+        while (it.hasNext()){
+            countryArrayItemsList.add((CountryItem) it.next());
+        }
+        return countryArrayItemsList;
+    }
+
     public static ArrayList<TeamItems> initiateTeamArrayList() {
 
-        ArrayList<TeamItems> teamItemsList = new ArrayList<>();
-        teamItemsList.add(new TeamItems("Arsenal", R.drawable.arsenal));
-        teamItemsList.add(new TeamItems("AFC Bournemouth ", R.drawable.afc_bournemouth));
-        teamItemsList.add(new TeamItems("Brighton and Hove Albion", R.drawable.brighton));
-        teamItemsList.add(new TeamItems("Burnley", R.drawable.burnley));
-        teamItemsList.add(new TeamItems("Cardiff City", R.drawable.cardiff));
-        teamItemsList.add(new TeamItems("Chelsea", R.drawable.chelsea));
-        teamItemsList.add(new TeamItems("Crystal Palace", R.drawable.crystal_palace));
-        teamItemsList.add(new TeamItems("Everton", R.drawable.everton));
-        teamItemsList.add(new TeamItems("Fulham", R.drawable.fulham));
-        teamItemsList.add(new TeamItems("Huddersfield Town", R.drawable.hudderfield));
-        teamItemsList.add(new TeamItems("Leicester City", R.drawable.leicester_city));
-        teamItemsList.add(new TeamItems("Liverpool", R.drawable.liverpool));
-        teamItemsList.add(new TeamItems("Manchester City", R.drawable.manchester_city));
-        teamItemsList.add(new TeamItems("Manchester United", R.drawable.manchester_united));
-        teamItemsList.add(new TeamItems("Newcastle United", R.drawable.newcastle_united));
-        teamItemsList.add(new TeamItems("Southampton", R.drawable.southampton));
-        teamItemsList.add(new TeamItems("Tottenham Hotspur", R.drawable.tottenham_hotspur));
-        teamItemsList.add(new TeamItems("Watford", R.drawable.watford));
-        teamItemsList.add(new TeamItems("West Ham United", R.drawable.west_ham));
-        teamItemsList.add(new TeamItems("Wolverhampton Wanderes", R.drawable.wolverhampton));
+        ArrayList<TeamItems> teamItemsArrayList= new ArrayList<>();
 
-        return teamItemsList;
+        Iterator it = teamItemsList.values().iterator();
+
+        while (it.hasNext()){
+            teamItemsArrayList.add((TeamItems) it.next());
+        }
+//        teamItemsList.add(new TeamItems("Arsenal", R.drawable.arsenal));
+//        teamItemsList.add(new TeamItems("Bournemouth ", R.drawable.afc_bournemouth));
+//        teamItemsList.add(new TeamItems("Brighton", R.drawable.brighton));
+//        teamItemsList.add(new TeamItems("Burnley", R.drawable.burnley));
+//        teamItemsList.add(new TeamItems("Cardiff City", R.drawable.cardiff));
+//        teamItemsList.add(new TeamItems("Chelsea", R.drawable.chelsea));
+//        teamItemsList.add(new TeamItems("Crystal Palace", R.drawable.crystal_palace));
+//        teamItemsList.add(new TeamItems("Everton", R.drawable.everton));
+//        teamItemsList.add(new TeamItems("Fulham", R.drawable.fulham));
+//        teamItemsList.add(new TeamItems("Huddersfield", R.drawable.hudderfield));
+//        teamItemsList.add(new TeamItems("Leicester", R.drawable.leicester_city));
+//        teamItemsList.add(new TeamItems("Liverpool", R.drawable.liverpool));
+//        teamItemsList.add(new TeamItems("Manchester City", R.drawable.manchester_city));
+//        teamItemsList.add(new TeamItems("Manchester United", R.drawable.manchester_united));
+//        teamItemsList.add(new TeamItems("Newcastle", R.drawable.newcastle_united));
+//        teamItemsList.add(new TeamItems("Southampton", R.drawable.southampton));
+//        teamItemsList.add(new TeamItems("Tottenham", R.drawable.tottenham_hotspur));
+//        teamItemsList.add(new TeamItems("Watford", R.drawable.watford));
+//        teamItemsList.add(new TeamItems("West Ham", R.drawable.west_ham));
+//        teamItemsList.add(new TeamItems("Wolves", R.drawable.wolverhampton));
+
+        Collections.sort(teamItemsArrayList, new TeamItems.SortTeamName());
+
+        return teamItemsArrayList;
     }
 
     public static int getCountryImageResource(String country) {

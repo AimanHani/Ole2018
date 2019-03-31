@@ -24,6 +24,7 @@ import com.example.ole.oleandroid.model.User;
 public class Profile extends SideMenuBar {
     TextView userName, userCountry, userFavTeam, matchAccValue, specialsAccValue, playQty, accQty, changeTeam;
     ImageView teamImage, countryImage;
+    User loginUser;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,7 +38,7 @@ public class Profile extends SideMenuBar {
 
         //get user object
         Intent i = getIntent();
-        User loginUser = UserDAO.getLoginUser();
+        loginUser = UserDAO.getLoginUser();
         String numLeaguesJoined = UserDAO.getProfileStatistics();
 
         userName = findViewById(R.id.userName);
@@ -111,7 +112,10 @@ public class Profile extends SideMenuBar {
                     if (status.equals("successful")){
                         dialog.dismiss();
                     }
-                    Toast.makeText(Profile.this, clickedTeamName[0] + " change "+ status, Toast.LENGTH_SHORT).show();
+                    Toast.makeText(Profile.this, clickedTeamName[0] + " changed "+ status, Toast.LENGTH_SHORT).show();
+                    loginUser.setFavoriteTeam(clickedTeamName[0]);
+                    userFavTeam.setText(loginUser.getFavoriteTeam());
+                    teamImage.setImageResource(TeamCountryItemDAO.getTeamImageResource(loginUser.getFavoriteTeam()));
 
                 }
             }

@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.os.StrictMode;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.Toast;
 
 import com.example.ole.oleandroid.R;
 import com.example.ole.oleandroid.controller.PrivateLeagueController.PrivateLeagueList;
@@ -43,5 +44,16 @@ public class HomeLeague extends SideMenuBar {
                 startActivity(intent);
             }
         });
+    }
+
+    @Override
+    public void onBackPressed() {
+
+        if (getIntent().getStringExtra("FROM_ACTIVITY").equals("Login")) {
+            Toast.makeText(getBaseContext(), "Logout at the sidebar", Toast.LENGTH_LONG).show();
+        } else {
+            super.onBackPressed();
+        }
+
     }
 }

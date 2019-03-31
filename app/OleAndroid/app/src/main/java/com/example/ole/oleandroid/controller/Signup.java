@@ -3,6 +3,7 @@ package com.example.ole.oleandroid.controller;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
@@ -24,6 +25,7 @@ import android.widget.Toast;
 import com.android.volley.RequestQueue;
 import com.example.ole.oleandroid.R;
 import com.example.ole.oleandroid.controller.DAO.SignupDAO;
+import com.example.ole.oleandroid.controller.DAO.TeamCountryItemDAO;
 import com.example.ole.oleandroid.controller.DAO.UserDAO;
 import com.example.ole.oleandroid.model.CountryItem;
 import com.example.ole.oleandroid.model.TeamItems;
@@ -88,10 +90,10 @@ public class Signup extends AppCompatActivity {
         //result = findViewById(R.id.result);
         validationOnTextView();//method used to vaidate when user input see the method at the buttom
 
-        mAdapter = new CountryAdapter(this, mCountryList);
+        mAdapter = new CountryAdapter(this, TeamCountryItemDAO.initiateCountryArrayList());
         spinnerCountries.setAdapter(mAdapter);
 
-        mAdapter2 = new TeamAdapter(this, mTeamList);
+        mAdapter2 = new TeamAdapter(this, TeamCountryItemDAO.initiateTeamArrayList());
         spinnerTeams.setAdapter(mAdapter2);
 
         //UserDAO.getUsernames();
@@ -278,6 +280,11 @@ public class Signup extends AppCompatActivity {
                 Bundle bundle = new Bundle();
                 bundle.putString("username", username.getText().toString());
                 intent.putExtras(bundle);
+                SharedPreferences preferences = getSharedPreferences("logged", MODE_PRIVATE);
+                preferences.edit().putBoolean("login", true).apply();
+                preferences.edit().putString("username", username.getText().toString()).apply();
+                preferences.edit().putString("password", password.getText().toString()).apply();
+                intent.putExtra("FROM_ACTIVITY", "Login");
                 startActivity(intent);
                 dialog.cancel();
             }
