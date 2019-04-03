@@ -111,22 +111,26 @@ public class Login extends AppCompatActivity {
             }
         });
 
+        checksmth.setVisibility(View.VISIBLE);
         checksmth.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View view) {
 
-                try {
-                    Intent sendIntent = new Intent();
-                    sendIntent.setAction(Intent.ACTION_SEND);
-                    sendIntent.putExtra(Intent.EXTRA_TEXT, "This is my text to send.");
-                    sendIntent.setType("text/plain");
-                    sendIntent.setPackage("com.whatsapp");
-                    startActivity(sendIntent);
+//                try {
+//                    Intent sendIntent = new Intent();
+//                    sendIntent.setAction(Intent.ACTION_SEND);
+//                    sendIntent.putExtra(Intent.EXTRA_TEXT, "This is my text to send.");
+//                    sendIntent.setType("text/plain");
+//                    sendIntent.setPackage("com.whatsapp");
+//                    startActivity(sendIntent);
+//
+//                } catch (android.content.ActivityNotFoundException ex) {
+//                    Toast.makeText(getBaseContext(), "Whatsapp have not been installed.", Toast.LENGTH_LONG).show();
+//                }
 
-                } catch (android.content.ActivityNotFoundException ex) {
-                    Toast.makeText(getBaseContext(), "Whatsapp have not been installed.", Toast.LENGTH_LONG).show();
-                }
+                Intent intent = new Intent(Login.this, FormGuideDetails.class);
+                startActivity(intent);
             }
         });
 

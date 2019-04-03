@@ -7,6 +7,9 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -16,6 +19,7 @@ import android.widget.TextView;
 import com.example.ole.oleandroid.R;
 import com.example.ole.oleandroid.controller.DAO.PSpecialDAO;
 import com.example.ole.oleandroid.controller.DAO.SpecialDAO;
+import com.example.ole.oleandroid.controller.FormGuideDetails;
 import com.example.ole.oleandroid.controller.HomeLeague;
 import com.example.ole.oleandroid.controller.Matches;
 import com.example.ole.oleandroid.controller.MatchesTabs;
@@ -152,10 +156,23 @@ public class SpecialList extends SideMenuBar {
         return players;
     }
 
-    //image of the prediction item e.g. best player
-    //dropdown list of the player name
-    //points that could be earned from this prediction item
-    //double it button
-    //if click on the button, points x2
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater menuInflater = getMenuInflater();
+        menuInflater.inflate(R.menu.infotoolbar, menu);
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.info:
+                Intent intent = new Intent(SpecialList.this, FormGuideDetails.class);
+                intent.putExtra("page", "specials");
+                startActivity(intent);
+                break;
+        }
+        return super.onOptionsItemSelected(item);
+    }
 
 }
