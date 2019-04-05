@@ -129,7 +129,7 @@ public class PrivateLeagueMatches extends HttpServlet {
             String username = request.getParameter("username");
             int leagueId = Integer.parseInt(request.getParameter("leagueId"));
             int logId = UserDAO.getLogId(username, leagueId);
-            HashMap<Integer, Match> pastMatches = PrivateLeagueMatchesDAO.getPastMatches(leagueId);
+            HashMap<Integer, Match> pastMatches = PrivateLeagueMatchesDAO.getPastMatches(leagueId, username);
             try {
                 Iterator it = pastMatches.entrySet().iterator();
                 while (it.hasNext()) {

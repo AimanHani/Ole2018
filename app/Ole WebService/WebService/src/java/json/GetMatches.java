@@ -125,7 +125,8 @@ public class GetMatches extends HttpServlet {
                 e.printStackTrace();
             }
         } else {
-            HashMap<Integer, Match> pastMatches = GetMatchesDAO.getPastMatches();
+            String username = request.getParameter("username");
+            HashMap<Integer, Match> pastMatches = GetMatchesDAO.getPastMatches(username);
             try {
                 Iterator it = pastMatches.entrySet().iterator();
                 while (it.hasNext()) {

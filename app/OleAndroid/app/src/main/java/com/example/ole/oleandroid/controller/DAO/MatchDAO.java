@@ -19,7 +19,7 @@ public class MatchDAO {
 
     public static ArrayList<Match> getPastMatches() {
         ArrayList<Match> matches = new ArrayList<>();
-        String url = DBConnection.getMatchesUrl() + "?matchStatus=past";
+        String url = DBConnection.getMatchesUrl() + "?matchStatus=past"+"&username="+UserDAO.getLoginUser().getUsername();
         System.out.println("Getting past matches list");
 
         GetHttp getConnection = new GetHttp();
