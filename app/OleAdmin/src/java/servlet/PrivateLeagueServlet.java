@@ -5,6 +5,8 @@
  */
 package servlet;
 
+import backGroudTask.Mailer;
+import controller.AskDAO;
 import controller.PrivateLeagueDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -66,14 +68,18 @@ public class PrivateLeagueServlet extends HttpServlet {
         }
         if (requests != null && requests.equals("delete")) {
             int leagueId = Integer.parseInt(request.getParameter("leagueid"));
-            ArrayList<Integer>logIdList = PrivateLeagueDAO.getListOfLogIds(leagueId);
+            String username = request.getParameter("username");
+            String leaguename = request.getParameter("leaguename");
+            ArrayList<Integer> logIdList = PrivateLeagueDAO.getListOfLogIds(leagueId);
             Boolean deleteSpecialLogs = PrivateLeagueDAO.deleteSpecialLogs(logIdList);
             Boolean deleteMatchesLogs = PrivateLeagueDAO.deleteMatchesLogs(logIdList);
             Boolean deleteLogs = PrivateLeagueDAO.deleteLogs(leagueId);
             Boolean deletePrivateLeagueTeams = PrivateLeagueDAO.deletePrivateLeagueTeams(leagueId);
             Boolean deletePrivateLeaugue = PrivateLeagueDAO.deletePrivateLeague(leagueId);
             Boolean deleteLeague = PrivateLeagueDAO.deleteLeague(leagueId);
-            if (deleteSpecialLogs && deleteMatchesLogs && deleteLogs && deletePrivateLeagueTeams && deletePrivateLeaugue && deleteLeague) {
+            String userEmail = AskDAO.getUserEmail(username);
+            Boolean emaiSentStatus = Mailer.send("olegroup18@gmail.com", "squadxole", userEmail, "System generated message from Ole team", "Your Private League Name: " + leaguename + " has been removed by the admin");
+            if (deleteSpecialLogs && deleteMatchesLogs && deleteLogs && deletePrivateLeagueTeams && deletePrivateLeaugue && deleteLeague && emaiSentStatus) {
                 System.out.println("SUCCESS");
                 rd = request.getRequestDispatcher("./PrivateLeagueServlet?param=loadAll");
                 rd.forward(request, response);
