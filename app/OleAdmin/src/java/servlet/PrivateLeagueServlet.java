@@ -64,6 +64,21 @@ public class PrivateLeagueServlet extends HttpServlet {
                 rd.forward(request, response);
             }
         }
+        if (requests != null && requests.equals("delete")) {
+            int leagueId = Integer.parseInt(request.getParameter("leagueid"));
+            ArrayList<Integer>logIdList = PrivateLeagueDAO.getListOfLogIds(leagueId);
+            Boolean deleteSpecialLogs = PrivateLeagueDAO.deleteSpecialLogs(logIdList);
+            Boolean deleteMatchesLogs = PrivateLeagueDAO.deleteMatchesLogs(logIdList);
+            Boolean deleteLogs = PrivateLeagueDAO.deleteLogs(leagueId);
+            Boolean deletePrivateLeagueTeams = PrivateLeagueDAO.deletePrivateLeagueTeams(leagueId);
+            Boolean deletePrivateLeaugue = PrivateLeagueDAO.deletePrivateLeague(leagueId);
+            Boolean deleteLeague = PrivateLeagueDAO.deleteLeague(leagueId);
+            if (deleteSpecialLogs && deleteMatchesLogs && deleteLogs && deletePrivateLeagueTeams && deletePrivateLeaugue && deleteLeague) {
+                System.out.println("SUCCESS");
+                rd = request.getRequestDispatcher("./PrivateLeagueServlet?param=loadAll");
+                rd.forward(request, response);
+            }
+        }
 
     }
 
