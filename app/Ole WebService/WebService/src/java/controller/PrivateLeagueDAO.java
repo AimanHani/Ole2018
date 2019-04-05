@@ -189,15 +189,14 @@ public class PrivateLeagueDAO {
                 for (String specialid : specialsList) {
                     cs2.addBatch("insert into specialslog(logid, specialsId, prediction) values(" + logId + "," + specialid + ", -1)");
                 }
-                
+
                 rs2 = cs2.executeBatch();
-                
+
                 c.close();
-                
-                if (rs2.length == specialsList.length){
+
+                if (rs2.length == specialsList.length) {
                     return "successful";
                 }
-               
 
             } catch (Exception e) {
                 e.printStackTrace();
@@ -237,7 +236,6 @@ public class PrivateLeagueDAO {
                 String leagueName = rs.getString(4);
 
                 apl = new AllPublicLeague(leagueKeyId, tournamentId, pointsAllocated, leagueName);
-
             }
             rs.close();
             conn.close();
@@ -348,8 +346,8 @@ public class PrivateLeagueDAO {
             return false;
         }
     }
-    
-    public static int getLog(int leagueid){
+
+    public static int getLog(int leagueid) {
         System.out.println("Getting Private League Logid");
         try (Connection c5 = DBConnection.getConnection(); PreparedStatement ps5 = c5.prepareStatement("SELECT logId FROM `log` where username = 'admin' and leagueId = ?");) {
             ps5.setInt(1, leagueid);
@@ -363,5 +361,10 @@ public class PrivateLeagueDAO {
             return 0;
         }
         return 0;
+    }
+
+    public static void deletePrivateLeague(int leagueId) {
+        AllPublicLeague league = retrieveLeague(leagueId);
+
     }
 }

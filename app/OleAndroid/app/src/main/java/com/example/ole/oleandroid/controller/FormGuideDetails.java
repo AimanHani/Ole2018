@@ -27,10 +27,10 @@ public class FormGuideDetails extends AppCompatActivity {
 //        setContentView(webview);
 
         Bundle bundle = getIntent().getExtras();
-        String link = "https://www.google.com/";
+        String link = "https://www.premierleague.com/tables";
 
         if (bundle != null && bundle.getString("page").equals("specials")) {
-            link = "https://www.facebook.com/";
+            link = "https://www.premierleague.com/stats/top/players/goals";
             setTitle("Specials Guide");
         }
 
