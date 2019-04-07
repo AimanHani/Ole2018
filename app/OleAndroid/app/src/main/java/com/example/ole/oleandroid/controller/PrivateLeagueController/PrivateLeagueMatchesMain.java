@@ -1,6 +1,7 @@
 package com.example.ole.oleandroid.controller.PrivateLeagueController;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.annotation.Nullable;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
@@ -10,8 +11,12 @@ import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import com.example.ole.oleandroid.R;
+import com.example.ole.oleandroid.controller.FormGuideDetails;
 import com.example.ole.oleandroid.controller.MatchesTabs;
 import com.example.ole.oleandroid.controller.PublicLeague.PastMatchesFragment;
 import com.example.ole.oleandroid.controller.PublicLeague.UpcomingMatchesFragment;
@@ -111,4 +116,21 @@ public class PrivateLeagueMatchesMain extends SideMenuBar {
         }
     }
 
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater menuInflater = getMenuInflater();
+        menuInflater.inflate(R.menu.infotoolbar, menu);
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.info:
+                Intent intent = new Intent(PrivateLeagueMatchesMain.this, FormGuideDetails.class);
+                startActivity(intent);
+                break;
+        }
+        return super.onOptionsItemSelected(item);
+    }
 }

@@ -99,7 +99,7 @@ public class DBConnection {
     }
 
     public static String getProfileStats() {
-        String url = mainUrl + "/json/leaguesJoined";
+        String url = mainUrl + "/json/userLeagueStats";
         return url;
     }
 
@@ -120,6 +120,11 @@ public class DBConnection {
 
     public static String privateSpecials() {
         String url = mainUrl + "/json/privateSpecials";
+        return url;
+    }
+
+    public static String deletePrivateLeague() {
+        String url = mainUrl + "/json/deletePrivateLeague";
         return url;
     }
 }

@@ -10,6 +10,7 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public class UserDAO {
     private static ArrayList<User> allUsers = new ArrayList();
@@ -67,22 +68,29 @@ public class UserDAO {
         return false;
     }
 
-    public static String getProfileStatistics() {
-        PostHttp connection = new PostHttp();
+    public static HashMap<String, Integer>  getProfileStatistics() {
+        GetHttp connection = new GetHttp();
         String response = null;
         String url = DBConnection.getProfileStats();
         String username = "error";
         Boolean valid = false;
-
+        HashMap<String, Integer> leagueStats = new HashMap<>();
         try {
-            response = connection.postForm(url, "username=" + loginUser.getUsername());
+            response = connection.run(url+ "?username=" + loginUser.getUsername());
             System.out.println(response);
 
             JSONObject result = new JSONObject(response);
             username = result.getString("username");
 
             if (username.equals(loginUser.getUsername())) {
-                return result.getInt("totalNumbersOfLeaguesJoined") + "";
+
+                //return result.getInt("numLeagues") + "";
+                leagueStats.put("specialsPredictionTotal", result.getInt("specialsPredictionTotal"));
+                leagueStats.put("numLeagues", result.getInt("numLeagues"));
+                leagueStats.put("matchPredictionCorrect", result.getInt("matchPredictionCorrect"));
+                leagueStats.put("pastMatchPrediction", result.getInt("pastMatchPrediction"));
+                leagueStats.put("matchAccuracy", result.getInt("matchAccuracy"));
+                return leagueStats;
             }
 
         } catch (Exception e) {
@@ -113,5 +121,13 @@ public class UserDAO {
         }
 
         return null;
+    }
+
+    public static void getMatchAccuracy(){
+
+    }
+
+    public static void getSpecialsAccuracy(){
+
     }
 }

@@ -52,7 +52,7 @@ public class SideMenuBar extends AppCompatActivity implements NavigationView.OnN
         //set sidebar name
         View headerLayout = sidemenu.getHeaderView(0);
         sidebarusername = headerLayout.findViewById(R.id.sidebarusername);
-        sidebarusername.setText(UserDAO.getLoginUser().getName());
+        sidebarusername.setText(UserDAO.getLoginUser().getUsername());
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         setNavigationViewListener();

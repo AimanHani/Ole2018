@@ -71,16 +71,17 @@ public class PublicLeagueListAdapter extends BaseAdapter implements View.OnClick
 
         //this will get each point from the arraylist
         viewHolder.leagueName.setText(leaguelist.get(position).getLeagueName());
-        viewHolder.publicLeagueRow.setTag(new ArrayList<>(Arrays.asList(position + "", leaguelist.get(position).getUserJoin().toString()))); //label the first item on the list
-        //viewHolder.joinleaguebtn.setTag(2, leaguelist.get(position).getLogId());
+
         if (!leaguelist.get(position).getUserJoin()) {
             viewHolder.joinleaguebtn.setVisibility(View.VISIBLE);
             viewHolder.leagueName.setClickable(false);
             viewHolder.publicLeagueRow.setClickable(false);
+            viewHolder.joinleaguebtn.setTag(new ArrayList<>(Arrays.asList(position + "", leaguelist.get(position).getUserJoin().toString())));
+            viewHolder.joinleaguebtn.setOnClickListener(this);
+        } else {
+            viewHolder.publicLeagueRow.setTag(new ArrayList<>(Arrays.asList(position + "", leaguelist.get(position).getUserJoin().toString())));
+            viewHolder.publicLeagueRow.setOnClickListener(this);
         }
-
-        viewHolder.joinleaguebtn.setOnClickListener(this);
-        viewHolder.publicLeagueRow.setOnClickListener(this);
 
         return convertView;// returns the view for the current row
     }

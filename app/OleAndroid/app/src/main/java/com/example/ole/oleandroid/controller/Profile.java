@@ -21,6 +21,8 @@ import com.example.ole.oleandroid.controller.DAO.UserDAO;
 import com.example.ole.oleandroid.model.TeamItems;
 import com.example.ole.oleandroid.model.User;
 
+import java.util.HashMap;
+
 public class Profile extends SideMenuBar {
     TextView userName, userCountry, userFavTeam, matchAccValue, specialsAccValue, playQty, accQty, changeTeam;
     ImageView teamImage, countryImage;
@@ -39,7 +41,7 @@ public class Profile extends SideMenuBar {
         //get user object
         Intent i = getIntent();
         loginUser = UserDAO.getLoginUser();
-        String numLeaguesJoined = UserDAO.getProfileStatistics();
+        HashMap<String, Integer> leagueStats = UserDAO.getProfileStatistics();
 
         userName = findViewById(R.id.userName);
         userCountry = findViewById(R.id.userCountry);
@@ -65,8 +67,12 @@ public class Profile extends SideMenuBar {
         specialsAccValue = findViewById(R.id.specialsAccValue);
         playQty = findViewById(R.id.playQty);
         accQty = findViewById(R.id.accQty);
-        if (numLeaguesJoined != null) {
-            playQty.setText(numLeaguesJoined);
+        if (leagueStats != null) {
+            playQty.setText(leagueStats.get("numLeagues")+"");
+            matchAccValue.setText(leagueStats.get("matchAccuracy")+"%");
+            specialsAccValue.setText("0%");
+            int mixAcc = leagueStats.get("matchAccuracy")/2;
+            accQty.setText(mixAcc+"%");
         }
     }
 

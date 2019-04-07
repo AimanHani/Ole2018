@@ -37,6 +37,8 @@ public class FormGuideDetails extends AppCompatActivity {
         webView = (WebView) findViewById(R.id.webview);
         WebSettings webSettings = webView.getSettings();
         webSettings.setJavaScriptEnabled(true);
+        webSettings.setBuiltInZoomControls(true);
+        webSettings.setDisplayZoomControls(false);
 
         //to make sure whatever link clicked is kept in the webview still
         webView.setWebViewClient(new WebViewClient() {

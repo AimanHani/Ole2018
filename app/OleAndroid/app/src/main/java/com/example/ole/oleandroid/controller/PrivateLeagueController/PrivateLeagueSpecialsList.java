@@ -5,6 +5,9 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -13,6 +16,8 @@ import android.widget.TextView;
 
 import com.example.ole.oleandroid.R;
 import com.example.ole.oleandroid.controller.DAO.PSpecialDAO;
+import com.example.ole.oleandroid.controller.FormGuideDetails;
+import com.example.ole.oleandroid.controller.PublicLeague.SpecialList;
 import com.example.ole.oleandroid.controller.SideMenuBar;
 import com.example.ole.oleandroid.model.PSpecials;
 
@@ -120,5 +125,25 @@ public class PrivateLeagueSpecialsList extends SideMenuBar {
         players.add("Lionel Messi");
         players.add("Paul Pogba");
         return players;
+    }
+
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater menuInflater = getMenuInflater();
+        menuInflater.inflate(R.menu.infotoolbar, menu);
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.info:
+                Intent intent = new Intent(PrivateLeagueSpecialsList.this, FormGuideDetails.class);
+                intent.putExtra("page", "specials");
+                startActivity(intent);
+                break;
+        }
+        return super.onOptionsItemSelected(item);
     }
 }

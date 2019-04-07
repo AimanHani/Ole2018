@@ -132,4 +132,45 @@ public class PrivateLeagueDAO {
         }
         return null;
     }
+
+    public static boolean deletePrivateLeague(String leagueId) {
+        String url = DBConnection.privateLeagueUrl();
+        //String username = UserDAO.getLoginUser().getUsername();
+
+        GetHttp getConnection = new GetHttp();
+        String response = null;
+        try {
+            response = getConnection.run(url);
+            System.out.println(response);
+            JSONObject result = new JSONObject(response);
+            if (result.getString("status").equals("successful")) {
+                return true;
+            }
+        } catch (Exception e) {
+            System.out.println("error");
+            e.printStackTrace();
+        }
+
+        return false;
+    }
+
+    public static String getPrivateLeagueCreator(String leagueId) {
+        String url = DBConnection.privateLeagueUrl() + "method=getPrivateLeagueCreator&leagueid=" + leagueId;
+
+        GetHttp getConnection = new GetHttp();
+        String response = null;
+        try {
+            response = getConnection.run(url);
+            System.out.println(response);
+            JSONObject result = new JSONObject(response);
+            if (result.getString("status").equals("successful")) {
+                return result.getString("creator");
+            }
+        } catch (Exception e) {
+            System.out.println("error");
+            e.printStackTrace();
+        }
+
+        return null;
+    }
 }

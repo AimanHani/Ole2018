@@ -1,7 +1,9 @@
 package com.example.ole.oleandroid.controller.PrivateLeagueController;
 
+import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
@@ -9,6 +11,7 @@ import android.text.InputType;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.Button;
@@ -19,11 +22,14 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.ole.oleandroid.R;
+import com.example.ole.oleandroid.controller.DAO.LoginDAO;
 import com.example.ole.oleandroid.controller.DAO.PrivateLeagueDAO;
 import com.example.ole.oleandroid.controller.DAO.PrivateMembersDAO;
 import com.example.ole.oleandroid.controller.DAO.ScoreBoardDAO;
+import com.example.ole.oleandroid.controller.DAO.UserDAO;
 import com.example.ole.oleandroid.controller.HomeLeague;
 import com.example.ole.oleandroid.controller.Leaderboard.LeaderboardPrivateAdapter;
+import com.example.ole.oleandroid.controller.Login;
 import com.example.ole.oleandroid.controller.MatchesTabs;
 import com.example.ole.oleandroid.controller.PublicLeague.PublicLeagueDetails;
 import com.example.ole.oleandroid.controller.SideMenuBar;
@@ -53,9 +59,9 @@ public class PrivateLeagueDetails extends SideMenuBar implements View.OnClickLis
     PrivateLeague privateleague = null;
     int logid = 0;
     LinearLayout blackoutimage;
-    FloatingActionButton main, predictSpecial, predictMatch, shareLeague;
+    FloatingActionButton main, predictSpecial, predictMatch, shareLeague, deleteLeague;
     Animation FoodFabOpen, FoodFabClose, FabRClockwise, FabRAntiClockwise, Fadein, Fadeout;
-    TextView specialtext, matchtext, mainview, sharetext;
+    TextView specialtext, matchtext, mainview, sharetext, deleteText;
     boolean isOpen = false;
     int numMembers = 0;
 
@@ -101,6 +107,7 @@ public class PrivateLeagueDetails extends SideMenuBar implements View.OnClickLis
         predictSpecial = findViewById(R.id.predictSpecial);
         predictMatch = findViewById(R.id.predictMatch);
         shareLeague = findViewById(R.id.shareLeague);
+        deleteLeague = findViewById(R.id.deleteLeague);
         mainview = findViewById(R.id.mainview);
 
         // enable animations for FloatingActionButton
@@ -114,6 +121,7 @@ public class PrivateLeagueDetails extends SideMenuBar implements View.OnClickLis
         specialtext = findViewById(R.id.specialtext);
         matchtext = findViewById(R.id.matchtext);
         sharetext = findViewById(R.id.sharetext);
+        deleteText = findViewById(R.id.deleteText);
 
 
         main.bringToFront();
@@ -121,36 +129,9 @@ public class PrivateLeagueDetails extends SideMenuBar implements View.OnClickLis
             @Override
             public void onClick(View v) {
                 if (isOpen) {
-                    blackoutimage.startAnimation(Fadeout);
-                    blackoutimage.setVisibility(View.GONE);
-                    predictSpecial.startAnimation(FoodFabClose);
-                    predictMatch.startAnimation(FoodFabClose);
-                    shareLeague.startAnimation(FoodFabClose);
-                    main.startAnimation(FabRAntiClockwise);
-                    predictSpecial.setClickable(false);
-                    predictMatch.setClickable(false);
-                    shareLeague.setClickable(false);
-                    specialtext.setVisibility(View.GONE);
-                    matchtext.setVisibility(View.GONE);
-                    sharetext.setVisibility(View.GONE);
-                    isOpen = false;
+                    closeBlackout();
                 } else {
-                    blackoutimage.setVisibility(View.VISIBLE);
-                    blackoutimage.startAnimation(Fadein);
-                    predictSpecial.startAnimation(FoodFabOpen);
-                    predictMatch.startAnimation(FoodFabOpen);
-                    shareLeague.startAnimation(FoodFabOpen);
-                    main.startAnimation(FabRClockwise);
-                    predictSpecial.setClickable(true);
-                    predictMatch.setClickable(true);
-                    shareLeague.setClickable(true);
-                    specialtext.setVisibility(View.VISIBLE);
-                    matchtext.setVisibility(View.VISIBLE);
-                    sharetext.setVisibility(View.VISIBLE);
-                    specialtext.bringToFront();
-                    matchtext.bringToFront();
-                    sharetext.bringToFront();
-                    isOpen = true;
+                    openBlackout();
 
                     predictMatch.setOnClickListener(new View.OnClickListener() {
                         public void onClick(View view) {
@@ -176,7 +157,7 @@ public class PrivateLeagueDetails extends SideMenuBar implements View.OnClickLis
                     shareLeague.setOnClickListener(new View.OnClickListener() {
                         public void onClick(View view) {
                             try {
-                                String message = "Join \"" + privateleague.getLeagueName() + "\" Private Competition on Olé Football. Friends. Fun. Password is: "+privateleague.getPassword();
+                                String message = "Join \"" + privateleague.getLeagueName() + "\" Private Competition on Olé Football. Friends. Fun. Password is: " + privateleague.getPassword();
 
                                 Intent sendIntent = new Intent();
                                 sendIntent.setAction(Intent.ACTION_SEND);
@@ -190,6 +171,22 @@ public class PrivateLeagueDetails extends SideMenuBar implements View.OnClickLis
                             }
                         }
                     });
+
+                    deleteLeague.setOnClickListener(new View.OnClickListener() {
+                        public void onClick(View view) {
+                            //Toast.makeText(getBaseContext(), "Delete in Progress", Toast.LENGTH_LONG).show();
+                            final Dialog load = loadingDialog();
+                            new android.os.Handler().postDelayed(
+                                    new Runnable() {
+                                        public void run() {
+                                            //boolean deleteStatus = PrivateLeagueDAO.deletePrivateLeague(leagueid);
+                                            Intent intent = new Intent(PrivateLeagueDetails.this, PrivateLeagueMain.class);
+                                            startActivity(intent);
+                                        }
+                                    }, 3000);
+                        }
+                    });
+
                     blackoutimage.setOnClickListener(this);
                 }
             }
@@ -199,18 +196,7 @@ public class PrivateLeagueDetails extends SideMenuBar implements View.OnClickLis
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.blackoutimage:
-                blackoutimage.startAnimation(Fadeout);
-                blackoutimage.setVisibility(View.GONE);
-                predictSpecial.startAnimation(FoodFabClose);
-                predictMatch.startAnimation(FoodFabClose);
-                shareLeague.startAnimation(FoodFabClose);
-                main.startAnimation(FabRAntiClockwise);
-                predictSpecial.setClickable(false);
-                predictMatch.setClickable(false);
-                shareLeague.setClickable(false);
-                specialtext.setVisibility(View.GONE);
-                matchtext.setVisibility(View.GONE);
-                isOpen = false;
+                closeBlackout();
                 break;
 
             case R.id.specialtext:
@@ -223,40 +209,76 @@ public class PrivateLeagueDetails extends SideMenuBar implements View.OnClickLis
                 break;
             case R.id.floatingActionButton:
                 if (isOpen) {
-                    blackoutimage.startAnimation(Fadeout);
-                    blackoutimage.setVisibility(View.GONE);
-                    predictSpecial.startAnimation(FoodFabClose);
-                    predictMatch.startAnimation(FoodFabClose);
-                    shareLeague.startAnimation(FoodFabClose);
-                    main.startAnimation(FabRAntiClockwise);
-                    predictSpecial.setClickable(false);
-                    predictMatch.setClickable(false);
-                    shareLeague.setClickable(false);
-                    specialtext.setVisibility(View.GONE);
-                    matchtext.setVisibility(View.GONE);
-                    isOpen = false;
+                    closeBlackout();
                 } else {
-                    blackoutimage.setVisibility(View.VISIBLE);
-                    blackoutimage.startAnimation(Fadein);
-                    predictSpecial.startAnimation(FoodFabOpen);
-                    predictMatch.startAnimation(FoodFabOpen);
-                    shareLeague.startAnimation(FoodFabOpen);
-                    main.startAnimation(FabRClockwise);
-                    predictSpecial.setClickable(true);
-                    predictMatch.setClickable(true);
-                    shareLeague.setClickable(true);
-                    specialtext.setVisibility(View.VISIBLE);
-                    matchtext.setVisibility(View.VISIBLE);
-                    specialtext.bringToFront();
-                    matchtext.bringToFront();
-                    isOpen = true;
-                    predictMatch.setOnClickListener(this);
-                    predictSpecial.setOnClickListener(this);
-                    shareLeague.setOnClickListener(this);
-                    blackoutimage.setOnClickListener(this);
+                    openBlackout();
                 }
                 break;
         }
     }
+
+    public void closeBlackout() {
+        blackoutimage.startAnimation(Fadeout);
+        blackoutimage.setVisibility(View.GONE);
+        predictSpecial.startAnimation(FoodFabClose);
+        predictMatch.startAnimation(FoodFabClose);
+        shareLeague.startAnimation(FoodFabClose);
+        deleteLeague.startAnimation(FoodFabClose);
+        main.startAnimation(FabRAntiClockwise);
+        predictSpecial.setClickable(false);
+        predictMatch.setClickable(false);
+        shareLeague.setClickable(false);
+        deleteLeague.setClickable(false);
+        specialtext.setVisibility(View.GONE);
+        matchtext.setVisibility(View.GONE);
+        sharetext.setVisibility(View.GONE);
+        deleteText.setVisibility(View.GONE);
+        isOpen = false;
+    }
+
+    public void openBlackout() {
+        // if user is not the creator of the priv league, hide the delete button
+        System.out.println("creator: " + privateleague.getUsername() + " user: " + UserDAO.getLoginUser().getUsername());
+        if (!privateleague.getUsername().equals(UserDAO.getLoginUser().getUsername())) {
+            deleteText.setVisibility(View.GONE);
+            deleteLeague.startAnimation(FoodFabClose);
+        } else {
+            deleteLeague.startAnimation(FoodFabOpen);
+            deleteText.setVisibility(View.VISIBLE);
+        }
+
+        blackoutimage.setVisibility(View.VISIBLE);
+        blackoutimage.startAnimation(Fadein);
+        predictSpecial.startAnimation(FoodFabOpen);
+        predictMatch.startAnimation(FoodFabOpen);
+        shareLeague.startAnimation(FoodFabOpen);
+        main.startAnimation(FabRClockwise);
+        predictSpecial.setClickable(true);
+        predictMatch.setClickable(true);
+        shareLeague.setClickable(true);
+        deleteLeague.setClickable(true);
+        specialtext.setVisibility(View.VISIBLE);
+        matchtext.setVisibility(View.VISIBLE);
+        sharetext.setVisibility(View.VISIBLE);
+        specialtext.bringToFront();
+        matchtext.bringToFront();
+        sharetext.bringToFront();
+        deleteText.bringToFront();
+        isOpen = true;
+    }
+
+    public Dialog loadingDialog() {
+        System.out.println("loading pop");
+        Dialog dialog = new Dialog(PrivateLeagueDetails.this);
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        dialog.setContentView(R.layout.loading_popup);
+        dialog.setCancelable(false);
+        dialog.setCanceledOnTouchOutside(false);
+        TextView text = dialog.findViewById(R.id.textStatus);
+        text.setText("Deleting");
+        dialog.show();
+        return dialog;
+    }
+
 }
 
