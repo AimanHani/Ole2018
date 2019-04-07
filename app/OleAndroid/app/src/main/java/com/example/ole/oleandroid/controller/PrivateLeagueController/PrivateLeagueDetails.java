@@ -238,7 +238,6 @@ public class PrivateLeagueDetails extends SideMenuBar implements View.OnClickLis
 
     public void openBlackout() {
         // if user is not the creator of the priv league, hide the delete button
-        System.out.println("creator: " + privateleague.getUsername() + " user: " + UserDAO.getLoginUser().getUsername());
         if (!privateleague.getUsername().equals(UserDAO.getLoginUser().getUsername())) {
             deleteText.setVisibility(View.GONE);
             deleteLeague.startAnimation(FoodFabClose);
