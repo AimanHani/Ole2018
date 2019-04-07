@@ -50,7 +50,7 @@ public class PointsAllocator implements Runnable {
             //System.out.print(it.next().toString());
             //int matchId = (int) it.next();
             matchesLogList = getMatchLog(matchId);
-            
+
             if (!matchesLogList.isEmpty()) {
                 matchesLogHashMap.put(matchId, matchesLogList);
             }
@@ -153,7 +153,7 @@ public class PointsAllocator implements Runnable {
                         point += 1;
                     }
 
-                    String stmt1 = "Update matcheslog set status =\'yes\' where logId =" + logId + " and matchId =" + matchId;
+                    String stmt1 = "Update matcheslog set status =\'yes\', points=" + point + " where logId =" + logId + " and matchId =" + matchId;
                     String stmt2 = "Update log set points = points+" + point + " where logId =" + logId;
                     stmt.addBatch(stmt1);
                     stmt.addBatch(stmt2);

@@ -7,6 +7,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import model.User;
@@ -78,14 +79,30 @@ public class UserDAO {
         return usersList;
     }
 
-    public static int leaguesJoinedByUser(String username) {
-        int totalNumberOfLeagues = 0;
-        try (Connection conn = DBConnection.getConnection(); PreparedStatement stmt = conn.prepareStatement("SELECT COUNT(DISTINCT leagueId)from log where username = ?");) {
+    public static HashMap<String, Integer> leaguesStatistics(String username) {
+        //int totalNumberOfLeagues = 0;
+        HashMap<String, Integer> leagueStats = new HashMap<>();
+        try (Connection conn = DBConnection.getConnection(); PreparedStatement stmt = conn.prepareStatement("select pastMatchPrediction, matchPredictionCorrect, specialsPredictionTotal, numLeagues from "
+                + "(select count(*) as 'pastMatchPrediction' from matcheslog ml, log where ml.logId = log.logId and log.username = ?) as pastPrediction, "
+                + "(select count(*) as 'matchPredictionCorrect' from `match` m, matcheslog ml, log where m.matchId IN (select ml.matchId from matcheslog ml, log where log.logId = ml.logId and username = ?) and log.logId = ml.logId and m.matchId = ml.matchId and username = ? and ml.status = 'yes' and (m.team1_score = ml.team1_prediction or m.team2_score = ml.team2_prediction)) as matchPrediction, "
+                + "(SELECT count(*) as 'specialsPredictionTotal' FROM specialslog sl, log where sl.logid = log.logId and username = ?) as specialsPrediction, "
+                + "(SELECT COUNT(DISTINCT leagueId) as 'numLeagues' from log where username = ?) as leaguesJoined");) {
             stmt.setString(1, username);
+            stmt.setString(2, username);
+            stmt.setString(3, username);
+            stmt.setString(4, username);
+            stmt.setString(5, username);
             ResultSet rs = stmt.executeQuery();
             while (rs.next()) {
-                totalNumberOfLeagues = rs.getInt(1);
+//                totalNumberOfLeagues = rs.getInt(1);
+                leagueStats.put("pastMatchPrediction", rs.getInt(1));
+                leagueStats.put("matchPredictionCorrect", rs.getInt(2));
+                leagueStats.put("specialsPredictionTotal", rs.getInt(3));
+                leagueStats.put("numLeagues", rs.getInt(4));
             }
+
+            int matchAccuracy = leagueStats.get("matchPredictionCorrect") / leagueStats.get("pastMatchPrediction") * 100; // percentage
+            leagueStats.put("matchAccuracy", matchAccuracy);
             rs.close();
             conn.close();
 
@@ -94,7 +111,7 @@ public class UserDAO {
         } catch (ClassNotFoundException ex) {
             Logger.getLogger(UserDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
-        return totalNumberOfLeagues;
+        return leagueStats;
     }
 
     public static int getLogId(String username, int leagueId) {

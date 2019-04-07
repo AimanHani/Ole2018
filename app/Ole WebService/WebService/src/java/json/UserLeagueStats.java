@@ -26,8 +26,8 @@ import org.json.JSONObject;
  *
  * @author user
  */
-@WebServlet(name = "LeaguesJoined", urlPatterns = {"/json/leaguesJoined"})
-public class LeaguesJoined extends HttpServlet {
+@WebServlet(name = "UserLeagueStats", urlPatterns = {"/json/userLeagueStats"})
+public class UserLeagueStats extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -67,7 +67,33 @@ public class LeaguesJoined extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        
+        response.setContentType("\"Content-Type\", \"application/x-www-form-urlencoded\"");
+        response.setCharacterEncoding("utf-8");
+        PrintWriter out = response.getWriter();
+        //int num = 0;
+        String username = request.getParameter("username");
+        HashMap<String, Integer> leagueStats = UserDAO.leaguesStatistics(username);
+        System.out.println(leagueStats.toString());
+        try {
+
+            JSONObject json = new JSONObject();
+
+            json.put("username", username);
+            json.put("specialsPredictionTotal", leagueStats.get("specialsPredictionTotal"));
+            json.put("numLeagues", leagueStats.get("numLeagues"));
+            json.put("matchPredictionCorrect", leagueStats.get("matchPredictionCorrect"));
+            json.put("pastMatchPrediction", leagueStats.get("pastMatchPrediction"));
+            json.put("matchAccuracy", leagueStats.get("matchAccuracy"));
+            //parentJson.put("totalNumbersOfLeaguesJoined", num);
+            //list.put(json);
+            //parentJson.put("results", list);
+            out.print(json);
+            out.flush();
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
     }
 
     /**
@@ -81,28 +107,8 @@ public class LeaguesJoined extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        JSONArray list = new JSONArray();
-        JSONObject parentJson = new JSONObject();
-        response.setContentType("\"Content-Type\", \"application/x-www-form-urlencoded\"");
-        response.setCharacterEncoding("utf-8");
-        PrintWriter out = response.getWriter();
-        int num = 0;
-        String username = request.getParameter("username");
-        num = UserDAO.leaguesJoinedByUser(username);
-        try {
+        processRequest(request, response);
 
-            JSONObject json = new JSONObject();
-
-            parentJson.put("username", username);
-            parentJson.put("totalNumbersOfLeaguesJoined", num);
-            //list.put(json);
-            //parentJson.put("results", list);
-            out.print(parentJson);
-            out.flush();
-
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
     }
 
     /**

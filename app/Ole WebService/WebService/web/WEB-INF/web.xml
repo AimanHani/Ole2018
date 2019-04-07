@@ -70,8 +70,8 @@
         <url-pattern>/json/PublicLeagueJson</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>LeaguesJoined</servlet-name>
-        <url-pattern>/json/leaguesJoined</url-pattern>
+        <servlet-name>UserLeagueStats</servlet-name>
+        <url-pattern>/json/userLeagueStats</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>ChangePassword</servlet-name>
