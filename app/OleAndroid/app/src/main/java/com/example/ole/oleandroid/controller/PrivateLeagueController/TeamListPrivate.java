@@ -188,6 +188,7 @@ public class TeamListPrivate extends SideMenuBar {
 
                         //load.dismiss();
                         intent = new Intent(TeamListPrivate.this, PrivateLeagueMain.class);
+                        intent.putExtra("FROM_ACTIVITY", "created");
                         startActivity(intent);
 
                     } else {

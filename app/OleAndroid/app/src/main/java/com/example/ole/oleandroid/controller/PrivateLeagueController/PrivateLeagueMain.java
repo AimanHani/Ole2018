@@ -107,7 +107,7 @@ public class PrivateLeagueMain extends SideMenuBar {
     public void onBackPressed() {
         String prevPage = getIntent().getStringExtra("FROM_ACTIVITY");
         System.out.println("back " + prevPage);
-        if (prevPage != null && prevPage.equals("delete")) {
+        if (prevPage != null) {
             //nothing
         } else {
             super.onBackPressed();

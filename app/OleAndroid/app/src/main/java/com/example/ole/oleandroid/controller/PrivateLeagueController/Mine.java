@@ -84,6 +84,11 @@ public class Mine extends Fragment implements View.OnClickListener{
             System.out.println("error");
             e.printStackTrace();
         }
+
+        if (PrivateLeagueDAO.getAllPrivateLeague().size() >= 5) {
+            view.findViewById(R.id.createPrivateLeagueBtn).setVisibility(View.INVISIBLE);
+            view.findViewById(R.id.createLeagueText).setVisibility(View.INVISIBLE);
+        }
         privateLeagueAdapter = new PrivateLeagueAdapter(getContext(), PrivateLeagueDAO.getAllPrivateLeague());
         privateLeagueListView.setAdapter(privateLeagueAdapter);
         return view;
