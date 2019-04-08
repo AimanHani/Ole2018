@@ -92,7 +92,7 @@
                                                     <input type="hidden" name="param" value="addAnswer" />
                                                     <input type="hidden" name="askId" value=<%=ask.getAskId()%> />
                                                     <input type="hidden" name="username" value=<%=ask.getUsername()%> />
-                                                    
+                                                    <input type="hidden" name="question" value=<%=ask.getQuestion()%> />
                                                     <button type="submit" class="btn btn-outline btn-primary">Answer</button>
                                                 </form>
                                             </td>

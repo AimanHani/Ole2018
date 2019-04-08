@@ -11,6 +11,8 @@ import controller.PrivateLeagueDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -18,6 +20,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import model.PrivateLeague;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 /**
  *
@@ -81,8 +85,22 @@ public class PrivateLeagueServlet extends HttpServlet {
             Boolean emaiSentStatus = Mailer.send("olegroup18@gmail.com", "squadxole", userEmail, "System generated message from Ole team", "Your Private League Name: " + leaguename + " has been removed by the admin");
             if (deleteSpecialLogs && deleteMatchesLogs && deleteLogs && deletePrivateLeagueTeams && deletePrivateLeaugue && deleteLeague && emaiSentStatus) {
                 System.out.println("SUCCESS");
-                rd = request.getRequestDispatcher("./PrivateLeagueServlet?param=loadAll");
-                rd.forward(request, response);
+                if (request.getParameter("origin").equals("app")) {
+                    response.setContentType("\"Content-Type\", \"application/x-www-form-urlencoded\"");
+                    response.setCharacterEncoding("utf-8");
+                    PrintWriter out = response.getWriter();
+                    JSONObject json = new JSONObject();
+                    try {
+                        json.put("status", "successful");
+                    } catch (JSONException ex) {
+                        Logger.getLogger(PrivateLeagueServlet.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                    out.print(json);
+                    out.flush();
+                } else {
+                    rd = request.getRequestDispatcher("./PrivateLeagueServlet?param=loadAll");
+                    rd.forward(request, response);
+                }
             }
         }
 

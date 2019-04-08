@@ -421,4 +421,26 @@ public class APIDAO {
         return 1;
     }
 
+    public static void loadPlayers() {
+        try {
+            HttpResponse<JsonNode> response = Unirest.get("https://api-football-v1.p.rapidapi.com/players/2019/34")
+                    .header("X-Mashape-Key", "KlMp6AFpI6mshMZeTmH8WA9qrKHVp1AuUANjsnoJbPWm4lRZPr")
+                    .header("Accept", "application/json")
+                    .asJson();
+
+            HttpResponse<JsonNode> response2 = Unirest.get("https://api-football-v1.p.rapidapi.com/players/2019/40")
+                    .header("X-RapidAPI-Host", "api-football-v1.p.rapidapi.com")
+                    .header("X-RapidAPI-Key", "OpdT25tCSemshTmn1st4VIxAwYpep1eLaPMjsnJls3x1p7oOZo")
+                    .asJson();
+//                    .end(function(result) {
+//                console.log(result.status, result.headers, result.body);
+//            });
+            System.out.println(response.getBody().toString());
+            System.out.println(response2.getBody().toString());
+        } catch (UnirestException ex) {
+            Logger.getLogger(APIDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+    }
+
 }

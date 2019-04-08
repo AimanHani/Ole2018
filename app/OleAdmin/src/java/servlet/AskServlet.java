@@ -15,13 +15,14 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import model.Ask;
-import java.util.Properties;    
-import javax.mail.*;    
-import javax.mail.internet.*;    
+import java.util.Properties;
+import javax.mail.*;
+import javax.mail.internet.*;
 import backGroudTask.Mailer;
+
 @WebServlet(name = "AskServlet", urlPatterns = {"/AskServlet"})
 public class AskServlet extends HttpServlet {
-    
+
     ArrayList<Ask> askList = null;
     RequestDispatcher rd = null;
     String requests = null;
@@ -37,8 +38,8 @@ public class AskServlet extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        
-                requests = request.getParameter("param");
+
+        requests = request.getParameter("param");
 
         //before specials.jsp loads, this servlet will be called first to load all specials from the db
         if ((requests != null && requests.equals("loadAll")) || (request.getParameter("loadAll") != null)) {
@@ -57,7 +58,7 @@ public class AskServlet extends HttpServlet {
                 rd.forward(request, response);
             }
         }
-        
+
         if ((requests != null && requests.equals("loadAll")) || (request.getParameter("catPublic") != null)) {
             askList = AskDAO.getCategoryAsk("Public League");
             if (askList != null) {
@@ -66,7 +67,7 @@ public class AskServlet extends HttpServlet {
                 rd.forward(request, response);
             }
         }
-        
+
         if ((requests != null && requests.equals("loadAll")) || (request.getParameter("catPrivate") != null)) {
             askList = AskDAO.getCategoryAsk("Private League");
             if (askList != null) {
@@ -75,7 +76,7 @@ public class AskServlet extends HttpServlet {
                 rd.forward(request, response);
             }
         }
-        
+
         if ((requests != null && requests.equals("loadAll")) || (request.getParameter("catGeneral") != null)) {
             askList = AskDAO.getCategoryAsk("General");
             if (askList != null) {
@@ -84,8 +85,7 @@ public class AskServlet extends HttpServlet {
                 rd.forward(request, response);
             }
         }
-        
-        
+
         if (requests != null && requests.equals("addQuestion")) {
             String question = request.getParameter("question");
             Boolean outcome = AskDAO.addQuesAsk(question);
@@ -93,23 +93,25 @@ public class AskServlet extends HttpServlet {
                 System.out.println("SUCCESS");
                 rd = request.getRequestDispatcher("./AskServlet?param=loadAll");
                 rd.forward(request, response);
-            }else{
+            } else {
                 System.out.println("fail/duplicate");
                 rd = request.getRequestDispatcher("./AskServlet?param=loadAll");
                 rd.forward(request, response);
             }
         }
-        
+
         if (requests != null && requests.equals("addAnswer")) {
             String answer = request.getParameter("answer");
+            String question = request.getParameter("question");
             String askId = request.getParameter("askId");
             String username = request.getParameter("username");
             System.out.println("Hello " + askId);
             System.out.println("Hello " + answer);
-            Boolean outcome = AskDAO.addAnsAsk(Integer.parseInt(askId),answer);
+            Boolean outcome = AskDAO.addAnsAsk(Integer.parseInt(askId), answer);
             String userEmail = AskDAO.getUserEmail(username);
-            Boolean emaiSentStatus = Mailer.send("olegroup18@gmail.com","squadxole",userEmail,"Reply to your question ID:"+askId+" from Ole team" ,answer);
-            if (outcome &&emaiSentStatus ) {
+            //Boolean emaiSentStatus = Mailer.send("olegroup18@gmail.com","squadxole",userEmail,"Reply to your question ID:"+askId+" from Ole team" ,answer);
+            Boolean emailSent = Mailer.sendHtml(answer, question, username, userEmail);
+            if (outcome && emailSent) {
                 System.out.println("SUCCESS");
                 rd = request.getRequestDispatcher("./AskServlet?param=loadAll");
                 rd.forward(request, response);
@@ -126,7 +128,7 @@ public class AskServlet extends HttpServlet {
             }
 
         }
-        
+
         if (requests != null && requests.equals("search")) {
             //System.out.println("HEY IM HERE TEEHEE");
             String keyword = request.getParameter("keyword");

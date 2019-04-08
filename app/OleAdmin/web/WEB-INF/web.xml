@@ -7,6 +7,19 @@
         <description>ServletContextListener</description>
         <listener-class>backGroudTask.BackGroundJob</listener-class>
     </listener>
+    
+    <servlet-mapping>
+        <servlet-name>APIServlet</servlet-name>
+        <url-pattern>/APIServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AskServlet</servlet-name>
+        <url-pattern>/AskServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>PrivateLeagueServlet</servlet-name>
+        <url-pattern>/PrivateLeagueServlet</url-pattern>
+    </servlet-mapping>
     <session-config>
         <session-timeout>
             30
