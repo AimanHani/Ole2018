@@ -85,4 +85,8 @@
         <servlet-name>GetTeamJson</servlet-name>
         <url-pattern>/json/getTeam</url-pattern>
     </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>PrivateLeagueManagement</servlet-name>
+        <url-pattern>/json/PrivateLeagueManagement</url-pattern>
+    </servlet-mapping>
 </web-app>

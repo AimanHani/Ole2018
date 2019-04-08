@@ -123,9 +123,11 @@ public class DBConnection {
         return url;
     }
 
-    public static String deletePrivateLeague() {
-        String url = mainUrl + "/json/deletePrivateLeague";
+    public static String exitPrivateLeague() {
+        String url = mainUrl + "/json/PrivateLeagueManagement";
         return url;
     }
+
+
 }
 

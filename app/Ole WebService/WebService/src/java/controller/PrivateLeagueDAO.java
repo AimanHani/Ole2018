@@ -363,8 +363,42 @@ public class PrivateLeagueDAO {
         return 0;
     }
 
-    public static void deletePrivateLeague(int leagueId) {
-        AllPublicLeague league = retrieveLeague(leagueId);
+    public static boolean exitPrivateLeague(int leagueId, String username) {
+        int logId = 0;
+        try (Connection conn = DBConnection.getConnection(); PreparedStatement stmt = conn.prepareStatement("SELECT logId FROM log where username = ? and leagueId = ?");) {
+            stmt.setString(1, username);
+            stmt.setInt(2, leagueId);
+            ResultSet rs = stmt.executeQuery();
+            while (rs.next()) {
+                logId = rs.getInt(1);
+                System.out.println("logid " + logId);
+            }
+            rs.close();
+            stmt.close();
+        } catch (Exception e) {
+            return false;
+        }
+
+        if (logId != 0) {
+            String deleteMatchesLog = "delete from matcheslog where logId = " + logId;
+            String deleteSpecialsLog = "delete from specialslog where logId = " + logId;
+            String deleteLog = "delete from log where leagueId = " + leagueId + " and username = \'" + username + "\'";
+
+            try (Connection conn = DBConnection.getConnection(); Statement statement = conn.createStatement();) {
+                statement.addBatch(deleteMatchesLog);
+                statement.addBatch(deleteSpecialsLog);
+                statement.addBatch(deleteLog);
+                int[] rs = statement.executeBatch();
+                statement.close();
+                conn.close();
+                return true;
+            } catch (Exception e) {
+                e.printStackTrace();
+                return false;
+            }
+        }
+
+        return false;
 
     }
 }

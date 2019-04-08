@@ -64,6 +64,7 @@ public class PrivateLeagueDetails extends SideMenuBar implements View.OnClickLis
     TextView specialtext, matchtext, mainview, sharetext, deleteText;
     boolean isOpen = false;
     int numMembers = 0;
+    boolean userCreatorStatus;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -80,6 +81,7 @@ public class PrivateLeagueDetails extends SideMenuBar implements View.OnClickLis
 
         PrivateLeagueDAO.clearAllPrivateLeague();
         privateleague = PrivateLeagueDAO.getPrivateLeague(leagueid);
+        userCreatorStatus = privateleague.getUsername().equals(UserDAO.getLoginUser().getUsername());
         ArrayList<PrivateLeagueProfile> privateLeagueProfileList = ScoreBoardDAO.getOnePrivateLeagueProfiles(Integer.parseInt(leagueid));
         logid = PrivateLeagueDAO.getAdminLogId(leagueid);
 
@@ -176,12 +178,29 @@ public class PrivateLeagueDetails extends SideMenuBar implements View.OnClickLis
                         public void onClick(View view) {
                             //Toast.makeText(getBaseContext(), "Delete in Progress", Toast.LENGTH_LONG).show();
                             final Dialog load = loadingDialog();
+
                             new android.os.Handler().postDelayed(
                                     new Runnable() {
                                         public void run() {
-                                            //boolean deleteStatus = PrivateLeagueDAO.deletePrivateLeague(leagueid);
-                                            Intent intent = new Intent(PrivateLeagueDetails.this, PrivateLeagueMain.class);
-                                            startActivity(intent);
+                                            boolean deleteStatus;
+                                            String state = "delete";
+                                            if (!userCreatorStatus) {
+                                                deleteStatus = PrivateLeagueDAO.exitPrivateLeague(leagueid, UserDAO.getLoginUser().getUsername());
+                                                state = "leave";
+                                            } else {
+                                                deleteStatus = PrivateLeagueDAO.deletePrivateLeague(leagueid, privateleague.getUsername(), privateleague.getLeagueName());
+                                            }
+
+                                            if (deleteStatus) {
+                                                Toast.makeText(getBaseContext(), "Successfully " + state + " " + privateleague.getLeagueName(), Toast.LENGTH_LONG).show();
+                                                Intent intent = new Intent(PrivateLeagueDetails.this, PrivateLeagueMain.class);
+                                                intent.putExtra("FROM_ACTIVITY", "delete");
+                                                startActivity(intent);
+                                            } else {
+                                                Toast.makeText(getBaseContext(), "Failed to " + state + " " + privateleague.getLeagueName() + " , please try again.", Toast.LENGTH_LONG).show();
+                                                load.dismiss();
+                                                closeBlackout();
+                                            }
                                         }
                                     }, 3000);
                         }
@@ -238,14 +257,12 @@ public class PrivateLeagueDetails extends SideMenuBar implements View.OnClickLis
 
     public void openBlackout() {
         // if user is not the creator of the priv league, hide the delete button
-        if (!privateleague.getUsername().equals(UserDAO.getLoginUser().getUsername())) {
-            deleteText.setVisibility(View.GONE);
-            deleteLeague.startAnimation(FoodFabClose);
-        } else {
-            deleteLeague.startAnimation(FoodFabOpen);
-            deleteText.setVisibility(View.VISIBLE);
+        if (!userCreatorStatus) {
+            deleteText.setText("Leave Competition");
         }
 
+        deleteLeague.startAnimation(FoodFabOpen);
+        deleteText.setVisibility(View.VISIBLE);
         blackoutimage.setVisibility(View.VISIBLE);
         blackoutimage.startAnimation(Fadein);
         predictSpecial.startAnimation(FoodFabOpen);
@@ -274,7 +291,12 @@ public class PrivateLeagueDetails extends SideMenuBar implements View.OnClickLis
         dialog.setCancelable(false);
         dialog.setCanceledOnTouchOutside(false);
         TextView text = dialog.findViewById(R.id.textStatus);
-        text.setText("Deleting");
+        if (!userCreatorStatus) {
+            text.setText("Leaving");
+        } else {
+            text.setText("Deleting");
+        }
+
         dialog.show();
         return dialog;
     }

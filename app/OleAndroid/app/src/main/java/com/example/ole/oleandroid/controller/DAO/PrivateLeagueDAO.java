@@ -133,9 +133,29 @@ public class PrivateLeagueDAO {
         return null;
     }
 
-    public static boolean deletePrivateLeague(String leagueId) {
-        String url = DBConnection.privateLeagueUrl();
+    public static boolean deletePrivateLeague(String leagueId, String username, String leaguename) {
+        String url = "http://52.41.18.27/OleAdmin/PrivateLeagueServlet?param=delete&origin=app&username="+username+"&leagueid="+leagueId+"&leaguename="+leaguename;
         //String username = UserDAO.getLoginUser().getUsername();
+
+        GetHttp getConnection = new GetHttp();
+        String response = null;
+        try {
+            response = getConnection.run(url);
+            System.out.println(response);
+            JSONObject result = new JSONObject(response);
+            if (result.getString("status").equals("successful")) {
+                return true;
+            }
+        } catch (Exception e) {
+            System.out.println("error");
+            e.printStackTrace();
+        }
+
+        return false;
+    }
+
+    public static boolean exitPrivateLeague(String leagueId, String username) {
+        String url = DBConnection.exitPrivateLeague()+"?username="+username+"&leagueId="+leagueId;
 
         GetHttp getConnection = new GetHttp();
         String response = null;
@@ -164,10 +184,10 @@ public class PrivateLeagueDAO {
             System.out.println(response);
             JSONObject result = new JSONObject(response);
             if (result.getString("status").equals("successful")) {
-                return result.getString("creator");
+                return result.getString("System.out.println(\"error\");creator");
             }
         } catch (Exception e) {
-            System.out.println("error");
+
             e.printStackTrace();
         }
 

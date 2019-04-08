@@ -1,25 +1,25 @@
 package com.example.ole.oleandroid.controller.PrivateLeagueController;
 
-        import android.content.Context;
-        import android.os.Bundle;
-        import android.support.annotation.Nullable;
-        import android.support.design.widget.FloatingActionButton;
-        import android.support.design.widget.TabLayout;
-        import android.support.v4.app.Fragment;
-        import android.support.v4.app.FragmentManager;
-        import android.support.v4.app.FragmentPagerAdapter;
-        import android.support.v4.view.ViewPager;
-        import android.support.v7.app.AppCompatActivity;
-        import android.view.LayoutInflater;
-        import android.view.View;
+import android.content.Context;
+import android.os.Bundle;
+import android.support.annotation.Nullable;
+import android.support.design.widget.FloatingActionButton;
+import android.support.design.widget.TabLayout;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentPagerAdapter;
+import android.support.v4.view.ViewPager;
+import android.support.v7.app.AppCompatActivity;
+import android.view.LayoutInflater;
+import android.view.View;
 
-        import com.example.ole.oleandroid.controller.Leaderboard.LeaderboardPublic;
-        import com.example.ole.oleandroid.controller.SideMenuBar;
+import com.example.ole.oleandroid.controller.Leaderboard.LeaderboardPublic;
+import com.example.ole.oleandroid.controller.SideMenuBar;
 
-        import com.example.ole.oleandroid.R;
+import com.example.ole.oleandroid.R;
 
-        import java.util.ArrayList;
-        import java.util.List;
+import java.util.ArrayList;
+import java.util.List;
 
 public class PrivateLeagueMain extends SideMenuBar {
 
@@ -46,7 +46,7 @@ public class PrivateLeagueMain extends SideMenuBar {
     protected void onResume() {
         super.onResume();
         // reload the fragments, in case of the deletion of event by user
-        if(viewPager != null) {
+        if (viewPager != null) {
             Fragment fragment = getSupportFragmentManager().findFragmentByTag("android:switcher:"
                     + R.id.viewpagerId + ":" + viewPager.getCurrentItem());
             if (fragment != null && viewPager.getCurrentItem() == 0) {
@@ -58,9 +58,10 @@ public class PrivateLeagueMain extends SideMenuBar {
             }
         }
     }
-    private void setupViewPager(ViewPager viewPager){
+
+    private void setupViewPager(ViewPager viewPager) {
         adapter = new Adapter(getSupportFragmentManager());
-        adapter.addFragment(new Mine(),"My Competition");
+        adapter.addFragment(new Mine(), "My Competition");
         adapter.addFragment(new Discover(), "Join");
         viewPager.setAdapter(adapter);
     }
@@ -85,7 +86,9 @@ public class PrivateLeagueMain extends SideMenuBar {
         }
 
         @Override
-        public int getItemPosition(Object object) { return POSITION_NONE; }
+        public int getItemPosition(Object object) {
+            return POSITION_NONE;
+        }
 
         public void addFragment(Fragment fragment, String title) {
             mFragmentList.add(fragment);
@@ -96,5 +99,19 @@ public class PrivateLeagueMain extends SideMenuBar {
         public CharSequence getPageTitle(int position) {
             return mFragmentTitleList.get(position);
         }
+
+
+    }
+
+    @Override
+    public void onBackPressed() {
+        String prevPage = getIntent().getStringExtra("FROM_ACTIVITY");
+        System.out.println("back " + prevPage);
+        if (prevPage != null && prevPage.equals("delete")) {
+            //nothing
+        } else {
+            super.onBackPressed();
+        }
+
     }
 }
