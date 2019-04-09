@@ -67,6 +67,7 @@
                                                     
                             <form action="PrivateLeagueServlet" method="post" style="display:inline;">
                                 <input type="hidden" name="param" value="delete"/>
+                                <input type="hidden" name="origin" value="admin"/>
                                 <input type="hidden" name="leagueid" value=<%=pl.getLeagueID()%> />
                                 <input type="hidden" name="username" value=<%=pl.getUsername()%> />
                                 <input type="hidden" name="leaguename" value=<%=pl.getLeagueName()%> />

@@ -101,6 +101,7 @@ public class PrivateLeagueServlet extends HttpServlet {
                     rd = request.getRequestDispatcher("./PrivateLeagueServlet?param=loadAll");
                     rd.forward(request, response);
                 }
+                
             }
         }
 
