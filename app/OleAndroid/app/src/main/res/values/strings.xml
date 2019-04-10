@@ -7,7 +7,7 @@
     <string name="loadingPage_copyright_row2">All Rights Reserved.</string>
 
     <!-- OnBoard Screen. -->
-    <string name="ob_header1">Public and Private Leagues</string>
+    <string name="ob_header1">Public and Private Competition</string>
     <string name="ob_header2">Prediction</string>
     <string name="ob_header3">Leaderboard</string>
 

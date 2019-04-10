@@ -59,6 +59,7 @@ public class PrivateLeagueUpcomingMatchesList extends Fragment implements View.O
             android.support.constraint.ConstraintLayout football;
             football = view.findViewById(R.id.football);
             football.setVisibility(View.VISIBLE);
+            saveMatchPrediction.setVisibility(View.INVISIBLE);
         }
         return view;
     }

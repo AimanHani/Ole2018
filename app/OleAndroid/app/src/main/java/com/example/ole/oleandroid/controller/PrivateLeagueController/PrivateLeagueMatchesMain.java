@@ -23,6 +23,7 @@ import com.example.ole.oleandroid.controller.MatchesTabs;
 import com.example.ole.oleandroid.controller.PublicLeague.PastMatchesFragment;
 import com.example.ole.oleandroid.controller.PublicLeague.UpcomingMatchesFragment;
 import com.example.ole.oleandroid.controller.SideMenuBar;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -55,7 +56,7 @@ public class PrivateLeagueMatchesMain extends SideMenuBar {
     protected void onResume() {
         super.onResume();
         // reload the fragments, in case of the deletion of event by user
-        if(viewPager != null) {
+        if (viewPager != null) {
             Fragment fragment = getSupportFragmentManager().findFragmentByTag("android:switcher:"
                     + R.id.viewpagerId + ":" + viewPager.getCurrentItem());
             if (fragment != null && viewPager.getCurrentItem() == 0) {
@@ -69,7 +70,7 @@ public class PrivateLeagueMatchesMain extends SideMenuBar {
     }
 
     //add the child fragments
-    private void setupViewPager(ViewPager viewPager){
+    private void setupViewPager(ViewPager viewPager) {
         adapter = new Adapter(getSupportFragmentManager());
         // upcomingMatches now has a logId which u can set (so i can pass this logId on. logid is needed for specials list
         PrivateLeagueUpcomingMatchesList upcomingMatches = new PrivateLeagueUpcomingMatchesList();
@@ -81,7 +82,7 @@ public class PrivateLeagueMatchesMain extends SideMenuBar {
         PrivateLeaguePastMatchesList pastMatches = new PrivateLeaguePastMatchesList();
         PrivateLeaguePastMatchesList.setLogId(logId);
         PrivateLeaguePastMatchesList.setLeagueId(leagueId);
-        adapter.addFragment(new PrivateLeaguePastMatchesList(),"Past");
+        adapter.addFragment(new PrivateLeaguePastMatchesList(), "Past");
         viewPager.setAdapter(adapter);
     }
 
@@ -105,7 +106,9 @@ public class PrivateLeagueMatchesMain extends SideMenuBar {
         }
 
         @Override
-        public int getItemPosition(Object object) { return POSITION_NONE; }
+        public int getItemPosition(Object object) {
+            return POSITION_NONE;
+        }
 
         public void addFragment(Fragment fragment, String title) {
             mFragmentList.add(fragment);

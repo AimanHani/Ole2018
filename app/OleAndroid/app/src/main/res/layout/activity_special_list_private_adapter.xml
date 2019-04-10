@@ -1,37 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout
-xmlns:android="http://schemas.android.com/apk/res/android"
-xmlns:app="http://schemas.android.com/apk/res-auto"
-xmlns:tools="http://schemas.android.com/tools"
-android:orientation="vertical"
-android:layout_width="match_parent"
-android:layout_height="match_parent"
-tools:context=".controller.PrivateLeagueController.SpecialListPrivateAdapter">
-
-<LinearLayout
-    android:layout_marginTop="0dp"
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:orientation="horizontal">
-
-    <ImageView xmlns:app="http://schemas.android.com/apk/res-auto"
-        android:id="@+id/profile_image"
-        android:layout_width="70dp"
-        android:layout_height="70dp"
-        android:layout_marginLeft="20dp"
-        android:layout_marginTop="10dp"
-        android:layout_marginBottom="10dp"
-        android:src="@drawable/bestplayer" />
+    android:layout_height="match_parent"
+    android:layout_margin="5dp"
+    android:orientation="vertical"
+    tools:context=".controller.PrivateLeagueController.SpecialListPrivateAdapter">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:layout_marginRight="20dp"
-        android:orientation="horizontal"
-        android:weightSum="8">
+        android:layout_marginTop="0dp"
+        android:orientation="horizontal">
 
-<!--
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginRight="20dp"
+            android:orientation="horizontal"
+            android:weightSum="8">
+
+            <!--
         <TextView
             android:id="@+id/teamid"
             android:layout_width="match_parent"
@@ -42,26 +33,28 @@ tools:context=".controller.PrivateLeagueController.SpecialListPrivateAdapter">
             android:textSize="18sp" />
 -->
 
-        <TextView
-            android:id="@+id/itemname"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_marginTop="0dp"
-            android:paddingLeft="20dp"
-            android:text="Special item name"
-            android:textSize="18sp"
-            android:layout_weight="1"/>
+            <TextView
+                android:id="@+id/itemname"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_margin="10dp"
+                android:layout_marginTop="0dp"
+                android:layout_weight="1"
+                android:paddingLeft="20dp"
+                android:text="Special item name"
+                android:textColor="@color/black"
+                android:textSize="18sp" />
 
-        <CheckBox
-            android:id="@+id/checkPrivateSpecials"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:gravity="center"
-            android:layout_weight="7"/>
+            <CheckBox
+                android:id="@+id/checkPrivateSpecials"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_weight="7"
+                android:gravity="center" />
 
+        </LinearLayout>
     </LinearLayout>
-</LinearLayout>
 
 </android.support.constraint.ConstraintLayout>

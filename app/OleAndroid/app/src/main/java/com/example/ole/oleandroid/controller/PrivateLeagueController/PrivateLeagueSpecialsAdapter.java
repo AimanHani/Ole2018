@@ -66,7 +66,7 @@ public class PrivateLeagueSpecialsAdapter extends BaseAdapter {
         if (convertView == null) {
             viewHolder = new ViewHolder();
             convertView = LayoutInflater.from(context).
-                    inflate(R.layout.activity_private_league_specials_adapter, parent, false);
+                    inflate(R.layout.activity_speciallist, parent, false);
 
             /**
              * This will tell initialize the textview element in speciallistlayout

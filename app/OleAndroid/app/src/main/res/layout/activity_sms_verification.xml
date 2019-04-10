@@ -53,15 +53,32 @@
         app:layout_constraintTop_toTopOf="@+id/popupDialogFrame"
         app:layout_constraintVertical_bias="0.0" />
 
+    <TextView
+        android:id="@+id/title"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginBottom="206dp"
+        android:text="Enter the 4 digit verification code sent to your email"
+        android:textAlignment="center"
+        android:textColor="@color/black"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toTopOf="@+id/smsInput"
+        app:layout_constraintEnd_toEndOf="@+id/popupDialogFrame"
+        app:layout_constraintStart_toStartOf="@+id/popupDialogFrame"
+        app:layout_constraintTop_toBottomOf="@+id/user_verification_icon"
+        app:layout_constraintVertical_bias="0.0" />
+
     <EditText
         android:id="@+id/smsInput"
         android:layout_width="280dp"
-        android:layout_height="65dp"
+        android:layout_height="50dp"
         android:layout_gravity="center_horizontal"
         android:layout_marginStart="8dp"
         android:layout_marginEnd="8dp"
         android:gravity="center_vertical"
-        android:hint="Enter 4 Digit Verification Code Sent to Your Email"
+        android:hint="Verification Code"
         android:textAlignment="center"
         android:textColor="@color/black"
         android:textSize="18sp"

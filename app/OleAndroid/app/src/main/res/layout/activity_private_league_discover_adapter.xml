@@ -40,6 +40,7 @@
             android:layout_weight="1"
             android:gravity="center"
             android:text="English Premier League"
+            android:textColor="@color/black"
             android:textSize="20sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"

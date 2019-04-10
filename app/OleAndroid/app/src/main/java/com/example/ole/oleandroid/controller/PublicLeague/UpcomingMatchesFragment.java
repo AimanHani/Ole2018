@@ -58,6 +58,7 @@ public class UpcomingMatchesFragment extends Fragment implements View.OnClickLis
             android.support.constraint.ConstraintLayout football;
             football = view.findViewById(R.id.football);
             football.setVisibility(View.VISIBLE);
+            saveMatchPrediction.setVisibility(View.INVISIBLE);
         }
 
 //        pmListAdapter = new UpcomingMatchListAdapter(getActivity(), matches);
@@ -111,9 +112,7 @@ public class UpcomingMatchesFragment extends Fragment implements View.OnClickLis
         TextView close = dialog.findViewById(R.id.confirm);
         TextView text = dialog.findViewById(R.id.successfulMessage);
         text.setText("Match Prediction Saved!");
-
         close.setEnabled(true);
-
         close.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -126,10 +125,6 @@ public class UpcomingMatchesFragment extends Fragment implements View.OnClickLis
 
     public void getAllPrediction() throws IOException, JSONException {
         ArrayList<Match> newMatchList = pmListAdapter.getEditMatches();
-
-//        for (Match m: newMatchList){
-//            System.out.println(m.getMatchID()+ " space "+ m.getTeam1Score() + " space " + m.getTeam2Score());
-//        }
 
         if (newMatchList.size() > 0) {
             boolean insert = MatchDAO.updateMatchPredictions(newMatchList, leagueId);

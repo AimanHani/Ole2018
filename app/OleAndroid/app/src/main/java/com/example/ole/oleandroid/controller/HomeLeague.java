@@ -48,9 +48,11 @@ public class HomeLeague extends SideMenuBar {
 
     @Override
     public void onBackPressed() {
-
-        if (getIntent().getStringExtra("FROM_ACTIVITY").equals("Login")) {
+        String from = getIntent().getStringExtra("FROM_ACTIVITY");
+        if (from != null && from.equals("Login")) {
             Toast.makeText(getBaseContext(), "Logout at the sidebar", Toast.LENGTH_LONG).show();
+        } else if (from != null) {
+            // do nothing
         } else {
             super.onBackPressed();
         }

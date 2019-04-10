@@ -56,27 +56,6 @@ public class SideMenuBar extends AppCompatActivity implements NavigationView.OnN
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         setNavigationViewListener();
-
-
-//        pubLeague = findViewById(R.id.publicCard);
-//        privLeague = findViewById(R.id.privateCard);
-//        pubLeague.setOnClickListener(new View.OnClickListener() {
-//            public void onClick(View view) {
-////                pubLeague.setVisibility(View.GONE);
-////                privLeague.setVisibility(View.GONE);
-//                Intent intent = new Intent(SideMenuBar.this, PublicLeagueList.class);
-//                startActivity(intent);
-//            }
-//        });
-//
-//        privLeague.setOnClickListener(new View.OnClickListener() {
-//            public void onClick(View view) {
-////                pubLeague.setVisibility(View.GONE);
-////                privLeague.setVisibility(View.GONE);
-//                Intent intent = new Intent(SideMenuBar.this, PrivateLeagueMain.class);
-//                startActivity(intent);
-//            }
-//        });
     }
 
     @Override
@@ -93,21 +72,22 @@ public class SideMenuBar extends AppCompatActivity implements NavigationView.OnN
                 Intent intent2 = new Intent(SideMenuBar.this, HomeLeague.class);
                 startActivity(intent2);
                 break;
-            case R.id.menu_list_leaderboard:
-                Intent intent3 = new Intent(SideMenuBar.this, Leaderboard.class);
-                startActivity(intent3);
-                break;
             case R.id.menu_list_faq:
                 Intent intent4 = new Intent(SideMenuBar.this, FAQ.class);
                 startActivity(intent4);
                 break;
             case R.id.menu_list_logout:
                 UserDAO.setLoginUser(null);
-                SharedPreferences preferences = getSharedPreferences("logged",MODE_PRIVATE);
+                SharedPreferences preferences = getSharedPreferences("logged", MODE_PRIVATE);
                 preferences.edit().remove("username").apply(); //clear all stored data
                 preferences.edit().remove("password").apply();
-                preferences.edit().remove("login").apply();;
+                preferences.edit().remove("login").apply();
                 successfulAlertDialog();
+                break;
+            case R.id.about_app:
+                Intent intent6 = new Intent(SideMenuBar.this, OnBoardingActivity.class);
+                intent6.putExtra("from", "sideMenu");
+                startActivity(intent6);
                 break;
         }
 
