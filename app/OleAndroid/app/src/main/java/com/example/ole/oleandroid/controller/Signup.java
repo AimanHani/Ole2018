@@ -615,11 +615,8 @@ public class Signup extends AppCompatActivity {
 
             @Override
             public void afterTextChanged(final Editable s) {
-                if (s.toString().equals(confirmPassword.getText().toString())) {
-
+                if (s.toString().equals(password.getText().toString())) {
                     confirmPassword.setError("Good", tickDone);
-
-
                 } else {
                     confirmPassword.setError("Password is not the same");
 
