@@ -9,6 +9,8 @@
             <a href="publicLeague.jsp">Public League</a>
             <a href="privateLeague.jsp">Private Leagues</a>
             <a href="./SpecialsServlet?param=loadAll">Specials</a>
+           
+            
             
             <a href="logout.jsp">Logout</a>
         </div>

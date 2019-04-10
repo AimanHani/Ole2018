@@ -119,6 +119,12 @@
                                     </li>
                                 </ul>
                             </li>
+                             <li>
+                                <a href="./LeaderBoardPublicServlet?param=loadAll"><i class="fa fa-a fa-fw"></i>Public League Leader Board</a>
+                            </li>
+                            <li>
+                                <a href="./PrivateLeagueServlet?param=leaderBoard"><i class="fa fa-a fa-fw"></i>Private League Leader Board</a>
+                            </li>
                             <li>
                                 <a href="./FaqServlet?param=loadAll"><i class="fa fa-a fa-fw"></i>Frequently Asked Questions</a>
                             </li>

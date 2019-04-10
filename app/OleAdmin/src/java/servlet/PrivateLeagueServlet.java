@@ -50,6 +50,17 @@ public class PrivateLeagueServlet extends HttpServlet {
             }
 
         }
+        if (requests != null && requests.equals("leaderBoard")) {
+            //System.out.println("HEY IM HERE");
+            privateLeagueList = PrivateLeagueDAO.getAllPrivateLeague();
+            if (privateLeagueList != null) {
+                request.setAttribute("privateleague", privateLeagueList);
+                rd = request.getRequestDispatcher("leaderBoardPrivate.jsp");
+                //System.out.println(usersList.size());
+                rd.forward(request, response);
+            }
+
+        }
         if (requests != null && requests.equals("details")) {
             String userIndex = request.getParameter("index");
             PrivateLeague pl = privateLeagueList.get(Integer.parseInt(userIndex));
