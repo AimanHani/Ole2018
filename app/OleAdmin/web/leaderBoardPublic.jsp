@@ -11,7 +11,7 @@
         <div id="page-wrapper">
             <div class="row">
                 <div class="col-lg-12">
-                    <h1 class="page-header">Public League Leader Board </h1>
+                    <h1 class="page-header">Public Competitions Leader Board </h1>
                 </div>
             </div>
             <div class="row">
@@ -33,7 +33,7 @@
                                             <th>#</th>
                                             <th>User Name</th>
                                             <th>Country</th>
-                                            <th>League ID</th>
+                                            <th>Competition ID</th>
                                             <th>Total Points</th>
                                             <th>Rank</th>
 

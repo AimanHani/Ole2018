@@ -12,7 +12,7 @@
         <div id="page-wrapper">
             <div class="row">
                 <div class="col-lg-12">
-                    <h1 class="page-header">Private League Leader Board </h1>
+                    <h1 class="page-header">Private Competitions Leader Board </h1>
                 </div>
             </div>
             <div class="row">
@@ -33,8 +33,8 @@
                                         <tr>
                                             <th>#</th>
                                             <th>User Name</th>
-                                            <th>League ID</th>
-                                            <th>League Name</th>
+                                            <th>Competition ID</th>
+                                            <th>Competition Name</th>
 
                                             <th>Country</th>
 

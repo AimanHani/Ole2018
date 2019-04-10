@@ -6,8 +6,8 @@
         <div class="topnav">
             <a href="home.jsp">Home</a>    
             <a href="./UsersServlet?param=loadAll">OLE Users</a>
-            <a href="publicLeague.jsp">Public League</a>
-            <a href="privateLeague.jsp">Private Leagues</a>
+            <a href="publicLeague.jsp">Public Competitions</a>
+            <a href="privateLeague.jsp">Private Competitions</a>
             <a href="./SpecialsServlet?param=loadAll">Specials</a>
            
             

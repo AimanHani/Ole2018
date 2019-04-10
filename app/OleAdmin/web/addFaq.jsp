@@ -2,7 +2,7 @@
 <%@page import="java.sql.ResultSet"%>
 <html>
     <head>
-        <title>OLE FAQ Details</title>
+        <title>Olé FAQ Details</title>
         <%
             if (session.getAttribute("admin") == null || (boolean) session.getAttribute("admin") == false) {
                 String message = ("page can only be accessed by admin").toUpperCase();
@@ -28,8 +28,8 @@
                 Question: <input type="text" name="question"/><br>
                 Answer <input type="text" name="answer"/><br>
                 Category: <select name="category">
-                    <option value="Public League">Public League</option>
-                    <option value="Private League">Private League</option>
+                    <option value="Public Competitions">Public Competitions</option>
+                    <option value="Private Competitions">Private Competitions</option>
                     <option value="General">General</option>
                 </select><br>
                 <button class="btn btn-outline btn-primary" type="submit" value = "Submit">Add</button>

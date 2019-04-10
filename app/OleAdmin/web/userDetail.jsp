@@ -2,7 +2,7 @@
 <%@page import="java.sql.ResultSet"%>
 <html>
     <head>
-        <title>OLE User Details</title>
+        <title>Olé User Details</title>
 
         <jsp:include page="WebDesignResources/pages/homeDesign.jsp" />
         <%

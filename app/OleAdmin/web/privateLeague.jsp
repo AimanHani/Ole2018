@@ -3,20 +3,20 @@
 
 <html>
     <head>
-        <title>Private League</title>
+        <title>Private Competitions</title>
         <jsp:include page="WebDesignResources/pages/homeDesign.jsp" />
     </head>
     <body>
         <div id="page-wrapper">
             <div class="row">
                 <div class="col-lg-12">
-                    <h1 class="page-header">Private League Summary</h1>
+                    <h1 class="page-header">Private Competition Summary</h1>
                 </div>
             </div>
             <div class="row">
                 <div class="col-lg-12">
                     <div class="panel panel-default">
-                        <div class="panel-heading">View all Available Private Leagues</div>
+                        <div class="panel-heading">View all Available Private Competitions</div>
                         <!-- /.panel-heading -->
                         <div class="panel-body">
                             <div class="table-responsive">
@@ -31,7 +31,7 @@
                                         <tr>
                                             <th>#</th>
                                             <th>Tournament Name</th>
-                                            <th>League Name</th>
+                                            <th>Competition Name</th>
                                             <th>Created By</th>
                                             <th>Password</th>
                                             <th>Start Date</th>
