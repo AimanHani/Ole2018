@@ -341,10 +341,10 @@ public class Signup extends AppCompatActivity {
         }
 
         if (validateConfirmPassword.equals(validatePassword)) {
-            password.setError("Good", tickDone);
+            confirmPassword.setError("Good", tickDone);
 
         } else {
-            password.setError("Password is not the same");
+            confirmPassword.setError("Password is not the same");
             valid = false;
         }
 
@@ -615,13 +615,13 @@ public class Signup extends AppCompatActivity {
 
             @Override
             public void afterTextChanged(final Editable s) {
-                if (s.toString().equals(password.getText().toString())) {
+                if (s.toString().equals(confirmPassword.getText().toString())) {
 
-                    password.setError("Good", tickDone);
+                    confirmPassword.setError("Good", tickDone);
 
 
                 } else {
-                    password.setError("Password is not the same");
+                    confirmPassword.setError("Password is not the same");
 
                 }
 
