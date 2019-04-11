@@ -10,11 +10,9 @@
         <div id="page-wrapper">
             <div class="row">
                 <div class="col-lg-12">
-<<<<<<< HEAD
+
                     <h1 class="page-header">Click View Leader Board to View Ranking in Each Private League</h1>
-=======
                     <h1 class="page-header">Private Competitions</h1>
->>>>>>> 7136171927fdb8c93531ac2e3a7cf5e0bd5b3250
                 </div>
             </div>
             <div class="row">
