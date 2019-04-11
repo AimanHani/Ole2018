@@ -9,10 +9,17 @@
         <jsp:include page="WebDesignResources/pages/homeDesign.jsp" />
     </head>
     <body>
+
+        <%
+            ArrayList<PrivateLeagueProfile> privateLeagueProfileList = null;
+            if (request.getAttribute("privateProfileList") != null) {
+                privateLeagueProfileList = (ArrayList<PrivateLeagueProfile>) request.getAttribute("privateProfileList");
+            }
+        %>
         <div id="page-wrapper">
             <div class="row">
                 <div class="col-lg-12">
-                    <h1 class="page-header">Private Competitions Leader Board </h1>
+                    <h1 class="page-header"><%="\""+privateLeagueProfileList.get(0).getLeagueName()+"\""%> Leader Board </h1>
                 </div>
             </div>
             <div class="row">
@@ -22,47 +29,27 @@
                         <!-- /.panel-heading -->
                         <div class="panel-body">
                             <div class="table-responsive">
-                                <%
-                                    ArrayList<PrivateLeagueProfile> privateLeagueProfileList = null;
-                                    if (request.getAttribute("privateProfileList") != null) {
-                                        privateLeagueProfileList = (ArrayList<PrivateLeagueProfile>) request.getAttribute("privateProfileList");
-                                    }
-                                %>
+
                                 <table class="table table-hover">
                                     <thead>
                                         <tr>
-                                            <th>#</th>
-                                            <th>User Name</th>
-                                            <th>Competition ID</th>
-                                            <th>Competition Name</th>
-
-                                            <th>Country</th>
-
-                                            <th>Total Points</th>
                                             <th>Rank</th>
-
-
-                                            <th></th>
+                                            <th>Username</th>
+                                            <th>Country</th>
+                                            <th>Total Points</th>
                                         </tr>
                                     </thead>
 
                                     <tbody>
                                         <%
                                             for (int i = 0; i < privateLeagueProfileList.size(); i++) {
-                                                PrivateLeagueProfile plf = new PrivateLeagueProfile();
-                                                plf = privateLeagueProfileList.get(i);
+                                                PrivateLeagueProfile plf = privateLeagueProfileList.get(i);
                                         %>
                                         <tr>
-                                            <td><%=i + 1%></td>
-                                            <td><%=plf.getUsername()%></td>
-                                            <td><%=plf.getLeagueID()%></td>
-                                            <td><%=plf.getLeagueName()%></td>
-                                            <td><%=plf.getCountry()%></td>
-
-                                            <td><%=plf.getTotalPoints()%></td>
                                             <td><%=plf.getRank()%></td>
-
-
+                                            <td><%=plf.getUsername()%></td>
+                                            <td><%=plf.getCountry()%></td>
+                                            <td><%=plf.getTotalPoints()%></td>
                                         </tr>
                                         <%
                                             }

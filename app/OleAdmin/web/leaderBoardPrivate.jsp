@@ -10,9 +10,7 @@
         <div id="page-wrapper">
             <div class="row">
                 <div class="col-lg-12">
-
-                    <h1 class="page-header">Click View Leader Board to View Ranking in Each Private League</h1>
-                    <h1 class="page-header">Private Competitions</h1>
+                    <h1 class="page-header">Private Competitions Leader Board</h1>
                 </div>
             </div>
             <div class="row">
@@ -54,13 +52,12 @@
                                             <td><%=pl.getTournamentName()%></td>
                                             <td><%=pl.getLeagueName()%></td>
                                             <td><%=pl.getUsername()%></td>
-                                            
                                             <td><%=pl.getStartDate()%></td>
                                             <td><%=pl.getEndDate()%></td>
 
                                                           
 
-                                            <td><a href="./LeaderBoardPrivateServlet?index=<%=i%>">View Leader Board</a></td>
+                                            <td><a href="./LeaderBoardPrivateServlet?index=<%=i%>&leagueId=<%=pl.getLeagueID()%>">View Leader Board</a></td>
                                         </tr>
                                         <%
                                             }

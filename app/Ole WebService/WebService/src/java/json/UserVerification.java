@@ -78,7 +78,7 @@ public class UserVerification extends HttpServlet {
                 json.put("status", "successful");
 
             } else {
-                json.put("status", "Underaged");
+                json.put("status", "Underage");
             }
         } catch (Exception e) {
 

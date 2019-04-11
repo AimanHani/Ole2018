@@ -159,32 +159,32 @@ public class Signup extends AppCompatActivity {
                                     System.out.println("signup2");
 
                                     String ageVerify = SignupDAO.verifyAge(birthdateStr);
+                                    System.out.println(ageVerify);
 
-                                    if (!ageVerify.equals("Underaged")) {
-
+                                    if (!ageVerify.equals("Underage")) {
                                         final String verificationNumber = SignupDAO.verify(contactNoStr, emailStr);
                                         System.out.println("verificationNumber " + verificationNumber);
-                                        final Dialog verified = verificationDialog( );
+                                        final Dialog verified = verificationDialog();
 
                                         final EditText smsInput = verified.findViewById(R.id.smsInput);
                                         TextView cancel = verified.findViewById(R.id.cancel);
                                         TextView confirm = verified.findViewById(R.id.confirm);
 
-                                        confirm.setOnClickListener(new View.OnClickListener( ) {
+                                        confirm.setOnClickListener(new View.OnClickListener() {
                                             @Override
                                             public void onClick(View v) {
                                                 //if success,
-                                                String input = smsInput.getText( ).toString( );
+                                                String input = smsInput.getText().toString();
                                                 if (verificationNumber.equals(input)) {
                                                     System.out.println("contact " + contactNoStr);
                                                     String send = concatParams(usernameStr, nameStr, passwordStr, birthdateStr, countryStr, contactNoStr, emailStr, teamStr);
 
                                                     Boolean signUp = SignupDAO.validate(send, usernameStr, passwordStr);
-                                                    load.cancel( );
-                                                    verified.cancel( );
+                                                    load.cancel();
+                                                    verified.cancel();
                                                     if (signUp) {
                                                         signupBtn.setEnabled(false);
-                                                        onSignupSuccess( );
+                                                        onSignupSuccess();
                                                     } else {
                                                         onSignupFailed("");
                                                         return;
@@ -194,16 +194,20 @@ public class Signup extends AppCompatActivity {
                                             }
                                         });
 
-                                        cancel.setOnClickListener(new View.OnClickListener( ) {
+                                        cancel.setOnClickListener(new View.OnClickListener() {
                                             @Override
                                             public void onClick(View v) {
-                                                load.cancel( );
-                                                verified.cancel( );
-                                                dialog.cancel( );
+                                                load.cancel();
+                                                verified.cancel();
+                                                dialog.cancel();
                                             }
                                         });
 
                                         System.out.println("ver " + verified);
+                                    } else {
+                                        load.cancel();
+                                        onSignupFailed(ageVerify);
+                                        return;
                                     }
                                 }
                             }, 2000);

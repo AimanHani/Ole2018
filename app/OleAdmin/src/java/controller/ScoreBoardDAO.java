@@ -127,33 +127,34 @@ public class ScoreBoardDAO {
     public static ArrayList<PrivateLeagueProfile> getUsersAndTheirTotalPointsPrivate(int leagueID) {
         ArrayList<PrivateLeagueProfile> plfList = new ArrayList();
         ArrayList<String> usernames = getAllUsers(leagueID);
+        
         for (int i = 0; i < usernames.size(); i++) {
             if (!usernames.get(i).equals("admin")) {
                 PrivateLeagueProfile plf = new PrivateLeagueProfile();
-                try (Connection conn = DBConnection.getConnection(); PreparedStatement stmt = conn.prepareStatement("select points, leagueName from log, league where username = ?and log.leagueId = league.leagueId");) {
+                try (Connection conn = DBConnection.getConnection(); PreparedStatement stmt = conn.prepareStatement("select points, leagueName from log, league where username = ? and log.leagueId = league.leagueId and log.leagueId = ?");) {
                     stmt.setString(1, usernames.get(i));
-                    //stmt.setInt(2, leagueID);
+                    stmt.setInt(2, leagueID);
                     ResultSet rs = stmt.executeQuery();
                     int totalPoints = 0;
                     String leagueName = "";
 
                     while (rs.next()) {
-                        totalPoints += rs.getInt(1);
+                        totalPoints = rs.getInt(1);
                         leagueName = rs.getString(2);
+                        plf = new PrivateLeagueProfile(usernames.get(i), leagueID, leagueName, totalPoints);
+                        plfList.add(plf);
                     }
-
-                    plf = new PrivateLeagueProfile(usernames.get(i), leagueID, leagueName, totalPoints);
                     rs.close();
                     conn.close();
-
+                    
                 } catch (SQLException ex) {
                     ex.printStackTrace();
                 } catch (ClassNotFoundException ex) {
                     ex.printStackTrace();
                 }
-                plfList.add(plf);
             }
         }
+        
         return plfList;
     }
 

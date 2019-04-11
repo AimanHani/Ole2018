@@ -35,6 +35,16 @@
     </head>
 
     <body>
+        
+        <%
+            if (session.getAttribute("admin") == null || (boolean) session.getAttribute("admin") == false) {
+                String message = ("page can only be accessed by admin").toUpperCase();
+                System.out.println(message);
+                session.removeAttribute("admin");
+                response.sendRedirect("login.jsp");
+                return;
+            }
+        %>
         <div id="wrapper">
             <!-- Left Navigation Bar-->
             <nav class="navbar navbar-default navbar-static-top" role="navigation" style="margin-bottom: 0">
@@ -85,6 +95,9 @@
                                     <li>
                                         <a href="./PublicLeagueServlet?param=loadAll">View all Public Competitions</a>
                                     </li>
+                                    <li>
+                                        <a href="./LeaderBoardPublicServlet?param=loadAll">Public Competition Leader Board</a>
+                                    </li>
                                 </ul>
                             </li>
                             <li>
@@ -92,6 +105,9 @@
                                 <ul class="nav nav-second-level">
                                     <li>
                                         <a href="./PrivateLeagueServlet?param=loadAll">View all Private Competitions</a>
+                                    </li>
+                                    <li>
+                                        <a href="./PrivateLeagueServlet?param=leaderBoard">Private Competitions Leader Board</a>
                                     </li>
                                 </ul>
                             </li>
@@ -118,12 +134,6 @@
                                         <a href="./TeamServlet">Premier League</a>
                                     </li>
                                 </ul>
-                            </li>
-                             <li>
-                                <a href="./LeaderBoardPublicServlet?param=loadAll"><i class="fa fa-a fa-fw"></i>Public Competitions Leader Board</a>
-                            </li>
-                            <li>
-                                <a href="./PrivateLeagueServlet?param=leaderBoard"><i class="fa fa-a fa-fw"></i>Private Competitions Leader Board</a>
                             </li>
                             <li>
                                 <a href="./FaqServlet?param=loadAll"><i class="fa fa-a fa-fw"></i>Frequently Asked Questions</a>

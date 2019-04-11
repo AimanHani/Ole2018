@@ -50,28 +50,26 @@ public class LeaderBoardPrivateServlet extends HttpServlet {
             throws ServletException, IOException {
         privateLeagueList = PrivateLeagueDAO.getAllPrivateLeague();
         String userIndex = request.getParameter("index");
-        PrivateLeague pl = new PrivateLeague();
-        pl = privateLeagueList.get(Integer.parseInt(userIndex));
+        int leagueId = Integer.parseInt(request.getParameter("leagueId"));
+//        
+//        PrivateLeague pl = new PrivateLeague();
+//        pl = privateLeagueList.get(Integer.parseInt(userIndex));
         pListWithRanking = new ArrayList();
-        pList = ScoreBoardDAO.getUsersAndTheirTotalPointsPrivate(pl.getLeagueID());
+        pList = ScoreBoardDAO.getUsersAndTheirTotalPointsPrivate(leagueId);
 
         if (!pList.isEmpty()) {
             Collections.sort(pList);
 
             int previousPoints = 0;
-
             for (int j = 0; j < pList.size(); j++) {
-
                 plf = new PrivateLeagueProfile();
                 plf = pList.get(j);
                 if (previousPoints != plf.getTotalPoints() && j > 0) {
                     rank++;
                 }
-
                 previousPoints = plf.getTotalPoints();
-
+                pListWithRanking.add(new PrivateLeagueProfile(plf.getUsername(), plf.getLeagueID(), plf.getLeagueName(), plf.getTotalPoints(), rank, ScoreBoardDAO.getUserCountry(plf.getUsername())));
             }
-            pListWithRanking.add(new PrivateLeagueProfile(plf.getUsername(), plf.getLeagueID(), plf.getLeagueName(), plf.getTotalPoints(), rank, ScoreBoardDAO.getUserCountry(plf.getUsername())));
         }
 
         request.setAttribute("privateProfileList", pListWithRanking);

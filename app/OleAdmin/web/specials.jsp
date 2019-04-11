@@ -53,20 +53,23 @@
                                                 <th>Include specials</th>
                                                 <th>#</th>
                                                 <th>Description</th>
-                                                <th>Status</th>
                                                 <th></th>
                                             </tr>
                                         </thead>
                                         <%
                                             for (int i = 0; i < specialsList.size(); i++) {
                                                 Specials special = specialsList.get(i);
+                                                String status = special.getStatus();
                                         %>
                                         <tbody>
                                             <tr>
+                                                <% if (status.equals("Y")) {%>
+                                                <td><input type="checkbox" class="checkbox" name="specials" value=<%=special.getSpecialsId()%> checked/></td>
+                                                    <% } else {%>
                                                 <td><input type="checkbox" class="checkbox" name="specials" value=<%=special.getSpecialsId()%> /></td>
+                                                    <% }%>
                                                 <td><%=i + 1%></td>
                                                 <td><%=special.getDescription()%></td>
-                                                <td><%=special.getStatus()%></td>
                                                 <%-- <td><a href="./SpecialsServlet?param=delete&id1=<%=special.getSpecialsId()%>">Delete</a></td> --%>
                                                 <td><a href="./SpecialsServlet?param=details&index=<%=i%>">View</a></td>
                                             </tr>

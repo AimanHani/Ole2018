@@ -30,15 +30,10 @@
                                 <table class="table table-hover">
                                     <thead>
                                         <tr>
-                                            <th>#</th>
+                                            <th>Rank</th>
                                             <th>User Name</th>
                                             <th>Country</th>
-                                            <th>Competition ID</th>
                                             <th>Total Points</th>
-                                            <th>Rank</th>
-
-
-                                            <th></th>
                                         </tr>
                                     </thead>
 
@@ -48,14 +43,10 @@
                                                 PublicLeagueProfile plf = publicLeagueProfileList.get(i);
                                         %>
                                         <tr>
-                                            <td><%=i + 1%></td>
+                                            <td><%=plf.getRank()%></td>
                                             <td><%=plf.getUsername()%></td>
                                             <td><%=plf.getCountry()%></td>
-                                            <td><%=plf.getLeagueID()%></td>
                                             <td><%=plf.getTotalPoints()%></td>
-                                            <td><%=plf.getRank()%></td>
-
-
                                         </tr>
                                         <%
                                             }
