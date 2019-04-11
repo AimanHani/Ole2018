@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -11,10 +10,15 @@
         android:id="@+id/linearLayout_leaguename"
         android:layout_width="match_parent"
         android:layout_height="120dp"
+        android:layout_marginBottom="10dp"
+        android:background="@drawable/detail_background"
         android:orientation="vertical"
-        android:background="@drawable/detail_background">
+        app:layout_constraintBottom_toTopOf="@+id/linearLayout_prize"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
-<android.support.v7.widget.CardView
+        <android.support.v7.widget.CardView
             android:layout_width="match_parent"
             android:layout_height="60dp"
             android:layout_marginTop="65dp"
@@ -51,55 +55,59 @@
         android:id="@+id/linearLayout_prize"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
         android:layout_marginTop="10dp"
+        android:gravity="top"
+        android:orientation="horizontal"
         android:weightSum="3"
         app:layout_constraintEnd_toEndOf="@+id/linearLayout_leaguename"
         app:layout_constraintStart_toStartOf="@+id/linearLayout_leaguename"
         app:layout_constraintTop_toBottomOf="@+id/linearLayout_leaguename">
 
-    <ImageView
-        android:id="@+id/icon_prize"
-        android:layout_width="match_parent"
-        android:layout_height="65dp"
-        android:layout_weight="1.1"
-        android:layout_marginBottom="5dp"
-        android:src="@drawable/prize" />
+        <ImageView
+            android:id="@+id/icon_prize"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_marginBottom="5dp"
+            android:layout_weight="1.1"
+            android:src="@drawable/prize" />
 
-    <TextView
-        android:id="@+id/prize_text"
-        android:layout_width="match_parent"
-        android:layout_height="65dp"
-        android:layout_marginBottom="5dp"
-        android:paddingStart="10dp"
-        android:layout_weight="1.2"
-        android:text="Prize:"
-        android:textStyle="bold"
-        android:gravity="center_vertical"
-        android:textSize="15sp" />
+        <TextView
+            android:id="@+id/prize_text"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_marginBottom="5dp"
+            android:layout_weight="1.2"
+            android:gravity="center_vertical"
+            android:paddingStart="10dp"
+            android:text="Prize:"
+            android:textColor="@color/black"
+            android:textSize="17sp"
+            android:textStyle="bold" />
 
-    <TextView
-        android:id="@+id/publicPrizeInput"
-        android:layout_width="match_parent"
-        android:layout_height="65dp"
-        android:layout_weight="0.7"
-        android:paddingStart="10dp"
-        android:ems="10"
-        android:focusable="false"
-        android:text="1 seafood buffet voucher"
-        android:gravity="center_vertical"
-        android:textSize="15sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        <TextView
+            android:id="@+id/publicPrizeInput"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_weight="0.7"
+            android:ems="10"
+            android:focusable="false"
+            android:gravity="center_vertical"
+            android:paddingStart="10dp"
+            android:text="1 seafood buffet voucher"
+            android:textColor="@color/black"
+            android:textSize="17sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
 
 
-</LinearLayout>
+    </LinearLayout>
 
     <LinearLayout
         android:id="@+id/linearLayout_members"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="53dp"
         android:layout_marginTop="5dp"
+        android:gravity="top"
         android:orientation="horizontal"
         android:weightSum="3"
         app:layout_constraintTop_toBottomOf="@+id/linearLayout_prize">
@@ -107,36 +115,38 @@
         <ImageView
             android:id="@+id/icon_members"
             android:layout_width="match_parent"
-            android:layout_height="65dp"
-            android:layout_weight="1.1"
+            android:layout_height="50dp"
             android:layout_marginBottom="5dp"
+            android:layout_weight="1.1"
             android:src="@drawable/members" />
 
         <TextView
             android:id="@+id/member_text"
             android:layout_width="match_parent"
-            android:layout_height="65dp"
+            android:layout_height="50dp"
             android:layout_marginBottom="5dp"
-            android:paddingStart="10dp"
-            android:layout_weight="1"
-            android:text="Total members:"
-            android:textStyle="bold"
+            android:layout_weight="0.9"
             android:gravity="center_vertical"
-            android:textSize="15sp" />
+            android:paddingStart="10dp"
+            android:text="Team Member:"
+            android:textColor="@color/black"
+            android:textSize="17sp"
+            android:textStyle="bold" />
 
         <TextView
             android:id="@+id/totalNoMembers"
             android:layout_width="match_parent"
-            android:layout_height="65dp"
-            android:layout_weight="0.9"
-            android:paddingStart="10dp"
+            android:layout_height="50dp"
+            android:layout_weight="0.7"
             android:ems="10"
             android:focusable="false"
-            android:text="25"
             android:gravity="center_vertical"
-            android:textSize="15sp"
+            android:paddingStart="10dp"
+            android:text="25"
+            android:textColor="@color/black"
+            android:textSize="17sp"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"/>
+            app:layout_constraintStart_toStartOf="parent" />
 
     </LinearLayout>
 
@@ -150,18 +160,18 @@
         tools:layout_editor_absoluteX="0dp" />
 
     <TextView
+        android:id="@+id/mainview"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/mainview" />
+        android:layout_height="wrap_content" />
 
     <TextView
         android:id="@+id/matchtext"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
+        android:layout_marginTop="8dp"
         android:layout_marginEnd="16dp"
         android:layout_marginRight="16dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginBottom="8dp"
         android:text="Predict Matches"
         android:textColor="@color/white"
         android:visibility="gone"
@@ -173,10 +183,10 @@
         android:id="@+id/specialtext"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
+        android:layout_marginTop="8dp"
         android:layout_marginEnd="16dp"
         android:layout_marginRight="16dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginBottom="8dp"
         android:text="Predict Specials"
         android:textColor="@color/white"
         android:visibility="gone"
@@ -184,21 +194,53 @@
         app:layout_constraintEnd_toStartOf="@+id/predictSpecial"
         app:layout_constraintTop_toTopOf="@+id/predictSpecial" />
 
+    <TextView
+        android:id="@+id/leaveText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginRight="16dp"
+        android:layout_marginBottom="8dp"
+        android:text="Leave Competition"
+        android:textColor="@color/white"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="@+id/leaveCompetiion"
+        app:layout_constraintEnd_toStartOf="@+id/leaveCompetiion"
+        app:layout_constraintTop_toTopOf="@+id/leaveCompetiion" />
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/leaveCompetiion"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="30dp"
+        android:layout_marginBottom="30dp"
+        android:accessibilityPaneTitle="Leave Competition"
+        android:scaleType="fitCenter"
+        android:src="@drawable/error"
+        android:visibility="invisible"
+        app:backgroundTint="@color/white"
+        app:fabCustomSize="60dp"
+        app:layout_constraintBottom_toTopOf="@+id/predictMatch"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:maxImageSize="45dp"
+        app:pressedTranslationZ="12dp" />
+
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/predictMatch"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginRight="30dp"
         android:layout_marginEnd="30dp"
+        android:layout_marginRight="30dp"
         android:layout_marginBottom="30dp"
-        app:fabCustomSize="60dp"
-        app:maxImageSize="45dp"
         android:scaleType="fitCenter"
         android:src="@drawable/scoreboard2"
         android:visibility="invisible"
         app:backgroundTint="@color/white"
+        app:fabCustomSize="60dp"
         app:layout_constraintBottom_toTopOf="@+id/predictSpecial"
         app:layout_constraintEnd_toEndOf="parent"
+        app:maxImageSize="45dp"
         app:pressedTranslationZ="12dp" />
 
 
@@ -223,32 +265,32 @@
         android:id="@+id/floatingActionButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginRight="30dp"
         android:layout_marginEnd="30dp"
+        android:layout_marginRight="30dp"
         android:layout_marginBottom="30dp"
-        app:fabCustomSize="60dp"
-        app:maxImageSize="25dp"
-        android:scaleType="fitCenter"
         android:clickable="true"
-        app:layout_behavior="com.eventizon.behavior.ScrollAwareFABBehavior"
+        android:scaleType="fitCenter"
         android:src="@drawable/add"
-        app:fabSize="mini"
         app:backgroundTint="@color/white"
+        app:fabCustomSize="60dp"
+        app:fabSize="mini"
+        app:layout_anchorGravity="bottom|right|end"
+        app:layout_behavior="com.eventizon.behavior.ScrollAwareFABBehavior"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_anchorGravity="bottom|right|end"
+        app:maxImageSize="25dp"
         app:pressedTranslationZ="12dp" />
 
     <LinearLayout
-        android:orientation="vertical"
-        android:layout_width="match_parent"
-        android:visibility="gone"
-        android:clickable="true"
         android:id="@+id/blackoutimage"
-        android:scaleType="fitXY"
-        android:background="@drawable/blackoverlay"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         android:alpha="0.95"
-        android:layout_height="match_parent" />
+        android:background="@drawable/blackoverlay"
+        android:clickable="true"
+        android:orientation="vertical"
+        android:scaleType="fitXY"
+        android:visibility="gone" />
 
 
 </android.support.constraint.ConstraintLayout>

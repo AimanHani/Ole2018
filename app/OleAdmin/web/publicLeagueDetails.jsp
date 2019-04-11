@@ -2,14 +2,14 @@
 <%@page import="java.util.ArrayList"%>
 <html>
     <head>
-        <title>Public League</title>
+        <title>Public Competitions</title>
         <jsp:include page="WebDesignResources/pages/homeDesign.jsp" />
     </head>
     <body>   
         <div id="page-wrapper">
             <div class="row">
                 <div class="col-lg-12">
-                    <h1 class="page-header">Public League Details</h1>
+                    <h1 class="page-header">Public Competition Details</h1>
                 </div>
             </div>
 
@@ -23,14 +23,14 @@
             <div class="row">
                 <div class="col-lg-12">
                     <div class="panel panel-default">
-                        <div class="panel-heading">View Public League Details</div>
+                        <div class="panel-heading">View Public Competition Details</div>
                         <div class="panel-body">
                             <div class="table-responsive">
                                 <table class="table table-hover">
                                     <thead>
                                         <tr>
                                             <th>Tournament Name</th>
-                                            <th>League Name</th>
+                                            <th>Competition Name</th>
                                             <th>Olé Points</th>
                                             <th>Grand Prize</th>
                                         </tr>

@@ -54,11 +54,11 @@
                             <i class="fa fa-user fa-fw"></i> <i class="fa fa-caret-down"></i>
                         </a>
                         <ul class="dropdown-menu dropdown-user">
-                            <li><a href="#"><i class="fa fa-user fa-fw"></i> User Profile</a>
+                            <!--<li><a href="#"><i class="fa fa-user fa-fw"></i> User Profile</a>
                             </li>
                             <li><a href="#"><i class="fa fa-gear fa-fw"></i> Settings</a>
                             </li>
-                            <li class="divider"></li>
+                            <li class="divider"></li>-->
                             <li><a href="logout.jsp"><i class="fa fa-sign-out fa-fw"></i> Logout</a>
                             </li>
                         </ul>
@@ -80,18 +80,18 @@
                                 </ul>
                             </li>
                             <li>
-                                <a href="#"><i class="fa fa-sitemap fa-fw"></i> Public League<span class="fa arrow"></span></a>
+                                <a href="#"><i class="fa fa-sitemap fa-fw"></i> Public Competition<span class="fa arrow"></span></a>
                                 <ul class="nav nav-second-level">
                                     <li>
-                                        <a href="./PublicLeagueServlet?param=loadAll">View all Public Leagues</a>
+                                        <a href="./PublicLeagueServlet?param=loadAll">View all Public Competitions</a>
                                     </li>
                                 </ul>
                             </li>
                             <li>
-                                <a href="#"><i class="fa fa-shield fa-fw"></i> Private League<span class="fa arrow"></span></a>
+                                <a href="#"><i class="fa fa-shield fa-fw"></i> Private Competitions<span class="fa arrow"></span></a>
                                 <ul class="nav nav-second-level">
                                     <li>
-                                        <a href="./PrivateLeagueServlet?param=loadAll">View all Private Leagues</a>
+                                        <a href="./PrivateLeagueServlet?param=loadAll">View all Private Competitions</a>
                                     </li>
                                 </ul>
                             </li>
@@ -120,10 +120,10 @@
                                 </ul>
                             </li>
                              <li>
-                                <a href="./LeaderBoardPublicServlet?param=loadAll"><i class="fa fa-a fa-fw"></i>Public League Leader Board</a>
+                                <a href="./LeaderBoardPublicServlet?param=loadAll"><i class="fa fa-a fa-fw"></i>Public Competitions Leader Board</a>
                             </li>
                             <li>
-                                <a href="./PrivateLeagueServlet?param=leaderBoard"><i class="fa fa-a fa-fw"></i>Private League Leader Board</a>
+                                <a href="./PrivateLeagueServlet?param=leaderBoard"><i class="fa fa-a fa-fw"></i>Private Competitions Leader Board</a>
                             </li>
                             <li>
                                 <a href="./FaqServlet?param=loadAll"><i class="fa fa-a fa-fw"></i>Frequently Asked Questions</a>
@@ -179,13 +179,13 @@
                                     </div>
                                     <div class="col-xs-9 text-right">
                                         <div class="huge"><%=HomeDAO.getTotalPublicLeague()%></div> <!-- get total number of Public Leagues-->
-                                        <div>Public Leagues</div>
+                                        <div>Public Competitions</div>
                                     </div>
                                 </div>
                             </div>
                             <a href="./PublicLeagueServlet?param=loadAll">
                                 <div class="panel-footer">
-                                    <span class="pull-left">View all Public Leagues</span>
+                                    <span class="pull-left">View all Public Competitions</span>
                                     <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
                                     <div class="clearfix"></div>
                                 </div>
@@ -201,13 +201,13 @@
                                     </div>
                                     <div class="col-xs-9 text-right">
                                         <div class="huge"><%=HomeDAO.getTotalPrivateLeague()%></div> <!-- get total number of Private Leagues-->
-                                        <div>Private Leagues</div>
+                                        <div>Private Competitions</div>
                                     </div>
                                 </div>
                             </div>
                             <a href="./PrivateLeagueServlet?param=loadAll">
                                 <div class="panel-footer">
-                                    <span class="pull-left">View all Private Leagues</span>
+                                    <span class="pull-left">View all Private Competitions</span>
                                     <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
                                     <div class="clearfix"></div>
                                 </div>

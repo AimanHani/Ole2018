@@ -124,12 +124,13 @@ public class SpecialList extends SideMenuBar {
                         } catch (Exception e) {
                             e.printStackTrace();
                         }
-                        Intent i = new Intent(SpecialList.this, PublicLeagueDetails.class);
+                        Intent intent = new Intent(SpecialList.this, PublicLeagueDetails.class);
                         Bundle bundle = new Bundle();
+                        intent.putExtra("FROM_ACTIVITY", "specials");
                         bundle.putInt("logId", logId);
                         bundle.putInt("leagueId", leagueId);
-                        i.putExtras(bundle);
-                        startActivity(i);
+                        intent.putExtras(bundle);
+                        startActivity(intent);
                     }
                 });
 

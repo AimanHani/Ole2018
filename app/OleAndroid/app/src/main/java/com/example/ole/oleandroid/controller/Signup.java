@@ -52,7 +52,7 @@ public class Signup extends AppCompatActivity {
     private Dialog dialog;
     private Button birthdateButton;
     private DatePickerDialog.OnDateSetListener dateSetListener;
-    EditText username, name, password, birthdate, email, contactNo;
+    EditText username, name, password, birthdate, email, contactNo, confirmPassword;
     Button signupBtn;
     Spinner spinnerTeams, spinnerCountries;
     Drawable tickDone;
@@ -81,6 +81,7 @@ public class Signup extends AppCompatActivity {
         username = findViewById(R.id.username);
         name = findViewById(R.id.name);
         password = findViewById(R.id.password);
+        confirmPassword = findViewById(R.id.confirmPassword);
         birthdate = findViewById(R.id.birthdate);
         email = findViewById(R.id.email);
         contactNo = findViewById(R.id.contactNo);
@@ -156,18 +157,6 @@ public class Signup extends AppCompatActivity {
                             new Runnable() {
                                 public void run() {
                                     System.out.println("signup2");
-
-//                                    String send = concatParams(usernameStr, nameStr, passwordStr, birthdateStr, countryStr, contactNoStr, emailStr, teamStr);
-//
-//                                    Boolean signUp = SignupDAO.validate(send, usernameStr, passwordStr);
-//                                    if (signUp) {
-//                                        signupBtn.setEnabled(false);
-//                                        onSignupSuccess();
-//                                    } else {
-//                                        onSignupFailed("");
-//                                        return;
-//                                    }
-//                                    load.cancel();
 
                                     final String verificationNumber = SignupDAO.verify(contactNoStr, emailStr);
                                     System.out.println("verificationNumber " + verificationNumber);
@@ -311,6 +300,7 @@ public class Signup extends AppCompatActivity {
         String validateName = name.getText().toString();
         String validateEmail = email.getText().toString();
         String validatePassword = password.getText().toString();
+        String validateConfirmPassword = confirmPassword.getText().toString();
         String validateBirthdate = birthdate.getText().toString();
         String validatePhoneNo = contactNo.getText().toString();
         String validateTeam = clickedTeamName;
@@ -349,6 +339,15 @@ public class Signup extends AppCompatActivity {
                     "Min 1 letters in Lower Case");
             valid = false;
         }
+
+        if (validateConfirmPassword.equals(validatePassword)) {
+            confirmPassword.setError("Good", tickDone);
+
+        } else {
+            confirmPassword.setError("Password is not the same");
+            valid = false;
+        }
+
         if (validateCountries.equals(null)) {
             setSpinnerError(spinnerCountries, "Please select your country");
             valid = false;
@@ -602,6 +601,31 @@ public class Signup extends AppCompatActivity {
 
             }
         });
+
+        confirmPassword.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(final Editable s) {
+                if (s.toString().equals(password.getText().toString())) {
+                    confirmPassword.setError("Good", tickDone);
+                } else {
+                    confirmPassword.setError("Password is not the same");
+
+                }
+
+            }
+        });
+
+
         email.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {

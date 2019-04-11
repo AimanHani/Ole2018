@@ -52,7 +52,7 @@
                 android:paddingTop="4dp"
                 android:paddingRight="8dp"
                 android:paddingBottom="4dp"
-                android:text="Wei En Li"
+                android:text="Liam Hemsworth"
                 android:textColor="@color/black"
                 android:textSize="20sp"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -71,22 +71,6 @@
                 android:textStyle="bold"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/profileName" />
-
-            <!--<TextView-->
-            <!--android:id="@+id/userCountry"-->
-            <!--android:layout_width="match_parent"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:layout_margin="8dp"-->
-            <!--android:background="#FFE6ECFE"-->
-            <!--android:elevation="3dp"-->
-            <!--android:fontFamily="sans-serif"-->
-            <!--android:paddingLeft="8dp"-->
-            <!--android:paddingTop="4dp"-->
-            <!--android:paddingRight="8dp"-->
-            <!--android:paddingBottom="4dp"-->
-            <!--android:text="Singapore"-->
-            <!--android:textColor="@color/black"-->
-            <!--android:textSize="20sp" />-->
 
             <android.support.v7.widget.CardView
                 android:layout_width="match_parent"
@@ -188,20 +172,6 @@
             </android.support.v7.widget.CardView>
 
             <TextView
-                android:id="@+id/changeTeam"
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="10dp"
-                android:clickable="true"
-                android:elevation="10dp"
-                android:fontFamily="sans-serif"
-                android:gravity="end"
-                android:textStyle="italic"
-                android:text="Change Favorite Team"
-                android:textAppearance="@android:style/TextAppearance.Holo.Widget.Button"
-                android:textSize="18sp"/>
-
-            <TextView
                 android:id="@+id/predictionHeader"
                 android:layout_width="match_parent"
                 android:layout_height="37dp"
@@ -266,7 +236,7 @@
                             android:id="@+id/matchAccValue"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:text="0.0"
+                            android:text="0%"
                             android:textAlignment="center"
                             android:textColor="@color/colorPrimaryDark"
                             android:textSize="18dp"
@@ -310,7 +280,7 @@
                             android:id="@+id/specialsAccValue"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:text="0.0"
+                            android:text="0%"
                             android:textAlignment="center"
                             android:textColor="#FFBC0000"
                             android:textSize="18dp"
@@ -356,7 +326,7 @@
                             android:id="@+id/playQty"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:text="0.0"
+                            android:text="0"
                             android:textAlignment="center"
                             android:textColor="@color/black"
                             android:textSize="18dp"
@@ -401,7 +371,7 @@
                             android:id="@+id/accQty"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:text="0.0"
+                            android:text="0%"
                             android:textAlignment="center"
                             android:textColor="@color/black"
                             android:textSize="18dp"

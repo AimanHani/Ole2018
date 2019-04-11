@@ -10,13 +10,17 @@
         <div id="page-wrapper">
             <div class="row">
                 <div class="col-lg-12">
+<<<<<<< HEAD
                     <h1 class="page-header">Click View Leader Board to View Ranking in Each Private League</h1>
+=======
+                    <h1 class="page-header">Private Competitions</h1>
+>>>>>>> 7136171927fdb8c93531ac2e3a7cf5e0bd5b3250
                 </div>
             </div>
             <div class="row">
                 <div class="col-lg-12">
                     <div class="panel panel-default">
-                        <div class="panel-heading">View all Available Private Leagues</div>
+                        <div class="panel-heading">View all Available Private Competitions</div>
                         <!-- /.panel-heading -->
                         <div class="panel-body">
                             <div class="table-responsive">
@@ -31,7 +35,7 @@
                                         <tr>
                                             <th>#</th>
                                             <th>Tournament Name</th>
-                                            <th>League Name</th>
+                                            <th>Competition Name</th>
                                             <th>Created By</th>
                                             
                                             <th>Start Date</th>

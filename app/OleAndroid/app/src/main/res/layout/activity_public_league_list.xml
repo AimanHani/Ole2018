@@ -42,14 +42,15 @@
             android:layout_marginEnd="5dp"
             android:layout_marginBottom="5dp"
             android:layout_weight="1.4"
+            android:clickable="false"
             android:gravity="left"
             android:text="English Premier League"
+            android:textColor="@color/black"
             android:textSize="20sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            android:clickable="false"/>
+            app:layout_constraintTop_toTopOf="parent" />
 
         <Button
             android:id="@+id/joinleaguebtn"

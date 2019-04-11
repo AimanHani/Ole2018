@@ -1,6 +1,7 @@
 package com.example.ole.oleandroid.controller.PublicLeague;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
@@ -8,6 +9,9 @@ import android.view.View;
 import android.widget.ListView;
 
 import com.example.ole.oleandroid.R;
+import com.example.ole.oleandroid.controller.HomeLeague;
+import com.example.ole.oleandroid.controller.PrivateLeagueController.PrivateLeagueDetails;
+import com.example.ole.oleandroid.controller.PrivateLeagueController.PrivateLeagueMain;
 import com.example.ole.oleandroid.controller.SideMenuBar;
 import com.example.ole.oleandroid.model.PublicLeague;
 
@@ -46,5 +50,12 @@ public class PublicLeagueList extends SideMenuBar {
         publicLeagueListAdapter = new PublicLeagueListAdapter(PublicLeagueList.this, PublicLeagueDAO.getAllPublicLeagueList());
         publicLeagueListView.setAdapter(publicLeagueListAdapter);
 
+    }
+
+    @Override
+    public void onBackPressed() {
+        Intent intent = new Intent(PublicLeagueList.this, HomeLeague.class);
+        intent.putExtra("FROM_ACTIVITY", "PublicLeagueList");
+        startActivity(intent);
     }
 }

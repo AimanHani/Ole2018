@@ -24,6 +24,8 @@ import com.example.ole.oleandroid.controller.Signup;
 import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.List;
+import java.util.ListIterator;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -37,7 +39,7 @@ public class PrivateLeagueCreate extends SideMenuBar {
     boolean prizeOk = false;
     boolean passwordOk = false;
     boolean pointsAllocatedOk = false;
-
+    ArrayList<String> keywords = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,7 +48,8 @@ public class PrivateLeagueCreate extends SideMenuBar {
         LayoutInflater inflater = (LayoutInflater) this.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         View contentView = inflater.inflate(R.layout.activity_private_league_create, null, false);
         super.mDrawerlayout.addView(contentView, 0);
-
+        restrictionList();
+        replace(keywords);
         tickDone = getResources().getDrawable(R.drawable.ic_done_black_24dp);
         tickDone.setBounds(0, 0, tickDone.getIntrinsicWidth(), tickDone.getIntrinsicHeight());
 
@@ -68,65 +71,65 @@ public class PrivateLeagueCreate extends SideMenuBar {
         validationOnTextView();
 
         selectleague = findViewById(R.id.selectleague);
-        selectleague.setOnClickListener(new View.OnClickListener( ) {
-            
+        selectleague.setOnClickListener(new View.OnClickListener() {
+
             @Override
-            public void onClick(View view){
-                if (allLeague.contains(leaguename.getEditableText().toString())){
+            public void onClick(View view) {
+                if (allLeague.contains(leaguename.getEditableText().toString())) {
                     leaguename.setError("name is taken");
                     Toast.makeText(PrivateLeagueCreate.this,
                             "League name is already taken ", Toast.LENGTH_LONG).show();
 
-                }else{
+                } else {
 
-                if (!leaguename.getEditableText().toString().isEmpty() && !prize.getEditableText().toString().isEmpty() && !password.getEditableText().toString().isEmpty() && nameOk && prizeOk && passwordOk ) {
-            //if (leaguename!=null && prize!=null && password!=null) {
-                Intent intent = new Intent(PrivateLeagueCreate.this, PrivateLeagueTournamentList.class);
-                intent.putExtra("leaguename", leaguename.getText().toString());
-                intent.putExtra("prize", prize.getText().toString());
-                intent.putExtra("password", password.getText().toString());
-                intent.putExtra("pointsAllocated", "1");
-                startActivity(intent);
-            } else {
-                    Toast.makeText(PrivateLeagueCreate.this,
-                            "Please Complete the form", Toast.LENGTH_LONG).show();
+                    if (!leaguename.getEditableText().toString().isEmpty() && !prize.getEditableText().toString().isEmpty() && !password.getEditableText().toString().isEmpty() && nameOk && prizeOk && passwordOk) {
+                        //if (leaguename!=null && prize!=null && password!=null) {
+                        Intent intent = new Intent(PrivateLeagueCreate.this, PrivateLeagueTournamentList.class);
+                        intent.putExtra("leaguename", leaguename.getText().toString());
+                        intent.putExtra("prize", prize.getText().toString());
+                        intent.putExtra("password", password.getText().toString());
+                        intent.putExtra("pointsAllocated", "1");
+                        startActivity(intent);
+                    } else {
+                        Toast.makeText(PrivateLeagueCreate.this,
+                                "Please Complete the form", Toast.LENGTH_LONG).show();
 
+                    }
                 }
-                }
-        }
-        });
-}
-
-public void validationOnTextView() {
-    leaguename.addTextChangedListener(new TextWatcher() {
-        @Override
-        public void beforeTextChanged(CharSequence s, int start, int count, int after) {        }
-
-        @Override
-        public void onTextChanged(CharSequence s, int start, int before, int count) {
-            if (timer != null) {
-                timer.cancel();
             }
-        }
+        });
+    }
 
-        @Override
-        public void afterTextChanged(final Editable s) {
-            timer = new Timer();
-            timer.schedule(new TimerTask() {
-                @Override
-                public void run() {
-                    PrivateLeagueCreate.this.runOnUiThread(new Runnable() {
-                        @Override
-                        public void run() {
-                            if (s.toString().isEmpty() || s.toString().length() < 3) {
-                                leaguename.setError("minimum 3 characters");
-                                nameOk = false;
+    public void validationOnTextView() {
+        leaguename.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+            }
 
-                            }
-                            else {
-                                leaguename.setError("Good", tickDone);
-                                nameOk = true;
-                            }
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                if (timer != null) {
+                    timer.cancel();
+                }
+            }
+
+            @Override
+            public void afterTextChanged(final Editable s) {
+                timer = new Timer();
+                timer.schedule(new TimerTask() {
+                    @Override
+                    public void run() {
+                        PrivateLeagueCreate.this.runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                if (s.toString().isEmpty() || s.toString().length() < 3) {
+                                    leaguename.setError("minimum 3 characters");
+                                    nameOk = false;
+
+                                } else {
+                                    leaguename.setError("Good", tickDone);
+                                    nameOk = true;
+                                }
 
                             /*
                             * if (lista.contains(conta1)) {
@@ -137,133 +140,146 @@ public void validationOnTextView() {
                             * */
 
 
-                        }
-                    });
-                }
-            }, 100); // 600ms delay before the timer executes the „run“ method from TimerTask
-        }
-    });
-
-    password.addTextChangedListener(new TextWatcher() {
-        @Override
-        public void beforeTextChanged(CharSequence s, int start, int count, int after) {        }
-
-        @Override
-        public void onTextChanged(CharSequence s, int start, int before, int count) {
-            if (timer != null) {
-                timer.cancel();
-            }
-        }
-
-        @Override
-        public void afterTextChanged(final Editable s) {
-            timer = new Timer();
-            timer.schedule(new TimerTask() {
-                @Override
-                public void run() {
-                    PrivateLeagueCreate.this.runOnUiThread(new Runnable() {
-                        @Override
-                        public void run() {
-                            if (s.toString().isEmpty() || s.toString().length() < 3) {
-                                password.setError("minimum 3 characters");
-                                passwordOk = false;
-
-                            } else {
-                                password.setError("Good", tickDone);
-                                passwordOk = true;
                             }
-                        }
-                    });
-                }
-            }, 100); // 600ms delay before the timer executes the „run“ method from TimerTask
-        }
-    });
-
-/*    pointsAllocated.addTextChangedListener(new TextWatcher() {
-        @Override
-        public void beforeTextChanged(CharSequence s, int start, int count, int after) {        }
-
-        @Override
-        public void onTextChanged(CharSequence s, int start, int before, int count) {
-            if (timer != null) {
-                timer.cancel();
+                        });
+                    }
+                }, 100); // 600ms delay before the timer executes the „run“ method from TimerTask
             }
-        }
+        });
 
-*//*        @Override
-        public void afterTextChanged(final Editable s) {
-            timer = new Timer();
-            timer.schedule(new TimerTask() {
-                @Override
-                public void run() {
-                    PrivateLeagueCreate.this.runOnUiThread(new Runnable() {
-                        @Override
-                        public void run() {
-                            try{
-                                Integer.parseInt(s.toString());
-                                pointsAllocated.setError("Good", tickDone);
-                                pointsAllocatedOk = true;
-                            }catch (NumberFormatException ex) {
-                                pointsAllocated.setError("numbers only");
-                                pointsAllocatedOk = false;
-                            }
-                        }
-                    });
-                }
-            }, 100); // 600ms delay before the timer executes the „run“ method from TimerTask
-        }*//*
-    });*/
-
-    prize.addTextChangedListener(new TextWatcher() {
-        @Override
-        public void beforeTextChanged(CharSequence s, int start, int count, int after) {        }
-
-        @Override
-        public void onTextChanged(CharSequence s, int start, int before, int count) {
-            if (timer != null) {
-                timer.cancel();
+        password.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
             }
-        }
 
-        @Override
-        public void afterTextChanged(final Editable s) {
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                if (timer != null) {
+                    timer.cancel();
+                }
+            }
 
-            timer = new Timer();
-            timer.schedule(new TimerTask() {
-                @Override
-                public void run() {
-                    PrivateLeagueCreate.this.runOnUiThread(new Runnable() {
-                        @Override
-                        public void run() {
+            @Override
+            public void afterTextChanged(final Editable s) {
+                timer = new Timer();
+                timer.schedule(new TimerTask() {
+                    @Override
+                    public void run() {
+                        PrivateLeagueCreate.this.runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                if (s.toString().isEmpty() || s.toString().length() < 3) {
+                                    password.setError("minimum 3 characters");
+                                    passwordOk = false;
 
-                            try{
-                                Integer.parseInt(s.toString().trim());
-                                //System.out.println(Integer.parseInt(s.toString().trim()));
-                                prize.setError("Invalid input");
-                                prizeOk = false;
-                            }catch(Exception e){
-                                if (s.toString().isEmpty() || s.toString().length() < 3 || s.toString().contains("$")|| s.toString().contains("money")|| s.toString().contains("dollar") || s.toString().contains("thousand")
-                                        || s.toString().contains("bucks") || s.toString().contains("euro") || s.toString().contains("rupee") || s.toString().contains("rupiah") || s.toString().contains("million")
-                                        || s.toString().contains("rial") || s.toString().contains("yen") || s.toString().contains("pound") || s.toString().contains("ringgit") || s.toString().contains("cent")
-                                        || s.toString().contains("won") || s.toString().contains("peso") || s.toString().contains("baht") || s.toString().contains("dong") || s.toString().contains("bdt")
-                                        || s.toString().contains("USD") || s.toString().contains("BND") || s.toString().contains("KHR") || s.toString().contains("CNY") || s.toString().contains("AUD")
-                                        || s.toString().contains("EUR") || s.toString().contains("HKD") || s.toString().contains("INR") || s.toString().contains("IDR") || s.toString().contains("JPY")
-                                        || s.toString().contains("MYR") || s.toString().contains("MMK") || s.toString().contains("KPW") || s.toString().contains("PKR") || s.toString().contains("PHP")
-                                        || s.toString().contains("QAR") || s.toString().contains("THB") || s.toString().contains("USD") || s.toString().contains("SGD") || s.toString().contains("KRW")
-                                        || s.toString().contains("TWD") || s.toString().contains("VND") || s.toString().contains("€") || s.toString().contains("£") || s.toString().contains("฿")
-                                        || s.toString().contains("Rp")|| s.toString().contains("₩") || s.toString().contains("¥")){
-                                    prize.setError("Invalid input");
-                                    prizeOk = false;
-                                }else {
-                                    prize.setError("Good", tickDone);
-                                    prizeOk = true;
+                                } else {
+                                    password.setError("Good", tickDone);
+                                    passwordOk = true;
                                 }
                             }
-                        }
-                    });
+                        });
+                    }
+                }, 100); // 600ms delay before the timer executes the „run“ method from TimerTask
+            }
+        });
+
+        prize.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                if (timer != null) {
+                    timer.cancel();
                 }
-            }, 100); // 600ms delay before the timer executes the „run“ method from TimerTask
+            }
+
+            @Override
+            public void afterTextChanged(final Editable s) {
+
+                timer = new Timer();
+                timer.schedule(new TimerTask() {
+                    @Override
+                    public void run() {
+                        PrivateLeagueCreate.this.runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+
+                                try {
+                                    Integer.parseInt(s.toString().trim());
+                                    prize.setError("Invalid input");
+                                    prizeOk = false;
+                                } catch (Exception e) {
+                                    if (s.toString().isEmpty() || s.toString().length() < 3 || keywords.contains(s.toString().toLowerCase())) {
+                                        prize.setError("Invalid input");
+                                        prizeOk = false;
+                                    } else {
+                                        prize.setError("Good", tickDone);
+                                        prizeOk = true;
+                                    }
+                                }
+                            }
+                        });
+                    }
+                }, 100); // 600ms delay before the timer executes the „run“ method from TimerTask
+            }
+        });
+    }
+
+    public void restrictionList() {
+        keywords.add("$");
+        keywords.add("money");
+        keywords.add("dollar");
+        keywords.add("thousand");
+        keywords.add("bucks");
+        keywords.add("euro");
+        keywords.add("rupee");
+        keywords.add("rupiah");
+        keywords.add("million");
+        keywords.add("rial");
+        keywords.add("ringgit");
+        keywords.add("rupee");
+        keywords.add("rupiah");
+        keywords.add("cent");
+        keywords.add("won");
+        keywords.add("peso");
+        keywords.add("baht");
+        keywords.add("dong");
+        keywords.add("bdt");
+        keywords.add("USD");
+        keywords.add("BND");
+        keywords.add("CNY");
+        keywords.add("AUD");
+        keywords.add("EUR");
+        keywords.add("HKD");
+        keywords.add("INR");
+        keywords.add("IDR");
+        keywords.add("JPY");
+        keywords.add("MYR");
+        keywords.add("MMK");
+        keywords.add("KPW");
+        keywords.add("PKR");
+        keywords.add("PHP");
+        keywords.add("QAR");
+        keywords.add("THB");
+        keywords.add("USD");
+        keywords.add("SGD");
+        keywords.add("KRW");
+        keywords.add("TWD");
+        keywords.add("฿");
+        keywords.add("VND");
+        keywords.add("€");
+        keywords.add("£");
+        keywords.add("Rp");
+        keywords.add("₩");
+        keywords.add("¥");
+    }
+
+    public static void replace(List<String> strings) {
+        ListIterator<String> iterator = strings.listIterator();
+        while (iterator.hasNext()) {
+            iterator.set(iterator.next().toLowerCase());
         }
-    });
-}
+    }
 }

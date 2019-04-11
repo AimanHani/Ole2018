@@ -3,8 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".controller.PublicLeague.PublicLeagueDetails">
+    android:layout_height="match_parent">
 
     <LinearLayout
         android:id="@+id/linearLayout_leaguename"
@@ -60,7 +59,7 @@
         <ImageView
             android:id="@+id/icon_prize"
             android:layout_width="match_parent"
-            android:layout_height="65dp"
+            android:layout_height="50dp"
             android:layout_marginBottom="5dp"
             android:layout_weight="1.1"
             android:src="@drawable/prize" />
@@ -68,26 +67,28 @@
         <TextView
             android:id="@+id/prize_text"
             android:layout_width="match_parent"
-            android:layout_height="65dp"
+            android:layout_height="50dp"
             android:layout_marginBottom="5dp"
             android:layout_weight="1.2"
             android:gravity="center_vertical"
             android:paddingStart="10dp"
             android:text="Prize:"
-            android:textSize="15sp"
+            android:textColor="@color/black"
+            android:textSize="17sp"
             android:textStyle="bold" />
 
         <TextView
             android:id="@+id/privatePrizeInput"
             android:layout_width="match_parent"
-            android:layout_height="65dp"
+            android:layout_height="50dp"
             android:layout_weight="0.7"
             android:ems="10"
             android:focusable="false"
             android:gravity="center_vertical"
             android:paddingStart="10dp"
             android:text="1 seafood buffet voucher"
-            android:textSize="15sp"
+            android:textColor="@color/black"
+            android:textSize="17sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent" />
 
@@ -106,7 +107,7 @@
         <ImageView
             android:id="@+id/icon_members"
             android:layout_width="match_parent"
-            android:layout_height="65dp"
+            android:layout_height="50dp"
             android:layout_marginBottom="5dp"
             android:layout_weight="1.1"
             android:src="@drawable/members" />
@@ -114,26 +115,28 @@
         <TextView
             android:id="@+id/member_text"
             android:layout_width="match_parent"
-            android:layout_height="65dp"
+            android:layout_height="50dp"
             android:layout_marginBottom="5dp"
             android:layout_weight="1"
             android:gravity="center_vertical"
             android:paddingStart="10dp"
             android:text="Total members:"
-            android:textSize="15sp"
+            android:textColor="@color/black"
+            android:textSize="17sp"
             android:textStyle="bold" />
 
         <TextView
             android:id="@+id/totalNoMembers"
             android:layout_width="match_parent"
-            android:layout_height="65dp"
+            android:layout_height="50dp"
             android:layout_weight="0.9"
             android:ems="10"
             android:focusable="false"
             android:gravity="center_vertical"
             android:paddingStart="10dp"
             android:text="25"
-            android:textSize="15sp"
+            android:textColor="@color/black"
+            android:textSize="17sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent" />
 
@@ -164,7 +167,8 @@
             android:gravity="center_vertical"
             android:paddingStart="10dp"
             android:text="Creator:"
-            android:textSize="15sp"
+            android:textColor="@color/black"
+            android:textSize="17sp"
             android:textStyle="bold" />
 
         <TextView
@@ -176,8 +180,9 @@
             android:focusable="false"
             android:gravity="center_vertical"
             android:paddingStart="10dp"
-            android:text="Yiting"
-            android:textSize="15sp"
+            android:text="Jenny"
+            android:textColor="@color/black"
+            android:textSize="17sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent" />
 
@@ -264,7 +269,7 @@
         android:layout_height="wrap_content"
         android:layout_marginEnd="30dp"
         android:layout_marginBottom="30dp"
-        android:accessibilityPaneTitle="Delete League"
+        android:accessibilityPaneTitle="Delete Competition"
         android:scaleType="fitCenter"
         android:src="@drawable/error"
         android:visibility="invisible"

@@ -1,6 +1,7 @@
 package com.example.ole.oleandroid.controller.PrivateLeagueController;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
@@ -13,6 +14,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
 import android.view.View;
 
+import com.example.ole.oleandroid.controller.HomeLeague;
 import com.example.ole.oleandroid.controller.Leaderboard.LeaderboardPublic;
 import com.example.ole.oleandroid.controller.SideMenuBar;
 
@@ -105,13 +107,9 @@ public class PrivateLeagueMain extends SideMenuBar {
 
     @Override
     public void onBackPressed() {
-        String prevPage = getIntent().getStringExtra("FROM_ACTIVITY");
-        System.out.println("back " + prevPage);
-        if (prevPage != null) {
-            //nothing
-        } else {
-            super.onBackPressed();
-        }
+        Intent intent = new Intent(PrivateLeagueMain.this, HomeLeague.class);
+        intent.putExtra("FROM_ACTIVITY", "PrivateLeagueDetails");
+        startActivity(intent);
 
     }
 }

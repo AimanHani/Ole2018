@@ -11,6 +11,8 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.CheckBox;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.example.ole.oleandroid.R;
@@ -20,7 +22,7 @@ import com.example.ole.oleandroid.model.Specials;
 
 import java.util.ArrayList;
 
-public class PrivateLeagueAdapter extends BaseAdapter implements View.OnClickListener{
+public class PrivateLeagueAdapter extends BaseAdapter implements View.OnClickListener {
 
     private Context context; //context
     private ArrayList<PrivateLeague> leaguelist;//data source of the list adapter
@@ -31,8 +33,10 @@ public class PrivateLeagueAdapter extends BaseAdapter implements View.OnClickLis
     String leaguid;
 
     private static class ViewHolder {
+        ImageView leaguelogo;
         TextView league;
         Button joinleaguebtn;
+        LinearLayout rowLayout;
     }
 
     //public constructor
@@ -67,55 +71,56 @@ public class PrivateLeagueAdapter extends BaseAdapter implements View.OnClickLis
                     inflate(R.layout.activity_private_league_adapter, parent, false);
 
 
+            /**
+             * This will tell initialize the textview element in publicleaguelistlayout
+             */
 
+            if (leaguelist.size() > 0 && leaguelist.get(0).getLeagueName() != null) {
+                viewHolder.league = convertView.findViewById(R.id.leaguename);
+                viewHolder.leaguelogo = convertView.findViewById(R.id.leaguelogo);
+                viewHolder.joinleaguebtn = convertView.findViewById(R.id.joinleaguebtn);
+                viewHolder.rowLayout = convertView.findViewById(R.id.rowLayout);
+                viewHolder.league.setText(leaguelist.get(position).getLeagueName());
+                viewHolder.joinleaguebtn.setOnClickListener(this);
+                viewHolder.leaguelogo.setOnClickListener(this);
+                viewHolder.league.setOnClickListener(this);
+                viewHolder.rowLayout.setOnClickListener(this);
+                convertView.setTag(viewHolder);
 
-        /**
-         * This will tell initialize the textview element in publicleaguelistlayout
-         */
-
-        if(leaguelist.size()>0 && leaguelist.get(0).getLeagueName()!=null) {
-            viewHolder.league = convertView.findViewById(R.id.leaguename);
-            viewHolder.joinleaguebtn = convertView.findViewById(R.id.joinleaguebtn);
-            viewHolder.league.setText(leaguelist.get(position).getLeagueName());
-            viewHolder.joinleaguebtn.setOnClickListener(this);
-            convertView.setTag(viewHolder);
-
-            viewHolder.joinleaguebtn.setOnClickListener(new View.OnClickListener() {
-                public void onClick(View v) {
-                    Button cb = (Button) v;
-                    PrivateLeague s = (PrivateLeague) cb.getTag();
-                    /*Toast.makeText(context.getApplicationContext(),
-                            "Clicked on Checkbox: " + cb.getText() +
-                                    " is " + cb.isChecked(),
-                            Toast.LENGTH_LONG).show();*/
-                    loadNextPage(v, context, s.getLeagueId()+"");
-
-                }
-            });
-        }}else{
-            viewHolder = (PrivateLeagueAdapter.ViewHolder)convertView.getTag();
+//                viewHolder.joinleaguebtn.setOnClickListener(new View.OnClickListener() {
+//                    public void onClick(View v) {
+//                        Button cb = (Button) v;
+//                        PrivateLeague s = (PrivateLeague) cb.getTag();
+//                        loadNextPage(v, context, s.getLeagueId() + "");
+//
+//                    }
+//                });
+            }
+        } else {
+            viewHolder = (PrivateLeagueAdapter.ViewHolder) convertView.getTag();
         }
 
         PrivateLeague s = leaguelist.get(position);
-        viewHolder.league.setText("" +  s.getLeagueName() + "");
-//        viewHolder.checkPrivateTeam.setText(t.getTeamId());
+        viewHolder.league.setText("" + s.getLeagueName() + "");
         viewHolder.joinleaguebtn.setTag(s);
-
+        viewHolder.league.setTag(s);
+        viewHolder.leaguelogo.setTag(s);
+        viewHolder.rowLayout.setTag(s);
         return convertView;// returns the view for the current row
     }
 
 
-
-    public void onClick(View view){
-
+    public void onClick(View view) {
+        PrivateLeague s = (PrivateLeague) view.getTag();
+        loadNextPage(view, context, s.getLeagueId() + "");
     }
 
     private void loadNextPage(View view, Context ctx, String leagueid) {
-                Intent intent = new Intent(ctx, PrivateLeagueDetails.class);
-                Bundle bundle = new Bundle();
-                bundle.putString("leagueid", leagueid);
-                intent.putExtras(bundle);
-                context.startActivity(intent);
+        Intent intent = new Intent(ctx, PrivateLeagueDetails.class);
+        Bundle bundle = new Bundle();
+        bundle.putString("leagueid", leagueid);
+        intent.putExtras(bundle);
+        context.startActivity(intent);
 
 
     }

@@ -23,23 +23,16 @@ import java.util.ArrayList;
 public class OnBoardingActivity extends AppCompatActivity {
 
 
-
     private LinearLayout pager_indicator;
     private int dotsCount;
     private ImageView[] dots;
-
-
-
+    Intent intent = null;
+    String from = null;
     private ViewPager onboard_pager;
-
     private OnBoard_Adapter mAdapter;
-
     private Button btn_get_started;
-
-    int previous_pos=0;
-
-
-    ArrayList<OnBoardItem> onBoardItems=new ArrayList<>();
+    int previous_pos = 0;
+    ArrayList<OnBoardItem> onBoardItems = new ArrayList<>();
 
 
     @Override
@@ -47,21 +40,14 @@ public class OnBoardingActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_on_boarding);
 
-
-
         btn_get_started = findViewById(R.id.btn_get_started);
         onboard_pager = findViewById(R.id.pager_introduction);
         pager_indicator = findViewById(R.id.viewPagerCountDots);
 
+        from = getIntent().getStringExtra("from");
         loadData();
 
-        // Making notification bar transparent
-        //if (Build.VERSION.SDK_INT >= 21) {
-        //    getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_STABLE | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN);
-        //    getWindow().setStatusBarColor(Color.TRANSPARENT);
-        //}
-
-        mAdapter = new OnBoard_Adapter(this,onBoardItems);
+        mAdapter = new OnBoard_Adapter(this, onBoardItems);
         onboard_pager.setAdapter(mAdapter);
         onboard_pager.setCurrentItem(0);
         onboard_pager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
@@ -82,14 +68,14 @@ public class OnBoardingActivity extends AppCompatActivity {
                 dots[position].setImageDrawable(ContextCompat.getDrawable(OnBoardingActivity.this, R.drawable.selected_item_dot));
 
 
-                int pos=position+1;
+                int pos = position + 1;
 
-                if(pos==dotsCount&&previous_pos==(dotsCount-1))
+                if (pos == dotsCount && previous_pos == (dotsCount - 1))
                     show_animation();
-                else if(pos==(dotsCount-1)&&previous_pos==dotsCount)
+                else if (pos == (dotsCount - 1) && previous_pos == dotsCount)
                     hide_animation();
 
-                previous_pos=pos;
+                previous_pos = pos;
             }
 
             @Override
@@ -98,12 +84,17 @@ public class OnBoardingActivity extends AppCompatActivity {
             }
         });
 
+        intent = new Intent(OnBoardingActivity.this, Login.class);
+        if (from != null) {
+            intent = new Intent(OnBoardingActivity.this, HomeLeague.class);
+            btn_get_started.setText("Close");
+        }
+
 
         btn_get_started.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent i = new Intent(OnBoardingActivity.this, Login.class);
-                startActivity(i);
+                startActivity(intent);
             }
             //Toast.makeText(OnBoardingActivity.this,"Redirect to wherever you want",Toast.LENGTH_LONG).show();
         });
@@ -114,16 +105,14 @@ public class OnBoardingActivity extends AppCompatActivity {
 
     // Load data into the viewpager
 
-    public void loadData()
-    {
+    public void loadData() {
 
         int[] header = {R.string.ob_header1, R.string.ob_header2, R.string.ob_header3};
         int[] desc = {R.string.ob_desc1, R.string.ob_desc2, R.string.ob_desc3};
         int[] imageId = {R.drawable.onboard_page1, R.drawable.onboard_page2, R.drawable.onboard_page3};
 
-        for(int i=0;i<imageId.length;i++)
-        {
-            OnBoardItem item=new OnBoardItem();
+        for (int i = 0; i < imageId.length; i++) {
+            OnBoardItem item = new OnBoardItem();
             item.setImageID(imageId[i]);
             item.setTitle(getResources().getString(header[i]));
             item.setDescription(getResources().getString(desc[i]));
@@ -134,8 +123,7 @@ public class OnBoardingActivity extends AppCompatActivity {
 
     // Button bottomUp animation
 
-    public void show_animation()
-    {
+    public void show_animation() {
         Animation show = AnimationUtils.loadAnimation(this, R.anim.slide_up_anim);
 
         btn_get_started.startAnimation(show);
@@ -165,8 +153,7 @@ public class OnBoardingActivity extends AppCompatActivity {
 
     // Button Topdown animation
 
-    public void hide_animation()
-    {
+    public void hide_animation() {
         Animation hide = AnimationUtils.loadAnimation(this, R.anim.slide_down_anim);
 
         btn_get_started.startAnimation(hide);

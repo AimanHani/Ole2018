@@ -10,9 +10,9 @@
         android:id="@+id/faqListHeader"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textSize="18sp"
-        android:textColor="@color/black"
         android:background="#FFEDECEC"
-        android:paddingLeft="?android:attr/expandableListPreferredChildPaddingLeft"/>
+        android:paddingLeft="?android:attr/expandableListPreferredChildPaddingLeft"
+        android:textColor="@color/black"
+        android:textSize="18sp" />
 
 </LinearLayout>

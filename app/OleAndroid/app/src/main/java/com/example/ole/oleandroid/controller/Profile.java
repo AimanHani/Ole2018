@@ -5,6 +5,9 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
 import android.widget.AdapterView;
@@ -18,13 +21,14 @@ import com.example.ole.oleandroid.R;
 import com.example.ole.oleandroid.controller.DAO.SignupDAO;
 import com.example.ole.oleandroid.controller.DAO.TeamCountryItemDAO;
 import com.example.ole.oleandroid.controller.DAO.UserDAO;
+import com.example.ole.oleandroid.controller.PrivateLeagueController.PrivateLeagueMatchesMain;
 import com.example.ole.oleandroid.model.TeamItems;
 import com.example.ole.oleandroid.model.User;
 
 import java.util.HashMap;
 
 public class Profile extends SideMenuBar {
-    TextView userName, userCountry, userFavTeam, matchAccValue, specialsAccValue, playQty, accQty, changeTeam;
+    TextView userName, userCountry, userFavTeam, matchAccValue, specialsAccValue, playQty, accQty;
     ImageView teamImage, countryImage;
     User loginUser;
 
@@ -48,31 +52,23 @@ public class Profile extends SideMenuBar {
         userFavTeam = findViewById(R.id.userFavTeam);
         teamImage = findViewById(R.id.teamImage);
         countryImage = findViewById(R.id.countryImage);
-        changeTeam = findViewById(R.id.changeTeam);
 
         userName.setText(loginUser.getUsername());
         userCountry.setText(loginUser.getCountry());
         countryImage.setImageResource(TeamCountryItemDAO.getCountryImageResource(loginUser.getCountry()));
         userFavTeam.setText(loginUser.getFavoriteTeam());
         teamImage.setImageResource(TeamCountryItemDAO.getTeamImageResource(loginUser.getFavoriteTeam()));
-        changeTeam.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                //something
-                changeTeamDialog();
-            }
-        });
 
         matchAccValue = findViewById(R.id.matchAccValue);
         specialsAccValue = findViewById(R.id.specialsAccValue);
         playQty = findViewById(R.id.playQty);
         accQty = findViewById(R.id.accQty);
         if (leagueStats != null) {
-            playQty.setText(leagueStats.get("numLeagues")+"");
-            matchAccValue.setText(leagueStats.get("matchAccuracy")+"%");
+            playQty.setText(leagueStats.get("numLeagues") + "");
+            matchAccValue.setText(leagueStats.get("matchAccuracy") + "%");
             specialsAccValue.setText("0%");
-            int mixAcc = leagueStats.get("matchAccuracy")/2;
-            accQty.setText(mixAcc+"%");
+            int mixAcc = leagueStats.get("matchAccuracy") / 2;
+            accQty.setText(mixAcc + "%");
         }
     }
 
@@ -115,10 +111,10 @@ public class Profile extends SideMenuBar {
                 if (clickedTeamName[0] != null) {
                     //Toast.makeText(Profile.this, clickedTeamName[0] + " update DB", Toast.LENGTH_SHORT).show();
                     String status = UserDAO.updateFavoriteTeam(clickedTeamName[0]);
-                    if (status.equals("successful")){
+                    if (status.equals("successful")) {
                         dialog.dismiss();
                     }
-                    Toast.makeText(Profile.this, clickedTeamName[0] + " changed "+ status, Toast.LENGTH_SHORT).show();
+                    Toast.makeText(Profile.this, clickedTeamName[0] + " changed " + status, Toast.LENGTH_SHORT).show();
                     loginUser.setFavoriteTeam(clickedTeamName[0]);
                     userFavTeam.setText(loginUser.getFavoriteTeam());
                     teamImage.setImageResource(TeamCountryItemDAO.getTeamImageResource(loginUser.getFavoriteTeam()));
@@ -135,5 +131,27 @@ public class Profile extends SideMenuBar {
         });
 
         return dialog;
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater menuInflater = getMenuInflater();
+        menuInflater.inflate(R.menu.profiletoolbar, menu);
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.changePassword:
+                Intent intent = new Intent(Profile.this, ForgotPassword.class);
+                intent.putExtra("from", "inside");
+                startActivity(intent);
+                break;
+            case R.id.changeTeam:
+                changeTeamDialog();
+                break;
+        }
+        return super.onOptionsItemSelected(item);
     }
 }

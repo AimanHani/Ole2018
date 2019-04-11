@@ -32,8 +32,8 @@
                         <div class="panel-body">
                             <form action="FaqServlet" method="post" style="display:inline;">
                                 <button type="submit" name="loadAll" class="btn btn-outline btn-primary">All</button>
-                                <button type="submit" name="catPublic" class="btn btn-outline btn-success">Public League</button>
-                                <button type="submit" name="catPrivate" class="btn btn-outline btn-success">Private League</button>
+                                <button type="submit" name="catPublic" class="btn btn-outline btn-success">Public Competitions</button>
+                                <button type="submit" name="catPrivate" class="btn btn-outline btn-success">Private Competitions</button>
                                 <button type="submit" name="catGeneral" class="btn btn-outline btn-success">General</button>
                             </form>  
 

@@ -301,5 +301,12 @@ public class PrivateLeagueDetails extends SideMenuBar implements View.OnClickLis
         return dialog;
     }
 
+    @Override
+    public void onBackPressed() {
+        Intent intent = new Intent(PrivateLeagueDetails.this, PrivateLeagueMain.class);
+        intent.putExtra("FROM_ACTIVITY", "PrivateLeagueDetails");
+        startActivity(intent);
+    }
+
 }
 

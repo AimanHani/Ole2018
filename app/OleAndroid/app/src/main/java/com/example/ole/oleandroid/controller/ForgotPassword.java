@@ -7,6 +7,9 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -14,6 +17,8 @@ import android.widget.Toast;
 
 import com.example.ole.oleandroid.R;
 import com.example.ole.oleandroid.controller.DAO.LoginDAO;
+import com.example.ole.oleandroid.controller.DAO.UserDAO;
+import com.example.ole.oleandroid.controller.PublicLeague.SpecialList;
 
 public class ForgotPassword extends AppCompatActivity {
     EditText email;
@@ -27,10 +32,15 @@ public class ForgotPassword extends AppCompatActivity {
         setContentView(R.layout.activity_forgot_password);
         final Drawable tickDone = getResources().getDrawable(R.drawable.ic_done_black_24dp);
 
+        final String from = getIntent().getStringExtra("from");
         email = findViewById(R.id.email);
         changePassword = findViewById(R.id.changePassword);
         confirmChangePassword = findViewById(R.id.confirmChangePassword);
         confirmPassword = findViewById(R.id.confirmPassword);
+
+        if (from != null) {
+            email.setText(UserDAO.getLoginUser().getEmail());
+        }
 
         changePassword.addTextChangedListener(new TextWatcher() {
             @Override
@@ -50,9 +60,7 @@ public class ForgotPassword extends AppCompatActivity {
                             "Min 1 Upper Case\n" +
                             "Min 1 numeral (0-9)\n" +
                             "Min 1 letter in Lower Case");
-
                 }
-
             }
         });
 
@@ -83,9 +91,12 @@ public class ForgotPassword extends AppCompatActivity {
                 String password = confirmChangePassword.getText().toString();
                 Boolean status = LoginDAO.changePassword(inputEmail, password);
 
-                if (status){
+                if (status) {
                     Toast.makeText(getBaseContext(), "Password change successful", Toast.LENGTH_LONG).show();
                     Intent intent = new Intent(ForgotPassword.this, Login.class);
+                    if (from != null) {
+                        intent = new Intent(ForgotPassword.this, Profile.class);
+                    }
                     startActivity(intent);
                 } else {
                     Toast.makeText(getBaseContext(), "Password change failed", Toast.LENGTH_LONG).show();
@@ -98,5 +109,22 @@ public class ForgotPassword extends AppCompatActivity {
     private boolean isStrong(String password) {
         return password.matches("^(?=.*[A-Z])(?=.*[0-9])(?=.*[a-z]).{8,20}$");
         //return password.matches("^(?=.*[A-Z].*[A-Z])(?=.*[!@#$&*])(?=.*[0-9].*[0-9])(?=.*[a-z].*[a-z].*[a-z]).{8,20}$");
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater menuInflater = getMenuInflater();
+        menuInflater.inflate(R.menu.changepasswordtoolbar, menu);
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.close:
+                finish();
+                break;
+        }
+        return super.onOptionsItemSelected(item);
     }
 }

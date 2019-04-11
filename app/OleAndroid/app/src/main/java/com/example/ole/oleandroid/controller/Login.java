@@ -111,7 +111,6 @@ public class Login extends AppCompatActivity {
             }
         });
 
-        checksmth.setVisibility(View.VISIBLE);
         checksmth.setOnClickListener(new View.OnClickListener() {
 
             @Override

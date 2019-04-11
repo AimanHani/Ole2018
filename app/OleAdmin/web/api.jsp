@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title>OLE API</title>
+        <title>Olé API</title>
 
         <jsp:include page="WebDesignResources/pages/homeDesign.jsp" />
         <%

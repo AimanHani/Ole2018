@@ -92,28 +92,6 @@ public class TeamListPrivate extends SideMenuBar {
         confirmteambtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-/*                final Dialog dialog = new Dialog(TeamListPrivate.this);
-                dialog.setContentView(R.layout.privateleague_create_success);
-                TextView msg = dialog.findViewById(R.id.confirmMessage);
-                msg.setText("Successfully created Private League!" );
-                TextView cancel = dialog.findViewById(R.id.cancel);
-
-                cancel.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        dialog.dismiss();
-                    }
-                });
-
-                TextView confirmbtn = dialog.findViewById(R.id.confirmbtn);
-                confirmbtn.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        dialog.dismiss();
-                    }
-                });*/
-
                 final Dialog dialog = new Dialog(TeamListPrivate.this);
                 dialog.setContentView(R.layout.privateleague_create_success);
                 dialog.getWindow().setBackgroundDrawable(new ColorDrawable(TRANSPARENT)); //to set bg transparent
