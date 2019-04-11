@@ -7,6 +7,7 @@ package json;
 
 import backgroundTask.Mailer;
 import backgroundTask.SMSVerification;
+import controller.SignUpDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;
@@ -63,7 +64,28 @@ public class UserVerification extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        response.setContentType("\"Content-Type\", \"application/x-www-form-urlencoded\"");
+        response.setCharacterEncoding("utf-8");
+        PrintWriter out = response.getWriter();
+        String birthdate = request.getParameter("birthdate");
+        JSONObject json = new JSONObject();
+        int age = SignUpDAO.getAge(birthdate);
+        try {
+
+            
+
+            if (age >= 13) {
+                json.put("status", "successful");
+
+            } else {
+                json.put("status", "Underaged");
+            }
+        } catch (Exception e) {
+
+        }
+        out.print(json);
+        out.flush();
+
     }
 
     /**

@@ -84,6 +84,27 @@ public class SignupDAO {
         return null;
     }
 
+    public static String verifyAge(String birthdate) {
+        GetHttp connection = new GetHttp();
+        String response = null;
+        String url = DBConnection.getMainUrl() + "/json/userVerification?birthdate="+birthdate;
+        String status = "error";
+        Boolean valid = false;
+
+        try {
+            response = connection.run(url);
+            System.out.println(response);
+
+            JSONObject result = new JSONObject(response);
+            status = result.getString("status");
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return status;
+    }
+
     public static String checkEmailPassword(String username, String email) {
         String url = DBConnection.getSignupUrl()+"?username="+username+"&email="+email;
 
