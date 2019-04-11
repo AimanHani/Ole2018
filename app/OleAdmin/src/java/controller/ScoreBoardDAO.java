@@ -130,9 +130,9 @@ public class ScoreBoardDAO {
         for (int i = 0; i < usernames.size(); i++) {
             if (!usernames.get(i).equals("admin")) {
                 PrivateLeagueProfile plf = new PrivateLeagueProfile();
-                try (Connection conn = DBConnection.getConnection(); PreparedStatement stmt = conn.prepareStatement("select points, leagueName from log, league where username = ? and log.leagueId = ? and log.leagueId = league.leagueId");) {
+                try (Connection conn = DBConnection.getConnection(); PreparedStatement stmt = conn.prepareStatement("select points, leagueName from log, league where username = ?and log.leagueId = league.leagueId");) {
                     stmt.setString(1, usernames.get(i));
-                    stmt.setInt(2, leagueID);
+                    //stmt.setInt(2, leagueID);
                     ResultSet rs = stmt.executeQuery();
                     int totalPoints = 0;
                     String leagueName = "";

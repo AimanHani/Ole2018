@@ -41,7 +41,7 @@ public class LeaderBoardPrivateServlet extends HttpServlet {
     ArrayList<PrivateLeagueProfile> pList = new ArrayList();
     ArrayList<Integer> privateLeagueIDs = new ArrayList();
     RequestDispatcher rd = null;
-    ArrayList<PrivateLeagueProfile> pListWithRanking = new ArrayList();
+    ArrayList<PrivateLeagueProfile> pListWithRanking;
     String requests = null;
     ArrayList<PrivateLeague> privateLeagueList = null;
     int rank = 1;
@@ -50,9 +50,9 @@ public class LeaderBoardPrivateServlet extends HttpServlet {
             throws ServletException, IOException {
         privateLeagueList = PrivateLeagueDAO.getAllPrivateLeague();
         String userIndex = request.getParameter("index");
-         PrivateLeague pl = new PrivateLeague();
-         pl = privateLeagueList.get(Integer.parseInt(userIndex));
-
+        PrivateLeague pl = new PrivateLeague();
+        pl = privateLeagueList.get(Integer.parseInt(userIndex));
+        pListWithRanking = new ArrayList();
         pList = ScoreBoardDAO.getUsersAndTheirTotalPointsPrivate(pl.getLeagueID());
 
         if (!pList.isEmpty()) {

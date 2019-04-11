@@ -35,11 +35,11 @@ public class LeaderBoardPublicServlet extends HttpServlet {
     RequestDispatcher rd = null;
     String requests = null;
 
-    ArrayList<PublicLeagueProfile> pListWithRank = new ArrayList();
+    ArrayList<PublicLeagueProfile> pListWithRank;
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-
+        pListWithRank = new ArrayList();
         //String league = request.getParameter("league");
         requests = request.getParameter("param");
 
@@ -63,7 +63,7 @@ public class LeaderBoardPublicServlet extends HttpServlet {
                         rank++;
                     }
 
-                    pListWithRank.add(new PublicLeagueProfile(plf.getUsername(), plf.getLeagueID(), plf.getTotalPoints(), rank,ScoreBoardDAO.getUserCountry(plf.getUsername())));
+                    pListWithRank.add(new PublicLeagueProfile(plf.getUsername(), plf.getLeagueID(), plf.getTotalPoints(), rank, ScoreBoardDAO.getUserCountry(plf.getUsername())));
 
                     previousPoints = plf.getTotalPoints();
 
@@ -88,7 +88,7 @@ public class LeaderBoardPublicServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-         processRequest(request, response);
+        processRequest(request, response);
 
     }
 
