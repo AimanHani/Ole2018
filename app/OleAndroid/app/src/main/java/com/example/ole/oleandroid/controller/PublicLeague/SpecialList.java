@@ -5,33 +5,20 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
-import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
 import com.example.ole.oleandroid.R;
 import com.example.ole.oleandroid.controller.DAO.PSpecialDAO;
-import com.example.ole.oleandroid.controller.DAO.SpecialDAO;
 import com.example.ole.oleandroid.controller.FormGuideDetails;
-import com.example.ole.oleandroid.controller.HomeLeague;
-import com.example.ole.oleandroid.controller.Matches;
-import com.example.ole.oleandroid.controller.MatchesTabs;
 import com.example.ole.oleandroid.controller.SideMenuBar;
-import com.example.ole.oleandroid.dbConnection.DBConnection;
-import com.example.ole.oleandroid.dbConnection.GetHttp;
 import com.example.ole.oleandroid.model.PSpecials;
-import com.example.ole.oleandroid.model.Specials;
-
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
 
 import java.util.ArrayList;
 
