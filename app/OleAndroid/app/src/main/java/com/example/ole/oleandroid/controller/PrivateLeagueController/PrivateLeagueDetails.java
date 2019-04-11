@@ -192,6 +192,11 @@ public class PrivateLeagueDetails extends SideMenuBar implements View.OnClickLis
                                             }
 
                                             if (deleteStatus) {
+                                                if (!userCreatorStatus) {
+                                                    state = "left";
+                                                } else {
+                                                    state = "deleted";
+                                                }
                                                 Toast.makeText(getBaseContext(), "Successfully " + state + " " + privateleague.getLeagueName(), Toast.LENGTH_LONG).show();
                                                 Intent intent = new Intent(PrivateLeagueDetails.this, PrivateLeagueMain.class);
                                                 intent.putExtra("FROM_ACTIVITY", "delete");

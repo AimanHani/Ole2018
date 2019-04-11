@@ -25,9 +25,12 @@
         android:paddingLeft="20dp"
         android:paddingRight="20dp"
         android:text="Step 1: Pick a name for your private competition and name a prize for the winner! The app will not accept monetary prizes. Next, choose a password so only your invitees can join!"
+        android:textAlignment="textStart"
         android:textColor="@color/black"
         android:textSize="16sp"
         app:layout_constraintBottom_toTopOf="@+id/leagueNameLayout"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/imageView2" />
 
     <LinearLayout

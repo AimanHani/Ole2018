@@ -20,7 +20,7 @@
         android:paddingLeft="20dp"
         android:paddingRight="20dp"
         android:text="Step 2: Select a league or tournament for your private group!"
-        android:textAlignment="center"
+        android:textAlignment="textStart"
         android:textColor="@color/black"
         android:textSize="18sp"
         app:layout_constraintTop_toBottomOf="@+id/stepbar"

@@ -23,7 +23,7 @@
         android:paddingLeft="20dp"
         android:paddingRight="20dp"
         android:text="Step 5: Lastly, select a team/teams whose matches you would like to predict, and you're done!"
-        android:textAlignment="center"
+        android:textAlignment="textStart"
         android:textColor="@color/black"
         android:textSize="18sp"
         app:layout_constraintEnd_toEndOf="parent"

@@ -24,7 +24,7 @@
         android:paddingLeft="20dp"
         android:paddingRight="20dp"
         android:text="Step 4: Select a list of specials that you and your friends would like to predict throughout the competition!"
-        android:textAlignment="center"
+        android:textAlignment="viewStart"
         android:textColor="@color/black"
         android:textSize="18sp"
         app:layout_constraintBottom_toTopOf="@+id/startdateLayout"
