@@ -16,6 +16,7 @@ import android.widget.TextView;
 
 import com.example.ole.oleandroid.R;
 import com.example.ole.oleandroid.controller.DAO.PSpecialDAO;
+import com.example.ole.oleandroid.controller.DAO.SpecialDAO;
 import com.example.ole.oleandroid.controller.FormGuideDetails;
 import com.example.ole.oleandroid.controller.PublicLeague.SpecialList;
 import com.example.ole.oleandroid.controller.SideMenuBar;
@@ -100,14 +101,14 @@ public class PrivateLeagueSpecialsList extends SideMenuBar {
     }
 
     public static ArrayList<String> players() {
-        ArrayList<String> players = new ArrayList<>();
-        players.add("Lionel Messi");
-        players.add("Sergio Ramos");
-        players.add("Marco Reus");
-        players.add("Zlatan Ibrahimovic");
-        players.add("Andrea Pirlo");
-        players.add("Lionel Messi");
-        players.add("Paul Pogba");
+        ArrayList<String> players = SpecialDAO.loadPlayers();
+//        players.add("Lionel Messi");
+//        players.add("Sergio Ramos");
+//        players.add("Marco Reus");
+//        players.add("Zlatan Ibrahimovic");
+//        players.add("Andrea Pirlo");
+//        players.add("Lionel Messi");
+//        players.add("Paul Pogba");
         return players;
     }
 

@@ -33,10 +33,9 @@
                                             <th>Tournament Name</th>
                                             <th>Competition Name</th>
                                             <th>Created By</th>
-                                            <th>Password</th>
+<!--                                            <th>Password</th>-->
                                             <th>Start Date</th>
                                             <th>End Date</th>
-                                            <th>Points Allocated</th>
                                             <th>Grand Prize</th>
                                             <th></th>
                                         </tr>
@@ -52,11 +51,8 @@
                                             <td><%=pl.getTournamentName()%></td>
                                             <td><%=pl.getLeagueName()%></td>
                                             <td><%=pl.getUsername()%></td>
-                                            <td><%=pl.getPassword()%></td>
                                             <td><%=pl.getStartDate()%></td>
                                             <td><%=pl.getEndDate()%></td>
-
-                                            <td><%=pl.getPointsAllocated()%></td>
                                             <td><%=pl.getPrize()%></td>                
 
                                             <td><a href="./PrivateLeagueServlet?param=details&index=<%=i%>">Edit</a></td>

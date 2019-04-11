@@ -11,6 +11,7 @@ import controller.ManageSpecialsDAO;
 import controller.UserDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
@@ -77,32 +78,51 @@ public class ManageSpecials extends HttpServlet {
         response.setContentType("\"Content-Type\", \"application/x-www-form-urlencoded\"");
         response.setCharacterEncoding("utf-8");
         PrintWriter out = response.getWriter();
-        int logId = Integer.parseInt(request.getParameter("logId"));
-        Special s;
-        HashMap<Integer, Special> specialsList = ManageSpecialsDAO.getSpecials(logId);
-        try {
-            Iterator it = specialsList.entrySet().iterator();
-            while (it.hasNext()) {
-                JSONObject json = new JSONObject();
-                Map.Entry pair = (Map.Entry) it.next();
-                int numberOfParticipants = 0;
-                //System.out.println(pair.getKey() + " = " + pair.getValue());
-                s = (Special) pair.getValue();
-                json.put("specialsId", s.getSpecialsID());
-                json.put("description", s.getDescription());
-                json.put("points", s.getPoints());
-                it.remove(); // avoids a ConcurrentModificationException
-                list.put(json);
 
+        if (request.getParameter("loadPlayers") != null) {
+            ArrayList<String> players = ManageSpecialsDAO.loadPlayers();
+            JSONObject json = new JSONObject();
+            try {
+                if (players.size() > 0){
+                    json.put("playersList", players.toString());
+                } else {
+                    json.put("playersList", "empty");
+                }
+                
+            } catch (JSONException ex) {
             }
-            parentJson.put("results", list);
-            out.print(parentJson);
+
+            out.print(json);
             out.flush();
+        } else {
 
-        } catch (JSONException e) {
-            e.printStackTrace();
+            int logId = Integer.parseInt(request.getParameter("logId"));
+            Special s;
+            HashMap<Integer, Special> specialsList = ManageSpecialsDAO.getSpecials(logId);
+            try {
+                Iterator it = specialsList.entrySet().iterator();
+                while (it.hasNext()) {
+                    JSONObject json = new JSONObject();
+                    Map.Entry pair = (Map.Entry) it.next();
+                    int numberOfParticipants = 0;
+                    //System.out.println(pair.getKey() + " = " + pair.getValue());
+                    s = (Special) pair.getValue();
+                    json.put("specialsId", s.getSpecialsID());
+                    json.put("description", s.getDescription());
+                    json.put("points", s.getPoints());
+                    it.remove(); // avoids a ConcurrentModificationException
+                    list.put(json);
+
+                }
+                parentJson.put("results", list);
+                out.print(parentJson);
+                out.flush();
+
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+
         }
-
     }
 
     /**
@@ -122,7 +142,6 @@ public class ManageSpecials extends HttpServlet {
         JSONObject json = new JSONObject();
 
 //        System.out.println("params "+ request.getParameter("params"));
-
         String username = request.getParameter("username");
         int leagueId = Integer.parseInt(request.getParameter("leagueId"));
 

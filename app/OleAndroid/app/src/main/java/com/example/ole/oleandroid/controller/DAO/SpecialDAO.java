@@ -11,8 +11,11 @@ import org.json.JSONObject;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
 
 public class SpecialDAO {
+
+    public static ArrayList<String> players = loadPlayers();
 
     public static ArrayList<Specials> getSpecialsList(int logId) {
         ArrayList<Specials> specialsList = new ArrayList<>();
@@ -120,5 +123,27 @@ public class SpecialDAO {
         }
 
         return specialsList;
+    }
+
+    public static ArrayList<String> loadPlayers() {
+        String url = DBConnection.manageSpecials() + "?loadPlayers=load";
+        ArrayList<String> players = new ArrayList<>();
+
+        GetHttp getConnection = new GetHttp();
+
+        String response = null;
+        try {
+            response = getConnection.run(url);
+            System.out.println(response);
+            if (!response.equals("empty")) {
+                response = response.substring(17, response.length()-3);
+                players = new ArrayList<String>(Arrays.asList(response.split(",")));
+            }
+        } catch (Exception e) {
+            System.out.println("error");
+            e.printStackTrace();
+        }
+
+        return players;
     }
 }

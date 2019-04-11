@@ -71,7 +71,6 @@ public class APIServlet extends HttpServlet {
             throws ServletException, IOException {
         //processRequest(request, response);
         
-        APIDAO.loadPlayers();
     }
 
     /**

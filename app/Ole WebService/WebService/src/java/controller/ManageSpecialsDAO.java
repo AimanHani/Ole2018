@@ -5,6 +5,10 @@
  */
 package controller;
 
+import com.mashape.unirest.http.HttpResponse;
+import com.mashape.unirest.http.JsonNode;
+import com.mashape.unirest.http.Unirest;
+import com.mashape.unirest.http.exceptions.UnirestException;
 import static controller.ManageMatchesDAO.setInsertMatchStatement;
 import dbConnection.DBConnection;
 import java.sql.Connection;
@@ -14,11 +18,14 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import model.AllPublicLeague;
 import model.Special;
+import model.Teams;
 import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 
 /**
@@ -102,7 +109,7 @@ public class ManageSpecialsDAO {
 
         int[] rs;
         String result = "error";
-        
+
         ArrayList<Integer> existingSpecialsPredictions = getExistingSpecialsPrediction(logId);
 
         try (Connection c = DBConnection.getConnection(); Statement cs = c.createStatement();) {
@@ -110,9 +117,9 @@ public class ManageSpecialsDAO {
             for (int i = 0; i < predictionList.length(); i++) {
                 JSONObject prediction = predictionList.getJSONObject(i);
                 int specialsId = prediction.getInt("specialsId");
-                
+
                 String statement = "";
-                if (existingSpecialsPredictions.contains(specialsId)){
+                if (existingSpecialsPredictions.contains(specialsId)) {
                     statement = setUpdateSpecialPredictionStatement(logId, prediction.getInt("specialsId"), prediction.getString("prediction"), prediction.getInt("doubleIt"));
                 } else {
                     statement = setInsertSpecialPredictionStatement(logId, prediction.getInt("specialsId"), prediction.getString("prediction"), prediction.getInt("doubleIt"));
@@ -139,16 +146,15 @@ public class ManageSpecialsDAO {
                 + " WHERE logid = " + logID
                 + " AND specialsId = " + specialsId;
     }
-    
-    public static String setInsertSpecialPredictionStatement(int logID, int specialsId, String prediction, int doubleIt)  {
+
+    public static String setInsertSpecialPredictionStatement(int logID, int specialsId, String prediction, int doubleIt) {
         return "Insert into specialslog (logid, specialsId, prediction, doubleIt) VALUES ("
                 + logID
                 + "," + specialsId
                 + ",\'" + prediction
                 + "\'," + doubleIt + ");";
     }
-    
-    
+
     public static ArrayList<Integer> getExistingSpecialsPrediction(int logId) {
         ArrayList<Integer> specialsIdPredictions = new ArrayList<>();
 
@@ -170,6 +176,23 @@ public class ManageSpecialsDAO {
         return specialsIdPredictions;
     }
 
-}
+    public static ArrayList<String> loadPlayers() {
+        ArrayList<String> playerNames = new ArrayList<>();
 
-//select * from specials where status = 'Y'
+        try (Connection conn = DBConnection.getConnection(); PreparedStatement stmt = conn.prepareStatement("select playerName from players order by playerName asc");) {
+            ResultSet rs = stmt.executeQuery();
+            while (rs.next()) {
+                playerNames.add(rs.getString(1));
+            }
+            rs.close();
+            conn.close();
+
+        } catch (SQLException ex) {
+            Logger.getLogger(UserDAO.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(UserDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return playerNames;
+    }
+
+}

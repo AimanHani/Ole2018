@@ -85,6 +85,14 @@ public class UsersServlet extends HttpServlet {
                 rd.forward(request, response);
             }
         }
+        
+        if (requests != null && requests.equals("adminChangePassword")) {
+            String userIndex = request.getParameter("password");
+            Users userObj = usersList.get(Integer.parseInt(userIndex));
+            request.setAttribute("userObj", userObj);
+            rd = request.getRequestDispatcher("userDetail.jsp");
+            rd.forward(request, response);
+        }
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

@@ -35,16 +35,6 @@
     </head>
 
     <body>
-        
-        <%
-            if (session.getAttribute("admin") == null || (boolean) session.getAttribute("admin") == false) {
-                String message = ("page can only be accessed by admin").toUpperCase();
-                System.out.println(message);
-                session.removeAttribute("admin");
-                response.sendRedirect("login.jsp");
-                return;
-            }
-        %>
         <div id="wrapper">
             <!-- Left Navigation Bar-->
             <nav class="navbar navbar-default navbar-static-top" role="navigation" style="margin-bottom: 0">

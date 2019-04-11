@@ -17,6 +17,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.ole.oleandroid.R;
+import com.example.ole.oleandroid.controller.DAO.SpecialDAO;
 import com.example.ole.oleandroid.controller.Signup;
 import com.example.ole.oleandroid.controller.TeamAdapter;
 import com.example.ole.oleandroid.model.CountryItem;
@@ -221,15 +222,15 @@ public class SpecialListAdapter extends BaseAdapter {
     }
 
     public static ArrayList<String> players() {
-        ArrayList<String> players = new ArrayList<>();
+        ArrayList<String> players = SpecialDAO.loadPlayers();
 
-        players.add("Lionel Messi");
-        players.add("Sergio Ramos");
-        players.add("Marco Reus");
-        players.add("Zlatan Ibrahimovic");
-        players.add("Andrea Pirlo");
-        players.add("Lionel Messi");
-        players.add("Paul Pogba");
+//        players.add("Lionel Messi");
+//        players.add("Sergio Ramos");
+//        players.add("Marco Reus");
+//        players.add("Zlatan Ibrahimovic");
+//        players.add("Andrea Pirlo");
+//        players.add("Lionel Messi");
+//        players.add("Paul Pogba");
 
         return players;
     }
