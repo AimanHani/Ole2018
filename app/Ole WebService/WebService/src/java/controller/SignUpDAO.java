@@ -19,6 +19,7 @@ import java.sql.Time;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import model.Match;
 
 /**
@@ -32,36 +33,38 @@ public class SignUpDAO {
         SimpleDateFormat myFormat = new SimpleDateFormat("yyyy-MM-dd");
 
         birthdate = myFormat.format(fromUser.parse(birthdate));
+       
+       
+            System.out.println(birthdate);
+            boolean status = false;
+            int rs = 0;
+            //if(isDateValid(birthdate)){
+            try (Connection c = DBConnection.getConnection(); PreparedStatement ps = c.prepareStatement("INSERT INTO user (username, name, password, dob, country, contactNo, email, favoriteTeam,salt) VALUES(?,?,?,?,?,?,?,?,?)");) {
+                byte[] salt = getSalt();
 
-        System.out.println(birthdate);
-        boolean status = false;
-        int rs = 0;
-        //if(isDateValid(birthdate)){
-        try (Connection c = DBConnection.getConnection(); PreparedStatement ps = c.prepareStatement("INSERT INTO user (username, name, password, dob, country, contactNo, email, favoriteTeam,salt) VALUES(?,?,?,?,?,?,?,?,?)");) {
-            byte[] salt = getSalt();
-
-            ps.setString(1, username);
-            ps.setString(2, name);
-            ps.setString(3, getSHA1SecurePassword(password, salt));
-            ps.setString(4, birthdate);
-            ps.setString(5, country);
-            ps.setString(6, contactNo);
-            ps.setString(7, email);
-            ps.setString(8, team);
-            ps.setBytes(9, salt);
-            rs = ps.executeUpdate();
-            if (rs > 0) {
-                return "success";
+                ps.setString(1, username);
+                ps.setString(2, name);
+                ps.setString(3, getSHA1SecurePassword(password, salt));
+                ps.setString(4, birthdate);
+                ps.setString(5, country);
+                ps.setString(6, contactNo);
+                ps.setString(7, email);
+                ps.setString(8, team);
+                ps.setBytes(9, salt);
+                rs = ps.executeUpdate();
+                if (rs > 0) {
+                    return "success";
+                }
+                c.close();
+            } catch (Exception e) {
+                System.out.println("check db connection class" + e.toString());
+                return "check db connection class or no such algorithm error check getSalt()" + e.toString();
+            } finally {
+                if (rs > 0) {
+                    rs = 0;
+                }
             }
-            c.close();
-        } catch (Exception e) {
-            System.out.println("check db connection class" + e.toString());
-            return "check db connection class or no such algorithm error check getSalt()" + e.toString();
-        } finally {
-            if (rs > 0) {
-                rs = 0;
-            }
-        }
+        
         return "";
 
     }
@@ -153,5 +156,29 @@ public class SignUpDAO {
             ex.printStackTrace();
         }
         return true;
+    }
+
+    public static int getAge(String birthday) {
+        System.out.println("getage");
+        String[] parts = birthday.split("-");
+        int day = Integer.parseInt(parts[0]);
+        int month = Integer.parseInt(parts[1]);
+        int year = Integer.parseInt(parts[2]);
+        System.out.println("mth: " + month);
+        Calendar dob = Calendar.getInstance();
+        Calendar today = Calendar.getInstance();
+
+        dob.set(year, month, day);
+
+        int age = today.get(Calendar.YEAR) - dob.get(Calendar.YEAR);
+
+        if (today.get(Calendar.DAY_OF_YEAR) < dob.get(Calendar.DAY_OF_YEAR)) {
+            age--;
+        }
+
+//        Integer ageInt = new Integer(age);
+//        String ageS = ageInt.toString();
+        System.out.println(age + "");
+        return age;
     }
 }
