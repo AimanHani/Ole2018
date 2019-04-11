@@ -49,7 +49,8 @@
                                     <tbody>
                                         <%
                                             for (int i = 0; i < privateLeagueProfileList.size(); i++) {
-                                                PrivateLeagueProfile plf = privateLeagueProfileList.get(i);
+                                                PrivateLeagueProfile plf = new PrivateLeagueProfile();
+                                                plf = privateLeagueProfileList.get(i);
                                         %>
                                         <tr>
                                             <td><%=i + 1%></td>

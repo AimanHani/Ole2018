@@ -3,14 +3,18 @@
 
 <html>
     <head>
-        <title>Private League</title>
+        <title>Private League Leader Board</title>
         <jsp:include page="WebDesignResources/pages/homeDesign.jsp" />
     </head>
     <body>
         <div id="page-wrapper">
             <div class="row">
                 <div class="col-lg-12">
+<<<<<<< HEAD
+                    <h1 class="page-header">Click View Leader Board to View Ranking in Each Private League</h1>
+=======
                     <h1 class="page-header">Private Competitions</h1>
+>>>>>>> 7136171927fdb8c93531ac2e3a7cf5e0bd5b3250
                 </div>
             </div>
             <div class="row">
@@ -33,11 +37,11 @@
                                             <th>Tournament Name</th>
                                             <th>Competition Name</th>
                                             <th>Created By</th>
-                                            <th>Password</th>
+                                            
                                             <th>Start Date</th>
                                             <th>End Date</th>
-                                            <th>Points Allocated</th>
-                                            <th>Grand Prize</th>
+                                            
+                                          
                                             <th></th>
                                         </tr>
                                     </thead>
@@ -52,12 +56,11 @@
                                             <td><%=pl.getTournamentName()%></td>
                                             <td><%=pl.getLeagueName()%></td>
                                             <td><%=pl.getUsername()%></td>
-                                            <td><%=pl.getPassword()%></td>
+                                            
                                             <td><%=pl.getStartDate()%></td>
                                             <td><%=pl.getEndDate()%></td>
 
-                                            <td><%=pl.getPointsAllocated()%></td>
-                                            <td><%=pl.getPrize()%></td>                
+                                                          
 
                                             <td><a href="./LeaderBoardPrivateServlet?index=<%=i%>">View Leader Board</a></td>
                                         </tr>
